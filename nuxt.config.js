@@ -35,7 +35,8 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    {src: '~plugins/plugin-buefy.js'}
+    {src: '~plugins/plugin-buefy.js'},
+    {src: '~plugins/plugin-firebase.js'}
   ],
 
   /*
