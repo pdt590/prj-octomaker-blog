@@ -1,0 +1,12 @@
+// Customize variables
+// Customized variables is placed before default Bulma variables
+@import "_variables";
+
+// Import Bulma variables and style
+@import "~bulma";
+// Buefy style
+@import "~buefy/src/scss/buefy";
+
+// Customize Bulma style
+// Customized style using variables is placed behind default Bulma style
+@import "_overrides";

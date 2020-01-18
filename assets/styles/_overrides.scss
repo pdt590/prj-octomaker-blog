@@ -1,0 +1,278 @@
+// Overrides
+@if $bulmaswatch-import-font {
+    @import url(https://fonts.googleapis.com/css?family=Montserrat);
+}
+
+a {
+    font-family: $family-heading;
+    transition: all 200ms ease;
+}
+
+.button {
+    transition: all 200ms ease;
+    font-family: $family-heading;
+    
+    &.is-active,
+    &.is-focused,
+    &:active,
+    &:focus {
+        box-shadow: 0 0 0 2px rgba($button-active-border-color, 0.3);
+    }
+    @each $name, $pair in $colors {
+        $color: nth($pair, 1);
+        $color-invert: nth($pair, 2);
+
+        &.is-#{$name} {
+            &.is-active,
+            &.is-focused,
+            &:active,
+            &:focus {
+                box-shadow: 0 0 0 2px rgba($color, 0.3);
+            }
+        }
+    }
+}
+
+.content {
+    //font-size: 1.1rem;
+    font-family: $family-heading;
+
+    .button {
+        font-family: $family-heading;
+    }
+}
+
+.card-header-title,
+.menu-label,
+.message-header,
+.modal-card-title,
+.panel-heading,
+.subtitle,
+.title,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 700;
+    font-family: $family-heading;
+}
+
+blockquote {
+    font-style: italic;
+}
+
+.input,
+.textarea {
+    transition: all 200ms ease;
+    box-shadow: none;
+}
+
+.notification {
+    @each $name, $pair in $colors {
+        $color: nth($pair, 1);
+        $color-invert: nth($pair, 2);
+
+        &.is-#{$name} {
+            a:not(.button) {
+                color: $color-invert;
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+.navbar {
+    border: 1px solid $border;
+}
+
+.navbar-item img {
+    max-height: 2.25rem;
+}
+
+.hero {
+    .navbar {
+        border: none;
+        box-shadow: 0 1px 0 rgba($border, 0.25);
+    }
+}
+
+.breadcrumb {
+    margin-bottom: 2rem
+}
+
+@media screen and (min-width: 768px) {
+    .card {
+        $card-border-color: $grey-darker;
+        border-radius: 0.3rem;
+        box-shadow: 0 1px 4px 0 rgba(0,0,0,.1);
+        .card-header {
+            box-shadow: none;
+            border-bottom: 1px solid $grey-lighter;
+            padding: 0.5rem;
+        }
+        .card-footer .card-footer-item {
+            justify-content: flex-end;
+            padding: 1rem;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .card {
+        box-shadow: none;
+        border-radius: none;
+        border: none;
+        .card-header {
+            box-shadow: none;
+            border-bottom: 1px solid $grey-lighter;
+            padding: 0.5rem;
+        }
+        .card-footer .card-footer-item {
+            justify-content: flex-end;
+            padding: 1rem;
+        }
+    }
+}
+
+////////////////////////////////////////////////
+// Customizes
+////////////////////////////////////////////////
+
+html, body {
+    background-color: #FFF;
+}
+
+@media screen and (min-width: 768px) {
+    .v-main {
+        padding-top: 1.5rem;
+        padding-bottom: 4rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .v-main {
+        padding-top: $navbar-height;
+        padding-bottom: 1rem;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .v-modal-card {
+        max-width: 20vw;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .v-modal-card {
+        padding: 6vw;
+    }
+}
+
+input
+{
+    font-size: 1rem !important
+}
+
+.v-image-contain {
+    object-fit: contain;
+}
+
+.v-image-cover, .v-image-card {
+    object-fit: cover;
+}
+
+@media screen and (min-width: 768px) {
+    .v-image-cover{
+        border-top-right-radius: 0.3rem;
+        border-top-left-radius: 0.3rem;
+    }
+}
+
+.v-image-mobile-card {
+    object-fit: cover;
+    width: 96px !important;
+    height: 96px !important;
+    border: none !important;
+}
+
+.v-user-avatar, .v-preview-image {
+    object-fit: cover;
+    width: 126px !important;
+    height: 126px !important;
+}
+
+.v-image-border {
+    border: solid 1px #D8D8D8
+}
+
+.v-nav-avatar {
+    object-fit: cover;
+    width: 2.1rem !important;
+    height: 2.1rem !important;
+    border: solid 1px #D8D8D8
+}
+
+.v-nav-avatar-mobile {
+    object-fit: cover;
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+    border: solid 1px #D8D8D8
+}
+
+.v-image-frame {
+    position: relative;
+    border: solid 1px #D8D8D8;
+    .v-image-bndelete {
+        position: absolute;
+        top: 2%;
+        right: 2%;
+    }
+    .v-image-size {
+        display: flex;
+        justify-content: center; 
+    }
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance:textfield;
+}
+
+.v-wrap-text {
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+.textarea {
+    max-height: 6rem !important;
+    min-height: 4rem !important
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 0.3rem
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #AAA;
+    border-radius: 0.3rem
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}

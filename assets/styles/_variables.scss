@@ -1,0 +1,31 @@
+////////////////////////////////////////////////
+// LITERA
+////////////////////////////////////////////////
+$grey-darker:  #363636;
+$grey-dark:    #373a3c;
+$grey:         #55595c;
+$grey-light:   #818a91;
+$grey-lighter: #d9dee2;
+
+$link: #4582EC !default;
+
+$subtitle-color: $grey;
+
+$family-heading: "Montserrat", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+$body-size: 14px !default;
+
+$navbar-height: 4rem;
+$navbar-item-hover-color: $link;
+$navbar-item-hover-background-color: transparent;
+$navbar-item-active-color: $link;
+$navbar-item-active-background-color: transparent;
+
+$navbar-dropdown-item-hover-color: $link;
+$navbar-dropdown-item-hover-background-color: transparent;
+$navbar-dropdown-item-active-color: $link;
+$navbar-dropdown-item-active-background-color: transparent;
+
+$bulmaswatch-import-font: true !default;
+
+$box-shadow: 0 0 1px $grey-light;

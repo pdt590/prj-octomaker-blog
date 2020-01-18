@@ -11,9 +11,12 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
+    "buefy": "^0.8.9",
     "nuxt": "^2.11.0"
   },
   "devDependencies": {
-    "cross-env": "^5.0.1"
+    "cross-env": "^5.0.1",
+    "node-sass": "^4.13.1",
+    "sass-loader": "^8.0.2"
   }
 }

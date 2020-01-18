@@ -14,7 +14,8 @@ module.exports = {
       { hid: 'description', name: 'description', content: pkg.description }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'stylesheet', href: '//cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css' }
     ]
   },
 
@@ -27,12 +28,14 @@ module.exports = {
   ** Global CSS
   */
   css: [
+    '~assets/styles/bulma.scss'
   ],
 
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
+    {src: '~plugins/plugin-buefy.js'}
   ],
 
   /*
