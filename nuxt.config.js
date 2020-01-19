@@ -36,7 +36,8 @@ module.exports = {
   */
   plugins: [
     {src: '~plugins/plugin-buefy.js'},
-    {src: '~plugins/plugin-firebase.js'}
+    {src: '~plugins/plugin-firebase.js'},
+    {src: '~plugins/plugin-vuelidate.js'}
   ],
 
   /*
