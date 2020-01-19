@@ -37,7 +37,8 @@ module.exports = {
   plugins: [
     {src: '~plugins/plugin-buefy.js'},
     {src: '~plugins/plugin-firebase.js'},
-    {src: '~plugins/plugin-vuelidate.js'}
+    {src: '~plugins/plugin-vuelidate.js'},
+    {src: '~plugins/plugin-lazyload.js', ssr: false}
   ],
 
   /*
@@ -45,6 +46,13 @@ module.exports = {
   */
   modules: [
   ],
+
+  /*
+	** Global env setting
+	*/
+	env: {
+		baseUrl: process.env.BASE_URL || 'http://localhost:3000'
+	},
 
   /*
   ** Build configuration
