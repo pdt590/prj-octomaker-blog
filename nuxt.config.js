@@ -1,4 +1,5 @@
 const pkg = require('./package')
+const logger = require('connect-logger')
 
 module.exports = {
   mode: 'universal',
@@ -65,5 +66,7 @@ module.exports = {
     extend(config, ctx) {
       
     }
-  }
+  },
+
+  serverMiddleware: [logger({ format: "%date %status %method %url (%time)" })]
 }
