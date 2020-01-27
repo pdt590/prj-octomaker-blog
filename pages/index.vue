@@ -1,59 +1,94 @@
 <template>
-  <section class="container">
-    <div>
-      <logo/>
-      <h1 class="title">
-        octomaker-blog
-      </h1>
-      <h2 class="subtitle">
-        Blog website for octomaker project
-      </h2>
-      <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green">Documentation</a>
-        <a href="https://github.com/nuxt/nuxt.js" target="_blank" class="button--grey">GitHub</a>
+  <div class="container">
+    <div class="v-header">
+      <p class="is-size-5 is-capitalized has-text-black has-text-weight-semibold">Posts</p>
+    </div>
+    <div class="columns is-multiline is-variable is-2">
+      <div class="column is-2" v-for="(post, index) in loadedPosts" :key="index">
+        <v-card-post class="is-hidden-mobile" :postData="post" />
+        <v-card-post-mobile class="is-hidden-tablet" :postData="post" />
+      </div>
+      <b-loading class="is-hidden-mobile" :is-full-page="false" :active.sync="queryLoading"></b-loading>
+    </div>
+    <div class="level">
+      <div class="level-item">
+        <button
+          class="button is-rounded is-outlined"
+          :class="{'is-loading': queryLoading}"
+          :disabled="!loadedPosts.length"
+          @click="onLoad"
+        >Xem thêm</button>
       </div>
     </div>
-  </section>
+  </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+import { mapGetters } from "vuex";
 
 export default {
-  components: {
-    Logo
+  computed: {
+    ...mapGetters(["queryLoading"])
+  },
+  async asyncData({ app, store, params, error }) {
+    let loadedPosts = []
+    const limit = 18;
+    loadedPosts = await store.dispatch("loadPosts", { limit: limit })
+    if(store.getters.queryLoading) {
+      store.commit("setQueryLoading", false)
+      error({ statusCode: 500, message: 'loadPosts() Error' })
+    }
+    return {
+      loadedPosts: loadedPosts,
+      limit: limit
+    }
+  },
+  methods: {
+    async onLoad() {
+      const endAtKey = this.loadedPosts[this.loadedPosts.length - 1]
+        .updatedDate;
+      let loadedMorePosts = await this.$store.dispatch("loadPosts", {
+        limit: this.limit + 1,
+        endAtKey: endAtKey
+      });
+      loadedMorePosts.length ? loadedMorePosts.shift() : ``; // Remove first item
+      this.loadedPosts = [...this.loadedPosts, ...loadedMorePosts];
+    }
+  },
+  head() {
+    return {
+      title: "OctoMaker | Posts",
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: "OctoMaker - Posts"
+        }
+      ]
+    };
   }
-}
+};
 </script>
 
-<style>
-.container
-{
-  min-height: 100vh;
+<style lang="scss" scoped>
+.v-header {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 1.5rem;
 }
-.title
-{
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
+
+@media screen and (min-width: 768px) {
+  iframe {
+    width: 20vw;
+    height: 26vh;
+  }
 }
-.subtitle
-{
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-.links
-{
-  padding-top: 15px;
+
+@media screen and (max-width: 768px) {
+  iframe {
+    width: 90vw;
+    height: 30vh;
+  }
 }
 </style>

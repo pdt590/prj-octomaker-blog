@@ -1,0 +1,216 @@
+<template>
+  <div>
+    <!-- Signup form -->
+    <form v-show="isSignup">
+      <div class="modal-card v-modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Đăng ký</p>
+        </header>
+        <section class="modal-card-body">
+          <b-field
+            label="Username*"
+            :type="$v.formDataSignup.username.$error ? `is-danger` : ``"
+            :message="!$v.formDataSignup.username.minlen ? `Tối thiểu 6 kí tự` : ``"
+          >
+            <b-input
+              type="text"
+              v-model.trim="formDataSignup.username"
+              @blur="$v.formDataSignup.username.$touch()"
+              placeholder="Nhập username"
+            ></b-input>
+          </b-field>
+
+          <b-field
+            label="Email*"
+            :type="$v.formDataSignup.email.$error || !responseSignup ? `is-danger` : ``"
+            :message="!$v.formDataSignup.email.email || !responseSignup ? `Nhập email hợp lệ` : ``"
+          >
+            <b-input
+              type="email"
+              v-model.trim="formDataSignup.email"
+              @blur="$v.formDataSignup.email.$touch()"
+              placeholder="Nhập email"
+            ></b-input>
+          </b-field>
+
+          <b-field
+            label="Password*"
+            :type="$v.formDataSignup.password.$error ? `is-danger` : ``"
+            :message="!$v.formDataSignup.password.minlen ? `Tối thiểu 6 kí tự` : ``"
+          >
+            <b-input
+              type="password"
+              v-model.trim="formDataSignup.password"
+              @blur="$v.formDataSignup.password.$touch()"
+              password-reveal
+              placeholder="Nhập mật khẩu"
+            ></b-input>
+          </b-field>
+
+          <b-checkbox>Remember me</b-checkbox>
+        </section>
+        <footer class="modal-card-foot" style="justify-content: space-between">
+          <a @click.prevent="isSignup = !isSignup">{{ isSignup ? `Đăng nhập?` : `Đăng ký?`}}</a>
+          <div class="buttons" style="justify-content: flex-end">
+            <button class="button is-rounded" type="button" @click="$parent.close()">Close</button>
+            <button
+              class="button is-info is-rounded"
+              :class="{'is-loading': authLoading}"
+              :disabled="$v.formDataSignup.$invalid"
+              @click.prevent="onSignup"
+            >Đăng ký</button>
+          </div>
+        </footer>
+      </div>
+    </form>
+    <!-- Login form -->
+    <form v-show="!isSignup">
+      <div class="modal-card v-modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Đăng nhập</p>
+        </header>
+        <section class="modal-card-body">
+          <b-field
+            label="Email"
+            :type="$v.formDataLogin.email.$error || !responseLogin? `is-danger` : ``"
+            :message="!$v.formDataLogin.email.email || !responseLogin ? `Nhập email hợp lệ` : ``"
+          >
+            <b-input
+              type="email"
+              v-model.trim="formDataLogin.email"
+              @blur="$v.formDataLogin.email.$touch()"
+              placeholder="Nhập Email"
+            ></b-input>
+          </b-field>
+
+          <b-field
+            label="Password"
+            :type="$v.formDataLogin.password.$error ? `is-danger` : ``"
+            :message="!$v.formDataLogin.password.minlen ? `Tối thiểu 6 kí tự` : ``"
+          >
+            <b-input
+              type="password"
+              v-model.trim="formDataLogin.password"
+              @blur="$v.formDataLogin.password.$touch()"
+              password-reveal
+              placeholder="Nhập mật khẩu"
+            ></b-input>
+          </b-field>
+
+          <b-checkbox>Remember me</b-checkbox>
+        </section>
+        <footer class="modal-card-foot" style="justify-content: space-between;">
+          <p>
+            <a @click.prevent="isSignup = !isSignup">{{ isSignup ? `Đăng nhập?` : `Đăng ký?`}}</a>
+            <br />
+            <a @click="onFgPassword">Quên mật khẩu?</a>
+          </p>
+          <div class="buttons" style="justify-content: flex-end">
+            <button class="button is-rounded" type="button" @click="$parent.close()">Close</button>
+            <button
+              class="button is-info is-rounded"
+              :class="{'is-loading': authLoading}"
+              :disabled="$v.formDataLogin.$invalid"
+              @click.prevent="onLogin"
+            >Đăng nhập</button>
+          </div>
+        </footer>
+      </div>
+    </form>
+  </div>
+</template>
+
+<script>
+import { mapGetters } from "vuex";
+import { required, email, minLength } from "vuelidate/lib/validators";
+import { authMessage } from "~/plugins/util-helpers";
+
+export default {
+  computed: {
+    ...mapGetters(["authError", "authLoading"])
+  },
+  data() {
+    return {
+      formDataSignup: {
+        username: null,
+        email: null,
+        password: null
+      },
+      formDataLogin: {
+        email: null,
+        password: null
+      },
+      responseSignup: true,
+      responseLogin: true,
+      isSignup: false
+    };
+  },
+  validations: {
+    formDataSignup: {
+      username: {
+        required,
+        minlen: minLength(6)
+      },
+      email: {
+        required,
+        email
+      },
+      password: {
+        required,
+        minlen: minLength(6)
+      }
+    },
+    formDataLogin: {
+      email: {
+        required,
+        email
+      },
+      password: {
+        required,
+        minlen: minLength(6)
+      }
+    }
+  },
+  methods: {
+    async onSignup() {
+      this.responseSignup = await this.$store.dispatch(
+        "signUserUp",
+        this.formDataSignup
+      );
+      if (this.responseSignup) {
+        this.$parent.close();
+        this.$buefy.toast.open({
+          duration: 3000,
+          message: "Kiểm tra hộp thư để kích hoạt tài khoản",
+          type: "is-warning"
+        });
+      } else {
+        this.$buefy.toast.open({
+          duration: 3000,
+          message: authMessage(this.authError),
+          type: "is-danger"
+        });
+      }
+    },
+    async onLogin() {
+      this.responseLogin = await this.$store.dispatch(
+        "signUserIn",
+        this.formDataLogin
+      );
+      if (this.responseLogin) {
+        this.$parent.close();
+      } else {
+        this.$buefy.toast.open({
+          duration: 3000,
+          message: authMessage(this.authError),
+          type: "is-danger"
+        });
+      }
+    },
+    onFgPassword() {
+      this.$parent.close();
+      this.$router.push("/user/resetpassword");
+    }
+  }
+};
+</script>
