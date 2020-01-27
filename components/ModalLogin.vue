@@ -8,8 +8,10 @@
         <section class="modal-card-body">
           <b-field
             label="Email"
-            :type="$v.formData.email.$error || !response? `is-danger` : ``"
-            :message="!$v.formData.email.email || !response ? `Nhập email hợp lệ` : ``"
+            :type="$v.formData.email.$error || !response ? `is-danger` : ``"
+            :message="
+              !$v.formData.email.email || !response ? `Nhập email hợp lệ` : ``
+            "
           >
             <b-input
               type="email"
@@ -38,13 +40,21 @@
         <footer class="modal-card-foot" style="justify-content: space-between">
           <a @click="onFgPassword">Quên mật khẩu?</a>
           <div class="buttons">
-            <button class="button is-rounded" type="button" @click="$parent.close()">Close</button>
+            <button
+              class="button is-rounded"
+              type="button"
+              @click="$parent.close()"
+            >
+              Close
+            </button>
             <button
               class="button is-info is-rounded"
-              :class="{'is-loading': authLoading}"
+              :class="{ 'is-loading': authLoading }"
               :disabled="$v.formData.$invalid"
               @click.prevent="onLogin"
-            >Đăng nhập</button>
+            >
+              Đăng nhập
+            </button>
           </div>
         </footer>
       </div>
@@ -86,7 +96,7 @@ export default {
     async onLogin() {
       await this.$store.dispatch("signUserIn", this.formData);
       if (this.authLoading) {
-        this.$store.commit("setAuthLoading", false)
+        this.$store.commit("setAuthLoading", false);
         this.$buefy.toast.open({
           duration: 3000,
           message: authMessage(this.authError),

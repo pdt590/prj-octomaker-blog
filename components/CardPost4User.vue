@@ -18,24 +18,31 @@
     <div class="media-content" style="overflow: hidden;">
       <div class="content">
         <strong>
-          <nuxt-link :to="`/posts/${postData.url}`">{{postData.title}}</nuxt-link>
+          <nuxt-link :to="`/posts/${postData.url}`">{{
+            postData.title
+          }}</nuxt-link>
         </strong>
-        <small class="is-uppercase">- {{postCategory}}</small>
+        <small class="is-uppercase">- {{ postCategory }}</small>
         <!-- For mobile -->
         <div class="has-text-grey-light is-hidden-tablet">
           <b-icon icon="clock-outline" size="is-small"></b-icon>
-          {{postData.updatedDate | fmDate}}
+          {{ postData.updatedDate | fmDate }}
         </div>
         <!--  -->
       </div>
       <!-- For mobile -->
       <div class="buttons is-hidden-tablet">
-        <a class="button is-danger is-rounded is-outlined" @click="isModalConfirmActive=true">Xóa</a>
+        <a
+          class="button is-danger is-rounded is-outlined"
+          @click="isModalConfirmActive = true"
+          >Xóa</a
+        >
         <nuxt-link
           class="button is-info is-rounded is-outlined"
           :to="`/posts/${postData.url}/edit-post`"
           target="_blank"
-        >Sửa</nuxt-link>
+          >Sửa</nuxt-link
+        >
       </div>
       <!--  -->
       <div class="level is-mobile is-hidden-mobile">
@@ -43,7 +50,7 @@
           <div class="level-item">
             <div class="has-text-grey-light">
               <b-icon icon="clock-outline" size="is-small"></b-icon>
-              {{postData.updatedDate | fmDate}}
+              {{ postData.updatedDate | fmDate }}
             </div>
           </div>
         </div>
@@ -51,12 +58,17 @@
     </div>
     <div class="media-right is-hidden-mobile">
       <div class="buttons">
-        <a class="button is-danger is-rounded is-outlined" @click="isModalConfirmActive=true">Xóa</a>
+        <a
+          class="button is-danger is-rounded is-outlined"
+          @click="isModalConfirmActive = true"
+          >Xóa</a
+        >
         <nuxt-link
           class="button is-info is-rounded is-outlined"
           :to="`/posts/${postData.url}/edit-post`"
           target="_blank"
-        >Sửa</nuxt-link>
+          >Sửa</nuxt-link
+        >
       </div>
     </div>
     <b-modal :active.sync="isModalConfirmActive" has-modal-card>
@@ -66,8 +78,8 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex"
-import { categories } from "~/plugins/util-lists"
+import { mapGetters } from "vuex";
+import { categories } from "~/plugins/util-lists";
 
 export default {
   props: {
@@ -78,14 +90,16 @@ export default {
   },
   computed: {
     postCategory() {
-      const category = categories.find(item => item.id === this.postData.category)
-      return category.name
+      const category = categories.find(
+        item => item.id === this.postData.category
+      );
+      return category.name;
     },
     postThumbnail() {
-      if(this.postData.images) {
-        return this.postData.images[0].url
+      if (this.postData.images) {
+        return this.postData.images[0].url;
       } else {
-        return "/icon-photo.png" 
+        return "/icon-photo.png";
       }
     }
   },

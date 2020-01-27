@@ -213,39 +213,39 @@ export default {
   },
   methods: {
     async onSignup() {
-      await this.$store.dispatch("signUserUp", this.formDataSignup)
-      if (this.authLoading) {
-        this.$store.commit("setAuthLoading", false)
-        this.$buefy.toast.open({
-          duration: 3000,
-          message: authMessage(this.authError),
-          type: "is-danger"
-        })
-      } else {
-        this.$parent.close();
-        this.$buefy.toast.open({
-          duration: 3000,
-          message: "Kiểm tra hộp thư để kích hoạt tài khoản",
-          type: "is-warning"
-        })
-      }
-    },
-    async onLogin() {
-      await this.$store.dispatch("signUserIn", this.formDataLogin)
+      await this.$store.dispatch("signUserUp", this.formDataSignup);
       if (this.authLoading) {
         this.$store.commit("setAuthLoading", false);
         this.$buefy.toast.open({
           duration: 3000,
           message: authMessage(this.authError),
           type: "is-danger"
-        })
+        });
       } else {
-        this.$parent.close()
+        this.$parent.close();
+        this.$buefy.toast.open({
+          duration: 3000,
+          message: "Kiểm tra hộp thư để kích hoạt tài khoản",
+          type: "is-warning"
+        });
+      }
+    },
+    async onLogin() {
+      await this.$store.dispatch("signUserIn", this.formDataLogin);
+      if (this.authLoading) {
+        this.$store.commit("setAuthLoading", false);
+        this.$buefy.toast.open({
+          duration: 3000,
+          message: authMessage(this.authError),
+          type: "is-danger"
+        });
+      } else {
+        this.$parent.close();
       }
     },
     onFgPassword() {
-      this.$parent.close()
-      this.$router.push("/user/resetpassword")
+      this.$parent.close();
+      this.$router.push("/user/resetpassword");
     }
   }
 };

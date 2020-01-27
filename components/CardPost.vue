@@ -17,14 +17,20 @@
           <p
             class="is-size-6 has-text-black has-text-weight-normal"
             style="line-height: 1.5em;"
-          >{{postData.content | fmString(60)}}</p>
+          >
+            {{ postData.content | fmString(60) }}
+          </p>
         </div>
       </nuxt-link>
     </div>
     <div class="card-content">
-      <p class="is-size-6 is-uppercase has-text-grey-light">{{postCategory}}</p>
+      <p class="is-size-6 is-uppercase has-text-grey-light">
+        {{ postCategory }}
+      </p>
       <nuxt-link :to="`/posts/${postData.url}`">
-        <span class="is-size-6 has-text-black has-text-weight-bold">{{postData.title}}</span>
+        <span class="is-size-6 has-text-black has-text-weight-bold">{{
+          postData.title
+        }}</span>
       </nuxt-link>
     </div>
     <div class="card-footer v-card-footer"></div>
@@ -43,16 +49,17 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["user"]),
     postCategory() {
-      const category = categories.find(item => item.id === this.postData.category)
+      const category = categories.find(
+        item => item.id === this.postData.category
+      );
       return category.name;
     },
     postThumbnail() {
-      if(this.postData.images) {
-        return this.postData.images[0].url
+      if (this.postData.images) {
+        return this.postData.images[0].url;
       } else {
-        return "/icon-photo.png" 
+        return "/icon-photo.png";
       }
     }
   }

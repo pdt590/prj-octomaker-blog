@@ -1,9 +1,9 @@
-import Vuex from 'vuex'
+import Vuex from "vuex";
 
-import post from './post'
-import user from './user'
-import shared from './shared'
-import query from './query'
+import post from "./post";
+import user from "./user";
+import shared from "./shared";
+import query from "./query";
 
 export default () => {
   return new Vuex.Store({
@@ -13,5 +13,5 @@ export default () => {
       shared: shared,
       query: query
     }
-  })
-}
+  });
+};

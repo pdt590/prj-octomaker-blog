@@ -37,7 +37,11 @@
             :type="$v.postData.content.$error ? `is-danger` : ``"
           >
             <client-only>
-              <mavon-editor :toolbars="markdownOption" v-model="handbook" language="en"/>
+              <mavon-editor
+                :toolbars="markdownOption"
+                v-model="handbook"
+                language="en"
+              />
             </client-only>
           </b-field>
 

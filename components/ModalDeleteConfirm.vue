@@ -9,13 +9,15 @@
           <div class="buttons" style="display: flex; justify-content: center">
             <a
               class="button is-grey is-outlined is-rounded is-medium"
-              :class="{'is-loading': postLoading}"
+              :class="{ 'is-loading': postLoading }"
               @click.prevent="onDelete"
-            >Đồng ý</a>
+              >Đồng ý</a
+            >
             <a
               class="button is-grey is-outlined is-rounded is-medium"
               @click.prevent="$parent.close()"
-            >Hủy</a>
+              >Hủy</a
+            >
           </div>
         </section>
         <footer class="modal-card-foot"></footer>

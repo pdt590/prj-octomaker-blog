@@ -22,7 +22,9 @@
           <b-field
             label="Email*"
             :type="$v.formData.email.$error || !response ? `is-danger` : ``"
-            :message="!$v.formData.email.email || !response ? `Nhập email hợp lệ` : ``"
+            :message="
+              !$v.formData.email.email || !response ? `Nhập email hợp lệ` : ``
+            "
           >
             <b-input
               type="email"
@@ -49,13 +51,21 @@
           <b-checkbox>Remember me</b-checkbox>
         </section>
         <footer class="modal-card-foot" style="justify-content: flex-end">
-          <button class="button is-rounded" type="button" @click="$parent.close()">Close</button>
+          <button
+            class="button is-rounded"
+            type="button"
+            @click="$parent.close()"
+          >
+            Close
+          </button>
           <button
             class="button is-info is-rounded"
-            :class="{'is-loading': authLoading}"
+            :class="{ 'is-loading': authLoading }"
             :disabled="$v.formData.$invalid"
             @click.prevent="onSignup"
-          >Đăng ký</button>
+          >
+            Đăng ký
+          </button>
         </footer>
       </div>
     </form>
@@ -101,19 +111,19 @@ export default {
     async onSignup() {
       await this.$store.dispatch("signUserUp", this.formData);
       if (this.authLoading) {
-        this.$store.commit("setAuthLoading", false)
+        this.$store.commit("setAuthLoading", false);
         this.$buefy.toast.open({
           duration: 3000,
           message: authMessage(this.authError),
           type: "is-danger"
-        })
+        });
       } else {
         this.$parent.close();
         this.$buefy.toast.open({
           duration: 3000,
           message: "Kiểm tra hộp thư để kích hoạt tài khoản",
           type: "is-warning"
-        })
+        });
       }
     }
   }

@@ -170,10 +170,10 @@ export default {
       }
     },
     isAuthMessage() {
-      if(this.user && !this.user.isActive) {
-        return true
+      if (this.user && !this.user.isActive) {
+        return true;
       } else {
-        return false
+        return false;
       }
     }
   },

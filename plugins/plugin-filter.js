@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import Vue from "vue";
 
 // bytes
 const bytesFilter = value => {
@@ -6,12 +6,12 @@ const bytesFilter = value => {
 };
 
 function formatBytes(bytes, decimals) {
-  if (bytes == 0) return '0 Bytes';
+  if (bytes == 0) return "0 Bytes";
   let k = 1024,
     dm = decimals <= 0 ? 0 : decimals || 2,
-    sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
+    sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"],
     i = Math.floor(Math.log(bytes) / Math.log(k));
-  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
 }
 
 // date
@@ -52,15 +52,15 @@ function formatString(string, length) {
   let short = string.substr(0, length);
   if (/^\S/.test(string.substr(length))) {
     if (length < string.length) {
-      return short.replace(/\s+\S*$/, "") + '...'
+      return short.replace(/\s+\S*$/, "") + "...";
     } else {
-      return short.replace(/\s+\S*$/, "")
+      return short.replace(/\s+\S*$/, "");
     }
   }
-  return ((length < string.length) ? short + '...' : short)
+  return length < string.length ? short + "..." : short;
 }
 
 /** main */
-Vue.filter('fmBytes', bytesFilter)
-Vue.filter('fmDate', dateFilter)
-Vue.filter('fmString', strFilter)
+Vue.filter("fmBytes", bytesFilter);
+Vue.filter("fmDate", dateFilter);
+Vue.filter("fmString", strFilter);

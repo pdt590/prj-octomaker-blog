@@ -6,7 +6,7 @@
           <client-only>
             <img
               class="v-image-mobile-card"
-              v-lazy="postData.images ? postData.images[0].url : `/icon-photo.png`"
+              v-lazy="postThumbnail"
               style="display: none"
               onload="this.style.display = 'block'"
               alt="shop_image"
@@ -18,9 +18,11 @@
     <div class="media-content" style="overflow: hidden;">
       <div class="content">
         <strong>
-          <nuxt-link :to="`/posts/${postData.url}`">{{postData.title}}</nuxt-link>
-        </strong>&bull;
-        <small class="is-uppercase">{{postCategory}}</small>
+          <nuxt-link :to="`/posts/${postData.url}`">{{
+            postData.title
+          }}</nuxt-link> </strong
+        >&bull;
+        <small class="is-uppercase">{{ postCategory }}</small>
         <br />
         <br />
       </div>
@@ -49,7 +51,17 @@ export default {
   },
   computed: {
     postCategory() {
-      return categories.find(category => category.id === this.postData.category).name;
+      const category = categories.find(
+        item => item.id === this.postData.category
+      );
+      return category.name;
+    },
+    postThumbnail() {
+      if (this.postData.images) {
+        return this.postData.images[0].url;
+      } else {
+        return "/icon-photo.png";
+      }
     }
   }
 };
