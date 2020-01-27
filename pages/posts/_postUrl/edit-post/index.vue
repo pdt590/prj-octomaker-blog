@@ -2,8 +2,17 @@
   <div class="container">
     <form>
       <!-- Post info -->
-      <b-field label="Title" expanded :type="$v.postTitle.$invalid ? `is-danger` : ``">
-        <b-input type="text" v-model.trim="postTitle" @blur="onChangeTitle" icon="post-outline"></b-input>
+      <b-field
+        label="Title"
+        expanded
+        :type="$v.postTitle.$invalid ? `is-danger` : ``"
+      >
+        <b-input
+          type="text"
+          v-model.trim="postTitle"
+          @blur="onChangeTitle"
+          icon="post-outline"
+        ></b-input>
       </b-field>
 
       <b-field label="Danh mục">
@@ -12,7 +21,8 @@
             v-for="(category, i) in categories"
             :key="i"
             :value="category.id"
-          >{{ category.name }}</option>
+            >{{ category.name }}</option
+          >
         </b-select>
       </b-field>
 
@@ -34,8 +44,12 @@
       </b-field>
 
       <div class="block">
-        <b-radio v-model="postContent.mode" native-value="public">Public</b-radio>
-        <b-radio v-model="postContent.mode" native-value="private">Private</b-radio>
+        <b-radio v-model="postContent.mode" native-value="public"
+          >Public</b-radio
+        >
+        <b-radio v-model="postContent.mode" native-value="private"
+          >Private</b-radio
+        >
       </div>
 
       <button
@@ -44,14 +58,18 @@
         :disabled="$v.postTitle.$invalid"
         type="submit"
         @click.prevent="onPublish"
-      >Đăng bài</button>
+      >
+        Đăng bài
+      </button>
       <button
         class="button is-info is-rounded"
         :class="{ 'is-loading': postLoading }"
         :disabled="$v.postTitle.$invalid"
         type="submit"
         @click.prevent="onDelete"
-      >Xóa bài</button>
+      >
+        Xóa bài
+      </button>
     </form>
   </div>
 </template>
@@ -77,22 +95,22 @@ export default {
     ...mapGetters(["loadedPost", "postLoading"])
   },
   created() {
-    this.postData = deepCopy(this.loadedPost)
-    this.postTitle = this.postData.title
-    delete this.postData.title
+    this.postData = deepCopy(this.loadedPost);
+    this.postTitle = this.postData.title;
+    delete this.postData.title;
     if (this.postData.images) {
-      this.postOldImages = deepCopy(this.postData.images)
-      delete this.postData.images
+      this.postOldImages = deepCopy(this.postData.images);
+      delete this.postData.images;
     }
-    delete this.postData._creator
-    delete this.postData.url
-    this.postContent = deepCopy(this.postData)
+    delete this.postData._creator;
+    delete this.postData.url;
+    this.postContent = deepCopy(this.postData);
   },
   async fetch({ app, store, params, error }) {
     await store.dispatch("loadPost", params.postUrl);
     if (store.getters.postLoading) {
       store.commit("setPostLoading", false);
-      error({ statusCode: 500, message: 'loadPost() Error' })
+      error({ statusCode: 500, message: "loadPost() Error" });
     }
   },
   data() {
@@ -175,34 +193,34 @@ export default {
           type: "is-danger"
         });
       } else {
-        const postUrl = this.loadedPost.url
-        this.$router.push(`/posts/${postUrl}`)
+        const postUrl = this.loadedPost.url;
+        this.$router.push(`/posts/${postUrl}`);
       }
     },
     async onDelete() {
-      await this.$store.dispatch("deletePost")
+      await this.$store.dispatch("deletePost");
       if (this.postLoading) {
-        this.$store.commit("setPostLoading", false)
+        this.$store.commit("setPostLoading", false);
         this.$buefy.toast.open({
           duration: 3000,
           message: "onDelete() Error",
           type: "is-danger"
-        })
+        });
       }
-      this.$router.push('/')
+      this.$router.push("/");
     },
     async onChangeTitle() {
-      this.$v.postTitle.$touch()
+      this.$v.postTitle.$touch();
       if (!this.$v.postTitle.$invalid) {
-        await this.$store.dispatch("updatePostTitle", this.postTitle)
+        await this.$store.dispatch("updatePostTitle", this.postTitle);
       }
       if (this.postLoading) {
-        this.$store.commit("setPostLoading", false)
+        this.$store.commit("setPostLoading", false);
         this.$buefy.toast.open({
           duration: 3000,
           message: "onChangeTitle() Error",
           type: "is-danger"
-        })
+        });
       }
     },
     onSetContent(value, render) {

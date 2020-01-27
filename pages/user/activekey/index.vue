@@ -49,7 +49,9 @@
                   :class="{ 'is-loading': authLoading }"
                   :disabled="$v.formData.$invalid"
                   @click.prevent="onResetPassword"
-                >Gửi yêu cầu</button>
+                >
+                  Gửi yêu cầu
+                </button>
               </div>
             </footer>
           </div>
@@ -58,17 +60,29 @@
     </div>
 
     <!-- verifyEmail -->
-    <div class="has-text-centered" style="padding-top: 5rem" v-else-if="mode === `verifyEmail`">
+    <div
+      class="has-text-centered"
+      style="padding-top: 5rem"
+      v-else-if="mode === `verifyEmail`"
+    >
       <div v-if="!authLoading && emailVerified !== null">
-        <p class="title is-3" v-if="emailVerified">Kích hoạt tài khoản thành công!</p>
+        <p class="title is-3" v-if="emailVerified">
+          Kích hoạt tài khoản thành công!
+        </p>
         <p class="title is-3" v-else>Mã kích hoạt không hợp lệ!</p>
         <br />
-        <nuxt-link class="subtitle is-4 has-text-link" to="/">Quay về trang chủ</nuxt-link>
+        <nuxt-link class="subtitle is-4 has-text-link" to="/"
+          >Quay về trang chủ</nuxt-link
+        >
       </div>
     </div>
 
     <!-- verifyEmail -->
-    <div class="has-text-centered" style="padding-top: 5rem" v-else-if="mode === `recoverEmail`">
+    <div
+      class="has-text-centered"
+      style="padding-top: 5rem"
+      v-else-if="mode === `recoverEmail`"
+    >
       <div v-if="!authLoading && emailRecoverd !== null">
         <p v-if="emailRecoverd">
           <span class="title is-3">Khôi phục email thành công!</span>
@@ -77,7 +91,9 @@
         </p>
         <p class="title is-3" v-else>Mã kích hoạt không hợp lệ!</p>
         <br />
-        <nuxt-link class="subtitle is-4 has-text-link" to="/">Quay về trang chủ</nuxt-link>
+        <nuxt-link class="subtitle is-4 has-text-link" to="/"
+          >Quay về trang chủ</nuxt-link
+        >
       </div>
     </div>
   </div>
@@ -151,21 +167,21 @@ export default {
       await this.$store.dispatch("handleResetPassword", {
         actionCode: this.actionCode,
         newPassword: this.formData.newPassword
-      })
+      });
       if (this.authLoading) {
-        this.$store.commit("setAuthLoading", false)
+        this.$store.commit("setAuthLoading", false);
         this.$buefy.toast.open({
           duration: 3000,
           message: authMessage(this.authError),
           type: "is-danger"
-        })
+        });
       } else {
-        this.$router.push("/user/join")
+        this.$router.push("/user/join");
         this.$buefy.toast.open({
           duration: 3000,
           message: "Mật khẩu thay đổi thành công",
           type: "is-success"
-        })
+        });
       }
     }
   }

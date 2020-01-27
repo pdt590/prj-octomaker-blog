@@ -348,9 +348,11 @@ export default {
         vuexContext.commit('setAuthLoading', false)
         localStorage.setItem('auth-event', '')
         localStorage.removeItem('auth-event')
+        return true
       } catch (e) {
         vuexContext.commit('setAuthError', e)
         console.log('[ERROR-handleVerifyEmail]', e)
+        return false
       }
     },
 
@@ -370,9 +372,11 @@ export default {
         // Reset password
         await auth.sendPasswordResetEmail(restoredEmail)
         vuexContext.commit('setAuthLoading', false)
+        return true
       } catch (e) {
         vuexContext.commit('setAuthError', e)
         console.log('[ERROR-handleRecoverEmail]', e)
+        return false
       }
     },
 

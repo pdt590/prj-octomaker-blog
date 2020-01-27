@@ -45,7 +45,10 @@
                     ></b-input>
                   </b-field>
                   <b-field label="Họ và tên">
-                    <b-input v-model.trim="userContent.fullname" icon="account-card-details"></b-input>
+                    <b-input
+                      v-model.trim="userContent.fullname"
+                      icon="account-card-details"
+                    ></b-input>
                   </b-field>
 
                   <b-field
@@ -67,14 +70,15 @@
 
                   <b-field grouped>
                     <b-field label="Địa chỉ" expanded>
-                      <b-input v-model="userContent.address" icon="map-marker"></b-input>
+                      <b-input
+                        v-model="userContent.address"
+                        icon="map-marker"
+                      ></b-input>
                     </b-field>
                     <b-field label="Tỉnh/Thành">
                       <b-select v-model="userContent.province">
                         <option v-for="(province, i) in provinces" :key="i">
-                          {{
-                          province
-                          }}
+                          {{ province }}
                         </option>
                       </b-select>
                     </b-field>
@@ -89,7 +93,9 @@
                       :disabled="$v.userContent.$invalid"
                       type="submit"
                       @click.prevent="onUpdateContent"
-                    >Lưu thay đổi</button>
+                    >
+                      Lưu thay đổi
+                    </button>
                   </div>
                 </div>
               </b-tab-item>
@@ -141,7 +147,9 @@
                       "
                       type="submit"
                       @click.prevent="onUpdateEmail"
-                    >Lưu thay đổi</button>
+                    >
+                      Lưu thay đổi
+                    </button>
                   </div>
                 </div>
               </b-tab-item>
@@ -221,7 +229,9 @@
                       "
                       type="submit"
                       @click.prevent="onUpdatePassword"
-                    >Lưu thay đổi</button>
+                    >
+                      Lưu thay đổi
+                    </button>
                   </div>
                 </div>
               </b-tab-item>
@@ -270,11 +280,12 @@
                           alt="shop_cover"
                         />
                         <span class="v-image-size">
-                          {{
-                          userOldAvatar.metadata.size | fmBytes
-                          }}
+                          {{ userOldAvatar.metadata.size | fmBytes }}
                         </span>
-                        <a class="delete v-image-bndelete" @click="userOldAvatar = null"></a>
+                        <a
+                          class="delete v-image-bndelete"
+                          @click="userOldAvatar = null"
+                        ></a>
                       </figure>
                     </div>
                     <div class="level-item" v-if="userAvatar">
@@ -287,9 +298,7 @@
                           alt="shop_cover"
                         />
                         <span class="v-image-size">
-                          {{
-                          userPreviewAvatar.size | fmBytes
-                          }}
+                          {{ userPreviewAvatar.size | fmBytes }}
                         </span>
                         <a
                           class="delete v-image-bndelete"
@@ -311,7 +320,9 @@
                       :disabled="$v.userAvatar.$invalid"
                       type="submit"
                       @click.prevent="onUpdateAvatar"
-                    >Lưu thay đổi</button>
+                    >
+                      Lưu thay đổi
+                    </button>
                   </div>
                 </div>
               </b-tab-item>
@@ -348,7 +359,9 @@
                       :disabled="$v.confirmPasswordForDeleting.$invalid"
                       type="submit"
                       @click.prevent="onDelete"
-                    >Xóa tài khoản</button>
+                    >
+                      Xóa tài khoản
+                    </button>
                   </div>
                 </div>
               </b-tab-item>

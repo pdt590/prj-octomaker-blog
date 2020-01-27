@@ -12,7 +12,10 @@
     </nav>
     <div class="card">
       <div class="card-content">
-        <div class="columns is-multiline is-variable is-1" style="padding-top: 1rem">
+        <div
+          class="columns is-multiline is-variable is-1"
+          style="padding-top: 1rem"
+        >
           <div class="column is-2" v-for="post in loadedPosts" :key="post.url">
             <v-card-post class="is-hidden-mobile" :postData="post" />
             <v-card-post-mobile class="is-hidden-tablet" :postData="post" />
@@ -44,10 +47,10 @@ export default {
   async asyncData({ store, query, error }) {
     let loadedPosts = [];
     const searchKey = query.key;
-    loadedPosts = await store.dispatch("loadSearchPosts", searchKey)
-    if(store.getters.queryLoading) {
+    loadedPosts = await store.dispatch("loadSearchPosts", searchKey);
+    if (store.getters.queryLoading) {
       store.commit("setQueryLoading", false);
-      error({ statusCode: 500, message: 'loadSearchPosts() Error' })
+      error({ statusCode: 500, message: "loadSearchPosts() Error" });
     }
     return {
       searchKey: searchKey,

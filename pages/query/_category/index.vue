@@ -12,7 +12,10 @@
     </nav>
     <div class="card">
       <div class="card-content">
-        <div class="columns is-multiline is-variable is-1" style="padding-top: 1rem">
+        <div
+          class="columns is-multiline is-variable is-1"
+          style="padding-top: 1rem"
+        >
           <div class="column is-2" v-for="post in loadedPosts" :key="post.url">
             <v-card-post class="is-hidden-mobile" :postData="post" />
             <v-card-post-mobile class="is-hidden-tablet" :postData="post" />
@@ -42,17 +45,17 @@ export default {
     }
   },
   async asyncData({ app, store, params }) {
-    let loadedPosts = []
-    const queryKey = params.category
-    loadedPosts = await store.dispatch("loadCategorizedPosts", queryKey)
-    if(store.getters.queryLoading) {
+    let loadedPosts = [];
+    const queryKey = params.category;
+    loadedPosts = await store.dispatch("loadCategorizedPosts", queryKey);
+    if (store.getters.queryLoading) {
       store.commit("setQueryLoading", false);
-      error({ statusCode: 500, message: 'loadCategorizedPosts() Error' })
+      error({ statusCode: 500, message: "loadCategorizedPosts() Error" });
     }
     return {
       queryKey: queryKey,
       loadedPosts: loadedPosts
-    }
+    };
   },
   data() {
     return {

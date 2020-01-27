@@ -84,15 +84,16 @@ export default {
   },
   methods: {
     async onLogin() {
-      this.response = await this.$store.dispatch("signUserIn", this.formData);
-      if (this.response) {
-        this.$parent.close();
-      } else {
+      await this.$store.dispatch("signUserIn", this.formData);
+      if (this.authLoading) {
+        this.$store.commit("setAuthLoading", false)
         this.$buefy.toast.open({
           duration: 3000,
           message: authMessage(this.authError),
           type: "is-danger"
         });
+      } else {
+        this.$parent.close();
       }
     },
     onFgPassword() {

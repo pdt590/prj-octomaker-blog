@@ -99,20 +99,21 @@ export default {
   },
   methods: {
     async onSignup() {
-      this.response = await this.$store.dispatch("signUserUp", this.formData);
-      if (this.response) {
+      await this.$store.dispatch("signUserUp", this.formData);
+      if (this.authLoading) {
+        this.$store.commit("setAuthLoading", false)
+        this.$buefy.toast.open({
+          duration: 3000,
+          message: authMessage(this.authError),
+          type: "is-danger"
+        })
+      } else {
         this.$parent.close();
         this.$buefy.toast.open({
           duration: 3000,
           message: "Kiểm tra hộp thư để kích hoạt tài khoản",
           type: "is-warning"
-        });
-      } else {
-        this.$buefy.toast.open({
-          duration: 3000,
-          message: authMessage(this.authError),
-          type: "is-danger"
-        });
+        })
       }
     }
   }

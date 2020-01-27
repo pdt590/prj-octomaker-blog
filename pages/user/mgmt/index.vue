@@ -35,7 +35,11 @@
                   <b-icon icon="post-outline"></b-icon>
                   <span>Bài viết</span>
                 </template>
-                <div style="padding-top: 1rem;" v-for="post in loadedPersonalPosts" :key="post.url">
+                <div
+                  style="padding-top: 1rem;"
+                  v-for="post in loadedPersonalPosts"
+                  :key="post.url"
+                >
                   <v-card-post-4user :postData="post" />
                 </div>
               </b-tab-item>
@@ -63,14 +67,14 @@ export default {
     }
   },
   async asyncData({ app, store, error }) {
-    const loadedPersonalPosts = await store.dispatch("loadPersonalPosts")
+    const loadedPersonalPosts = await store.dispatch("loadPersonalPosts");
     if (store.getters.queryLoading) {
-      store.commit("setQueryLoading", false)
-      error({ statusCode: 500, message: 'loadPersonalPosts() Error' })
+      store.commit("setQueryLoading", false);
+      error({ statusCode: 500, message: "loadPersonalPosts() Error" });
     }
     return {
       loadedPersonalPosts: loadedPersonalPosts
-    }
+    };
   }
 };
 </script>

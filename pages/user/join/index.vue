@@ -66,16 +66,16 @@
             <footer class="card-footer">
               <div class="card-footer-item">
                 <a @click.prevent="isSignup = !isSignup">
-                  {{
-                  isSignup ? `Đăng nhập?` : `Đăng ký?`
-                  }}
+                  {{ isSignup ? `Đăng nhập?` : `Đăng ký?` }}
                 </a>
                 <button
                   class="button is-info is-rounded"
                   :class="{ 'is-loading': authLoading }"
                   :disabled="$v.formDataSignup.$invalid"
                   @click.prevent="onSignup"
-                >Đăng ký</button>
+                >
+                  Đăng ký
+                </button>
               </div>
             </footer>
           </div>
@@ -130,9 +130,7 @@
               <div class="card-footer-item">
                 <p>
                   <a @click.prevent="isSignup = !isSignup">
-                    {{
-                    isSignup ? `Đăng nhập?` : `Đăng ký?`
-                    }}
+                    {{ isSignup ? `Đăng nhập?` : `Đăng ký?` }}
                   </a>
                   /
                   <nuxt-link to="/user/resetpassword">Quên mật khẩu?</nuxt-link>
@@ -142,7 +140,9 @@
                   :class="{ 'is-loading': authLoading }"
                   :disabled="$v.formDataLogin.$invalid"
                   @click.prevent="onLogin"
-                >Đăng nhập</button>
+                >
+                  Đăng nhập
+                </button>
               </div>
             </footer>
           </div>
@@ -209,34 +209,34 @@ export default {
   },
   methods: {
     async onSignup() {
-      await this.$store.dispatch("signUserUp", this.formDataSignup)
+      await this.$store.dispatch("signUserUp", this.formDataSignup);
       if (this.authLoading) {
         this.$store.commit("setAuthLoading", false);
         this.$buefy.toast.open({
           duration: 3000,
           message: authMessage(this.authError),
           type: "is-danger"
-        })
+        });
       } else {
-        this.$router.push("/")
+        this.$router.push("/");
         this.$buefy.toast.open({
           duration: 3000,
           message: "Kiểm tra hộp thư để kích hoạt tài khoản",
           type: "is-warning"
-        })
+        });
       }
     },
     async onLogin() {
-      await this.$store.dispatch("signUserIn", this.formDataLogin)
+      await this.$store.dispatch("signUserIn", this.formDataLogin);
       if (this.authLoading) {
         this.$store.commit("setAuthLoading", false);
         this.$buefy.toast.open({
           duration: 3000,
           message: authMessage(this.authError),
           type: "is-danger"
-        })
+        });
       } else {
-        this.$router.push("/")
+        this.$router.push("/");
       }
     }
   },

@@ -1,23 +1,37 @@
 <template>
   <div class="container">
     <div class="v-header">
-      <p class="is-size-5 is-capitalized has-text-black has-text-weight-semibold">Posts</p>
+      <p
+        class="is-size-5 is-capitalized has-text-black has-text-weight-semibold"
+      >
+        Posts
+      </p>
     </div>
     <div class="columns is-multiline is-variable is-2">
-      <div class="column is-2" v-for="(post, index) in loadedPosts" :key="index">
+      <div
+        class="column is-2"
+        v-for="(post, index) in loadedPosts"
+        :key="index"
+      >
         <v-card-post class="is-hidden-mobile" :postData="post" />
         <v-card-post-mobile class="is-hidden-tablet" :postData="post" />
       </div>
-      <b-loading class="is-hidden-mobile" :is-full-page="false" :active.sync="queryLoading"></b-loading>
+      <b-loading
+        class="is-hidden-mobile"
+        :is-full-page="false"
+        :active.sync="queryLoading"
+      ></b-loading>
     </div>
     <div class="level">
       <div class="level-item">
         <button
           class="button is-rounded is-outlined"
-          :class="{'is-loading': queryLoading}"
+          :class="{ 'is-loading': queryLoading }"
           :disabled="!loadedPosts.length"
           @click="onLoad"
-        >Xem thêm</button>
+        >
+          Xem thêm
+        </button>
       </div>
     </div>
   </div>
@@ -31,17 +45,17 @@ export default {
     ...mapGetters(["queryLoading"])
   },
   async asyncData({ app, store, params, error }) {
-    let loadedPosts = []
+    let loadedPosts = [];
     const limit = 18;
-    loadedPosts = await store.dispatch("loadPosts", { limit: limit })
-    if(store.getters.queryLoading) {
-      store.commit("setQueryLoading", false)
-      error({ statusCode: 500, message: 'loadPosts() Error' })
+    loadedPosts = await store.dispatch("loadPosts", { limit: limit });
+    if (store.getters.queryLoading) {
+      store.commit("setQueryLoading", false);
+      error({ statusCode: 500, message: "loadPosts() Error" });
     }
     return {
       loadedPosts: loadedPosts,
       limit: limit
-    }
+    };
   },
   methods: {
     async onLoad() {

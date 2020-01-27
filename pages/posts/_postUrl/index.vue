@@ -4,7 +4,7 @@
       <div class="column is-10">
         <div class="card">
           <div class="card-content">
-            <h1 class="v-post-title">{{loadedPost.title}}</h1>
+            <h1 class="v-post-title">{{ loadedPost.title }}</h1>
             <span v-html="loadedPost.html"></span>
           </div>
         </div>
@@ -44,13 +44,15 @@
                 </div>
               </div>
               <div class="has-text-centered">
-                <h5 class="title is-size-5">{{userName}}</h5>
+                <h5 class="title is-size-5">{{ userName }}</h5>
               </div>
               <hr />
               <div class="buttons">
                 <a
                   class="button is-info is-rounded is-outlined"
-                  :href="`https://www.facebook.com/sharer/sharer.php?u=${baseUrl}/posts/${$route.params.postUrl}`"
+                  :href="
+                    `https://www.facebook.com/sharer/sharer.php?u=${baseUrl}/posts/${$route.params.postUrl}`
+                  "
                   target="_blank"
                 >
                   <b-icon icon="share-variant"></b-icon>
@@ -98,13 +100,15 @@
                 </div>
               </div>
               <div class="has-text-centered">
-                <h5 class="title is-size-5">{{userName}}</h5>
+                <h5 class="title is-size-5">{{ userName }}</h5>
               </div>
               <hr />
               <div class="buttons">
                 <a
                   class="button is-info is-rounded is-outlined"
-                  :href="`https://www.facebook.com/sharer/sharer.php?u=${baseUrl}/posts/${$route.params.postUrl}`"
+                  :href="
+                    `https://www.facebook.com/sharer/sharer.php?u=${baseUrl}/posts/${$route.params.postUrl}`
+                  "
                   target="_blank"
                 >
                   <b-icon icon="share-variant"></b-icon>
@@ -148,14 +152,14 @@ export default {
       return this.loadedPost._creator.username;
     },
     isEditable() {
-      return this.user && this.user.id === this.loadedPost._creator.id
+      return this.user && this.user.id === this.loadedPost._creator.id;
     }
   },
   async fetch({ app, store, params, error }) {
-    await store.dispatch("loadPost", params.postUrl)
+    await store.dispatch("loadPost", params.postUrl);
     if (store.getters.postLoading) {
-      store.commit("setPostLoading", false)
-      error({ statusCode: 500, message: 'loadPost() Error' })
+      store.commit("setPostLoading", false);
+      error({ statusCode: 500, message: "loadPost() Error" });
     }
   },
   data() {

@@ -1,8 +1,17 @@
 <template>
   <div class="container">
     <form>
-      <b-field label="Title" expanded :type="$v.postTitle.$error ? `is-danger` : ``">
-        <b-input type="text" v-model.trim="postTitle" @blur="onChangeTitle" icon="post-outline"></b-input>
+      <b-field
+        label="Title"
+        expanded
+        :type="$v.postTitle.$error ? `is-danger` : ``"
+      >
+        <b-input
+          type="text"
+          v-model.trim="postTitle"
+          @blur="onChangeTitle"
+          icon="post-outline"
+        ></b-input>
       </b-field>
 
       <b-field label="Danh mục">
@@ -11,7 +20,8 @@
             v-for="(category, i) in categories"
             :key="i"
             :value="category.id"
-          >{{ category.name }}</option>
+            >{{ category.name }}</option
+          >
         </b-select>
       </b-field>
 
@@ -32,8 +42,12 @@
       </b-field>
 
       <div class="block">
-        <b-radio v-model="postContent.mode" native-value="public">Public</b-radio>
-        <b-radio v-model="postContent.mode" native-value="private">Private</b-radio>
+        <b-radio v-model="postContent.mode" native-value="public"
+          >Public</b-radio
+        >
+        <b-radio v-model="postContent.mode" native-value="private"
+          >Private</b-radio
+        >
       </div>
 
       <button
@@ -42,14 +56,18 @@
         :disabled="$v.postTitle.$invalid"
         type="submit"
         @click.prevent="onPublish"
-      >Đăng bài</button>
+      >
+        Đăng bài
+      </button>
       <button
         class="button is-info is-rounded"
         :class="{ 'is-loading': postLoading }"
         :disabled="$v.postTitle.$invalid"
         type="submit"
         @click.prevent="onDiscard"
-      >Hủy</button>
+      >
+        Hủy
+      </button>
     </form>
   </div>
 </template>
@@ -134,14 +152,14 @@ export default {
   },
   methods: {
     async onPublish() {
-      await this.$store.dispatch("addPostContent", this.postContent)
+      await this.$store.dispatch("addPostContent", this.postContent);
       if (this.postLoading) {
-        this.$store.commit("setPostLoading", false)
+        this.$store.commit("setPostLoading", false);
         this.$buefy.toast.open({
           duration: 3000,
           message: "onPublish() Error",
           type: "is-danger"
-        })
+        });
       } else {
         const postUrl = this.loadedPost.url;
         this.$router.push(`/posts/${postUrl}`);
@@ -150,37 +168,37 @@ export default {
     async onDiscard() {
       await this.$store.dispatch("deletePost");
       if (this.postLoading) {
-        this.$store.commit("setPostLoading", false)
+        this.$store.commit("setPostLoading", false);
         this.$buefy.toast.open({
           duration: 3000,
           message: "onDiscard() Error",
           type: "is-danger"
-        })
+        });
       }
-      this.$router.push('/')
+      this.$router.push("/");
     },
     async onChangeTitle() {
-      this.$v.postTitle.$touch()
+      this.$v.postTitle.$touch();
       if (!this.$v.postTitle.$invalid) {
         if (this.isTitleAdded) {
-          await this.$store.dispatch("updatePostTitle", this.postTitle)
+          await this.$store.dispatch("updatePostTitle", this.postTitle);
         } else {
-          await this.$store.dispatch("addPostTitle", this.postTitle)
-          this.postLoading ? "" : (this.isTitleAdded = true)
+          await this.$store.dispatch("addPostTitle", this.postTitle);
+          this.postLoading ? "" : (this.isTitleAdded = true);
         }
       }
       if (this.postLoading) {
-        this.$store.commit("setPostLoading", false)
+        this.$store.commit("setPostLoading", false);
         this.$buefy.toast.open({
           duration: 3000,
           message: "onChangeTitle() Error",
           type: "is-danger"
-        })
+        });
       }
     },
     onSetContent(value, render) {
-      this.postContent.content = value
-      this.postContent.html = render
+      this.postContent.content = value;
+      this.postContent.html = render;
     },
 
     /**
@@ -191,16 +209,14 @@ export default {
     */
 
     async onAddImage(pos, file) {
-      const uploadedImage = await this.$store.dispatch("addPostImage", file)
-      this.postImages.push(uploadedImage)
-      this.$refs.md.$img2Url(pos, uploadedImage.url)
+      const uploadedImage = await this.$store.dispatch("addPostImage", file);
+      this.postImages.push(uploadedImage);
+      this.$refs.md.$img2Url(pos, uploadedImage.url);
     },
     async onDeleteImage(image) {
-      const selectedImage = this.postImages.find(
-        item => item.url === image[0]
-      );
-      await this.$store.dispatch("deletePostImage", selectedImage)
-      this.$refs.md.$imgUpdateByUrl(selectedImage.url, '')
+      const selectedImage = this.postImages.find(item => item.url === image[0]);
+      await this.$store.dispatch("deletePostImage", selectedImage);
+      this.$refs.md.$imgUpdateByUrl(selectedImage.url, "");
     }
   },
   head() {

@@ -32,7 +32,9 @@
                   :class="{ 'is-loading': authLoading }"
                   :disabled="$v.formData.$invalid"
                   @click.prevent="onResetPassword"
-                >Gửi yêu cầu</button>
+                >
+                  Gửi yêu cầu
+                </button>
               </div>
             </footer>
           </div>
@@ -73,23 +75,20 @@ export default {
   },
   methods: {
     async onResetPassword() {
-      this.response = await this.$store.dispatch(
-        "resetUserPassword",
-        this.formData.email
-      );
+      await this.$store.dispatch("resetUserPassword", this.formData.email);
       if (this.authLoading) {
         this.$buefy.toast.open({
           duration: 3000,
           message: authMessage(this.authError),
           type: "is-danger"
-        })
+        });
       } else {
         this.$buefy.toast.open({
           duration: 3000,
           message: "Kiểm tra hộp thư để thiết lập lại mật khẩu",
           type: "is-warning"
-        })
-        this.$router.push("/user/join")
+        });
+        this.$router.push("/user/join");
       }
     }
   }

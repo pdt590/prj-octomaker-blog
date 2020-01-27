@@ -30,13 +30,22 @@
               "
             >
               <div class="buttons">
-                <a class="button is-info is-rounded is-outlined" @click="isModalJoinActive = true">
+                <a
+                  class="button is-info is-rounded is-outlined"
+                  @click="isModalJoinActive = true"
+                >
                   <strong>Đăng nhập</strong>
                 </a>
               </div>
             </div>
-            <div class="navbar-item" v-if="user && $route.path !== '/posts/new-post'">
-              <nuxt-link class="button is-info is-rounded is-outlined" to="/posts/new-post">
+            <div
+              class="navbar-item"
+              v-if="user && $route.path !== '/posts/new-post'"
+            >
+              <nuxt-link
+                class="button is-info is-rounded is-outlined"
+                to="/posts/new-post"
+              >
                 <strong>Tạo bài viết</strong>
               </nuxt-link>
             </div>
@@ -105,11 +114,7 @@
             >
               <b-icon icon="facebook"></b-icon>
             </a>
-            <a
-              href="/"
-              target="_blank"
-              class="navbar-item"
-            >
+            <a href="/" target="_blank" class="navbar-item">
               <b-icon icon="youtube"></b-icon>
             </a>
           </div>
@@ -117,8 +122,10 @@
       </div>
     </nav>
 
-    <div class="container" v-if="!isUserActive">
-      <b-message type="is-danger" size="is-small">Tài khoản chưa được kích hoạt</b-message>
+    <div class="container" v-if="isAuthMessage">
+      <b-message type="is-danger" size="is-small"
+        >Tài khoản chưa được kích hoạt</b-message
+      >
     </div>
   </div>
 </template>
@@ -137,8 +144,12 @@ export default {
         return "/icon-user.png";
       }
     },
-    isUserActive() {
-      return this.user && this.user.isActive && this.$route.path === '/user/activekey'
+    isAuthMessage() {
+      if(this.user && !this.user.isActive) {
+        return true
+      } else {
+        return false
+      }
     }
   },
   data() {
