@@ -1,4 +1,4 @@
-import firebase from "~/plugins/plugin-firebase";
+import firebase from "~/libs/firebase";
 const db = firebase.database();
 const usersRef = db.ref("users");
 

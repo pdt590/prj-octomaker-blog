@@ -40,7 +40,7 @@
                   v-for="post in loadedPersonalPosts"
                   :key="post.url"
                 >
-                  <v-card-post-4user :postData="post" />
+                  <v-card-post-4user :value="post" />
                 </div>
               </b-tab-item>
             </b-tabs>

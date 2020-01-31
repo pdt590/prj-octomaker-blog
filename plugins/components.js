@@ -15,9 +15,6 @@ Vue.component("v-card-post-mobile", () =>
 Vue.component("v-modal-login", () => import("~/components/ModalLogin"));
 Vue.component("v-modal-signup", () => import("~/components/ModalSignup"));
 Vue.component("v-modal-join", () => import("~/components/ModalJoin"));
-Vue.component("v-modal-delete-confirm", () =>
-  import("~/components/ModalDeleteConfirm")
-);
-Vue.component("v-modal-discard-confirm", () =>
-  import("~/components/ModalDiscardConfirm")
-);
+Vue.component("v-modal-confirm", () => import("~/components/ModalConfirm"));
+Vue.component("v-modal-link", () => import("~/components/ModalLink"));
+Vue.component("v-modal-image", () => import("~/components/ModalImage"));

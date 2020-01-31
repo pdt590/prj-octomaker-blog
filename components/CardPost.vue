@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-image v-card-image">
-      <nuxt-link :to="`/posts/${postData.url}`">
+      <nuxt-link :to="`/posts/${postUrl}`">
         <figure class="image is-4by3">
           <client-only>
             <img
@@ -18,7 +18,7 @@
             class="is-size-6 has-text-black has-text-weight-normal"
             style="line-height: 1.5em;"
           >
-            {{ postData.content | fmString(60) }}
+            {{ postDescription | fmString(60) }}
           </p>
         </div>
       </nuxt-link>
@@ -27,9 +27,9 @@
       <p class="is-size-6 is-uppercase has-text-grey-light">
         {{ postCategory }}
       </p>
-      <nuxt-link :to="`/posts/${postData.url}`">
+      <nuxt-link :to="`/posts/${postUrl}`">
         <span class="is-size-6 has-text-black has-text-weight-bold">{{
-          postData.title
+          postTitle
         }}</span>
       </nuxt-link>
     </div>
@@ -39,25 +39,34 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { categories } from "~/plugins/util-lists";
+import { categories } from "~/libs/lists";
 
 export default {
   props: {
-    postData: {
+    value: {
       type: Object,
       required: true
     }
   },
   computed: {
+    postUrl() {
+      return this.value.url
+    },
+    postTitle() {
+      return this.value.title
+    },
     postCategory() {
       const category = categories.find(
-        item => item.id === this.postData.category
+        item => item.id === this.value.category
       );
       return category.name;
     },
+    postDescription() {
+      return this.value.markdown
+    },
     postThumbnail() {
-      if (this.postData.images) {
-        return this.postData.images[0].url;
+      if (this.value.images) {
+        return this.value.images[0].url;
       } else {
         return "/icon-photo.png";
       }

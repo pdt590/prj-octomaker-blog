@@ -5,7 +5,7 @@ export default async function({ store, params, redirect }) {
     await store.dispatch("loadPost", params.postUrl);
   }
   const loadedPost = store.getters.loadedPost;
-  if (loadedPost._creator.id !== user.id) {
+  if (loadedPost.creator.id !== user.id) {
     redirect("/user/join");
   }
 }

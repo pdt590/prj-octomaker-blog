@@ -1,7 +1,7 @@
 <template>
   <div class="media v-media">
     <div class="media-left">
-      <nuxt-link :to="`/posts/${postData.url}`">
+      <nuxt-link :to="`/posts/${postUrl}`">
         <figure class="image is-96x96">
           <client-only>
             <img
@@ -18,8 +18,8 @@
     <div class="media-content" style="overflow: hidden;">
       <div class="content">
         <strong>
-          <nuxt-link :to="`/posts/${postData.url}`">{{
-            postData.title
+          <nuxt-link :to="`/posts/${postUrl}`">{{
+            postTitle
           }}</nuxt-link> </strong
         >&bull;
         <small class="is-uppercase">{{ postCategory }}</small>
@@ -40,25 +40,34 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { categories } from "~/plugins/util-lists";
+import { categories } from "~/libs/lists";
 
 export default {
   props: {
-    postData: {
+    value: {
       type: Object,
       required: true
     }
   },
   computed: {
+    postUrl() {
+      return this.value.url
+    },
+    postTitle() {
+      return this.value.title
+    },
     postCategory() {
       const category = categories.find(
-        item => item.id === this.postData.category
+        item => item.id === this.value.category
       );
       return category.name;
     },
+    postDescription() {
+      return this.value.markdown
+    },
     postThumbnail() {
-      if (this.postData.images) {
-        return this.postData.images[0].url;
+      if (this.value.images) {
+        return this.value.images[0].url;
       } else {
         return "/icon-photo.png";
       }

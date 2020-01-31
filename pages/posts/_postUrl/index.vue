@@ -4,8 +4,8 @@
       <div class="column is-10">
         <div class="card">
           <div class="card-content">
-            <h1 class="v-post-title">{{ loadedPost.title }}</h1>
-            <span v-html="loadedPost.html"></span>
+            <h1 class="v-post-title">{{ postTitle }}</h1>
+            <span v-html="postHtml"></span>
           </div>
         </div>
         <br />
@@ -134,25 +134,48 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { categories } from "~/libs/lists";
 
 export default {
   mounted() {
-    this.$initFbSDK();
+    this.$initFbSdk()
   },
   computed: {
     ...mapGetters(["user", "loadedPost", "postLoading"]),
     userAvatarUrl() {
-      if (this.loadedPost._creator.avatar) {
-        return this.loadedPost._creator.avatar.url;
+      if (this.loadedPost.creator.avatar) {
+        return this.loadedPost.creator.avatar.url;
       } else {
         return "/icon-user.png";
       }
     },
     userName() {
-      return this.loadedPost._creator.username;
+      return this.loadedPost.creator.username;
     },
     isEditable() {
-      return this.user && this.user.id === this.loadedPost._creator.id;
+      return this.user && this.user.id === this.loadedPost.creator.id;
+    },
+    postTitle() {
+      return this.loadedPost.title
+    },
+    postHtml() {
+      return this.loadedPost.html
+    },
+    postMode() {
+      return this.loadedPost.mode
+    },
+    postCategory() {
+      const category = categories.find(
+        item => item.id === this.loadedPost.category
+      );
+      return category.name;
+    },
+    postThumbnail() {
+      if (this.loadedPost.images) {
+        return this.loadedPost.images[0].url;
+      } else {
+        return `${process.env.baseUrl}/icon-photo.png`;
+      }
     }
   },
   async fetch({ app, store, params, error }) {
@@ -170,12 +193,12 @@ export default {
   },
   head() {
     return {
-      title: this.loadedPost.title,
+      title: this.postTitle,
       meta: [
         {
           hid: "description",
           name: "description",
-          content: this.loadedPost.content //TODO
+          content: "" //TODO
         },
         {
           hid: "og-url",
@@ -190,14 +213,12 @@ export default {
         {
           hid: "og-description",
           property: "og:description",
-          content: this.loadedPost.content //TODO
+          content: "" //TODO
         },
         {
           hid: "og-image",
           property: "og:image",
-          content: this.loadedPost.images
-            ? this.loadedPost.images[0].url
-            : `${process.env.baseUrl}/icon-photo.png`
+          content: this.postThumbnail
         }
       ]
     };

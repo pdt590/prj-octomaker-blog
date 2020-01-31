@@ -15,11 +15,13 @@ module.exports = {
       { hid: 'description', name: 'description', content: pkg.description }
     ],
     script: [
-			{ src: 'https://connect.facebook.net/vi_VN/all.js' }
+      { src: 'https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js' }
 		],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico?v1' },
-      { rel: 'stylesheet', href: '//cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css' }
+      { rel: 'stylesheet', href: '//cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css' },
+      //{ rel: 'stylesheet', href: '//cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css'},
+      //{ rel: 'stylesheet', href: '//cdnjs.cloudflare.com/ajax/libs/github-markdown-css/3.0.1/github-markdown.min.css'}
     ]
   },
 
@@ -39,17 +41,17 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    {src: '~plugins/addon-fc.js'},
-    {src: '~plugins/addon-ga.js'},
-    
-    {src: '~plugins/plugin-components.js'},
-    {src: '~plugins/plugin-buefy.js'},
-    {src: '~plugins/plugin-firebase.js'},
-    {src: '~plugins/plugin-vuelidate.js'},
-    {src: '~plugins/plugin-filter.js'},
-    {src: '~plugins/plugin-authListener.js'},
-    {src: '~plugins/plugin-lazyload.js', ssr: false},
-    {src: '~plugins/plugin-editor', ssr: false }
+    // Own plugins    
+    {src: '~plugins/components.js'},
+    {src: '~plugins/filters.js'},
+    {src: '~plugins/fc.js', mode: 'client'},
+    {src: '~plugins/ga.js', mode: 'client'},
+    {src: '~plugins/authevent.js', mode: 'client'},
+
+    {src: '~plugins/buefy.js'},
+    {src: '~plugins/vuelidate.js'},
+    {src: '~plugins/lazyload.js', mode: 'client'},
+    {src: '~plugins/simplemde.js', mode: 'client' }
   ],
 
   /*

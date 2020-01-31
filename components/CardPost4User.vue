@@ -1,7 +1,7 @@
 <template>
   <div class="media v-media">
     <div class="media-left">
-      <nuxt-link :to="`/posts/${postData.url}`">
+      <nuxt-link :to="`/posts/${postUrl}`">
         <figure class="image is-96x96">
           <client-only>
             <img
@@ -18,31 +18,28 @@
     <div class="media-content" style="overflow: hidden;">
       <div class="content">
         <strong>
-          <nuxt-link :to="`/posts/${postData.url}`">{{
-            postData.title
-          }}</nuxt-link>
+          <nuxt-link :to="`/posts/${postUrl}`">
+            {{
+            postTitle
+            }}
+          </nuxt-link>
         </strong>
         <small class="is-uppercase">- {{ postCategory }}</small>
         <!-- For mobile -->
         <div class="has-text-grey-light is-hidden-tablet">
           <b-icon icon="clock-outline" size="is-small"></b-icon>
-          {{ postData.updatedDate | fmDate }}
+          {{ postUpdatedDate | fmDate }}
         </div>
         <!--  -->
       </div>
       <!-- For mobile -->
       <div class="buttons is-hidden-tablet">
-        <a
-          class="button is-danger is-rounded is-outlined"
-          @click="isModalConfirmActive = true"
-          >Xóa</a
-        >
+        <a class="button is-danger is-rounded is-outlined" @click="isModalConfirmActive = true">Xóa</a>
         <nuxt-link
           class="button is-info is-rounded is-outlined"
-          :to="`/posts/${postData.url}/edit-post`"
+          :to="`/posts/${value.url}/edit-post`"
           target="_blank"
-          >Sửa</nuxt-link
-        >
+        >Sửa</nuxt-link>
       </div>
       <!--  -->
       <div class="level is-mobile is-hidden-mobile">
@@ -50,7 +47,7 @@
           <div class="level-item">
             <div class="has-text-grey-light">
               <b-icon icon="clock-outline" size="is-small"></b-icon>
-              {{ postData.updatedDate | fmDate }}
+              {{ postUpdatedDate | fmDate }}
             </div>
           </div>
         </div>
@@ -58,46 +55,51 @@
     </div>
     <div class="media-right is-hidden-mobile">
       <div class="buttons">
-        <a
-          class="button is-danger is-rounded is-outlined"
-          @click="isModalConfirmActive = true"
-          >Xóa</a
-        >
+        <a class="button is-danger is-rounded is-outlined" @click="isModalConfirmActive = true">Xóa</a>
         <nuxt-link
           class="button is-info is-rounded is-outlined"
-          :to="`/posts/${postData.url}/edit-post`"
+          :to="`/posts/${postUrl}/edit-post`"
           target="_blank"
-          >Sửa</nuxt-link
-        >
+        >Sửa</nuxt-link>
       </div>
     </div>
     <b-modal :active.sync="isModalConfirmActive" has-modal-card>
-      <v-modal-delete-confirm :postData="postData" />
+      <v-modal-confirm @delete="onDelete" />
     </b-modal>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import { categories } from "~/plugins/util-lists";
+import { categories } from "~/libs/lists";
 
 export default {
   props: {
-    postData: {
+    value: {
       type: Object,
       required: true
     }
   },
   computed: {
+    postUrl() {
+      return this.value.url;
+    },
+    postTitle() {
+      return this.value.title;
+    },
     postCategory() {
-      const category = categories.find(
-        item => item.id === this.postData.category
-      );
+      const category = categories.find(item => item.id === this.value.category);
       return category.name;
     },
+    postDescription() {
+      return this.value.markdown;
+    },
+    postUpdatedDate() {
+      return this.value.updatedDate;
+    },
     postThumbnail() {
-      if (this.postData.images) {
-        return this.postData.images[0].url;
+      if (this.value.images) {
+        return this.value.images[0].url;
       } else {
         return "/icon-photo.png";
       }
@@ -107,6 +109,13 @@ export default {
     return {
       isModalConfirmActive: false
     };
+  },
+  methods: {
+    async onDelete() {
+      await this.$store.dispatch("deletePostByUser", this.postUrl);
+      this.isModalConfirmActive = false;
+      location.reload();
+    }
   }
 };
 </script>

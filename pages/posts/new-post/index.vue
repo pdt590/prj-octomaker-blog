@@ -1,53 +1,49 @@
 <template>
   <div class="container">
     <form>
-      <b-field
-        label="Title"
-        expanded
-        :type="$v.postTitle.$error ? `is-danger` : ``"
-      >
+      <b-field label="Title" expanded :type="$v.postTitle.$invalid ? `is-danger` : ``">
         <b-input
           type="text"
           v-model.trim="postTitle"
           @blur="onChangeTitle"
           icon="post-outline"
+          :loading="titleLoading"
         ></b-input>
       </b-field>
 
       <b-field label="Danh mục">
-        <b-select v-model="postContent.category" expanded>
+        <b-select
+          v-model="postContent.category"
+          expanded
+          :disabled="$v.postTitle.$invalid || !isTitleAdded"
+        >
           <option
             v-for="(category, i) in categories"
             :key="i"
             :value="category.id"
-            >{{ category.name }}</option
-          >
+          >{{ category.name }}</option>
         </b-select>
       </b-field>
 
+      <!-- simpleMDE -->
       <b-field label="Nội dung">
         <client-only placeholder="Loading ...">
-          <mavon-editor
-            ref="md"
-            :toolbars="markdownOption"
-            :boxShadow="false"
-            :placeholder="placeholder"
-            :editable="!$v.postTitle.$invalid"
-            language="en"
-            @change="onSetContent"
-            @imgAdd="onAddImage"
-            @imgDel="onDeleteImage"
-          />
+          <vue-simplemde ref="markdownEditor" :configs="configs" v-model="postContent.markdown" />
         </client-only>
       </b-field>
+      <!--  -->
 
       <div class="block">
-        <b-radio v-model="postContent.mode" native-value="public"
-          >Public</b-radio
-        >
-        <b-radio v-model="postContent.mode" native-value="private"
-          >Private</b-radio
-        >
+        <b-radio
+          v-model="postContent.mode"
+          native-value="public"
+          :disabled="$v.postTitle.$invalid || !isTitleAdded"
+        >Public</b-radio>
+        <b-radio
+          v-model="postContent.mode"
+          native-value="private"
+          :disabled="$v.postTitle.$invalid || !isTitleAdded"
+        >Private</b-radio>
       </div>
 
       <button
@@ -56,78 +52,141 @@
         :disabled="$v.postTitle.$invalid"
         type="submit"
         @click.prevent="onPublish"
-      >
-        Đăng bài
-      </button>
+      >Publish</button>
       <button
         class="button is-info is-rounded"
-        :class="{ 'is-loading': postLoading }"
         :disabled="$v.postTitle.$invalid"
         type="submit"
-        @click.prevent="onDiscard"
-      >
-        Hủy
-      </button>
+        @click.prevent="isModalConfirmActive = true"
+      >Discard</button>
     </form>
+    <b-modal :active.sync="isModalLinkActive" scroll="keep">
+      <v-modal-link />
+    </b-modal>
+    <b-modal :active.sync="isModalImageActive" scroll="keep">
+      <v-modal-image :value="postImages" @select="onSelectImage" />
+    </b-modal>
+    <b-modal :active.sync="isModalConfirmActive" has-modal-card>
+      <v-modal-confirm @delete="onDelete" />
+    </b-modal>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import { isImage } from "~/plugins/util-helpers";
-import { categories } from "~/plugins/util-lists";
+import { isImage } from "~/libs/helpers";
+import { categories } from "~/libs/lists";
 import { required, maxLength } from "vuelidate/lib/validators";
 
 export default {
   middleware: "server-client-auth",
   computed: {
-    ...mapGetters(["loadedPost", "postLoading"])
+    ...mapGetters(["loadedPost", "titleLoading", "postLoading"]),
+    simplemde() {
+      return this.$refs.markdownEditor.simplemde;
+    },
+    postImages() {
+      
+      /**
+       * No deepCopy()
+       * Any changes makes loadedPost.images state change
+       * Use this.loadedPost in the case of deleting a post or no post added
+       */
+      
+      if (this.loadedPost && this.loadedPost.images) {
+        return this.loadedPost.images;
+      } else {
+        return [];
+      }
+    }
   },
   data() {
     return {
-      markdownOption: {
-        bold: true,
-        italic: true,
-        header: true,
-        underline: true,
-        strikethrough: true,
-        mark: true,
-        superscript: true,
-        subscript: true,
-        quote: true,
-        ol: true,
-        ul: true,
-        link: true,
-        imagelink: true,
-        code: true,
-        table: true,
-        fullscreen: true,
-        readmodel: true,
-        htmlcode: true,
-        help: true,
-        undo: true,
-        redo: true,
-        trash: true,
-        save: false,
-        navigation: true,
-        alignleft: true,
-        aligncenter: true,
-        alignright: true,
-        subfield: true,
-        preview: true
+      configs: {
+        placeholder: `Markdown syntax is supported. Click (?) for Help`,
+        renderingConfig: {
+          singleLineBreaks: true,
+          codeSyntaxHighlighting: true
+        },
+        toolbar: [
+          "bold",
+          "italic",
+          "strikethrough",
+          "heading-1",
+          "heading-2",
+          "heading-2",
+          "|",
+          "code",
+          "quote",
+          "unordered-list",
+          "ordered-list",
+          "table",
+          "horizontal-rule",
+          "clean-block",
+          "|",
+          {
+            name: "link",
+            action: () => {
+              this.isModalLinkActive = true;
+            },
+            className: "fa fa-link",
+            title: "Insert Link"
+          },
+          {
+            name: "image",
+            action: () => {
+              if (!this.$v.postTitle.$invalid && this.isTitleAdded) {
+                this.isModalImageActive = true;
+              }
+            },
+            className: "fa fa-image",
+            title: "Upload Image"
+          },
+          "|",
+          "preview",
+          "side-by-side",
+          "fullscreen",
+          "|",
+          "undo",
+          "redo",
+          "|",
+          {
+            name: "guide",
+            action: () => {
+              window.open(
+                "https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet",
+                "_blank"
+              );
+            },
+            className: "fa fa-question-circle",
+            title: "Help"
+          },
+          {
+            name: "emoji",
+            action: () => {
+              window.open("https://gist.github.com/rxaviers/7360908", "_blank");
+            },
+            className: "fa fa-smile-o",
+            title: "Emoji"
+          }
+        ]
       },
-      placeholder: `Markdown syntax is supported. Click (?) for Help`,
+
+      isModalLinkActive: false,
+      isModalImageActive: false,
+      isModalConfirmActive: false,
 
       categories: categories,
 
       postTitle: null,
-      postImages: [],
+      //postImages: [],
       postContent: {
-        category: "iot",
-        mode: "public",
-        content: "",
+        category: "others",
+        mode: "private",
+        markdown: "",
         html: ""
       },
+
       isTitleAdded: false
     };
   },
@@ -142,7 +201,7 @@ export default {
       mode: {
         required
       },
-      content: {
+      markdown: {
         required
       },
       html: {
@@ -152,6 +211,9 @@ export default {
   },
   methods: {
     async onPublish() {
+      this.postContent.html = this.simplemde.markdown(
+        this.postContent.markdown
+      );
       await this.$store.dispatch("addPostContent", this.postContent);
       if (this.postLoading) {
         this.$store.commit("setPostLoading", false);
@@ -165,7 +227,7 @@ export default {
         this.$router.push(`/posts/${postUrl}`);
       }
     },
-    async onDiscard() {
+    async onDelete() {
       await this.$store.dispatch("deletePost");
       if (this.postLoading) {
         this.$store.commit("setPostLoading", false);
@@ -174,8 +236,10 @@ export default {
           message: "onDiscard() Error",
           type: "is-danger"
         });
+      } else {
+        this.isModalConfirmActive = false;
+        this.$router.push("/");
       }
-      this.$router.push("/");
     },
     async onChangeTitle() {
       this.$v.postTitle.$touch();
@@ -196,27 +260,13 @@ export default {
         });
       }
     },
-    onSetContent(value, render) {
-      this.postContent.content = value;
-      this.postContent.html = render;
-    },
-
-    /**
-      :imageFilter="imageFilter" // Default filter runs well
-      imageFilter() { 
-        return isImage()
-      },
-    */
-
-    async onAddImage(pos, file) {
-      const uploadedImage = await this.$store.dispatch("addPostImage", file);
-      this.postImages.push(uploadedImage);
-      this.$refs.md.$img2Url(pos, uploadedImage.url);
-    },
-    async onDeleteImage(image) {
-      const selectedImage = this.postImages.find(item => item.url === image[0]);
-      await this.$store.dispatch("deletePostImage", selectedImage);
-      this.$refs.md.$imgUpdateByUrl(selectedImage.url, "");
+    async onSelectImage(image) {
+      const cm = this.simplemde.codemirror;
+      cm.replaceSelection(`![](${image.url})`);
+      this.isModalImageActive = false;
+      setTimeout(function() {
+        cm.focus();
+      }, 0);
     }
   },
   head() {

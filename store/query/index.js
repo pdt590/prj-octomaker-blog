@@ -1,4 +1,4 @@
-import firebase from "~/plugins/plugin-firebase";
+import firebase from "~/libs/firebase";
 const db = firebase.database();
 const postsRef = db.ref("posts");
 
@@ -48,7 +48,7 @@ export default {
       try {
         const userId = vuexContext.getters.user.id;
         const postsData = await postsRef
-          .orderByChild("_creator/id")
+          .orderByChild("creator/id")
           .equalTo(userId)
           .once("value");
         const loadedPosts = [];

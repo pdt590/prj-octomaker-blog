@@ -1,6 +1,6 @@
-import firebase from "~/plugins/plugin-firebase";
+import firebase from "~/libs/firebase";
 import Cookie from "js-cookie";
-import { compressImage } from "~/plugins/util-helpers";
+import { compressImage } from "~/libs/helpers";
 const database = firebase.database();
 const storage = firebase.storage();
 const usersRef = database.ref("users");
@@ -268,8 +268,9 @@ export default {
         const newAvatarName = userId + ext;
         const metaData = {
           name: newAvatarName,
+          orgName: cprAvatar.name,
           size: cprAvatar.size,
-          _creator: userId
+          creator: userId
         };
         await imageUsersRef
           .child(newAvatarName)
@@ -400,10 +401,6 @@ export default {
         const userAvatar = loadedUser.avatar;
         await vuexContext.dispatch("deletePostsByUser", userId);
         await usersRef.child(userId).remove();
-        if (userAvatar) {
-          await imageUsersRef.child(userAvatar.metadata.name).delete();
-        }
-
         let user = firebase.auth().currentUser;
         const credential = await firebase.auth.EmailAuthProvider.credential(
           user.email,
@@ -412,7 +409,9 @@ export default {
         await user.reauthenticateAndRetrieveDataWithCredential(credential);
         user = firebase.auth().currentUser;
         await user.delete();
-
+        if (userAvatar) {
+          await imageUsersRef.child(userAvatar.metadata.name).delete();
+        }
         Cookie.remove("uid");
         Cookie.remove("expirationDate");
         vuexContext.commit("setUser", null);

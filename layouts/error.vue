@@ -7,7 +7,7 @@
         </p>
         <p class="title is-3" v-else>{{ error.message }}</p>
         <nuxt-link class="subtitle is-4 has-text-link" to="/"
-          >Quay vể trang chủ</nuxt-link
+          >Quay về trang chủ</nuxt-link
         >
       </div>
     </div>

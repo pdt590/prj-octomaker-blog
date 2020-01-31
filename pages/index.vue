@@ -13,8 +13,8 @@
         v-for="(post, index) in loadedPosts"
         :key="index"
       >
-        <v-card-post class="is-hidden-mobile" :postData="post" />
-        <v-card-post-mobile class="is-hidden-tablet" :postData="post" />
+        <v-card-post class="is-hidden-mobile" :value="post" />
+        <v-card-post-mobile class="is-hidden-tablet" :value="post" />
       </div>
       <b-loading
         class="is-hidden-mobile"

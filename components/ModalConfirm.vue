@@ -11,13 +11,11 @@
               class="button is-grey is-outlined is-rounded is-medium"
               :class="{ 'is-loading': postLoading }"
               @click.prevent="onDelete"
-              >Đồng ý</a
-            >
+            >Agree</a>
             <a
               class="button is-grey is-outlined is-rounded is-medium"
               @click.prevent="$parent.close()"
-              >Hủy</a
-            >
+            >Cancel</a>
           </div>
         </section>
         <footer class="modal-card-foot"></footer>
@@ -30,17 +28,12 @@
 import { mapGetters } from "vuex";
 
 export default {
-  props: {
-    postData: Object
-  },
   computed: {
     ...mapGetters(["postLoading"])
   },
   methods: {
-    async onDelete() {
-      await this.$store.dispatch("deletePostByUser", this.postData.url);
-      this.$parent.close();
-      location.reload();
+    onDelete() {
+      this.$emit("delete");
     }
   }
 };
