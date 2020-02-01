@@ -11,7 +11,7 @@ Vue.prototype.$initFbSdk = () => {
   }
   setTimeout(() => {
     FB.XFBML.parse();
-  }, 2000);
+  }, 1000);
 }
 
 export default ({ app }) => {
@@ -19,7 +19,7 @@ export default ({ app }) => {
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) return;
     js = d.createElement(s); js.id = id;
-    js.src = 'https://connect.facebook.net/vi_VN/sdk.js';
+    js.src = 'https://connect.facebook.net/vi_VN/all.js';
     fjs.parentNode.insertBefore(js, fjs);
   }(document, 'script', 'facebook-jssdk'));
 }

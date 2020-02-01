@@ -1,9 +1,9 @@
 import Compressor from "compressorjs";
 
 export function compressImage(image) {
-  let quality = 0.4;
+  let quality = 0.6;
   if (image.size > 1000000) {
-    quality = 0.2;
+    quality = 0.4;
   }
   return new Promise((resolve, reject) => {
     new Compressor(image, {
@@ -43,6 +43,27 @@ export const isImage = value => {
 export const lessThan = inputValue => value => {
   return value < inputValue ? true : false;
 };
+
+export const isEmbedURL = value => {
+  if (value) {
+    if (
+      value.includes("youtube")     ||
+      value.includes("vimeo")       ||
+      value.includes("slideshare")  ||
+      value.includes("codepen")     ||
+      value.includes("gist")        ||
+      value.includes("jsFiddle")    ||
+      value.includes("googleSlide") ||
+      value.includes("soundcloud")
+    ) {
+      return true
+    } else {
+      return false
+    }
+  } else {
+    return false
+  }
+}
 
 // universally unique identifier
 export function genId(length) {

@@ -208,7 +208,7 @@ export default {
         {
           hid: "og-title",
           property: "og:title",
-          content: this.loadedPost.title
+          content: this.postTitle
         },
         {
           hid: "og-description",

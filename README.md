@@ -179,16 +179,12 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
 ## TODO
 
-- Re-write Card
 - Notify Internet Disconnection when saving - [Refer](https://nuxtjs.org/api/$nuxt)
 - Add highlight posts for each person
 - Re-check default style
 - Change Editor font/style as default style
-- Fix multiple images uploading issue
 - Remove old link when removing a image
-- Add loaded/uploaded images on mavon toolbar in edit-post
 - Remove special characteristic on title (square brackets ...)
-- Check Enter Search action
 - Improve edit-post
 - `404 GET /user/join` issue
 - Remove loading button when addTitle (Replace by loading title icon)
@@ -196,9 +192,8 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Fix invalid image upload issue
 - Fix long load issue when clicking edit
 - Fix Sign In/Up form
-- Deployment 
-  - https://dev.to/kiritchoukc/deploy-nuxt-on-firebase-4ad8
-  - https://dev.to/sakko/deploying-nuxtjs-on-google-cloud-run-1fic
-  - https://dev.to/vuevixens/dockerise-your-nuxt-ssr-app-like-a-boss-a-true-vue-vixens-story-4mm6
-  - https://itnext.io/deploying-a-nuxt-universal-app-to-azure-f61e5a85d8a2
-  - https://medium.com/@vipercodegames/nuxt-deploy-809eda0168fc
+- Fix Insert Embed issue on Editor
+- Check all input auth
+- Fix public/private post mode
+- Redesign CardPost
+- Implement remember-me login

@@ -17,8 +17,8 @@
           style="padding-top: 1rem"
         >
           <div class="column is-2" v-for="post in loadedPosts" :key="post.url">
-            <v-card-post class="is-hidden-mobile" :postData="post" />
-            <v-card-post-mobile class="is-hidden-tablet" :postData="post" />
+            <v-card-post class="is-hidden-mobile" :value="post" />
+            <v-card-post-mobile class="is-hidden-tablet" :value="post" />
           </div>
         </div>
         <b-pagination

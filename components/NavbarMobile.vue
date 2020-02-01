@@ -5,29 +5,16 @@
         <nuxt-link class="navbar-item v-logo" to="/"></nuxt-link>
 
         <div class="navbar-end">
-          <a
-            class="navbar-item"
-            data-target="mobile-search"
-            @click="onActiveSearch"
-          >
+          <a class="navbar-item" data-target="mobile-search" @click="onActiveSearch">
             <b-icon
               :icon="isSearchActive ? `close-box` : `magnify`"
               :type="isSearchActive ? `is-danger` : ``"
             ></b-icon>
           </a>
-          <a
-            class="navbar-item"
-            data-target="mobile-new-post"
-            @click="onOpenNewPost"
-            v-if="user"
-          >
+          <a class="navbar-item" data-target="mobile-new-post" @click="onOpenNewPost" v-if="user">
             <b-icon icon="plus-box-outline"></b-icon>
           </a>
-          <a
-            class="navbar-item"
-            data-target="mobile-page-list"
-            @click="onActiveCategories"
-          >
+          <a class="navbar-item" data-target="mobile-page-list" @click="onActiveCategories">
             <b-icon
               :icon="
                 isCategoriesActive ? `close-box` : `view-dashboard-outline`
@@ -35,11 +22,7 @@
               :type="isCategoriesActive ? `is-danger` : ``"
             ></b-icon>
           </a>
-          <a
-            class="navbar-item"
-            data-target="mobile-menu"
-            @click="onActiveProfile"
-          >
+          <a class="navbar-item" data-target="mobile-menu" @click="onActiveProfile">
             <client-only v-if="user && !isProfileActive">
               <img
                 class="v-nav-avatar-mobile"
@@ -58,38 +41,24 @@
         </div>
       </div>
 
-      <div
-        id="mobile-search"
-        class="navbar-menu"
-        :class="{ 'is-active': isSearchActive }"
-      >
+      <div id="mobile-search" class="navbar-menu" :class="{ 'is-active': isSearchActive }">
         <div class="navbar-start">
           <div class="navbar-item">
-            <b-field position="is-centered">
-              <b-autocomplete v-model="searchKey" icon="magnify">
-                <template slot="empty"></template>
-              </b-autocomplete>
-              <div class="control">
-                <button class="button" @click="onSearch">Tìm Kiếm</button>
-              </div>
-            </b-field>
+            <form>
+              <b-field position="is-centered">
+                <b-input placeholder="Search..." type="text" icon="magnify" v-model="searchKey"></b-input>
+                <button class="button" @click.prevent="onSearch">Tìm Kiếm</button>
+              </b-field>
+            </form>
           </div>
         </div>
       </div>
 
-      <div
-        id="mobile-page-list"
-        class="navbar-menu"
-        :class="{ 'is-active': isCategoriesActive }"
-      >
+      <div id="mobile-page-list" class="navbar-menu" :class="{ 'is-active': isCategoriesActive }">
         <div class="navbar-item has-dropdown is-hoverable">
           <div class="navbar-dropdown">
             <b-collapse v-for="(category, i) in categories" :key="i">
-              <nuxt-link
-                class="navbar-item"
-                :to="`/query/?key=${category.id}`"
-                slot="trigger"
-              >
+              <nuxt-link class="navbar-item" :to="`/query/?key=${category.id}`" slot="trigger">
                 <b-icon :icon="category.icon"></b-icon>
                 <p class="is-size-6">{{ category.name }}</p>
               </nuxt-link>
@@ -98,11 +67,7 @@
         </div>
       </div>
 
-      <div
-        id="mobile-menu"
-        class="navbar-menu"
-        :class="{ 'is-active': isProfileActive }"
-      >
+      <div id="mobile-menu" class="navbar-menu" :class="{ 'is-active': isProfileActive }">
         <div
           class="navbar-item"
           v-if="
@@ -148,9 +113,7 @@
     </nav>
 
     <div v-if="isAuthMessage" style="margin-top: 4rem;">
-      <b-message type="is-danger" size="is-small"
-        >Tài khoản chưa được kích hoạt</b-message
-      >
+      <b-message type="is-danger" size="is-small">Tài khoản chưa được kích hoạt</b-message>
     </div>
   </div>
 </template>

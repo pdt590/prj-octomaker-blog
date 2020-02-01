@@ -18,3 +18,4 @@ Vue.component("v-modal-join", () => import("~/components/ModalJoin"));
 Vue.component("v-modal-confirm", () => import("~/components/ModalConfirm"));
 Vue.component("v-modal-link", () => import("~/components/ModalLink"));
 Vue.component("v-modal-image", () => import("~/components/ModalImage"));
+Vue.component("v-modal-embed", () => import("~/components/ModalEmbed"));

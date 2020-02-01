@@ -8,11 +8,9 @@
         </header>
         <section class="modal-card-body">
           <b-field
-            label="Username*"
-            :type="$v.formDataSignup.username.$error ? `is-danger` : ``"
-            :message="
-              !$v.formDataSignup.username.minlen ? `Tối thiểu 6 kí tự` : ``
-            "
+            label="Username"
+            :type="$v.formDataSignup.username.$error ? `is-danger` : `` "
+            :message="!$v.formDataSignup.username.minlen ? `At least 6 characters` : ``"
           >
             <b-input
               type="text"
@@ -23,17 +21,9 @@
           </b-field>
 
           <b-field
-            label="Email*"
-            :type="
-              $v.formDataSignup.email.$error || !responseSignup
-                ? `is-danger`
-                : ``
-            "
-            :message="
-              !$v.formDataSignup.email.email || !responseSignup
-                ? `Nhập email hợp lệ`
-                : ``
-            "
+            label="Email"
+            :type="$v.formDataSignup.email.$error ? `is-danger` : ``"
+            :message="!$v.formDataSignup.email.email ? `Invalid email` : ``"
           >
             <b-input
               type="email"
@@ -44,11 +34,9 @@
           </b-field>
 
           <b-field
-            label="Password*"
+            label="Password"
             :type="$v.formDataSignup.password.$error ? `is-danger` : ``"
-            :message="
-              !$v.formDataSignup.password.minlen ? `Tối thiểu 6 kí tự` : ``
-            "
+            :message="!$v.formDataSignup.password.minlen ? `At least 6 characters` : ``"
           >
             <b-input
               type="password"
@@ -59,28 +47,22 @@
             ></b-input>
           </b-field>
 
-          <b-checkbox>Remember me</b-checkbox>
+          <!-- <b-checkbox>Remember me</b-checkbox> -->
         </section>
         <footer class="modal-card-foot" style="justify-content: space-between">
-          <a @click.prevent="isSignup = !isSignup">{{
+          <a @click.prevent="isSignup = !isSignup">
+            {{
             isSignup ? `Đăng nhập?` : `Đăng ký?`
-          }}</a>
+            }}
+          </a>
           <div class="buttons" style="justify-content: flex-end">
-            <button
-              class="button is-rounded"
-              type="button"
-              @click="$parent.close()"
-            >
-              Close
-            </button>
+            <button class="button is-rounded" type="button" @click="$parent.close()">Close</button>
             <button
               class="button is-info is-rounded"
               :class="{ 'is-loading': authLoading }"
               :disabled="$v.formDataSignup.$invalid"
               @click.prevent="onSignup"
-            >
-              Đăng ký
-            </button>
+            >Đăng ký</button>
           </div>
         </footer>
       </div>
@@ -94,14 +76,8 @@
         <section class="modal-card-body">
           <b-field
             label="Email"
-            :type="
-              $v.formDataLogin.email.$error || !responseLogin ? `is-danger` : ``
-            "
-            :message="
-              !$v.formDataLogin.email.email || !responseLogin
-                ? `Nhập email hợp lệ`
-                : ``
-            "
+            :type="$v.formDataLogin.email.$error ? `is-danger` : ``"
+            :message="!$v.formDataLogin.email.email ? `Invalid email` : ``"
           >
             <b-input
               type="email"
@@ -114,9 +90,7 @@
           <b-field
             label="Password"
             :type="$v.formDataLogin.password.$error ? `is-danger` : ``"
-            :message="
-              !$v.formDataLogin.password.minlen ? `Tối thiểu 6 kí tự` : ``
-            "
+            :message="!$v.formDataLogin.password.minlen ? `At least 6 characters` : ``"
           >
             <b-input
               type="password"
@@ -127,32 +101,26 @@
             ></b-input>
           </b-field>
 
-          <b-checkbox>Remember me</b-checkbox>
+          <!-- <b-checkbox>Remember me</b-checkbox> -->
         </section>
         <footer class="modal-card-foot" style="justify-content: space-between;">
           <p>
-            <a @click.prevent="isSignup = !isSignup">{{
+            <a @click.prevent="isSignup = !isSignup">
+              {{
               isSignup ? `Đăng nhập?` : `Đăng ký?`
-            }}</a>
+              }}
+            </a>
             <br />
             <a @click="onFgPassword">Quên mật khẩu?</a>
           </p>
           <div class="buttons" style="justify-content: flex-end">
-            <button
-              class="button is-rounded"
-              type="button"
-              @click="$parent.close()"
-            >
-              Close
-            </button>
+            <button class="button is-rounded" type="button" @click="$parent.close()">Close</button>
             <button
               class="button is-info is-rounded"
               :class="{ 'is-loading': authLoading }"
               :disabled="$v.formDataLogin.$invalid"
               @click.prevent="onLogin"
-            >
-              Đăng nhập
-            </button>
+            >Đăng nhập</button>
           </div>
         </footer>
       </div>
@@ -180,8 +148,6 @@ export default {
         email: null,
         password: null
       },
-      responseSignup: true,
-      responseLogin: true,
       isSignup: false
     };
   },

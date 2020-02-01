@@ -9,14 +9,12 @@
           <div class="navbar-start"></div>
           <div class="v-navbar-center">
             <div class="navbar-item">
-              <b-field position="is-centered">
-                <b-autocomplete v-model="searchKey" icon="magnify">
-                  <template slot="empty"></template>
-                </b-autocomplete>
-                <div class="control">
-                  <button class="button" @click="onSearch">Tìm Kiếm</button>
-                </div>
-              </b-field>
+              <form>
+                <b-field position="is-centered">
+                  <b-input placeholder="Search..." type="text" icon="magnify" v-model="searchKey"></b-input>
+                  <button class="button" @click.prevent="onSearch">Tìm Kiếm</button>
+                </b-field>
+              </form>
             </div>
           </div>
           <div class="navbar-end">
@@ -30,22 +28,13 @@
               "
             >
               <div class="buttons">
-                <a
-                  class="button is-info is-rounded is-outlined"
-                  @click="isModalJoinActive = true"
-                >
+                <a class="button is-info is-rounded is-outlined" @click="isModalJoinActive = true">
                   <strong>Đăng nhập</strong>
                 </a>
               </div>
             </div>
-            <div
-              class="navbar-item"
-              v-if="user && $route.path !== '/posts/new-post'"
-            >
-              <nuxt-link
-                class="button is-info is-rounded is-outlined"
-                to="/posts/new-post"
-              >
+            <div class="navbar-item" v-if="user && $route.path !== '/posts/new-post'">
+              <nuxt-link class="button is-info is-rounded is-outlined" to="/posts/new-post">
                 <strong>Tạo bài viết</strong>
               </nuxt-link>
             </div>
@@ -123,9 +112,7 @@
     </nav>
 
     <div class="container" v-if="isAuthMessage">
-      <b-message type="is-danger" size="is-small"
-        >Tài khoản chưa được kích hoạt</b-message
-      >
+      <b-message type="is-danger" size="is-small">Tài khoản chưa được kích hoạt</b-message>
     </div>
   </div>
 </template>

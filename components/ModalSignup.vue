@@ -9,7 +9,7 @@
           <b-field
             label="Username*"
             :type="$v.formData.username.$error ? `is-danger` : ``"
-            :message="!$v.formData.username.minlen ? `Tối thiểu 6 kí tự` : ``"
+            :message="!$v.formData.username.minlen ? `At least 6 characters` : ``"
           >
             <b-input
               type="text"
@@ -21,10 +21,8 @@
 
           <b-field
             label="Email*"
-            :type="$v.formData.email.$error || !response ? `is-danger` : ``"
-            :message="
-              !$v.formData.email.email || !response ? `Nhập email hợp lệ` : ``
-            "
+            :type="$v.formData.email.$error ? `is-danger` : ``"
+            :message="!$v.formData.email.email ? `Invalid email` : ``"
           >
             <b-input
               type="email"
@@ -37,7 +35,7 @@
           <b-field
             label="Password*"
             :type="$v.formData.password.$error ? `is-danger` : ``"
-            :message="!$v.formData.password.minlen ? `Tối thiểu 6 kí tự` : ``"
+            :message="!$v.formData.password.minlen ? `At least 6 characters` : ``"
           >
             <b-input
               type="password"
@@ -48,24 +46,16 @@
             ></b-input>
           </b-field>
 
-          <b-checkbox>Remember me</b-checkbox>
+          <!-- <b-checkbox>Remember me</b-checkbox> -->
         </section>
         <footer class="modal-card-foot" style="justify-content: flex-end">
-          <button
-            class="button is-rounded"
-            type="button"
-            @click="$parent.close()"
-          >
-            Close
-          </button>
+          <button class="button is-rounded" type="button" @click="$parent.close()">Close</button>
           <button
             class="button is-info is-rounded"
             :class="{ 'is-loading': authLoading }"
             :disabled="$v.formData.$invalid"
             @click.prevent="onSignup"
-          >
-            Đăng ký
-          </button>
+          >Đăng ký</button>
         </footer>
       </div>
     </form>
@@ -87,8 +77,7 @@ export default {
         username: "",
         email: "",
         password: ""
-      },
-      response: true
+      }
     };
   },
   validations: {

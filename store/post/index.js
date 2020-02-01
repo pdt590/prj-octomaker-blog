@@ -114,11 +114,11 @@ export default {
         let update = {};
         loadedImages
           ? (update = {
-              images: [...loadedImages, ...uploadedImages]
-            })
+            images: [...loadedImages, ...uploadedImages]
+          })
           : (update = {
-              images: [...uploadedImages]
-            });
+            images: [...uploadedImages]
+          });
         await postsRef.child(postId).update(update);
         vuexContext.commit("setPost", {
           ...loadedPost,
@@ -226,7 +226,7 @@ export default {
         postsData.forEach(postData => {
           updatedUser.username !== undefined
             ? (updates[`${postData.key}/creator/username`] =
-                updatedUser.username)
+              updatedUser.username)
             : ``;
           updatedUser.avatar !== undefined
             ? (updates[`${postData.key}/creator/avatar`] = updatedUser.avatar)

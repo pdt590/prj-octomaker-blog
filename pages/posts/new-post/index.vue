@@ -1,7 +1,8 @@
 <template>
   <div class="container">
     <form>
-      <b-field label="Title" expanded :type="$v.postTitle.$invalid ? `is-danger` : ``">
+      <b-field label="Title" expanded 
+      :type="$v.postTitle.$error ? `is-danger` : ``">
         <b-input
           type="text"
           v-model.trim="postTitle"
@@ -60,15 +61,21 @@
         @click.prevent="isModalConfirmActive = true"
       >Discard</button>
     </form>
-    <b-modal :active.sync="isModalLinkActive" scroll="keep">
-      <v-modal-link />
+
+    <!-- Modal -->
+    <b-modal :active.sync="isModalLinkActive" has-modal-card>
+      <v-modal-link @insert="onInsertLink" />
     </b-modal>
-    <b-modal :active.sync="isModalImageActive" scroll="keep">
+    <b-modal :active.sync="isModalImageActive" has-modal-card>
       <v-modal-image :value="postImages" @select="onSelectImage" />
+    </b-modal>
+    <b-modal :active.sync="isModalEmbedActive" has-modal-card>
+      <v-modal-embed @insert="onInsertEmbed" />
     </b-modal>
     <b-modal :active.sync="isModalConfirmActive" has-modal-card>
       <v-modal-confirm @delete="onDelete" />
     </b-modal>
+    <!--  -->
   </div>
 </template>
 
@@ -104,6 +111,7 @@ export default {
     return {
       configs: {
         placeholder: `Markdown syntax is supported. Click (?) for Help`,
+        promptURLs: true,
         renderingConfig: {
           singleLineBreaks: true,
           codeSyntaxHighlighting: true
@@ -114,7 +122,7 @@ export default {
           "strikethrough",
           "heading-1",
           "heading-2",
-          "heading-2",
+          "heading-3",
           "|",
           "code",
           "quote",
@@ -141,6 +149,14 @@ export default {
             },
             className: "fa fa-image",
             title: "Upload Image"
+          },
+          {
+            name: "embed",
+            action: () => {
+              this.isModalEmbedActive = true;
+            },
+            className: "fa fa-file-code-o",
+            title: "Add Embed"
           },
           "|",
           "preview",
@@ -174,11 +190,12 @@ export default {
 
       isModalLinkActive: false,
       isModalImageActive: false,
+      isModalEmbedActive: false,
       isModalConfirmActive: false,
 
       categories: categories,
 
-      postTitle: null,
+      postTitle: "",
       //postImages: [],
       postContent: {
         category: "others",
@@ -193,20 +210,6 @@ export default {
   validations: {
     postTitle: {
       required
-    },
-    postContent: {
-      category: {
-        required
-      },
-      mode: {
-        required
-      },
-      markdown: {
-        required
-      },
-      html: {
-        required
-      }
     }
   },
   methods: {
@@ -264,6 +267,22 @@ export default {
       const cm = this.simplemde.codemirror;
       cm.replaceSelection(`![](${image.url})`);
       this.isModalImageActive = false;
+      setTimeout(function() {
+        cm.focus();
+      }, 0);
+    },
+    onInsertLink(link) {
+      const cm = this.simplemde.codemirror;
+      cm.replaceSelection(`[](${link})`);
+      this.isModalLinkActive = false;
+      setTimeout(function() {
+        cm.focus();
+      }, 0);
+    },
+    onInsertEmbed(link) { // TODO
+      const cm = this.simplemde.codemirror;
+      cm.replaceSelection(`{@embed: ${link} }`);
+      this.isModalEmbedActive = false;
       setTimeout(function() {
         cm.focus();
       }, 0);

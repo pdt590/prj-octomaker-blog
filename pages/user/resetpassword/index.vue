@@ -9,13 +9,9 @@
             </header>
             <div class="card-content">
               <b-field
-                label="Nhập Email*"
-                :type="$v.formData.email.$error || !response ? `is-danger` : ``"
-                :message="
-                  !$v.formData.email.email || !response
-                    ? `Nhập email hợp lệ`
-                    : ``
-                "
+                label="Email"
+                :type="$v.formData.email.$error ? `is-danger` : ``"
+                :message="!$v.formData.email.email ? `Invalid email`: ``"
               >
                 <b-input
                   type="email"
@@ -32,9 +28,7 @@
                   :class="{ 'is-loading': authLoading }"
                   :disabled="$v.formData.$invalid"
                   @click.prevent="onResetPassword"
-                >
-                  Gửi yêu cầu
-                </button>
+                >Send</button>
               </div>
             </footer>
           </div>
@@ -61,8 +55,7 @@ export default {
     return {
       formData: {
         email: null
-      },
-      response: true
+      }
     };
   },
   validations: {

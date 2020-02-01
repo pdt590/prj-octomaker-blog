@@ -6,19 +6,16 @@
           <nuxt-link to="/">Trang chủ</nuxt-link>
         </li>
         <li class="is-active">
-          <a>Tìm kiếm "{{ queryKey }}"</a>
+          <a>{{ queryName }}</a>
         </li>
       </ul>
     </nav>
     <div class="card">
       <div class="card-content">
-        <div
-          class="columns is-multiline is-variable is-1"
-          style="padding-top: 1rem"
-        >
+        <div class="columns is-multiline is-variable is-1" style="padding-top: 1rem">
           <div class="column is-2" v-for="post in loadedPosts" :key="post.url">
-            <v-card-post class="is-hidden-mobile" :postData="post" />
-            <v-card-post-mobile class="is-hidden-tablet" :postData="post" />
+            <v-card-post class="is-hidden-mobile" :value="post" />
+            <v-card-post-mobile class="is-hidden-tablet" :value="post" />
           </div>
         </div>
         <b-pagination
@@ -36,6 +33,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { categories } from "~/libs/lists";
 
 export default {
   computed: {
@@ -52,8 +50,10 @@ export default {
       store.commit("setQueryLoading", false);
       error({ statusCode: 500, message: "loadCategorizedPosts() Error" });
     }
+    const category = categories.find(item => item.id === queryKey);
+    const queryName = category.name;
     return {
-      queryKey: queryKey,
+      queryName: queryName,
       loadedPosts: loadedPosts
     };
   },
