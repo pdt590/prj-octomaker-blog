@@ -1,9 +1,9 @@
 <template>
   <div class="container">
     <form>
-      <b-field label="Title" expanded 
-      :type="$v.postTitle.$error ? `is-danger` : ``">
+      <b-field class="content" :type="$v.postTitle.$error ? `is-danger` : ``">
         <b-input
+          placeholder="Title"
           type="text"
           v-model.trim="postTitle"
           @blur="onChangeTitle"
@@ -12,11 +12,13 @@
         ></b-input>
       </b-field>
 
-      <b-field label="Danh mục">
+      <b-field class="content">
         <b-select
+          placeholder="Danh mục"
           v-model="postContent.category"
           expanded
           :disabled="$v.postTitle.$invalid || !isTitleAdded"
+          icon="check-circle"
         >
           <option
             v-for="(category, i) in categories"
@@ -27,9 +29,14 @@
       </b-field>
 
       <!-- simpleMDE -->
-      <b-field label="Nội dung">
+      <b-field>
         <client-only placeholder="Loading ...">
-          <vue-simplemde ref="markdownEditor" :configs="configs" v-model="postContent.markdown" />
+          <vue-simplemde
+            ref="markdownEditor"
+            :configs="configs"
+            v-model="postContent.markdown"
+            preview-class="markdown-body"
+          />
         </client-only>
       </b-field>
       <!--  -->
@@ -93,13 +100,6 @@ export default {
       return this.$refs.markdownEditor.simplemde;
     },
     postImages() {
-      
-      /**
-       * No deepCopy()
-       * Any changes makes loadedPost.images state change
-       * Use this.loadedPost in the case of deleting a post or no post added
-       */
-      
       if (this.loadedPost && this.loadedPost.images) {
         return this.loadedPost.images;
       } else {
@@ -110,12 +110,9 @@ export default {
   data() {
     return {
       configs: {
+        autofocus: true,
         placeholder: `Markdown syntax is supported. Click (?) for Help`,
-        promptURLs: true,
-        renderingConfig: {
-          singleLineBreaks: true,
-          codeSyntaxHighlighting: true
-        },
+        spellChecker: false,
         toolbar: [
           "bold",
           "italic",
@@ -135,6 +132,8 @@ export default {
           {
             name: "link",
             action: () => {
+              console.log("simplemde", this.simplemde);
+              console.log("codemirror", this.simplemde.codemirror);
               this.isModalLinkActive = true;
             },
             className: "fa fa-link",
@@ -184,6 +183,15 @@ export default {
             },
             className: "fa fa-smile-o",
             title: "Emoji"
+          },
+                    {
+            name: "test",
+            action: () => {
+              console.log("simplemde", this.simplemde);
+              console.log("codemirror", this.simplemde.codemirror);
+            },
+            className: "fa fa-commenting-o",
+            title: "Click for Test"
           }
         ]
       },
@@ -198,7 +206,7 @@ export default {
       postTitle: "",
       //postImages: [],
       postContent: {
-        category: "others",
+        category: "iot",
         mode: "private",
         markdown: "",
         html: ""
@@ -210,6 +218,11 @@ export default {
   validations: {
     postTitle: {
       required
+    },
+    postContent: {
+      category: {
+        required
+      }
     }
   },
   methods: {
@@ -264,6 +277,12 @@ export default {
       }
     },
     async onSelectImage(image) {
+      /* 
+      window.prompt = () => {
+        return image.url;
+      };
+      this.simplemde.drawImage();
+      */
       const cm = this.simplemde.codemirror;
       cm.replaceSelection(`![](${image.url})`);
       this.isModalImageActive = false;
@@ -272,12 +291,11 @@ export default {
       }, 0);
     },
     onInsertLink(link) {
-      const cm = this.simplemde.codemirror;
-      cm.replaceSelection(`[](${link})`);
+      window.prompt = () => {
+        return link;
+      };
+      this.simplemde.drawLink();
       this.isModalLinkActive = false;
-      setTimeout(function() {
-        cm.focus();
-      }, 0);
     },
     onInsertEmbed(link) { // TODO
       const cm = this.simplemde.codemirror;

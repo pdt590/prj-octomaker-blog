@@ -188,12 +188,11 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Improve edit-post
 - `404 GET /user/join` issue
 - Remove loading button when addTitle (Replace by loading title icon)
-- Disable image upload before addTitle
 - Fix invalid image upload issue
 - Fix long load issue when clicking edit
-- Fix Sign In/Up form
 - Fix Insert Embed issue on Editor
-- Check all input auth
 - Fix public/private post mode
 - Redesign CardPost
 - Implement remember-me login
+- Change console.log() to console.error() - [Reference](https://medium.com/12bit/console-c%C3%B2n-g%C3%AC-kh%C3%A1c-ngo%C3%A0i-console-log-9aa484c1782d)
+- Fix duplicated image upload issue - [Reference](https://dev.to/pixari/what-is-the-best-solution-for-removing-duplicate-objects-from-an-array-4fe1)

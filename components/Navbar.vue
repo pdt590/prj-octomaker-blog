@@ -12,7 +12,7 @@
               <form>
                 <b-field position="is-centered">
                   <b-input placeholder="Search..." type="text" icon="magnify" v-model="searchKey"></b-input>
-                  <button class="button" @click.prevent="onSearch">Tìm Kiếm</button>
+                  <button class="button" type="submit" @click.prevent="onSearch">Tìm Kiếm</button>
                 </b-field>
               </form>
             </div>
@@ -166,6 +166,7 @@ export default {
 .navbar {
   border: none;
   border-bottom: 1px solid #d8d8d8;
+  z-index: 6;
   &.v-tag-navbar {
     margin-top: 4.5rem; //$navbar-height: 4.5rem;
     z-index: 5;

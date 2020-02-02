@@ -1,26 +1,6 @@
 <template>
   <div class="container">
     <div class="columns">
-      <div class="column is-10">
-        <div class="card">
-          <div class="card-content">
-            <h1 class="v-post-title">{{ postTitle }}</h1>
-            <span v-html="postHtml"></span>
-          </div>
-        </div>
-        <br />
-        <div class="card">
-          <div class="card-content">
-            <div id="fb-root"></div>
-            <div
-              class="fb-comments"
-              :data-href="`${baseUrl}/posts/${$route.params.postUrl}`"
-              data-numposts="5"
-              data-width="100%"
-            ></div>
-          </div>
-        </div>
-      </div>
       <div class="column is-2">
         <div style="position: sticky; top: 8rem;">
           <!-- for computer -->
@@ -128,6 +108,30 @@
           <!--  -->
         </div>
       </div>
+      <div class="column is-10">
+        <div class="card">
+          <div class="card-content">
+            <!-- Content -->
+            <h1 class="v-post-title">{{ postTitle }}</h1>
+            <article class="markdown-body">
+              <span v-html="postHtml"></span>
+            </article>
+            <!--  -->
+          </div>
+        </div>
+        <br />
+        <div class="card">
+          <div class="card-content">
+            <div id="fb-root"></div>
+            <div
+              class="fb-comments"
+              :data-href="`${baseUrl}/posts/${$route.params.postUrl}`"
+              data-numposts="5"
+              data-width="100%"
+            ></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -138,7 +142,7 @@ import { categories } from "~/libs/lists";
 
 export default {
   mounted() {
-    this.$initFbSdk()
+    this.$initFbSdk();
   },
   computed: {
     ...mapGetters(["user", "loadedPost", "postLoading"]),
@@ -156,13 +160,13 @@ export default {
       return this.user && this.user.id === this.loadedPost.creator.id;
     },
     postTitle() {
-      return this.loadedPost.title
+      return this.loadedPost.title;
     },
     postHtml() {
-      return this.loadedPost.html
+      return this.loadedPost.html;
     },
     postMode() {
-      return this.loadedPost.mode
+      return this.loadedPost.mode;
     },
     postCategory() {
       const category = categories.find(

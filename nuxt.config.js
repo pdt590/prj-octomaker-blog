@@ -14,14 +14,9 @@ module.exports = {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: pkg.description }
     ],
-    script: [
-      { src: 'https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js' }
-		],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico?v1' },
       { rel: 'stylesheet', href: '//cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css' },
-      //{ rel: 'stylesheet', href: '//cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css'},
-      //{ rel: 'stylesheet', href: '//cdnjs.cloudflare.com/ajax/libs/github-markdown-css/3.0.1/github-markdown.min.css'}
     ]
   },
 
@@ -34,7 +29,9 @@ module.exports = {
   ** Global CSS
   */
   css: [
-    '~assets/styles/bulma.scss'
+    '~assets/styles/bulma.scss',
+    'simplemde/dist/simplemde.min.css',
+    "github-markdown-css/github-markdown.css"
   ],
 
   /*
@@ -51,7 +48,9 @@ module.exports = {
     {src: '~plugins/buefy.js'},
     {src: '~plugins/vuelidate.js'},
     {src: '~plugins/lazyload.js', mode: 'client'},
-    {src: '~plugins/simplemde.js', mode: 'client' }
+    {src: '~plugins/simplemde.js', mode: 'client' },
+
+    {src: '~plugins/test.js', mode: 'client' }
   ],
 
   /*

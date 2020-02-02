@@ -1,7 +1,3 @@
-// https://nuxtjs.org/faq/google-analytics
-// https://github.com/nuxt-community/analytics-module
-// https://github.com/nuxt/docs/blob/master/en/faq/google-analytics.md
-
 export default ({ app }) => {
   /*
   ** Only run on client-side and only in production mode

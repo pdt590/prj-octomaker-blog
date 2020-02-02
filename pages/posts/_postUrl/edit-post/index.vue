@@ -2,8 +2,9 @@
   <div class="container">
     <form>
       <!-- Post info -->
-      <b-field label="Title" expanded :type="$v.postTitle.$error ? `is-danger` : ``">
+      <b-field class="content" :type="$v.postTitle.$error ? `is-danger` : ``">
         <b-input
+          placeholder="Title"
           type="text"
           v-model.trim="postTitle"
           @blur="onChangeTitle"
@@ -12,8 +13,14 @@
         ></b-input>
       </b-field>
 
-      <b-field label="Danh mục">
-        <b-select v-model="postContent.category" expanded :disabled="$v.postTitle.$invalid">
+      <b-field class="content">
+        <b-select
+          placeholder="Danh mục"
+          v-model="postContent.category"
+          expanded
+          :disabled="$v.postTitle.$invalid"
+          icon="check-circle"
+        >
           <option
             v-for="(category, i) in categories"
             :key="i"
@@ -23,9 +30,14 @@
       </b-field>
 
       <!-- simpleMDE -->
-      <b-field label="Nội dung">
+      <b-field>
         <client-only placeholder="Loading ...">
-          <vue-simplemde ref="markdownEditor" :configs="configs" v-model="postContent.markdown" />
+          <vue-simplemde
+            ref="markdownEditor"
+            :configs="configs"
+            v-model="postContent.markdown"
+            preview-class="markdown-body"
+          />
         </client-only>
       </b-field>
       <!--  -->
@@ -56,6 +68,12 @@
         type="submit"
         @click.prevent="isModalConfirmActive = true"
       >Delete</button>
+      <button
+        class="button is-info is-rounded"
+        :disabled="$v.postTitle.$invalid"
+        type="submit"
+        @click.prevent="$router.push(`/posts/${postUrl}`)"
+      >Back</button>
     </form>
 
     <!-- Modal -->
@@ -92,7 +110,7 @@ import {
 
 export default {
   middleware: ["server-client-auth", "server-client-edit-permission"],
-  mounted() {
+  created() { // Display empty post when using mounted()
     this.postTitle = this.loadedPost.title;
 
     this.postContent = {
@@ -114,14 +132,10 @@ export default {
     simplemde() {
       return this.$refs.markdownEditor.simplemde;
     },
+    postUrl() {
+      return this.loadedPost.url;
+    },
     postImages() {
-      
-      /**
-       * No deepCopy()
-       * Any changes makes loadedPost.images state change
-       * Use this.loadedPost in the case of deleting a post
-       */
-      
       if (this.loadedPost && this.loadedPost.images) {
         return this.loadedPost.images;
       } else {
@@ -132,12 +146,9 @@ export default {
   data() {
     return {
       configs: {
+        autofocus: true,
         placeholder: `Markdown syntax is supported. Click (?) for Help`,
-        promptURLs: true,
-        renderingConfig: {
-          singleLineBreaks: true,
-          codeSyntaxHighlighting: true
-        },
+        spellChecker: false,
         toolbar: [
           "bold",
           "italic",
@@ -206,6 +217,15 @@ export default {
             },
             className: "fa fa-smile-o",
             title: "Emoji"
+          },
+          {
+            name: "test",
+            action: () => {
+              console.log("simplemde", this.simplemde);
+              console.log("codemirror", this.simplemde.codemirror);
+            },
+            className: "fa fa-commenting-o",
+            title: "Click for Test"
           }
         ]
       },
@@ -220,7 +240,7 @@ export default {
       buffer: null,
       postTitle: "",
       //postImages: [],
-      postContent: {}
+      postContent: {},
     };
   },
   validations: {
@@ -230,7 +250,9 @@ export default {
   },
   methods: {
     async onPublish() {
-      this.postContent.html = this.simplemde.markdown(this.postContent.markdown);
+      this.postContent.html = this.simplemde.markdown(
+        this.postContent.markdown
+      );
       await this.$store.dispatch("addPostContent", this.postContent);
       if (this.postLoading) {
         this.$store.commit("setPostLoading", false);
@@ -240,8 +262,7 @@ export default {
           type: "is-danger"
         });
       } else {
-        const postUrl = this.loadedPost.url;
-        this.$router.push(`/posts/${postUrl}`);
+        this.$router.push(`/posts/${this.postUrl}`);
       }
     },
     async onDelete() {
@@ -273,6 +294,12 @@ export default {
       }
     },
     async onSelectImage(image) {
+      /* 
+      window.prompt = () => {
+        return image.url;
+      };
+      this.simplemde.drawImage();
+      */
       const cm = this.simplemde.codemirror;
       cm.replaceSelection(`![](${image.url})`);
       this.isModalImageActive = false;
@@ -281,12 +308,11 @@ export default {
       }, 0);
     },
     onInsertLink(link) {
-      const cm = this.simplemde.codemirror;
-      cm.replaceSelection(`[](${link})`);
+      window.prompt = () => {
+        return link;
+      };
+      this.simplemde.drawLink();
       this.isModalLinkActive = false;
-      setTimeout(function() {
-        cm.focus();
-      }, 0);
     },
     onInsertEmbed(link) { // TODO
       const cm = this.simplemde.codemirror;

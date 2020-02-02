@@ -3,7 +3,7 @@
   @import url(https://fonts.googleapis.com/css?family=Montserrat);
 }
 
-a {
+* {
   font-family: $family-heading;
   transition: all 200ms ease;
 }
@@ -36,15 +36,6 @@ a {
   }
 }
 
-.content {
-  //font-size: 1.1rem;
-  font-family: $family-heading;
-
-  .button {
-    font-family: $family-heading;
-  }
-}
-
 .card-header-title,
 .menu-label,
 .message-header,
@@ -66,10 +57,16 @@ blockquote {
   font-style: italic;
 }
 
+ul {
+  list-style: circle;
+}
+
 .input,
 .textarea {
   transition: all 200ms ease;
   box-shadow: none;
+  font-family: $family-heading;
+  font-size: 16px;
 }
 
 .notification {
