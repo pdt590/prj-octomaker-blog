@@ -11,8 +11,10 @@
             <div class="navbar-item">
               <form>
                 <b-field position="is-centered">
-                  <b-input placeholder="Search..." type="text" icon="magnify" v-model="searchKey"></b-input>
-                  <button class="button" type="submit" @click.prevent="onSearch">Tìm Kiếm</button>
+                  <b-input placeholder="Search..." type="search" icon="magnify" v-model="searchKey"></b-input>
+                  <p class="control">
+                    <button class="button" type="submit" @click.prevent="onSearch">Tìm Kiếm</button>
+                  </p>
                 </b-field>
               </form>
             </div>

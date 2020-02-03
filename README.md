@@ -198,13 +198,16 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Change Compress logic for image upload
 - Add highlight.js
 - Add section highlight for each post
-- Change new float in each post
+- Change new float style in each post
+  - Avatar
+  - Change button style
 - Implement embed link select
   - Fix responsives iframe issue
-- Change Category list on navbar
+- Change Category list display on navbar
 - Fix mobile layout
 - Fix list-style issue for child level
 - Add View image event on editor and post
 - Re-design Logo
 - Add Force-Close-Tab in edit-post
 - Add tags for each post
+- Improve search
