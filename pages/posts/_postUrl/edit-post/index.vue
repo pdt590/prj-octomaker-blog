@@ -321,7 +321,7 @@ export default {
   },
   head() {
     return {
-      title: this.loadedPost.title,
+      title: "Edit Post",
       meta: [
         {
           hid: "description",

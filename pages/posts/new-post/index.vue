@@ -302,7 +302,7 @@ export default {
   },
   head() {
     return {
-      title: "Tạo bài viết",
+      title: "New Post",
       meta: [
         { hid: "description", name: "description", content: "Tạo bài viết" }
       ]
