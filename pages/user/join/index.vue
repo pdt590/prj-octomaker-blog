@@ -10,11 +10,9 @@
             </header>
             <div class="card-content">
               <b-field
-                label="Username*"
+                label="Username"
                 :type="$v.formDataSignup.username.$error ? `is-danger` : ``"
-                :message="
-                  !$v.formDataSignup.username.minlen ? `Tối thiểu 6 kí tự` : ``
-                "
+                :message="!$v.formDataSignup.username.minlen ? `At least 6 characters` : ``"
               >
                 <b-input
                   type="text"
@@ -25,17 +23,9 @@
               </b-field>
 
               <b-field
-                label="Email*"
-                :type="
-                  $v.formDataSignup.email.$error || !responseSignup
-                    ? `is-danger`
-                    : ``
-                "
-                :message="
-                  !$v.formDataSignup.email.email || !responseSignup
-                    ? `Nhập email hợp lệ`
-                    : ``
-                "
+                label="Email"
+                :type="$v.formDataSignup.email.$error ? `is-danger` : ``"
+                :message="!$v.formDataSignup.email.email ? `Invalid email` : ``"
               >
                 <b-input
                   type="email"
@@ -46,11 +36,9 @@
               </b-field>
 
               <b-field
-                label="Password*"
+                label="Password"
                 :type="$v.formDataSignup.password.$error ? `is-danger` : ``"
-                :message="
-                  !$v.formDataSignup.password.minlen ? `Tối thiểu 6 kí tự` : ``
-                "
+                :message="!$v.formDataSignup.password.minlen ? `At least 6 characters` : ``"
               >
                 <b-input
                   type="password"
@@ -65,17 +53,13 @@
             </div>
             <footer class="card-footer">
               <div class="card-footer-item">
-                <a @click.prevent="isSignup = !isSignup">
-                  {{ isSignup ? `Đăng nhập?` : `Đăng ký?` }}
-                </a>
+                <a @click.prevent="isSignup = !isSignup">{{ isSignup ? `Đăng nhập?` : `Đăng ký?` }}</a>
                 <button
                   class="button is-info is-rounded"
                   :class="{ 'is-loading': authLoading }"
                   :disabled="$v.formDataSignup.$invalid"
                   @click.prevent="onSignup"
-                >
-                  Đăng ký
-                </button>
+                >Đăng ký</button>
               </div>
             </footer>
           </div>
@@ -89,16 +73,8 @@
             <div class="card-content">
               <b-field
                 label="Email"
-                :type="
-                  $v.formDataLogin.email.$error || !responseLogin
-                    ? `is-danger`
-                    : ``
-                "
-                :message="
-                  !$v.formDataLogin.email.email || !responseLogin
-                    ? `Nhập email hợp lệ`
-                    : ``
-                "
+                :type="$v.formDataLogin.email.$error ? `is-danger` : ``"
+                :message="!$v.formDataLogin.email.email ? `Invalid email` : ``"
               >
                 <b-input
                   type="email"
@@ -111,9 +87,7 @@
               <b-field
                 label="Password"
                 :type="$v.formDataLogin.password.$error ? `is-danger` : ``"
-                :message="
-                  !$v.formDataLogin.password.minlen ? `Tối thiểu 6 kí tự` : ``
-                "
+                :message="!$v.formDataLogin.password.minlen ? `At least 6 characters` : ``"
               >
                 <b-input
                   type="password"
@@ -124,14 +98,14 @@
                 ></b-input>
               </b-field>
 
-              <b-checkbox>Remember me</b-checkbox>
+              <!-- <b-checkbox>Remember me</b-checkbox> -->
             </div>
             <footer class="card-footer" style="border-top: none">
               <div class="card-footer-item">
                 <p>
-                  <a @click.prevent="isSignup = !isSignup">
-                    {{ isSignup ? `Đăng nhập?` : `Đăng ký?` }}
-                  </a>
+                  <a
+                    @click.prevent="isSignup = !isSignup"
+                  >{{ isSignup ? `Đăng nhập?` : `Đăng ký?` }}</a>
                   /
                   <nuxt-link to="/user/resetpassword">Quên mật khẩu?</nuxt-link>
                 </p>
@@ -140,9 +114,7 @@
                   :class="{ 'is-loading': authLoading }"
                   :disabled="$v.formDataLogin.$invalid"
                   @click.prevent="onLogin"
-                >
-                  Đăng nhập
-                </button>
+                >Đăng nhập</button>
               </div>
             </footer>
           </div>
@@ -176,8 +148,6 @@ export default {
         email: null,
         password: null
       },
-      responseSignup: true,
-      responseLogin: true,
       isSignup: false
     };
   },

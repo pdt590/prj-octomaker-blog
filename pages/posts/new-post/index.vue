@@ -149,14 +149,14 @@ export default {
             className: "fa fa-image",
             title: "Upload Image"
           },
-          {
+          /* {
             name: "embed",
             action: () => {
               this.isModalEmbedActive = true;
             },
             className: "fa fa-file-code-o",
             title: "Add Embed"
-          },
+          }, */
           "|",
           "preview",
           "side-by-side",

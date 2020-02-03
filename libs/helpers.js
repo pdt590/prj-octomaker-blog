@@ -47,23 +47,23 @@ export const lessThan = inputValue => value => {
 export const isEmbedURL = value => {
   if (value) {
     if (
-      value.includes("youtube")     ||
-      value.includes("vimeo")       ||
-      value.includes("slideshare")  ||
-      value.includes("codepen")     ||
-      value.includes("gist")        ||
-      value.includes("jsFiddle")    ||
+      value.includes("youtube") ||
+      value.includes("vimeo") ||
+      value.includes("slideshare") ||
+      value.includes("codepen") ||
+      value.includes("gist") ||
+      value.includes("jsFiddle") ||
       value.includes("googleSlide") ||
       value.includes("soundcloud")
     ) {
-      return true
+      return true;
     } else {
-      return false
+      return false;
     }
   } else {
-    return false
+    return false;
   }
-}
+};
 
 // universally unique identifier
 export function genId(length) {
@@ -89,7 +89,7 @@ export function fetchId(url) {
   return url.split("-").pop();
 }
 
-//TODO
+// TODO
 export function fetchTitle(url) {
   url.split("-").pop();
   return url.join("");
@@ -97,6 +97,14 @@ export function fetchTitle(url) {
 
 export function fetchKey(object, value) {
   return Object.keys(object).find(key => object[key] === value);
+}
+
+export function fetchDesc(value) {
+  const matches = [];
+  value.replace(/<p>(.*?)<\/p>/g, function () {
+    matches.push(arguments[1]);
+  });
+  return matches[0];
 }
 
 export function deepCopy(arg) {

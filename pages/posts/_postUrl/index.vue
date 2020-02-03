@@ -28,16 +28,6 @@
               </div>
               <hr />
               <div class="buttons">
-                <a
-                  class="button is-info is-rounded is-outlined"
-                  :href="
-                    `https://www.facebook.com/sharer/sharer.php?u=${baseUrl}/posts/${$route.params.postUrl}`
-                  "
-                  target="_blank"
-                >
-                  <b-icon icon="share-variant"></b-icon>
-                  <strong>Chia sẻ bài viết</strong>
-                </a>
                 <nuxt-link
                   v-if="isEditable"
                   class="button is-info is-rounded is-outlined"
@@ -46,6 +36,16 @@
                   <b-icon icon="settings-outline" size="is-small"></b-icon>
                   <strong>Chỉnh sửa</strong>
                 </nuxt-link>
+                <a
+                  class="button is-info is-rounded is-outlined"
+                  :href="
+                    `https://www.facebook.com/sharer/sharer.php?u=${baseUrl}/posts/${$route.params.postUrl}`
+                  "
+                  target="_blank"
+                >
+                  <b-icon icon="share-variant"></b-icon>
+                  <strong>Chia sẻ</strong>
+                </a>
               </div>
             </div>
           </div>
@@ -138,6 +138,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { fetchDesc } from "~/libs/helpers"
 import { categories } from "~/libs/lists";
 
 export default {
@@ -174,6 +175,9 @@ export default {
       );
       return category.name;
     },
+    postDescription() {
+      return fetchDesc(this.postHtml)
+    },
     postThumbnail() {
       if (this.loadedPost.images) {
         return this.loadedPost.images[0].url;
@@ -182,7 +186,7 @@ export default {
       }
     }
   },
-  async fetch({ app, store, params, error }) {
+  async fetch({ store, params, error }) {
     await store.dispatch("loadPost", params.postUrl);
     if (store.getters.postLoading) {
       store.commit("setPostLoading", false);
@@ -202,7 +206,7 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: "" //TODO
+          content: this.postDescription
         },
         {
           hid: "og-url",
@@ -217,7 +221,7 @@ export default {
         {
           hid: "og-description",
           property: "og:description",
-          content: "" //TODO
+          content: this.postDescription
         },
         {
           hid: "og-image",

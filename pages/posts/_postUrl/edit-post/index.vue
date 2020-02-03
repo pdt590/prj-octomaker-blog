@@ -110,7 +110,7 @@ import {
 
 export default {
   middleware: ["server-client-auth", "server-client-edit-permission"],
-  created() { // Display empty post when using mounted()
+  created() {
     this.postTitle = this.loadedPost.title;
 
     this.postContent = {
@@ -183,14 +183,14 @@ export default {
             className: "fa fa-image",
             title: "Upload Image"
           },
-          {
+          /* {
             name: "embed",
             action: () => {
               this.isModalEmbedActive = true;
             },
             className: "fa fa-file-code-o",
             title: "Add Embed"
-          },
+          }, */
           "|",
           "preview",
           "side-by-side",
@@ -221,8 +221,10 @@ export default {
           {
             name: "test",
             action: () => {
-              console.log("simplemde", this.simplemde);
-              console.log("codemirror", this.simplemde.codemirror);
+              const smde = this.simplemde;
+              const cm = this.simplemde.codemirror;
+              console.log("simplemde", smde);
+              console.log("codemirror", cm);
             },
             className: "fa fa-commenting-o",
             title: "Click for Test"
@@ -240,7 +242,7 @@ export default {
       buffer: null,
       postTitle: "",
       //postImages: [],
-      postContent: {},
+      postContent: {}
     };
   },
   validations: {
@@ -325,7 +327,7 @@ export default {
   },
   head() {
     return {
-      title: this.postTitle, // TODO
+      title: this.loadedPost.title,
       meta: [
         {
           hid: "description",

@@ -180,19 +180,31 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 ## TODO
 
 - Notify Internet Disconnection when saving - [Refer](https://nuxtjs.org/api/$nuxt)
-- Add highlight posts for each person
+- Add recommendation posts in each post
 - Re-check default style
-- Change Editor font/style as default style
+  - change class style to prefix `_`
 - Remove old link when removing a image
 - Remove special characteristic on title (square brackets ...)
-- Improve edit-post
 - `404 GET /user/join` issue
 - Remove loading button when addTitle (Replace by loading title icon)
 - Fix invalid image upload issue
 - Fix long load issue when clicking edit
-- Fix Insert Embed issue on Editor
 - Fix public/private post mode
-- Redesign CardPost
+- Redesign CardPost - [Refer](https://www.hackster.io/)
 - Implement remember-me login
-- Change console.log() to console.error() - [Reference](https://medium.com/12bit/console-c%C3%B2n-g%C3%AC-kh%C3%A1c-ngo%C3%A0i-console-log-9aa484c1782d)
-- Fix duplicated image upload issue - [Reference](https://dev.to/pixari/what-is-the-best-solution-for-removing-duplicate-objects-from-an-array-4fe1)
+- Change console.log() to console.error() - [Refer](https://medium.com/12bit/console-c%C3%B2n-g%C3%AC-kh%C3%A1c-ngo%C3%A0i-console-log-9aa484c1782d)
+- Fix duplicated image upload issue - [Refer](https://dev.to/pixari/what-is-the-best-solution-for-removing-duplicate-objects-from-an-array-4fe1)
+- Change Avatar from square to circle
+- Change Compress logic for image upload
+- Add highlight.js
+- Add section highlight for each post
+- Change new float in each post
+- Implement embed link select
+  - Fix responsives iframe issue
+- Change Category list on navbar
+- Fix mobile layout
+- Fix list-style issue for child level
+- Add View image event on editor and post
+- Re-design Logo
+- Add Force-Close-Tab in edit-post
+- Add tags for each post

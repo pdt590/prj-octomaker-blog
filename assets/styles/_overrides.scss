@@ -66,7 +66,7 @@ ul {
   transition: all 200ms ease;
   box-shadow: none;
   font-family: $family-heading;
-  font-size: 16px;
+  font-size: $body-size;
 }
 
 .notification {
@@ -151,6 +151,18 @@ body {
   background-color: #FFF;
 }
 
+embed,
+iframe,
+object,
+video {
+  min-height: 50rem; // TODO
+}
+
+pre,
+code {
+  font-size: $body-size !important;
+}
+
 @media screen and (min-width: 768px) {
   .v-main {
     padding-top: 1.5rem;
@@ -208,6 +220,8 @@ input {
   object-fit: cover;
   width: 5rem !important;
   height: 5rem !important;
+  border: solid 1px #D8D8D8;
+  border-radius: 50%;
 }
 
 .v-preview-image {
@@ -217,14 +231,16 @@ input {
 }
 
 .v-image-border {
-  border: solid 1px #D8D8D8
+  border: solid 1px #D8D8D8;
+  border-radius: 50%;
 }
 
 .v-nav-avatar {
   object-fit: cover;
   width: 2.1rem !important;
   height: 2.1rem !important;
-  border: solid 1px #D8D8D8
+  border: solid 1px #D8D8D8;
+  border-radius: 50%;
 }
 
 .v-nav-avatar-mobile {
