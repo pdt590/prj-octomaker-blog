@@ -182,7 +182,9 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Notify Internet Disconnection when saving - [Refer](https://nuxtjs.org/api/$nuxt)
 - Add recommendation posts in each post
 - Re-check default style
-  - change class style to prefix `_`
+  - Change class style to prefix `_`
+  - Button position on modals
+  - Fix navbar-item style on Navbar component
 - Remove old link when removing a image
 - Remove special characteristic on title (square brackets ...)
 - `404 GET /user/join` issue
@@ -193,9 +195,10 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Redesign CardPost - [Refer](https://www.hackster.io/)
 - Implement remember-me login
 - Change console.log() to console.error() - [Refer](https://medium.com/12bit/console-c%C3%B2n-g%C3%AC-kh%C3%A1c-ngo%C3%A0i-console-log-9aa484c1782d)
-- Fix duplicated image upload issue - [Refer](https://dev.to/pixari/what-is-the-best-solution-for-removing-duplicate-objects-from-an-array-4fe1)
 - Change Avatar from square to circle
 - Change Compress logic for image upload
+- Add image validation for uploading
+  - compressjs makes .gif to .png
 - Add highlight.js
 - Add section highlight for each post
 - Change new float style in each post
@@ -210,3 +213,4 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Re-design Logo
 - Add tags for each post
 - Improve search performance
+- Shoud use cloudinary to upload images?

@@ -89,6 +89,10 @@ export default {
         const storageMetadata = {
           cacheControl: "public,max-age=31536000"
         };
+        if (!images.length) {
+          vuexContext.commit("setPostLoading", false);
+          return uploadedImages;
+        }
         for (const image of images) {
           const cprImage = await compressImage(image);
           const ext = cprImage.name.slice(cprImage.name.lastIndexOf("."));

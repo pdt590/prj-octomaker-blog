@@ -4,18 +4,11 @@
       <p class="modal-card-title">Upload Image</p>
     </header>
     <section class="modal-card-body">
-      <b-field
-      >
+      <b-field>
         <!-- Upload Image -->
         <div class="level">
           <div class="level-item">
-            <b-upload
-              v-model="images"
-              @input="onAdd"
-              :loading="postLoading"
-              drag-drop
-              multiple
-            >
+            <b-upload v-model="images" @input="onAdd" :loading="postLoading" drag-drop multiple>
               <section class="section">
                 <div class="content has-text-centered">
                   <p>
@@ -80,8 +73,11 @@ export default {
   },
   methods: {
     async onAdd() {
-      // TODO Fix duplicated image issue
-      await this.$store.dispatch("addPostImage", this.images);
+      const uniqueImages = this.images.filter(
+        image =>
+          !this.previewImages.some(item => item.metadata.orgName === image.name)
+      );
+      await this.$store.dispatch("addPostImage", uniqueImages);
       if (this.postLoading) {
         this.$store.commit("setPostLoading", false);
         this.$buefy.toast.open({
