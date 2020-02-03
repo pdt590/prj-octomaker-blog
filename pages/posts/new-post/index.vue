@@ -93,7 +93,7 @@ import { categories } from "~/libs/lists";
 import { required, maxLength } from "vuelidate/lib/validators";
 
 export default {
-  middleware: "server-client-auth",
+  middleware: ["server-client-auth"],
   computed: {
     ...mapGetters(["loadedPost", "titleLoading", "postLoading"]),
     simplemde() {
@@ -277,12 +277,6 @@ export default {
       }
     },
     async onSelectImage(image) {
-      /* 
-      window.prompt = () => {
-        return image.url;
-      };
-      this.simplemde.drawImage();
-      */
       const cm = this.simplemde.codemirror;
       cm.replaceSelection(`![](${image.url})`);
       this.isModalImageActive = false;

@@ -296,12 +296,6 @@ export default {
       }
     },
     async onSelectImage(image) {
-      /* 
-      window.prompt = () => {
-        return image.url;
-      };
-      this.simplemde.drawImage();
-      */
       const cm = this.simplemde.codemirror;
       cm.replaceSelection(`![](${image.url})`);
       this.isModalImageActive = false;

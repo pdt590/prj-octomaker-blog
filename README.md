@@ -208,6 +208,5 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Fix list-style issue for child level
 - Add View image event on editor and post
 - Re-design Logo
-- Add Force-Close-Tab in edit-post
 - Add tags for each post
-- Improve search
+- Improve search performance

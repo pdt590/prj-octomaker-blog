@@ -71,12 +71,12 @@ export default {
   },
   head() {
     return {
-      title: "OctoMaker | Posts",
+      title: "Posts",
       meta: [
         {
           hid: "description",
           name: "description",
-          content: "OctoMaker - Posts"
+          content: "" // TODO
         }
       ]
     };
