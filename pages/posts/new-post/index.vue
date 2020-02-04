@@ -132,8 +132,6 @@ export default {
           {
             name: "link",
             action: () => {
-              console.log("simplemde", this.simplemde);
-              console.log("codemirror", this.simplemde.codemirror);
               this.isModalLinkActive = true;
             },
             className: "fa fa-link",
@@ -183,15 +181,6 @@ export default {
             },
             className: "fa fa-smile-o",
             title: "Emoji"
-          },
-                    {
-            name: "test",
-            action: () => {
-              console.log("simplemde", this.simplemde);
-              console.log("codemirror", this.simplemde.codemirror);
-            },
-            className: "fa fa-commenting-o",
-            title: "Click for Test"
           }
         ]
       },

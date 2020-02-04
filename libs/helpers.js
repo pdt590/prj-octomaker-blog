@@ -14,7 +14,7 @@ export function compressImage(image) {
         resolve(result);
       },
       error(e) {
-        console.log(e.message);
+        console.error("[ERROR-Compressor]", e.message);
         reject(e);
       }
     });

@@ -54,7 +54,7 @@ export default {
         vuexContext.commit("setTitleLoading", false);
         return postUrl;
       } catch (e) {
-        console.log("[ERROR-addPostTitle]", e);
+        console.error("[ERROR-addPostTitle]", e);
       }
     },
 
@@ -75,7 +75,7 @@ export default {
         });
         vuexContext.commit("setTitleLoading", false);
       } catch (e) {
-        console.log("[ERROR-updatePostTitle]", e);
+        console.error("[ERROR-updatePostTitle]", e);
       }
     },
 
@@ -131,7 +131,7 @@ export default {
         vuexContext.commit("setPostLoading", false);
         return uploadedImages;
       } catch (e) {
-        console.log("[ERROR-addPostImage]", e);
+        console.error("[ERROR-addPostImage]", e);
       }
     },
 
@@ -157,7 +157,7 @@ export default {
         });
         vuexContext.commit("setPostLoading", false);
       } catch (e) {
-        console.log("[ERROR-deletePostImage]", e);
+        console.error("[ERROR-deletePostImage]", e);
       }
     },
 
@@ -173,7 +173,7 @@ export default {
         });
         vuexContext.commit("setPostLoading", false);
       } catch (e) {
-        console.log("[ERROR-addPostContent]", e);
+        console.error("[ERROR-addPostContent]", e);
       }
     },
 
@@ -188,7 +188,7 @@ export default {
         vuexContext.commit("setPostLoading", false);
         return loadedPost;
       } catch (e) {
-        console.log("[ERROR-loadPost]", e);
+        console.error("[ERROR-loadPost]", e);
       }
     },
 
@@ -210,7 +210,7 @@ export default {
         vuexContext.commit("setPost", null);
         vuexContext.commit("setPostLoading", false);
       } catch (e) {
-        console.log("[ERROR-deletePost]", e);
+        console.error("[ERROR-deletePost]", e);
       }
     },
 
@@ -240,7 +240,7 @@ export default {
         //vuexContext.commit('setPost', ) // TODO how to update current loadedPost
         vuexContext.commit("setPostLoading", false);
       } catch (e) {
-        console.log("[ERROR-updatePostsByUser]", e);
+        console.error("[ERROR-updatePostsByUser]", e);
       }
     },
 
@@ -272,7 +272,7 @@ export default {
         await postsRef.update(updates);
         vuexContext.commit("setPostLoading", false);
       } catch (e) {
-        console.log("[ERROR-deletePostsByUser]", e);
+        console.error("[ERROR-deletePostsByUser]", e);
       }
     },
 
@@ -294,7 +294,7 @@ export default {
         await postsRef.child(postId).remove();
         vuexContext.commit("setPostLoading", false);
       } catch (e) {
-        console.log("[ERROR-deletePostByUser]", e);
+        console.error("[ERROR-deletePostByUser]", e);
       }
     }
   },

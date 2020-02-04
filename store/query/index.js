@@ -38,7 +38,7 @@ export default {
         vuexContext.commit("setQueryLoading", false);
         return loadedPosts;
       } catch (e) {
-        console.log("[ERROR-loadPosts]", e);
+        console.error("[ERROR-loadPosts]", e);
       }
     },
 
@@ -60,7 +60,7 @@ export default {
         vuexContext.commit("setQueryLoading", false);
         return loadedPosts;
       } catch (e) {
-        console.log("[ERROR-loadPersonalPosts]", e);
+        console.error("[ERROR-loadPersonalPosts]", e);
       }
     },
 
@@ -81,7 +81,7 @@ export default {
         vuexContext.commit("setQueryLoading", false);
         return loadedPosts.reverse();
       } catch (e) {
-        console.log("[ERROR-loadCategorizedPosts]", e);
+        console.error("[ERROR-loadCategorizedPosts]", e);
       }
     },
 
@@ -103,7 +103,7 @@ export default {
         vuexContext.commit("setQueryLoading", false);
         return loadedPosts.reverse();
       } catch (e) {
-        console.log("[ERROR-loadSearchPosts]", e);
+        console.error("[ERROR-loadSearchPosts]", e);
       }
     }
   },

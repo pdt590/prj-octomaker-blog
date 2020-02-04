@@ -26,7 +26,7 @@ export default {
             .split("=")[1];
         }
         if (new Date().getTime() > +expirationDate || !uid) {
-          console.log("Invalid uid");
+          console.error("Invalid uid");
           await vuexContext.dispatch("logOut");
           return;
         }
@@ -39,7 +39,7 @@ export default {
         vuexContext.commit("setUser", userProfile);
       } catch (e) {
         vuexContext.commit("setAuthError", e);
-        console.log("[ERROR-nuxtServerInit]", e);
+        console.error("[ERROR-nuxtServerInit]", e);
         error({ statusCode: 500, message: "nuxtServerInit() Error" });
       }
     }

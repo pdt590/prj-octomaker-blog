@@ -65,7 +65,7 @@ export default {
         localStorage.removeItem("auth-event");
       } catch (e) {
         vuexContext.commit("setAuthError", e);
-        console.log("[ERROR-signUserUp]", e);
+        console.error("[ERROR-signUserUp]", e);
       }
     },
 
@@ -118,7 +118,7 @@ export default {
         localStorage.removeItem("auth-event");
       } catch (e) {
         vuexContext.commit("setAuthError", e);
-        console.log("[ERROR-signUserIn]", e);
+        console.error("[ERROR-signUserIn]", e);
       }
     },
 
@@ -175,7 +175,7 @@ export default {
         localStorage.setItem("auth-event", "");
         localStorage.removeItem("auth-event");
       } catch (e) {
-        console.log("[ERROR-updateUserContent]", e);
+        console.error("[ERROR-updateUserContent]", e);
       }
     },
 
@@ -210,7 +210,7 @@ export default {
         localStorage.removeItem("auth-event");
       } catch (e) {
         vuexContext.commit("setAuthError", e);
-        console.log("[ERROR-updateUserEmail]", e);
+        console.error("[ERROR-updateUserEmail]", e);
       }
     },
 
@@ -233,7 +233,7 @@ export default {
         localStorage.removeItem("auth-event");
       } catch (e) {
         vuexContext.commit("setAuthError", e);
-        console.log("[ERROR-updateUserPassword]", e);
+        console.error("[ERROR-updateUserPassword]", e);
       }
     },
 
@@ -301,7 +301,7 @@ export default {
         localStorage.setItem("auth-event", "");
         localStorage.removeItem("auth-event");
       } catch (e) {
-        console.log("[ERROR-updateAvatar]", e);
+        console.error("[ERROR-updateAvatar]", e);
       }
     },
 
@@ -316,7 +316,7 @@ export default {
         localStorage.removeItem("auth-event");
       } catch (e) {
         vuexContext.commit("setAuthError", e);
-        console.log("[ERROR-resetUserPassword]", e);
+        console.error("[ERROR-resetUserPassword]", e);
       }
     },
 
@@ -335,7 +335,7 @@ export default {
         localStorage.removeItem("auth-event");
       } catch (e) {
         vuexContext.commit("setAuthError", e);
-        console.log("[ERROR-handleResetPassword]", e);
+        console.error("[ERROR-handleResetPassword]", e);
       }
     },
 
@@ -363,7 +363,7 @@ export default {
         return true;
       } catch (e) {
         vuexContext.commit("setAuthError", e);
-        console.log("[ERROR-handleVerifyEmail]", e);
+        console.error("[ERROR-handleVerifyEmail]", e);
         return false;
       }
     },
@@ -387,7 +387,7 @@ export default {
         return true;
       } catch (e) {
         vuexContext.commit("setAuthError", e);
-        console.log("[ERROR-handleRecoverEmail]", e);
+        console.error("[ERROR-handleRecoverEmail]", e);
         return false;
       }
     },
@@ -420,7 +420,7 @@ export default {
         localStorage.removeItem("auth-event");
       } catch (e) {
         vuexContext.commit("setAuthError", e);
-        console.log("[ERROR-deleteUser]", e);
+        console.error("[ERROR-deleteUser]", e);
       }
     },
 
@@ -434,7 +434,7 @@ export default {
         );
         await user.reauthenticateAndRetrieveDataWithCredential(credential);
       } catch (e) {
-        console.log("[ERROR-isCorrectPassword]", e);
+        console.error("[ERROR-isCorrectPassword]", e);
       }
     },
 
@@ -447,7 +447,7 @@ export default {
         if (user.val()) return false;
         return true;
       } catch (e) {
-        console.log("[ERROR-isUnique]", e);
+        console.error("[ERROR-isUnique]", e);
         return false;
       }
     }

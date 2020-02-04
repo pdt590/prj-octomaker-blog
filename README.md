@@ -194,12 +194,12 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Fix public/private post mode
 - Redesign CardPost - [Refer](https://www.hackster.io/)
 - Implement remember-me login
-- Change console.log() to console.error() - [Refer](https://medium.com/12bit/console-c%C3%B2n-g%C3%AC-kh%C3%A1c-ngo%C3%A0i-console-log-9aa484c1782d)
 - Change Avatar from square to circle
 - Change Compress logic for image upload
 - Add image validation for uploading
   - compressjs makes .gif to .png
-- Add highlight.js
+- Add highlight.js and fix github-css issue
+  - Check issue in [github-markdown-css](https://github.com/sindresorhus/github-markdown-css) & [simplemde-markdown-editor](https://github.com/sparksuite/simplemde-markdown-editor)
 - Add section highlight for each post
 - Change new float style in each post
   - Avatar
