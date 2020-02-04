@@ -255,15 +255,24 @@ export default {
             avatar: null
           });
           delete loadedUser.avatar;
+          const updatedUser = {
+            ...loadedUser
+          };
+          vuexContext.commit("setUser", updatedUser);
           vuexContext.commit("setAuthLoading", false);
+          localStorage.setItem("auth-event", "");
+          localStorage.removeItem("auth-event");
           return;
         }
-
         let avatarObject = null;
         const storageMetadata = {
           cacheControl: "public,max-age=31536000"
         };
         const cprAvatar = await compressImage(newAvatar);
+        if (!cprAvatar) {
+          vuexContext.commit("setAuthLoading", false);
+          return;
+        }
         const ext = cprAvatar.name.slice(cprAvatar.name.lastIndexOf("."));
         const newAvatarName = userId + ext;
         const metaData = {

@@ -94,7 +94,6 @@
                 </nuxt-link>
               </div>
             </div>
-            <a href="/" target="_blank" class="navbar-item">Hướng dẫn</a>
           </div>
           <div class="navbar-end">
             <a

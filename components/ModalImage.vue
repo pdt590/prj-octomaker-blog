@@ -77,7 +77,10 @@ export default {
         image =>
           !this.previewImages.some(item => item.metadata.orgName === image.name)
       );
-      await this.$store.dispatch("addPostImage", uniqueImages);
+      if(!uniqueImages.length) {
+        return;
+      }
+      await this.$store.dispatch("addCompressedPostImage", uniqueImages);
       if (this.postLoading) {
         this.$store.commit("setPostLoading", false);
         this.$buefy.toast.open({

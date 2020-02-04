@@ -94,7 +94,59 @@ export default {
           return uploadedImages;
         }
         for (const image of images) {
+          const ext = image.name.slice(image.name.lastIndexOf("."));
+          const newImageName = `${postId}_${genId(3)}${ext}`;
+          const metaData = {
+            name: newImageName,
+            orgName: image.name,
+            size: image.size,
+            creator: vuexContext.getters.user.id
+          };
+          await imagesPostRef.child(newImageName).put(image, storageMetadata);
+          const imgDownloadUrl = await imagesPostRef
+            .child(newImageName)
+            .getDownloadURL();
+          uploadedImages.push({
+            url: imgDownloadUrl,
+            metadata: metaData
+          });
+        }
+        const loadedImages = loadedPost.images;
+        let update = {};
+        loadedImages
+          ? (update = {
+              images: [...loadedImages, ...uploadedImages]
+            })
+          : (update = {
+              images: [...uploadedImages]
+            });
+        await postsRef.child(postId).update(update);
+        vuexContext.commit("setPost", {
+          ...loadedPost,
+          ...update
+        });
+        vuexContext.commit("setPostLoading", false);
+        return uploadedImages;
+      } catch (e) {
+        console.error("[ERROR-addPostImage]", e);
+      }
+    },
+
+    async addCompressedPostImage(vuexContext, images) {
+      vuexContext.commit("setPostLoading", true);
+      try {
+        const loadedPost = vuexContext.getters.loadedPost;
+        const postId = fetchId(loadedPost.url);
+
+        const uploadedImages = [];
+        const storageMetadata = {
+          cacheControl: "public,max-age=31536000"
+        };
+        for (const image of images) {
           const cprImage = await compressImage(image);
+          if (!cprImage) {
+            continue;
+          }
           const ext = cprImage.name.slice(cprImage.name.lastIndexOf("."));
           const newImageName = `${postId}_${genId(3)}${ext}`;
           const metaData = {
@@ -114,15 +166,19 @@ export default {
             metadata: metaData
           });
         }
+        if (!uploadedImages.length) {
+          vuexContext.commit("setPostLoading", false);
+          return uploadedImages;
+        }
         const loadedImages = loadedPost.images;
         let update = {};
         loadedImages
           ? (update = {
-            images: [...loadedImages, ...uploadedImages]
-          })
+              images: [...loadedImages, ...uploadedImages]
+            })
           : (update = {
-            images: [...uploadedImages]
-          });
+              images: [...uploadedImages]
+            });
         await postsRef.child(postId).update(update);
         vuexContext.commit("setPost", {
           ...loadedPost,
@@ -131,7 +187,7 @@ export default {
         vuexContext.commit("setPostLoading", false);
         return uploadedImages;
       } catch (e) {
-        console.error("[ERROR-addPostImage]", e);
+        console.error("[ERROR-addCompressedPostImage]", e);
       }
     },
 
@@ -197,7 +253,7 @@ export default {
       try {
         const loadedPost = vuexContext.getters.loadedPost;
         const postId = fetchId(loadedPost.url);
-        const postImages = loadedPost.images
+        const postImages = loadedPost.images;
         if (postImages) {
           await Promise.all(
             postImages.map(async image => {
@@ -230,7 +286,7 @@ export default {
         postsData.forEach(postData => {
           updatedUser.username !== undefined
             ? (updates[`${postData.key}/creator/username`] =
-              updatedUser.username)
+                updatedUser.username)
             : ``;
           updatedUser.avatar !== undefined
             ? (updates[`${postData.key}/creator/avatar`] = updatedUser.avatar)
@@ -260,7 +316,7 @@ export default {
         Object.keys(postsObj).forEach(async key => {
           updates[key] = null;
           const post = postsObj[key];
-          const postImages = post.images
+          const postImages = post.images;
           if (postImages) {
             await Promise.all(
               postImages.map(async image => {
@@ -282,7 +338,7 @@ export default {
         const postId = fetchId(postUrl);
         const postData = await postsRef.child(postId).once("value");
         const loadedPost = postData.val();
-        const postImages = loadedPost.images
+        const postImages = loadedPost.images;
         if (postImages) {
           await Promise.all(
             postImages.map(async image => {

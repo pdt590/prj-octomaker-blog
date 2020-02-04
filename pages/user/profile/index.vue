@@ -34,7 +34,11 @@
                   <b-field
                     label="Username"
                     :type="$v.userContent.username.$error ? `is-danger` : ``"
-                    :message="!$v.userContent.username.minLen ? `At least 6 characters` : ``"
+                    :message="
+                      !$v.userContent.username.minLen
+                        ? `At least 6 characters`
+                        : ``
+                    "
                   >
                     <b-input
                       v-model="userContent.username"
@@ -43,13 +47,20 @@
                     ></b-input>
                   </b-field>
                   <b-field label="Họ và tên">
-                    <b-input v-model.trim="userContent.fullname" icon="account-card-details"></b-input>
+                    <b-input
+                      v-model.trim="userContent.fullname"
+                      icon="account-card-details"
+                    ></b-input>
                   </b-field>
 
                   <b-field
                     label="Số điện thoại"
                     :type="$v.userContent.phone.$error ? `is-danger` : ``"
-                    :message="!$v.userContent.phone.numeric ? `Invalid phone number` : ``"
+                    :message="
+                      !$v.userContent.phone.numeric
+                        ? `Invalid phone number`
+                        : ``
+                    "
                   >
                     <b-input
                       type="tel"
@@ -61,11 +72,16 @@
 
                   <b-field grouped>
                     <b-field label="Địa chỉ" expanded>
-                      <b-input v-model="userContent.address" icon="map-marker"></b-input>
+                      <b-input
+                        v-model="userContent.address"
+                        icon="map-marker"
+                      ></b-input>
                     </b-field>
                     <b-field label="Tỉnh/Thành">
                       <b-select v-model="userContent.province">
-                        <option v-for="(province, i) in provinces" :key="i">{{ province }}</option>
+                        <option v-for="(province, i) in provinces" :key="i">{{
+                          province
+                        }}</option>
                       </b-select>
                     </b-field>
                   </b-field>
@@ -79,7 +95,9 @@
                       :disabled="$v.userContent.$invalid"
                       type="submit"
                       @click.prevent="onUpdateContent"
-                    >Lưu thay đổi</button>
+                    >
+                      Lưu thay đổi
+                    </button>
                   </div>
                 </div>
               </b-tab-item>
@@ -100,8 +118,14 @@
                   </b-field>
                   <b-field
                     label="Xác nhận mật khẩu"
-                    :type="$v.confirmPasswordForNewEmail.$error ? `is-danger` : ``"
-                    :message="!$v.confirmPasswordForNewEmail.minLen ? `At least 6 characters` : ``"
+                    :type="
+                      $v.confirmPasswordForNewEmail.$error ? `is-danger` : ``
+                    "
+                    :message="
+                      !$v.confirmPasswordForNewEmail.minLen
+                        ? `At least 6 characters`
+                        : ``
+                    "
                   >
                     <b-input
                       type="password"
@@ -123,7 +147,9 @@
                       "
                       type="submit"
                       @click.prevent="onUpdateEmail"
-                    >Lưu thay đổi</button>
+                    >
+                      Lưu thay đổi
+                    </button>
                   </div>
                 </div>
               </b-tab-item>
@@ -132,8 +158,14 @@
                 <form style="padding-top: 1rem; padding-bottom: 2rem;">
                   <b-field
                     label="Mật khẩu cũ"
-                    :type="$v.confirmPasswordForNewPassword.$error ? `is-danger` : ``"
-                    :message="!$v.confirmPasswordForNewPassword.minLen ? `At least 6 characters` : ``"
+                    :type="
+                      $v.confirmPasswordForNewPassword.$error ? `is-danger` : ``
+                    "
+                    :message="
+                      !$v.confirmPasswordForNewPassword.minLen
+                        ? `At least 6 characters`
+                        : ``
+                    "
                   >
                     <b-input
                       type="password"
@@ -144,8 +176,10 @@
                   </b-field>
                   <b-field
                     label="Mật khẩu mới"
-                    :type="$v.userPassword.$error ? `is-danger`: ``"
-                    :message="!$v.userPassword.minLen ? `At least 6 characters` : ``"
+                    :type="$v.userPassword.$error ? `is-danger` : ``"
+                    :message="
+                      !$v.userPassword.minLen ? `At least 6 characters` : ``
+                    "
                   >
                     <b-input
                       type="password"
@@ -157,7 +191,9 @@
                   <b-field
                     label="Xác nhận mật khẩu mới"
                     :type="$v.confirmUserPassword.$error ? `is-danger` : ``"
-                    :message="$v.confirmUserPassword.$error ? `Password isn't same` : ``"
+                    :message="
+                      $v.confirmUserPassword.$error ? `Password isn't same` : ``
+                    "
                   >
                     <b-input
                       type="password"
@@ -180,27 +216,23 @@
                       "
                       type="submit"
                       @click.prevent="onUpdatePassword"
-                    >Lưu thay đổi</button>
+                    >
+                      Lưu thay đổi
+                    </button>
                   </div>
                 </div>
               </b-tab-item>
 
               <b-tab-item label="Avatar">
                 <form style="padding-top: 1rem; padding-bottom: 2rem;">
-                  <b-field
-                    label="Avatar"
-                    :type="!$v.userAvatar.isImg ? `is-danger` : ``"
-                    :message="!$v.userAvatar.isImg ? `Invalid image` : ``"
-                  >
+                  <b-field label="Avatar">
                     <div class="level">
                       <div class="level-item">
                         <b-upload
                           v-model="userAvatar"
                           @input="onAvatarChange"
                           :disabled="
-                            $v.userAvatar.$invalid ||
-                              userOldAvatar !== null ||
-                              userAvatar !== null
+                            userOldAvatar !== null || userAvatar !== null
                           "
                           drag-drop
                         >
@@ -226,8 +258,13 @@
                           onload="this.style.display = 'block'"
                           alt="shop_cover"
                         />
-                        <span class="v-image-size">{{ userOldAvatar.metadata.size | fmBytes }}</span>
-                        <a class="delete v-image-bndelete" @click="userOldAvatar = null"></a>
+                        <span class="v-image-size">{{
+                          userOldAvatar.metadata.size | fmBytes
+                        }}</span>
+                        <a
+                          class="delete v-image-bndelete"
+                          @click="userOldAvatar = null"
+                        ></a>
                       </figure>
                     </div>
                     <div class="level-item" v-if="userAvatar">
@@ -239,7 +276,9 @@
                           onload="this.style.display = 'block'"
                           alt="shop_cover"
                         />
-                        <span class="v-image-size">{{ userPreviewAvatar.size | fmBytes }}</span>
+                        <span class="v-image-size">{{
+                          userPreviewAvatar.size | fmBytes
+                        }}</span>
                         <a
                           class="delete v-image-bndelete"
                           @click="
@@ -257,10 +296,11 @@
                     <button
                       class="button is-info is-rounded"
                       :class="{ 'is-loading': authLoading }"
-                      :disabled="$v.userAvatar.$invalid"
                       type="submit"
                       @click.prevent="onUpdateAvatar"
-                    >Lưu thay đổi</button>
+                    >
+                      Lưu thay đổi
+                    </button>
                   </div>
                 </div>
               </b-tab-item>
@@ -270,9 +310,13 @@
                   <b-field
                     label="Xác nhận mật khẩu"
                     :type="
-                      $v.confirmPasswordForDeleting.$error ? `is-danger` : ``"
+                      $v.confirmPasswordForDeleting.$error ? `is-danger` : ``
+                    "
                     :message="
-                      !$v.confirmPasswordForDeleting.minLen ? `At least 6 characters` : ``"
+                      !$v.confirmPasswordForDeleting.minLen
+                        ? `At least 6 characters`
+                        : ``
+                    "
                   >
                     <b-input
                       type="password"
@@ -291,7 +335,9 @@
                       :disabled="$v.confirmPasswordForDeleting.$invalid"
                       type="submit"
                       @click.prevent="onDelete"
-                    >Xóa tài khoản</button>
+                    >
+                      Xóa tài khoản
+                    </button>
                   </div>
                 </div>
               </b-tab-item>
@@ -305,7 +351,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { isImage, deepCopy, authMessage } from "~/libs/helpers";
+import { deepCopy, authMessage } from "~/libs/helpers";
 import { provinces } from "~/libs/lists";
 import {
   required,
@@ -399,10 +445,6 @@ export default {
     },
     confirmUserPassword: {
       isValidPassword: sameAs("userPassword")
-    },
-
-    userAvatar: {
-      isImg: isImage
     },
 
     confirmPasswordForDeleting: {

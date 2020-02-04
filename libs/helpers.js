@@ -1,44 +1,57 @@
 import Compressor from "compressorjs";
 
+export const isImage = file => {
+  const acceptedFiles = [
+    ".png",
+    ".PNG",
+    ".jpeg",
+    ".JPEG",
+    ".jpg",
+    ".JPG",
+    ".gif",
+    ".GIF"
+  ];
+  if(!file) return false
+  const ext = file.name.slice(file.name.lastIndexOf("."));
+  if (!acceptedFiles.includes(ext)) return false;
+  return true;
+};
+
+export const isGif = file => {
+  const acceptedFiles = [
+    ".gif",
+    ".GIF"
+  ];
+  if(!file) return false
+  const ext = file.name.slice(file.name.lastIndexOf("."));
+  if (!acceptedFiles.includes(ext)) return false;
+  return true;
+}
+
 export function compressImage(image) {
-  let quality = 0.6;
-  if (image.size > 1000000) {
-    quality = 0.4;
+  const maxSize = 1500000;
+  const quality = 0.5;
+  if (!isImage(image)) {
+    return null;
+  }
+  if (image.size < maxSize || isGif(image)) {
+    return image;
   }
   return new Promise((resolve, reject) => {
     new Compressor(image, {
       quality: quality,
-      convertSize: 1000000,
+      convertSize: maxSize,
       checkOrientation: false,
       success(result) {
         resolve(result);
       },
       error(e) {
         console.error("[ERROR-Compressor]", e.message);
-        reject(e);
+        reject(null);
       }
     });
   });
 }
-
-const checkImage = file => {
-  const acceptedFiles = [".png", ".PNG", ".jpeg", ".JPEG", ".jpg", ".JPG"];
-  const ext = file.name.slice(file.name.lastIndexOf("."));
-  if (!acceptedFiles.includes(ext)) return false;
-  return true;
-};
-
-export const isImage = value => {
-  if (Array.isArray(value)) {
-    for (let file of value) {
-      if (!checkImage(file)) return false;
-    }
-  } else if (value) {
-    const file = value;
-    if (!checkImage(file)) return false;
-  }
-  return true;
-};
 
 export const lessThan = inputValue => value => {
   return value < inputValue ? true : false;
@@ -101,7 +114,7 @@ export function fetchKey(object, value) {
 
 export function fetchDesc(value) {
   const matches = [];
-  value.replace(/<p>(.*?)<\/p>/g, function () {
+  value.replace(/<p>(.*?)<\/p>/g, function() {
     matches.push(arguments[1]);
   });
   return matches[0];

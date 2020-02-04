@@ -189,15 +189,14 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Remove special characteristic on title (square brackets ...)
 - `404 GET /user/join` issue
 - Remove loading button when addTitle (Replace by loading title icon)
-- Fix invalid image upload issue
 - Fix long load issue when clicking edit
 - Fix public/private post mode
 - Redesign CardPost - [Refer](https://www.hackster.io/)
 - Implement remember-me login
 - Change Avatar from square to circle
-- Change Compress logic for image upload
 - Add image validation for uploading
-  - compressjs makes .gif to .png
+  - Change Compress logic for image upload
+  - compressjs makes .gif to .png - [Refer](https://github.com/fengyuanchen/compressorjs/issues/78)
 - Add highlight.js and fix github-css issue
   - Check issue in [github-markdown-css](https://github.com/sindresorhus/github-markdown-css) & [simplemde-markdown-editor](https://github.com/sparksuite/simplemde-markdown-editor)
 - Add section highlight for each post
@@ -214,3 +213,5 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Add tags for each post
 - Improve search performance
 - Shoud use cloudinary to upload images?
+- Check problem: reload search page when entering search button
+- Fix avatar upload issue
