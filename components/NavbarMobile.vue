@@ -79,7 +79,7 @@
         >
           <div class="buttons">
             <a
-              class="button is-info is-rounded is-outlined"
+              class="button is-info is-outlined"
               @click="
                 isModalJoinActive = true;
                 isProfileActive = false;

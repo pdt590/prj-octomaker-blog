@@ -45,7 +45,7 @@
             <footer class="card-footer">
               <div class="card-footer-item">
                 <button
-                  class="button is-info is-rounded"
+                  class="button is-info"
                   :class="{ 'is-loading': authLoading }"
                   :disabled="$v.formData.$invalid"
                   @click.prevent="onResetPassword"

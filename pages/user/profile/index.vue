@@ -90,7 +90,7 @@
                   <div class="level-left"></div>
                   <div class="level-right">
                     <button
-                      class="button is-info is-rounded"
+                      class="button is-info"
                       :class="{ 'is-loading': authLoading }"
                       :disabled="$v.userContent.$invalid"
                       type="submit"
@@ -139,7 +139,7 @@
                   <div class="level-left"></div>
                   <div class="level-right">
                     <button
-                      class="button is-info is-rounded"
+                      class="button is-info"
                       :class="{ 'is-loading': authLoading }"
                       :disabled="
                         $v.userEmail.$invalid ||
@@ -207,7 +207,7 @@
                   <div class="level-left"></div>
                   <div class="level-right">
                     <button
-                      class="button is-info is-rounded"
+                      class="button is-info"
                       :class="{ 'is-loading': authLoading }"
                       :disabled="
                         $v.confirmPasswordForNewPassword.$invalid ||
@@ -294,7 +294,7 @@
                   <div class="level-left"></div>
                   <div class="level-right">
                     <button
-                      class="button is-info is-rounded"
+                      class="button is-info"
                       :class="{ 'is-loading': authLoading }"
                       type="submit"
                       @click.prevent="onUpdateAvatar"
@@ -330,7 +330,7 @@
                   <div class="level-left"></div>
                   <div class="level-right">
                     <button
-                      class="button is-danger is-rounded"
+                      class="button is-danger"
                       :class="{ 'is-loading': authLoading }"
                       :disabled="$v.confirmPasswordForDeleting.$invalid"
                       type="submit"

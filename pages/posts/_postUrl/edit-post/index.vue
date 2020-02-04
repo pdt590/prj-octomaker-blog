@@ -25,8 +25,20 @@
             v-for="(category, i) in categories"
             :key="i"
             :value="category.id"
-          >{{ category.name }}</option>
+            >{{ category.name }}</option
+          >
         </b-select>
+      </b-field>
+
+      <b-field class="content">
+        <b-taginput
+          placeholder="Add a tag"
+          v-model="postContent.tags"
+          maxtags="3"
+          :has-counter="false"
+          icon="label"
+        >
+        </b-taginput>
       </b-field>
 
       <!-- simpleMDE -->
@@ -47,33 +59,41 @@
           v-model="postContent.mode"
           native-value="public"
           :disabled="$v.postTitle.$invalid"
-        >Public</b-radio>
+          >Public</b-radio
+        >
         <b-radio
           v-model="postContent.mode"
           native-value="private"
           :disabled="$v.postTitle.$invalid"
-        >Private</b-radio>
+          >Private</b-radio
+        >
       </div>
 
       <button
-        class="button is-info is-rounded"
+        class="button is-info"
         :class="{ 'is-loading': postLoading }"
-        :disabled="$v.postTitle.$invalid"
+        :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
         type="submit"
         @click.prevent="onPublish"
-      >Update</button>
+      >
+        Update
+      </button>
       <button
-        class="button is-info is-rounded"
-        :disabled="$v.postTitle.$invalid"
+        class="button is-info"
+        :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
         type="submit"
         @click.prevent="isModalConfirmActive = true"
-      >Delete</button>
+      >
+        Delete
+      </button>
       <button
-        class="button is-info is-rounded"
+        class="button is-info"
         :disabled="$v.postTitle.$invalid"
         type="submit"
         @click.prevent="$router.push(`/posts/${postUrl}`)"
-      >Back</button>
+      >
+        Back
+      </button>
     </form>
 
     <!-- Modal -->
@@ -115,6 +135,7 @@ export default {
 
     this.postContent = {
       category: this.loadedPost.category,
+      tags: this.loadedPost.tags,
       mode: this.loadedPost.mode,
       markdown: this.loadedPost.markdown,
       html: this.loadedPost.html
@@ -248,6 +269,14 @@ export default {
   validations: {
     postTitle: {
       required
+    },
+    postContent: {
+      category: {
+        required
+      },
+      tags: {
+        required
+      }
     }
   },
   methods: {
@@ -310,7 +339,8 @@ export default {
       this.simplemde.drawLink();
       this.isModalLinkActive = false;
     },
-    onInsertEmbed(link) { // TODO
+    onInsertEmbed(link) {
+      // TODO
       const cm = this.simplemde.codemirror;
       cm.replaceSelection(`{@embed: ${link} }`);
       this.isModalEmbedActive = false;

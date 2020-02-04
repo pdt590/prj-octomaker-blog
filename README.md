@@ -180,6 +180,9 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 ## TODO
 
 - `Notify Internet Disconnection when saving - [Refer](https://nuxtjs.org/api/$nuxt)`
+- `Remove old link when removing a image`
+- `404 GET /user/join issue`
+- `Change Category list display on navbar`
 - Re-check default style
   - Change class style to prefix `_`
   - Button position on modals
@@ -187,10 +190,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   - Fix mobile layout
   - Fix list-style issue for child level
   - Re-design Logo
-- `Remove old link when removing a image`
 - Remove special characteristic on title (square brackets ...)
-- `404 GET /user/join issue`
-- Remove loading button when addTitle (Replace by loading title icon)
 - Fix long load issue when clicking edit
 - Fix public/private post mode
 - Redesign CardPost - [Refer](https://www.hackster.io/)
@@ -206,9 +206,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   - Change button style
 - Implement embed link select
   - Fix responsives iframe issue
-- `Change Category list display on navbar`
 - Add View image event on editor and post
-- Add tags for each post
 - Improve search performance
 - Shoud use cloudinary to upload images?
 - Check problem: reload search page when entering search button

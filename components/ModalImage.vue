@@ -38,7 +38,7 @@
     </section>
     <footer class="modal-card-foot">
       <button
-        class="button is-rounded"
+        class="button"
         type="button"
         @click="$parent.close()"
         style="justify-content: flex-end;"

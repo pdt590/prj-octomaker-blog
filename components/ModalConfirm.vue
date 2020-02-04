@@ -8,12 +8,12 @@
         <section class="modal-card-body">
           <div class="buttons" style="display: flex; justify-content: center">
             <a
-              class="button is-grey is-outlined is-rounded is-medium"
+              class="button is-grey is-outlined is-medium"
               :class="{ 'is-loading': postLoading }"
               @click.prevent="onDelete"
             >Đồng ý</a>
             <a
-              class="button is-grey is-outlined is-rounded is-medium"
+              class="button is-grey is-outlined is-medium"
               @click.prevent="$parent.close()"
             >Hủy</a>
           </div>

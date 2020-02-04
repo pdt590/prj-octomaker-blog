@@ -30,14 +30,14 @@
               <div class="buttons">
                 <nuxt-link
                   v-if="isEditable"
-                  class="button is-info is-rounded is-outlined"
+                  class="button is-info is-outlined"
                   :to="`/posts/${$route.params.postUrl}/edit-post`"
                 >
                   <b-icon icon="settings-outline" size="is-small"></b-icon>
                   <strong>Chỉnh sửa</strong>
                 </nuxt-link>
                 <a
-                  class="button is-info is-rounded is-outlined"
+                  class="button is-info is-outlined"
                   :href="
                     `https://www.facebook.com/sharer/sharer.php?u=${baseUrl}/posts/${$route.params.postUrl}`
                   "
@@ -85,7 +85,7 @@
               <hr />
               <div class="buttons">
                 <a
-                  class="button is-info is-rounded is-outlined"
+                  class="button is-info is-outlined"
                   :href="
                     `https://www.facebook.com/sharer/sharer.php?u=${baseUrl}/posts/${$route.params.postUrl}`
                   "
@@ -96,7 +96,7 @@
                 </a>
                 <nuxt-link
                   v-if="isEditable"
-                  class="button is-info is-rounded is-outlined"
+                  class="button is-info is-outlined"
                   :to="`/posts/${$route.params.postUrl}/edit-post`"
                 >
                   <b-icon icon="settings-outline" size="is-small"></b-icon>
@@ -113,6 +113,16 @@
           <div class="card-content">
             <!-- Content -->
             <h1 class="v-post-title">{{ postTitle }}</h1>
+            <hr>
+            <div class="tags">
+              <span
+                v-for="(tag, index) in postTags"
+                :key="index"
+                class="tag is-info"
+              >
+                {{ tag }}
+              </span>
+            </div>
             <article class="markdown-body">
               <span v-html="postHtml"></span>
             </article>
@@ -138,7 +148,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { fetchDesc } from "~/libs/helpers"
+import { fetchDesc } from "~/libs/helpers";
 import { categories } from "~/libs/lists";
 
 export default {
@@ -163,20 +173,23 @@ export default {
     postTitle() {
       return this.loadedPost.title;
     },
-    postHtml() {
-      return this.loadedPost.html;
-    },
-    postMode() {
-      return this.loadedPost.mode;
-    },
     postCategory() {
       const category = categories.find(
         item => item.id === this.loadedPost.category
       );
       return category.name;
     },
+    postTags() {
+      return this.loadedPost.tags;
+    },
+    postMode() {
+      return this.loadedPost.mode;
+    },
+    postHtml() {
+      return this.loadedPost.html;
+    },
     postDescription() {
-      return fetchDesc(this.postHtml)
+      return fetchDesc(this.postHtml);
     },
     postThumbnail() {
       if (this.loadedPost.images) {

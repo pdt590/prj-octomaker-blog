@@ -38,9 +38,9 @@
         <footer class="modal-card-foot" style="justify-content: space-between">
           <a @click="onFgPassword">Quên mật khẩu?</a>
           <div class="buttons">
-            <button class="button is-rounded" type="button" @click="$parent.close()">Close</button>
+            <button class="button" type="button" @click="$parent.close()">Close</button>
             <button
-              class="button is-info is-rounded"
+              class="button is-info"
               :class="{ 'is-loading': authLoading }"
               :disabled="$v.formData.$invalid"
               @click.prevent="onLogin"

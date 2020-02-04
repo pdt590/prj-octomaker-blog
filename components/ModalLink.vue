@@ -15,9 +15,9 @@
         </section>
         <footer class="modal-card-foot" style="justify-content: space-between">
           <div class="buttons">
-            <button class="button is-rounded" type="button" @click="$parent.close()">Close</button>
+            <button class="button" type="button" @click="$parent.close()">Close</button>
             <button
-              class="button is-rounded"
+              class="button"
               :disabled="$v.link.$invalid"
               @click.prevent="onInsert"
             >Insert</button>

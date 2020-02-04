@@ -37,6 +37,7 @@ export default {
         };
         const postContent = {
           category: "others",
+          tags: [],
           mode: "private",
           markdown: "",
           html: ""

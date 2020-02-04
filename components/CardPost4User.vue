@@ -34,9 +34,9 @@
       </div>
       <!-- For mobile -->
       <div class="buttons is-hidden-tablet">
-        <a class="button is-danger is-rounded is-outlined" @click="isModalConfirmActive = true">Xóa</a>
+        <a class="button is-danger is-outlined" @click="isModalConfirmActive = true">Xóa</a>
         <nuxt-link
-          class="button is-info is-rounded is-outlined"
+          class="button is-info is-outlined"
           :to="`/posts/${value.url}/edit-post`"
           target="_blank"
         >Sửa</nuxt-link>
@@ -55,9 +55,9 @@
     </div>
     <div class="media-right is-hidden-mobile">
       <div class="buttons">
-        <a class="button is-danger is-rounded is-outlined" @click="isModalConfirmActive = true">Xóa</a>
+        <a class="button is-danger is-outlined" @click="isModalConfirmActive = true">Xóa</a>
         <nuxt-link
-          class="button is-info is-rounded is-outlined"
+          class="button is-info is-outlined"
           :to="`/posts/${postUrl}/edit-post`"
           target="_blank"
         >Sửa</nuxt-link>

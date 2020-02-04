@@ -25,7 +25,7 @@
     <div class="level">
       <div class="level-item">
         <button
-          class="button is-rounded is-outlined"
+          class="button is-outlined"
           :class="{ 'is-loading': queryLoading }"
           :disabled="!loadedPosts.length"
           @click="onLoad"

@@ -30,13 +30,13 @@
               "
             >
               <div class="buttons">
-                <a class="button is-info is-rounded is-outlined" @click="isModalJoinActive = true">
+                <a class="button is-info is-outlined" @click="isModalJoinActive = true">
                   <strong>Đăng nhập</strong>
                 </a>
               </div>
             </div>
             <div class="navbar-item" v-if="user && $route.path !== '/posts/new-post'">
-              <nuxt-link class="button is-info is-rounded is-outlined" to="/posts/new-post">
+              <nuxt-link class="button is-info is-outlined" to="/posts/new-post">
                 <strong>Tạo bài viết</strong>
               </nuxt-link>
             </div>
