@@ -179,24 +179,25 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
 ## TODO
 
-- Notify Internet Disconnection when saving - [Refer](https://nuxtjs.org/api/$nuxt)
-- Add recommendation posts in each post
+- `Notify Internet Disconnection when saving - [Refer](https://nuxtjs.org/api/$nuxt)`
 - Re-check default style
   - Change class style to prefix `_`
   - Button position on modals
   - Fix navbar-item style on Navbar component
-- Remove old link when removing a image
+  - Fix mobile layout
+  - Fix list-style issue for child level
+  - Re-design Logo
+- `Remove old link when removing a image`
 - Remove special characteristic on title (square brackets ...)
-- `404 GET /user/join` issue
+- `404 GET /user/join issue`
 - Remove loading button when addTitle (Replace by loading title icon)
 - Fix long load issue when clicking edit
 - Fix public/private post mode
 - Redesign CardPost - [Refer](https://www.hackster.io/)
+- Add recommendation posts in each post
+  - Add carousel - [Refer](https://buefy.org/documentation/carousel/)
 - Implement remember-me login
 - Change Avatar from square to circle
-- Add image validation for uploading
-  - Change Compress logic for image upload
-  - compressjs makes .gif to .png - [Refer](https://github.com/fengyuanchen/compressorjs/issues/78)
 - Add highlight.js and fix github-css issue
   - Check issue in [github-markdown-css](https://github.com/sindresorhus/github-markdown-css) & [simplemde-markdown-editor](https://github.com/sparksuite/simplemde-markdown-editor)
 - Add section highlight for each post
@@ -205,11 +206,8 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   - Change button style
 - Implement embed link select
   - Fix responsives iframe issue
-- Change Category list display on navbar
-- Fix mobile layout
-- Fix list-style issue for child level
+- `Change Category list display on navbar`
 - Add View image event on editor and post
-- Re-design Logo
 - Add tags for each post
 - Improve search performance
 - Shoud use cloudinary to upload images?
