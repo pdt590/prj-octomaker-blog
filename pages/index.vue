@@ -16,11 +16,6 @@
         <v-card-post class="is-hidden-mobile" :value="post" />
         <v-card-post-mobile class="is-hidden-tablet" :value="post" />
       </div>
-      <b-loading
-        class="is-hidden-mobile"
-        :is-full-page="false"
-        :active.sync="queryLoading"
-      ></b-loading>
     </div>
     <div class="level">
       <div class="level-item">
