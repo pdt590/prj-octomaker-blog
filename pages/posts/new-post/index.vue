@@ -24,8 +24,7 @@
             v-for="(category, i) in categories"
             :key="i"
             :value="category.id"
-            >{{ category.name }}</option
-          >
+          >{{ category.name }}</option>
         </b-select>
       </b-field>
 
@@ -36,8 +35,7 @@
           maxtags="3"
           :has-counter="false"
           icon="label"
-        >
-        </b-taginput>
+        ></b-taginput>
       </b-field>
 
       <!-- simpleMDE -->
@@ -58,14 +56,12 @@
           v-model="postContent.mode"
           native-value="public"
           :disabled="$v.postTitle.$invalid || !isTitleAdded"
-          >Public</b-radio
-        >
+        >Public</b-radio>
         <b-radio
           v-model="postContent.mode"
           native-value="private"
           :disabled="$v.postTitle.$invalid || !isTitleAdded"
-          >Private</b-radio
-        >
+        >Private</b-radio>
       </div>
 
       <button
@@ -74,17 +70,13 @@
         :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
         type="submit"
         @click.prevent="onPublish"
-      >
-        Publish
-      </button>
+      >Publish</button>
       <button
         class="button is-info"
         :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
         type="submit"
         @click.prevent="isModalConfirmActive = true"
-      >
-        Discard
-      </button>
+      >Discard</button>
     </form>
 
     <!-- Modal -->
@@ -129,7 +121,7 @@ export default {
     return {
       configs: {
         autofocus: true,
-        placeholder: `Markdown syntax is supported. Click (?) for Help`,
+        placeholder: `Content format: \n # Introduction \n - Describe overall your post \n - Dont use picture in this section \n - Dont use bullet in this section \n # Content \n - Write your post`,
         spellChecker: false,
         toolbar: [
           "bold",

@@ -158,7 +158,7 @@ export default {
     return {
       configs: {
         autofocus: true,
-        placeholder: `Markdown syntax is supported. Click (?) for Help`,
+        placeholder: `Content format: \n # Introduction \n - Describe overall your post \n - Dont use picture in this section \n - Dont use bullet in this section \n # Content \n - Write your post`,
         spellChecker: false,
         toolbar: [
           "bold",
