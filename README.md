@@ -212,3 +212,4 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   - Fix responsives iframe issue
 - Add View image event on editor and post
 - Fix min-height editor issue
+- Recheck logic in activekey page

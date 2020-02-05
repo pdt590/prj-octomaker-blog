@@ -71,6 +71,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { fetchDesc } from "~/libs/helpers";
 import { categories } from "~/libs/lists";
 
 export default {
@@ -81,6 +82,7 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(["postLoading"]),
     postUrl() {
       return this.value.url;
     },
@@ -91,11 +93,11 @@ export default {
       const category = categories.find(item => item.id === this.value.category);
       return category.name;
     },
-    postDescription() {
-      return this.value.markdown;
-    },
     postUpdatedDate() {
       return this.value.updatedDate;
+    },
+    postDescription() {
+      return fetchDesc(this.value.html);
     },
     postThumbnail() {
       if (this.value.images) {
@@ -113,8 +115,17 @@ export default {
   methods: {
     async onDelete() {
       await this.$store.dispatch("deletePostByUser", this.postUrl);
-      this.isModalConfirmActive = false;
-      location.reload();
+      if (this.postLoading) {
+        this.$store.commit("setPostLoading", false);
+        this.$buefy.toast.open({
+          duration: 3000,
+          message: "onDelete() Error",
+          type: "is-danger"
+        });
+      } else {
+        this.isModalConfirmActive = false;
+        location.reload();
+      }
     }
   }
 };

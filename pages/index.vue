@@ -1,18 +1,10 @@
 <template>
   <div class="container">
     <div class="v-header">
-      <p
-        class="is-size-5 is-capitalized has-text-black has-text-weight-semibold"
-      >
-        Posts
-      </p>
+      <p class="is-size-5 is-capitalized has-text-black has-text-weight-semibold">Posts</p>
     </div>
     <div class="columns is-multiline is-variable is-2">
-      <div
-        class="column is-2"
-        v-for="(post, index) in loadedPosts"
-        :key="index"
-      >
+      <div class="column is-2" v-for="(post, index) in loadedPosts" :key="index">
         <v-card-post class="is-hidden-mobile" :value="post" />
         <v-card-post-mobile class="is-hidden-tablet" :value="post" />
       </div>
@@ -24,9 +16,7 @@
           :class="{ 'is-loading': queryLoading }"
           :disabled="!loadedPosts.length"
           @click="onLoad"
-        >
-          Xem thêm
-        </button>
+        >Xem thêm</button>
       </div>
     </div>
   </div>
@@ -60,8 +50,17 @@ export default {
         limit: this.limit + 1,
         endAtKey: endAtKey
       });
-      loadedMorePosts.length ? loadedMorePosts.shift() : ``; // Remove first item
-      this.loadedPosts = [...this.loadedPosts, ...loadedMorePosts];
+      if (this.queryLoading) {
+        this.$store.commit("setQueryLoading", false);
+        this.$buefy.toast.open({
+          duration: 3000,
+          message: "onLoad() Error",
+          type: "is-danger"
+        });
+      } else {
+        loadedMorePosts.length ? loadedMorePosts.shift() : ``; // Remove first item
+        this.loadedPosts = [...this.loadedPosts, ...loadedMorePosts];
+      }
     }
   },
   head() {

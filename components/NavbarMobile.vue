@@ -124,7 +124,7 @@ import { categories } from "~/libs/lists";
 
 export default {
   computed: {
-    ...mapGetters(["user"]),
+    ...mapGetters(["user", "authLoading"]),
     userAvatarUrl() {
       if (this.user.avatar) {
         return this.user.avatar.url;
@@ -177,15 +177,24 @@ export default {
     },
     async onLogout() {
       await this.$store.dispatch("logOut");
-      this.isProfileActive = false;
-      if (this.$route.params.postUrl) {
-        this.$router.push(`/posts/${this.$route.params.postUrl}`);
+      if (this.authLoading) {
+        this.$store.commit("setAuthLoading", false);
+        this.$buefy.toast.open({
+          duration: 3000,
+          message: "onLogout() Error",
+          type: "is-danger"
+        });
       } else {
-        this.$router.push("/");
+        this.isProfileActive = false;
+        if (this.$route.params.postUrl) {
+          this.$router.push(`/posts/${this.$route.params.postUrl}`);
+        } else {
+          this.$router.push("/");
+        }
       }
     },
     onSearch() {
-      window.location.href = `/search?key=${this.searchKey}`;
+      location.href = `/search?key=${this.searchKey}`;
     }
   }
 };

@@ -49,7 +49,7 @@
                 ></b-input>
               </b-field>
 
-              <b-checkbox>Remember me</b-checkbox>
+              <!-- <b-checkbox>Remember me</b-checkbox> -->
             </div>
             <footer class="card-footer">
               <div class="card-footer-item">

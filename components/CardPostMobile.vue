@@ -40,6 +40,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { fetchDesc } from "~/libs/helpers";
 import { categories } from "~/libs/lists";
 
 export default {
@@ -63,7 +64,7 @@ export default {
       return category.name;
     },
     postDescription() {
-      return this.value.markdown
+      return fetchDesc(this.value.html);
     },
     postThumbnail() {
       if (this.value.images) {

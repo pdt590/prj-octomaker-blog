@@ -127,7 +127,7 @@ export default {
       let expirationDate = Cookie.get("expirationDate");
       if (uid) {
         if (new Date().getTime() > +expirationDate) {
-          vuexContext.dispatch("logOut");
+          await vuexContext.dispatch("logOut");
         } else {
           // re-new expirationDate
           Cookie.set(
@@ -139,15 +139,20 @@ export default {
     },
 
     async logOut(vuexContext) {
-      await firebase.auth().signOut();
-      Cookie.remove("uid");
-      Cookie.remove("expirationDate");
-      vuexContext.commit("setUser", null);
-
-      if (process.client) {
-        localStorage.setItem("auth-event", "");
-        localStorage.removeItem("auth-event");
-        window.location.reload(true)
+      vuexContext.commit("setAuthLoading", true);
+      try {
+        await firebase.auth().signOut();
+        Cookie.remove("uid");
+        Cookie.remove("expirationDate");
+        vuexContext.commit("setUser", null);
+        vuexContext.commit("setAuthLoading", false);
+        if (process.client) {
+          localStorage.setItem("auth-event", "");
+          localStorage.removeItem("auth-event");
+          location.reload(true)
+        }
+      } catch (e) {
+        console.error("[ERROR-logOut]", e);
       }
     },
 
@@ -378,7 +383,7 @@ export default {
       vuexContext.commit("setAuthLoading", true);
       vuexContext.commit("clearAuthError");
       try {
-        vuexContext.getters.user ? vuexContext.dispatch("logOut") : ``;
+        vuexContext.getters.user ? await vuexContext.dispatch("logOut") : ``;
 
         const auth = firebase.auth();
         // Confirm the action code is valid
