@@ -158,7 +158,7 @@ export default {
     return {
       configs: {
         autofocus: true,
-        placeholder: `Content format: \n # Introduction \n - Describe overall your post \n - Dont use picture in this section \n - Dont use bullet in this section \n # Content \n - Write your post`,
+        placeholder: `Content format: \n # Introduction \n - Describe overall your post \n - Don't use picture/bullet/link \n # Content \n - Write your post`,
         spellChecker: false,
         toolbar: [
           "bold",
