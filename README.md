@@ -182,6 +182,12 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - `Notify Internet Disconnection when saving - [Refer](https://nuxtjs.org/api/$nuxt)`
 - `Remove old link when removing a image`
 - `404 GET /user/join issue`
+- `Remove special characteristic on title (square brackets ...)`
+- `Fix long load issue when clicking edit`
+- `Implement remember-me login`
+- `Improve search performance`
+- `Shoud use cloudinary to upload images?`
+- `Check problem: reload search page when entering search button`
 - Change Category list display on navbar
 - Re-check default style
   - Change class style to prefix `_`
@@ -189,28 +195,20 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   - Fix navbar-item style on Navbar component
   - Fix mobile layout
   - Fix list-style issue for child level
+    - Style side-effect on b-pagination 
   - Re-design Logo
-- Remove special characteristic on title (square brackets ...)
-- Fix long load issue when clicking edit
-- Redesign CardPost - [Refer](https://www.hackster.io/)
+  - Change Avatar from square to circle
+  - Redesign CardPost - [Refer](https://www.hackster.io/)
+  - Change new float style in each post
+    - Avatar
 - Add recommendation posts in each post
   - Add carousel - [Refer](https://buefy.org/documentation/carousel/)
-- Implement remember-me login
-- Change Avatar from square to circle
 - Add highlight.js and fix github-css issue
   - Check issue in [github-markdown-css](https://github.com/sindresorhus/github-markdown-css) & [simplemde-markdown-editor](https://github.com/sparksuite/simplemde-markdown-editor)
   - Check other renders
 - Add section highlight for each post (Markdown TOC - Table of Content) - [Refer](https://www.jqueryscript.net/blog/best-table-contents-plugins.html)
   - Test `Tocbot` without bulma css
-- Change new float style in each post
-  - Avatar
-  - Change button style
 - Implement embed link select
   - Fix responsives iframe issue
 - Add View image event on editor and post
-- Improve search performance
-- Shoud use cloudinary to upload images?
-- Check problem: reload search page when entering search button
-- Fix avatar upload issue
-- Refactor image upload validation
 - Fix min-height editor issue

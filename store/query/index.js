@@ -78,7 +78,9 @@ export default {
         const loadedPosts = [];
         postsData.forEach(postData => {
           const postObj = postData.val();
-          loadedPosts.push(postObj);
+          if (postObj.mode === "public") {
+            loadedPosts.push(postObj);
+          }
         });
         vuexContext.commit("setQueryLoading", false);
         return loadedPosts.reverse();
@@ -100,7 +102,9 @@ export default {
         const loadedPosts = [];
         postsData.forEach(postData => {
           const postObj = postData.val();
-          loadedPosts.push(postObj);
+          if (postObj.mode === "public") {
+            loadedPosts.push(postObj);
+          }
         });
         vuexContext.commit("setQueryLoading", false);
         return loadedPosts.reverse();
