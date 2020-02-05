@@ -1,5 +1,5 @@
 import firebase from "~/libs/firebase";
-import { genId, genUrl, fetchId, isImage, compressImage } from "~/libs/helpers";
+import { genId, genUrl, fetchId, compressImage } from "~/libs/helpers";
 const database = firebase.database();
 const storage = firebase.storage();
 const postsRef = database.ref("posts");
@@ -95,9 +95,6 @@ export default {
           return uploadedImages;
         }
         for (const image of images) {
-          if(!isImage(image)){
-            continue;
-          }
           const ext = image.name.slice(image.name.lastIndexOf("."));
           const newImageName = `${postId}_${genId(3)}${ext}`;
           const metaData = {
@@ -152,9 +149,6 @@ export default {
         };
         for (const image of images) {
           const cprImage = await compressImage(image);
-          if (!cprImage) {
-            continue;
-          }
           const ext = cprImage.name.slice(cprImage.name.lastIndexOf("."));
           const newImageName = `${postId}_${genId(3)}${ext}`;
           const metaData = {

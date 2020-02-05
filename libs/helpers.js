@@ -1,5 +1,7 @@
 import Compressor from "compressorjs";
 
+export const acceptedImages = ".png, .PNG, .jpeg, .JPEG, .jpg, .JPG, .gif, .GIF"
+
 export const isImage = file => {
   const acceptedFiles = [
     ".png",
@@ -11,29 +13,23 @@ export const isImage = file => {
     ".gif",
     ".GIF"
   ];
-  if(!file) return false
+  if (!file) return false;
   const ext = file.name.slice(file.name.lastIndexOf("."));
   if (!acceptedFiles.includes(ext)) return false;
   return true;
 };
 
 export const isGif = file => {
-  const acceptedFiles = [
-    ".gif",
-    ".GIF"
-  ];
-  if(!file) return false
+  const acceptedFiles = [".gif", ".GIF"];
+  if (!file) return false;
   const ext = file.name.slice(file.name.lastIndexOf("."));
   if (!acceptedFiles.includes(ext)) return false;
   return true;
-}
+};
 
 export function compressImage(image) {
   const maxSize = 1500000;
   const quality = 0.5;
-  if (!isImage(image)) {
-    return null;
-  }
   if (image.size < maxSize || isGif(image)) {
     return image;
   }
@@ -47,7 +43,7 @@ export function compressImage(image) {
       },
       error(e) {
         console.error("[ERROR-Compressor]", e.message);
-        reject(null);
+        reject(e);
       }
     });
   });
@@ -102,19 +98,13 @@ export function fetchId(url) {
   return url.split("-").pop();
 }
 
-// TODO
-export function fetchTitle(url) {
-  url.split("-").pop();
-  return url.join("");
-}
-
 export function fetchKey(object, value) {
   return Object.keys(object).find(key => object[key] === value);
 }
 
 export function fetchDesc(value) {
   const matches = [];
-  value.replace(/<p>(.*?)<\/p>/g, function() {
+  value.replace(/<p>(.*?)<\/p>/g, function () {
     matches.push(arguments[1]);
   });
   return matches[0];

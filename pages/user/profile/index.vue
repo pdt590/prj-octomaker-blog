@@ -229,12 +229,10 @@
                     <div class="level">
                       <div class="level-item">
                         <b-upload
-                          v-model="userAvatar"
+                          v-model="userNewAvatar"
                           @input="onAvatarChange"
-                          :disabled="
-                            userOldAvatar !== null || userAvatar !== null
-                          "
                           drag-drop
+                          :accept="acceptedImages"
                         >
                           <section class="section">
                             <div class="content has-text-centered">
@@ -267,7 +265,7 @@
                         ></a>
                       </figure>
                     </div>
-                    <div class="level-item" v-if="userAvatar">
+                    <div class="level-item" v-if="userNewAvatar">
                       <figure class="image is-128x128 v-image-frame">
                         <img
                           class="v-preview-image"
@@ -283,7 +281,7 @@
                           class="delete v-image-bndelete"
                           @click="
                             userPreviewAvatar = null;
-                            userAvatar = null;
+                            userNewAvatar = null;
                           "
                         ></a>
                       </figure>
@@ -297,6 +295,7 @@
                       class="button is-info"
                       :class="{ 'is-loading': authLoading }"
                       type="submit"
+                      :disabled="!isAvatarChanged"
                       @click.prevent="onUpdateAvatar"
                     >
                       Lưu thay đổi
@@ -351,7 +350,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { deepCopy, authMessage } from "~/libs/helpers";
+import { deepCopy, acceptedImages, authMessage } from "~/libs/helpers";
 import { provinces } from "~/libs/lists";
 import {
   required,
@@ -365,28 +364,38 @@ import {
 export default {
   middleware: "server-client-auth",
   created() {
-    this.userData = deepCopy(this.user);
-    delete this.userData.id;
-    this.userEmail = this.userData.email;
-    delete this.userData.email;
-    if (this.userData.avatar) {
-      this.userOldAvatar = deepCopy(this.userData.avatar);
-      delete this.userData.avatar;
-    }
+    this.userEmail = this.user.email;
+    this.userOldAvatar = this.user.avatar;
     this.userContent = {
-      ...deepCopy(this.userData),
-      province: "Hà Nội"
+      username: this.user.username,
+      fullname: this.user.fullname,
+      phone: this.user.phone,
+      address: this.user.address,
+      province: this.user.province ? this.user.province : "Hà Nội"
     };
   },
   computed: {
-    ...mapGetters(["user", "authError", "authLoading"])
+    ...mapGetters(["user", "authError", "authLoading"]),
+    isAvatarChanged() {
+      if(this.user.avatar) {
+        if(!this.userOldAvatar) {
+          return true
+        } else {
+          return false
+        } 
+      } else {
+        if(this.userNewAvatar) {
+          return true
+        } else {
+          return false
+        }
+      }
+    }
   },
   data() {
     return {
       provinces: provinces,
-      userData: null,
-
-      userContent: null,
+      userContent: {},
 
       userEmail: null,
       confirmPasswordForNewEmail: null,
@@ -395,7 +404,8 @@ export default {
       confirmUserPassword: null,
       confirmPasswordForNewPassword: null,
 
-      userAvatar: null,
+      acceptedImages: acceptedImages,
+      userNewAvatar: null,
       userPreviewAvatar: null,
       userOldAvatar: null,
 
@@ -508,7 +518,7 @@ export default {
       }
     },
     async onUpdateAvatar() {
-      await this.$store.dispatch("updateUserAvatar", this.userAvatar);
+      await this.$store.dispatch("updateUserAvatar", this.userNewAvatar);
       if (this.authLoading) {
         this.$buefy.toast.open({
           duration: 3000,
@@ -538,8 +548,8 @@ export default {
     onAvatarChange() {
       this.userPreviewAvatar = null;
       this.userPreviewAvatar = {
-        url: URL.createObjectURL(this.userAvatar),
-        size: this.userAvatar.size
+        url: URL.createObjectURL(this.userNewAvatar),
+        size: this.userNewAvatar.size
       };
     }
   }

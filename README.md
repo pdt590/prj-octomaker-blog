@@ -182,7 +182,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - `Notify Internet Disconnection when saving - [Refer](https://nuxtjs.org/api/$nuxt)`
 - `Remove old link when removing a image`
 - `404 GET /user/join issue`
-- `Change Category list display on navbar`
+- Change Category list display on navbar
 - Re-check default style
   - Change class style to prefix `_`
   - Button position on modals
@@ -200,7 +200,9 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Change Avatar from square to circle
 - Add highlight.js and fix github-css issue
   - Check issue in [github-markdown-css](https://github.com/sindresorhus/github-markdown-css) & [simplemde-markdown-editor](https://github.com/sparksuite/simplemde-markdown-editor)
-- Add section highlight for each post
+  - Check other renders
+- Add section highlight for each post (Markdown TOC - Table of Content) - [Refer](https://www.jqueryscript.net/blog/best-table-contents-plugins.html)
+  - Test `Tocbot` without bulma css
 - Change new float style in each post
   - Avatar
   - Change button style
@@ -211,3 +213,4 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Shoud use cloudinary to upload images?
 - Check problem: reload search page when entering search button
 - Fix avatar upload issue
+- Refactor image upload validation

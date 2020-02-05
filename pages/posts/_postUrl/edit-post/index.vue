@@ -1,7 +1,6 @@
 <template>
   <div class="container">
     <form>
-      <!-- Post info -->
       <b-field class="content" :type="$v.postTitle.$error ? `is-danger` : ``">
         <b-input
           placeholder="Title"
@@ -117,16 +116,7 @@
 import { mapGetters } from "vuex";
 import { isImage, deepCopy } from "~/libs/helpers";
 import { categories } from "~/libs/lists";
-import {
-  required,
-  email,
-  url,
-  numeric,
-  sameAs,
-  not,
-  minLength,
-  maxLength
-} from "vuelidate/lib/validators";
+import { required } from "vuelidate/lib/validators";
 
 export default {
   middleware: ["server-client-auth", "server-client-edit-permission"],
@@ -259,8 +249,7 @@ export default {
       isModalConfirmActive: false,
 
       categories: categories,
-
-      buffer: null,
+      
       postTitle: "",
       //postImages: [],
       postContent: {}

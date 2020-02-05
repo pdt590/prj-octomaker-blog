@@ -76,7 +76,7 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: "" // TODO
+          content: "We make what you need"
         }
       ]
     };

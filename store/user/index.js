@@ -269,10 +269,6 @@ export default {
           cacheControl: "public,max-age=31536000"
         };
         const cprAvatar = await compressImage(newAvatar);
-        if (!cprAvatar) {
-          vuexContext.commit("setAuthLoading", false);
-          return;
-        }
         const ext = cprAvatar.name.slice(cprAvatar.name.lastIndexOf("."));
         const newAvatarName = userId + ext;
         const metaData = {

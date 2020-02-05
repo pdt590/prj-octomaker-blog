@@ -8,7 +8,7 @@
         <!-- Upload Image -->
         <div class="level">
           <div class="level-item">
-            <b-upload v-model="images" @input="onAdd" :loading="postLoading" drag-drop multiple>
+            <b-upload v-model="images" @input="onAdd" :loading="postLoading" drag-drop multiple :accept="acceptedImages">
               <section class="section">
                 <div class="content has-text-centered">
                   <p>
@@ -49,8 +49,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { deepCopy } from "~/libs/helpers";
-import { maxLength } from "vuelidate/lib/validators";
+import { deepCopy, acceptedImages } from "~/libs/helpers";
 
 export default {
   props: {
@@ -67,13 +66,14 @@ export default {
   },
   data() {
     return {
+      acceptedImages: acceptedImages,
       images: [],
       previewImages: []
     };
   },
   methods: {
     async onAdd() {
-      const uniqueImages = this.images.filter(
+      const uniqueImages = this.images.filter( // Check duplicate images
         image =>
           !this.previewImages.some(item => item.metadata.orgName === image.name)
       );

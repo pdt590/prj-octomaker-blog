@@ -113,15 +113,9 @@
           <div class="card-content">
             <!-- Content -->
             <h1 class="v-post-title">{{ postTitle }}</h1>
-            <hr>
+            <hr />
             <div class="tags">
-              <span
-                v-for="(tag, index) in postTags"
-                :key="index"
-                class="tag is-info"
-              >
-                {{ tag }}
-              </span>
+              <span v-for="(tag, index) in postTags" :key="index" class="tag is-info">{{ tag }}</span>
             </div>
             <article class="markdown-body">
               <span v-html="postHtml"></span>

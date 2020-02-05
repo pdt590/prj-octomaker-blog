@@ -25,6 +25,10 @@
   - [vue-hljs](https://github.com/SunskyXH/vue-hljs)
   - [highlight.js](https://github.com/highlightjs/highlight.js)
 
+- Others
+  - [BubuAnabelas/awesome-markdown](https://github.com/BubuAnabelas/awesome-markdown)
+  - [mundimark/awesome-markdown](https://github.com/mundimark/awesome-markdown)
+
 ## Issues
 
 - [Error on Nuxt](https://github.com/F-loat/vue-simplemde/issues/75)

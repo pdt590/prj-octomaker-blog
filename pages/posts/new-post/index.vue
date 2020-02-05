@@ -108,7 +108,7 @@
 import { mapGetters } from "vuex";
 import { isImage } from "~/libs/helpers";
 import { categories } from "~/libs/lists";
-import { required, maxLength } from "vuelidate/lib/validators";
+import { required } from "vuelidate/lib/validators";
 
 export default {
   middleware: ["server-client-auth"],
