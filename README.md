@@ -192,7 +192,6 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   - Re-design Logo
 - Remove special characteristic on title (square brackets ...)
 - Fix long load issue when clicking edit
-- Fix public/private post mode
 - Redesign CardPost - [Refer](https://www.hackster.io/)
 - Add recommendation posts in each post
   - Add carousel - [Refer](https://buefy.org/documentation/carousel/)
@@ -214,3 +213,4 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Check problem: reload search page when entering search button
 - Fix avatar upload issue
 - Refactor image upload validation
+- Fix min-height editor issue

@@ -12,7 +12,7 @@ export default {
     }
   },
   actions: {
-    // Posts
+    // All Posts
     async loadPosts(vuexContext, payload) {
       vuexContext.commit("setQueryLoading", true);
       try {
@@ -32,7 +32,9 @@ export default {
         const loadedPosts = [];
         postsData.forEach(postData => {
           const postObj = postData.val();
-          loadedPosts.push(postObj);
+          if (postObj.mode === "public") {
+            loadedPosts.push(postObj);
+          }
         });
         loadedPosts.reverse();
         vuexContext.commit("setQueryLoading", false);
@@ -42,7 +44,7 @@ export default {
       }
     },
 
-    // Personal
+    // Personal Posts
     async loadPersonalPosts(vuexContext) {
       vuexContext.commit("setQueryLoading", true);
       try {
@@ -64,7 +66,7 @@ export default {
       }
     },
 
-    // Category
+    // Categorized Posts
     async loadCategorizedPosts(vuexContext, category) {
       vuexContext.commit("setQueryLoading", true);
       try {
@@ -85,7 +87,7 @@ export default {
       }
     },
 
-    // Search
+    // Searched Posts
     async loadSearchPosts(vuexContext, searchKey) {
       vuexContext.commit("setQueryLoading", true);
       try {

@@ -147,6 +147,7 @@ export default {
       if (process.client) {
         localStorage.setItem("auth-event", "");
         localStorage.removeItem("auth-event");
+        window.location.reload(true)
       }
     },
 

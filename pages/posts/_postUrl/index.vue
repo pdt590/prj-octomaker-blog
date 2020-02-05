@@ -146,6 +146,7 @@ import { fetchDesc } from "~/libs/helpers";
 import { categories } from "~/libs/lists";
 
 export default {
+  middleware: ["server-client-view-permission"],
   mounted() {
     this.$initFbSdk();
   },
