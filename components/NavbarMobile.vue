@@ -1,20 +1,20 @@
 <template>
   <div>
-    <nav class="navbar is-fixed-top">
+    <nav class="navbar _m-navbar is-fixed-top">
       <div class="navbar-brand">
-        <nuxt-link class="navbar-item v-logo" to="/"></nuxt-link>
+        <nuxt-link class="navbar-item _m-navbar__logo" to="/"></nuxt-link>
 
-        <div class="navbar-end">
-          <a class="navbar-item" data-target="mobile-search" @click="onActiveSearch">
+        <div class="navbar-end _m-navbar-end">
+          <a class="navbar-item _m-navbar-end__item" data-target="mobile-search" @click="onActiveSearch">
             <b-icon
               :icon="isSearchActive ? `close-box` : `magnify`"
               :type="isSearchActive ? `is-danger` : ``"
             ></b-icon>
           </a>
-          <a class="navbar-item" data-target="mobile-new-post" @click="onOpenNewPost" v-if="user">
+          <a class="navbar-item _m-navbar-end__item" data-target="mobile-new-post" @click="onOpenNewPost" v-if="user">
             <b-icon icon="plus-box-outline"></b-icon>
           </a>
-          <a class="navbar-item" data-target="mobile-page-list" @click="onActiveCategories">
+          <a class="navbar-item _m-navbar-end__item" data-target="mobile-page-list" @click="onActiveCategories">
             <b-icon
               :icon="
                 isCategoriesActive ? `close-box` : `view-dashboard-outline`
@@ -22,7 +22,7 @@
               :type="isCategoriesActive ? `is-danger` : ``"
             ></b-icon>
           </a>
-          <a class="navbar-item" data-target="mobile-menu" @click="onActiveProfile">
+          <a class="navbar-item _m-navbar-end__item" data-target="mobile-menu" @click="onActiveProfile">
             <client-only v-if="user && !isProfileActive">
               <img
                 class="v-nav-avatar-mobile"
@@ -41,7 +41,7 @@
         </div>
       </div>
 
-      <div id="mobile-search" class="navbar-menu" :class="{ 'is-active': isSearchActive }">
+      <div id="mobile-search" class="navbar-menu _m-navbar-menu" :class="{ 'is-active': isSearchActive }">
         <div class="navbar-start">
           <div class="navbar-item">
             <form>
@@ -54,11 +54,11 @@
         </div>
       </div>
 
-      <div id="mobile-page-list" class="navbar-menu" :class="{ 'is-active': isCategoriesActive }">
+      <div id="mobile-page-list" class="navbar-menu _m-navbar-menu" :class="{ 'is-active': isCategoriesActive }">
         <div class="navbar-item has-dropdown is-hoverable">
           <div class="navbar-dropdown">
             <b-collapse v-for="(category, i) in categories" :key="i">
-              <nuxt-link class="navbar-item" :to="`/query/?key=${category.id}`" slot="trigger">
+              <nuxt-link class="navbar-item _m-navbar-dropdown__item" :to="`/query/?key=${category.id}`" slot="trigger">
                 <b-icon :icon="category.icon"></b-icon>
                 <p class="is-size-6">{{ category.name }}</p>
               </nuxt-link>
@@ -67,7 +67,7 @@
         </div>
       </div>
 
-      <div id="mobile-menu" class="navbar-menu" :class="{ 'is-active': isProfileActive }">
+      <div id="mobile-menu" class="navbar-menu _m-navbar-menu" :class="{ 'is-active': isProfileActive }">
         <div
           class="navbar-item"
           v-if="
@@ -91,16 +91,16 @@
         </div>
         <div v-if="user" class="navbar-item has-dropdown is-hoverable">
           <div class="navbar-dropdown is-right">
-            <nuxt-link class="navbar-item" to="/user/profile">
+            <nuxt-link class="navbar-item _m-navbar-dropdown__item" to="/user/profile">
               <b-icon icon="settings-outline"></b-icon>
               <p class="is-size-6">Cài đặt</p>
             </nuxt-link>
-            <nuxt-link class="navbar-item" to="/user/mgmt">
+            <nuxt-link class="navbar-item _m-navbar-dropdown__item" to="/user/mgmt">
               <b-icon icon="finance"></b-icon>
               <p class="is-size-6">Quản lý</p>
             </nuxt-link>
             <hr class="navbar-divider" />
-            <a class="navbar-item" @click="onLogout">
+            <a class="navbar-item _m-navbar-dropdown__item" @click="onLogout">
               <b-icon icon="logout-variant"></b-icon>
               <p class="is-size-6">Thoát</p>
             </a>
@@ -199,41 +199,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.navbar {
-  border: none;
-  border-bottom: 1px solid #d8d8d8;
-}
-.navbar-brand .v-logo {
-  background: url(/logo-mobile.png) no-repeat center center;
-  background-size: cover;
-  width: 4rem;
-}
-.navbar-end {
-  display: flex;
-  justify-content: flex-end;
-  align-items: stretch;
-  margin-left: auto;
-  padding: 0;
-}
-.navbar-end .navbar-item {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 4rem;
-  width: 3rem;
-  position: relative;
-  margin-left: auto;
-}
-.navbar-menu {
-  height: 100vh;
-}
-.navbar-dropdown .navbar-item {
-  display: flex;
-  align-items: center;
-  p {
-    margin-left: 1rem;
-  }
-}
-</style>

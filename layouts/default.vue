@@ -1,8 +1,8 @@
 <template>
-  <div class="v-layout">
+  <div class="_default">
     <v-navbar class="is-hidden-mobile" />
     <v-navbar-mobile class="is-hidden-tablet" />
-    <main class="v-main">
+    <main class="_default__main">
       <nuxt />
     </main>
     <v-footer />
@@ -14,14 +14,3 @@ export default {
   middleware: "client-init-auth"
 };
 </script>
-
-<style lang="scss" scoped>
-.v-layout {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-.v-main {
-  flex: 1;
-}
-</style>

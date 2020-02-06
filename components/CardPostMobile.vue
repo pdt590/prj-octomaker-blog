@@ -1,5 +1,5 @@
 <template>
-  <div class="media v-media">
+  <div class="media _media">
     <div class="media-left">
       <nuxt-link :to="`/posts/${postUrl}`">
         <figure class="image is-96x96">
@@ -76,10 +76,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.v-media {
-  border-bottom: 1px solid #d8d8d8;
-  padding-bottom: 0.5rem;
-}
-</style>

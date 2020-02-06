@@ -1,13 +1,13 @@
 <template>
   <div>
-    <nav class="navbar is-fixed-top">
+    <nav class="navbar _navbar is-fixed-top">
       <div class="container">
         <div class="navbar-brand">
-          <nuxt-link class="navbar-item" to="/"></nuxt-link>
+          <nuxt-link class="navbar-item _navbar-brand__item" to="/"></nuxt-link>
         </div>
         <div class="navbar-menu">
           <div class="navbar-start"></div>
-          <div class="v-navbar-center">
+          <div class="_navbar-menu__search">
             <div class="navbar-item">
               <form>
                 <b-field position="is-centered">
@@ -53,16 +53,16 @@
                 </client-only>
               </a>
               <div class="navbar-dropdown is-right">
-                <nuxt-link class="navbar-item" to="/user/profile">
+                <nuxt-link class="navbar-item _navbar-dropdown__item" to="/user/profile">
                   <b-icon icon="settings-outline"></b-icon>
                   <p class="is-size-6">Cài đặt</p>
                 </nuxt-link>
-                <nuxt-link class="navbar-item" to="/user/mgmt">
+                <nuxt-link class="navbar-item _navbar-dropdown__item" to="/user/mgmt">
                   <b-icon icon="finance"></b-icon>
                   <p class="is-size-6">Quản lý</p>
                 </nuxt-link>
                 <hr class="navbar-divider" />
-                <a class="navbar-item" @click="onLogout">
+                <a class="navbar-item _navbar-dropdown__item" @click="onLogout">
                   <b-icon icon="logout-variant"></b-icon>
                   <p class="is-size-6">Thoát</p>
                 </a>
@@ -76,15 +76,15 @@
       </div>
     </nav>
 
-    <nav class="navbar v-tag-navbar">
+    <nav class="navbar _navbar-tag">
       <div class="container">
-        <div class="navbar-menu">
+        <div class="navbar-menu _navbar-tag__menu">
           <div class="navbar-start">
             <div class="navbar-item has-dropdown is-hoverable">
               <a class="navbar-link">Danh mục</a>
               <div class="navbar-dropdown">
                 <nuxt-link
-                  class="navbar-item"
+                  class="navbar-item _navbar-dropdown__item"
                   :to="`/query/${category.id}`"
                   v-for="(category, i) in categories"
                   :key="i"
@@ -171,43 +171,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.navbar {
-  border: none;
-  border-bottom: 1px solid #d8d8d8;
-  z-index: 6;
-  &.v-tag-navbar {
-    margin-top: 4.5rem; //$navbar-height: 4.5rem;
-    z-index: 5;
-    align-items: center;
-    box-sizing: border-box;
-    border-top: 1px solid #d8d8d8;
-    border-bottom: 1px solid #d8d8d8;
-    min-height: unset;
-    height: 3rem;
-    .navbar-menu {
-      margin-top: 0.7rem;
-      height: 3rem;
-    }
-  }
-}
-.navbar-brand .navbar-item {
-  background: url(/logo.png) no-repeat center center;
-  background-size: cover;
-  width: 14rem;
-  height: 4.5rem;
-}
-.navbar-menu .v-navbar-center {
-  display: flex;
-  align-items: center;
-}
-.navbar-dropdown .navbar-item {
-  display: flex;
-  align-items: center;
-  padding-right: 1rem;
-  p {
-    margin-left: 1rem;
-  }
-}
-</style>

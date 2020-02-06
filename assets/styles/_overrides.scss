@@ -19,13 +19,11 @@
     box-shadow: 0 0 0 2px rgba($button-active-border-color, 0.3);
   }
 
-  @each $name,
-  $pair in $colors {
+  @each $name, $pair in $colors {
     $color: nth($pair, 1);
     $color-invert: nth($pair, 2);
 
     &.is-#{$name} {
-
       &.is-active,
       &.is-focused,
       &:active,
@@ -70,9 +68,7 @@ ul {
 }
 
 .notification {
-
-  @each $name,
-  $pair in $colors {
+  @each $name, $pair in $colors {
     $color: nth($pair, 1);
     $color-invert: nth($pair, 2);
 
@@ -101,14 +97,14 @@ ul {
 }
 
 .breadcrumb {
-  margin-bottom: 2rem
+  margin-bottom: 2rem;
 }
 
 @media screen and (min-width: 768px) {
   .card {
     $card-border-color: $grey-darker;
     border-radius: 0.3rem;
-    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, .1);
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
 
     .card-header {
       box-shadow: none;
@@ -148,7 +144,7 @@ ul {
 
 html,
 body {
-  background-color: #FFF;
+  background-color: #fff;
 }
 
 embed,
@@ -164,20 +160,6 @@ code {
 }
 
 @media screen and (min-width: 768px) {
-  .v-main {
-    padding-top: 1.5rem;
-    padding-bottom: 4rem;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .v-main {
-    padding-top: $navbar-height;
-    padding-bottom: 1rem;
-  }
-}
-
-@media screen and (min-width: 768px) {
   .v-modal-card {
     max-width: 20vw;
   }
@@ -190,7 +172,7 @@ code {
 }
 
 input {
-  font-size: 1rem !important
+  font-size: 1rem !important;
 }
 
 .v-image-contain {
@@ -220,7 +202,7 @@ input {
   object-fit: cover;
   width: 5rem !important;
   height: 5rem !important;
-  border: solid 1px #D8D8D8;
+  border: solid 1px #d8d8d8;
   border-radius: 50%;
 }
 
@@ -231,7 +213,7 @@ input {
 }
 
 .v-image-border {
-  border: solid 1px #D8D8D8;
+  border: solid 1px #d8d8d8;
   border-radius: 50%;
 }
 
@@ -239,7 +221,7 @@ input {
   object-fit: cover;
   width: 2.1rem !important;
   height: 2.1rem !important;
-  border: solid 1px #D8D8D8;
+  border: solid 1px #d8d8d8;
   border-radius: 50%;
 }
 
@@ -247,12 +229,12 @@ input {
   object-fit: cover;
   width: 1.5rem !important;
   height: 1.5rem !important;
-  border: solid 1px #D8D8D8
+  border: solid 1px #d8d8d8;
 }
 
 .v-image-frame {
   position: relative;
-  border: solid 1px #D8D8D8;
+  border: solid 1px #d8d8d8;
 
   .v-image-bndelete {
     position: absolute;
@@ -266,13 +248,13 @@ input {
   }
 }
 
-input[type=number]::-webkit-outer-spin-button,
-input[type=number]::-webkit-inner-spin-button {
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
 
@@ -283,7 +265,7 @@ input[type=number] {
 
 .textarea {
   max-height: 6rem !important;
-  min-height: 4rem !important
+  min-height: 4rem !important;
 }
 
 /* width */
@@ -294,16 +276,239 @@ input[type=number] {
 /* Track */
 ::-webkit-scrollbar-track {
   background: #f1f1f1;
-  border-radius: 0.3rem
+  border-radius: 0.3rem;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #AAA;
-  border-radius: 0.3rem
+  background: #aaa;
+  border-radius: 0.3rem;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+/* 
+*
+* Scoped styles
+*
+*/
+
+/* layouts/error.vue */
+/* components/Footer.vue */
+/* components/Loading.vue */
+/* components/ModalConfirm.vue */
+/* components/ModalEmbed.vue */
+/* components/ModalImage.vue */
+/* components/ModalJoin.vue */
+/* components/ModalLink.vue */
+/* components/ModalLogin.vue */
+/* components/ModalSignup.vue */
+/* pages/about/index.vue */
+/* pages/posts/_postUrl/edit-post/index.vue */
+/* pages/posts/new-post/index.vue */
+/* pages/query/_category/index.vue */
+/* pages/search/index.vue */
+/* pages/user/index.vue */
+/* pages/user/activekey/index.vue */
+/* pages/user/profile/index.vue */
+/* pages/user/resetpassword/index.vue */
+
+/* layouts/default.vue */
+._default {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+._default__main {
+  flex: 1;
+}
+
+@media screen and (min-width: 768px) {
+  ._default__main {
+    margin: 1rem 0 2rem 0
+  }
+}
+
+@media screen and (max-width: 768px) {
+  ._default__main {
+    margin: 1rem 1rem 2rem 1rem
+  }
+}
+
+/* components/CardPost.vue */
+._card {
+  border-radius: 4px;
+  border: 1px solid #d8d8d8;
+  box-shadow: none;
+}
+
+._card__image {
+  position: relative;
+  transition: all 2s cubic-bezier(0.215, 0.61, 0.355, 1);
+  border-bottom: 1px solid #d8d8d8;
+  img {
+    border-top-left-radius: 0.3rem;
+    border-top-right-radius: 0.3rem;
+  }
+  &:hover ._card__image__post-desc {
+    opacity: 0.9;
+  }
+}
+
+._card__image__post-desc {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  padding: 1.5rem;
+  background-color: #eee;
+  opacity: 0;
+}
+
+._card__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 0.6rem 1.5rem;
+}
+
+/* components/CardPost4User.vue */
+._media {
+  border-bottom: 1px solid #d8d8d8;
+  padding-bottom: 0.5rem;
+}
+
+/* components/CardPostMobile.vue */
+/* 
+._media {
+  border-bottom: 1px solid #d8d8d8;
+  padding-bottom: 0.5rem;
+}
+*/
+
+/* components/Navbar.vue */
+._navbar {
+  border: none;
+  border-bottom: 1px solid #d8d8d8;
+  z-index: 6;
+}
+
+._navbar-tag {
+  margin-top: 4.5rem; //$navbar-height: 4.5rem;
+  z-index: 5;
+  align-items: center;
+  box-sizing: border-box;
+  border-top: 1px solid #d8d8d8;
+  border-bottom: 1px solid #d8d8d8;
+  min-height: unset;
+  height: 3rem;
+}
+
+._navbar-tag__menu {
+  margin-top: 0.7rem;
+  height: 3rem;
+}
+
+._navbar-brand__item {
+  background: url(/logo.png) no-repeat center center;
+  background-size: cover;
+  width: 14rem;
+  height: 4.5rem;
+}
+
+._navbar-menu__search {
+  display: flex;
+  align-items: center;
+}
+
+._navbar-dropdown__item {
+  display: flex;
+  align-items: center;
+  padding-right: 1rem;
+  p {
+    margin-left: 1rem;
+  }
+}
+
+/* components/NavbarMobile.vue */
+._m-navbar {
+  border: none;
+  border-bottom: 1px solid #d8d8d8;
+}
+
+._m-navbar__logo {
+  background: url(/logo-mobile.png) no-repeat center center;
+  background-size: cover;
+  width: 4rem;
+}
+
+._m-navbar-end {
+  display: flex;
+  justify-content: flex-end;
+  align-items: stretch;
+  margin-left: auto;
+  padding: 0;
+}
+
+._m-navbar-end__item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 4rem;
+  width: 3rem;
+  position: relative;
+  margin-left: auto;
+}
+
+._m-navbar-menu {
+  height: 100vh;
+}
+
+._m-navbar-dropdown__item {
+  display: flex;
+  align-items: center;
+  p {
+    margin-left: 1rem;
+  }
+}
+
+/* pages/index.vue */
+._section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 1.5rem;
+}
+
+/* pages/posts/_postUrl/index.vue */
+._post-title {
+  text-align: left;
+  line-height: 1.2;
+  font-weight: 700;
+  color: #1b1b1b;
+  word-wrap: break-word;
+  word-break: break-word;
+  font-size: 2.5rem;
+}
+
+/* pages/user/join/index.vue */
+._card-join {
+  margin-top: 2rem;
+}
+
+._card-join__footer__item {
+  justify-content: space-between;
+}
+
+/* pages/user/mgmt/index.vue */
+._user-avatar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

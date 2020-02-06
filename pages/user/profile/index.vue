@@ -4,13 +4,13 @@
       <div class="column is-3">
         <div style="position: sticky; top: 8rem;">
           <div class="card">
-            <div class="card-content" v-if="user">
+            <div class="card-content">
               <div class="level">
                 <div class="level-item">
                   <figure class="image v-image-border">
                     <img
                       class="v-user-avatar"
-                      :src="user.avatar ? user.avatar.url : `/icon-user.png`"
+                      v-lazy="userAvatarUrl"
                       style="display: none"
                       onload="this.style.display = 'block'"
                       alt="user_avatar"
@@ -19,7 +19,7 @@
                 </div>
               </div>
               <div class="has-text-centered">
-                <h5 class="title is-size-5">{{ user.username }}</h5>
+                <h5 class="title is-size-5">{{ userName }}</h5>
               </div>
             </div>
           </div>
@@ -47,10 +47,7 @@
                     ></b-input>
                   </b-field>
                   <b-field label="Họ và tên">
-                    <b-input
-                      v-model.trim="userContent.fullname"
-                      icon="account-card-details"
-                    ></b-input>
+                    <b-input v-model.trim="userContent.fullname" icon="account-card-details"></b-input>
                   </b-field>
 
                   <b-field
@@ -72,16 +69,15 @@
 
                   <b-field grouped>
                     <b-field label="Địa chỉ" expanded>
-                      <b-input
-                        v-model="userContent.address"
-                        icon="map-marker"
-                      ></b-input>
+                      <b-input v-model="userContent.address" icon="map-marker"></b-input>
                     </b-field>
                     <b-field label="Tỉnh/Thành">
                       <b-select v-model="userContent.province">
-                        <option v-for="(province, i) in provinces" :key="i">{{
+                        <option v-for="(province, i) in provinces" :key="i">
+                          {{
                           province
-                        }}</option>
+                          }}
+                        </option>
                       </b-select>
                     </b-field>
                   </b-field>
@@ -95,9 +91,7 @@
                       :disabled="$v.userContent.$invalid"
                       type="submit"
                       @click.prevent="onUpdateContent"
-                    >
-                      Lưu thay đổi
-                    </button>
+                    >Lưu thay đổi</button>
                   </div>
                 </div>
               </b-tab-item>
@@ -147,9 +141,7 @@
                       "
                       type="submit"
                       @click.prevent="onUpdateEmail"
-                    >
-                      Lưu thay đổi
-                    </button>
+                    >Lưu thay đổi</button>
                   </div>
                 </div>
               </b-tab-item>
@@ -216,9 +208,7 @@
                       "
                       type="submit"
                       @click.prevent="onUpdatePassword"
-                    >
-                      Lưu thay đổi
-                    </button>
+                    >Lưu thay đổi</button>
                   </div>
                 </div>
               </b-tab-item>
@@ -256,13 +246,12 @@
                           onload="this.style.display = 'block'"
                           alt="shop_cover"
                         />
-                        <span class="v-image-size">{{
+                        <span class="v-image-size">
+                          {{
                           userOldAvatar.metadata.size | fmBytes
-                        }}</span>
-                        <a
-                          class="delete v-image-bndelete"
-                          @click="userOldAvatar = null"
-                        ></a>
+                          }}
+                        </span>
+                        <a class="delete v-image-bndelete" @click="userOldAvatar = null"></a>
                       </figure>
                     </div>
                     <div class="level-item" v-if="userNewAvatar">
@@ -274,9 +263,11 @@
                           onload="this.style.display = 'block'"
                           alt="shop_cover"
                         />
-                        <span class="v-image-size">{{
+                        <span class="v-image-size">
+                          {{
                           userPreviewAvatar.size | fmBytes
-                        }}</span>
+                          }}
+                        </span>
                         <a
                           class="delete v-image-bndelete"
                           @click="
@@ -297,9 +288,7 @@
                       type="submit"
                       :disabled="!isAvatarChanged"
                       @click.prevent="onUpdateAvatar"
-                    >
-                      Lưu thay đổi
-                    </button>
+                    >Lưu thay đổi</button>
                   </div>
                 </div>
               </b-tab-item>
@@ -334,9 +323,7 @@
                       :disabled="$v.confirmPasswordForDeleting.$invalid"
                       type="submit"
                       @click.prevent="onDelete"
-                    >
-                      Xóa tài khoản
-                    </button>
+                    >Xóa tài khoản</button>
                   </div>
                 </div>
               </b-tab-item>
@@ -376,19 +363,44 @@ export default {
   },
   computed: {
     ...mapGetters(["user", "authError", "authLoading"]),
-    isAvatarChanged() {
-      if(this.user.avatar) {
-        if(!this.userOldAvatar) {
-          return true
+    userAvatarUrl() {
+      if (this.user) {
+        if (this.user.avatar) {
+          return this.user.avatar.url;
         } else {
-          return false
-        } 
-      } else {
-        if(this.userNewAvatar) {
-          return true
-        } else {
-          return false
+          return "/icon-user.png";
         }
+      } else {
+        // Check if logout happens
+        return;
+      }
+    },
+    userName() {
+      if (this.user) {
+        return this.user.username;
+      } else {
+        // Check if logout happens
+        return;
+      }
+    },
+    isAvatarChanged() {
+      if (this.user) {
+        if (this.user.avatar) {
+          if (!this.userOldAvatar) {
+            return true;
+          } else {
+            return false;
+          }
+        } else {
+          if (this.userNewAvatar) {
+            return true;
+          } else {
+            return false;
+          }
+        }
+      } else {
+        // Check if logout happens
+        return;
       }
     }
   },

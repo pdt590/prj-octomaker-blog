@@ -4,7 +4,7 @@
       <div class="column is-4 is-offset-4">
         <!-- Signup form -->
         <form v-show="isSignup">
-          <div class="card">
+          <div class="card _card-join">
             <header class="card-header">
               <p class="card-header-title is-size-4">Đăng ký</p>
             </header>
@@ -52,7 +52,7 @@
               <!-- <b-checkbox>Remember me</b-checkbox> -->
             </div>
             <footer class="card-footer">
-              <div class="card-footer-item">
+              <div class="card-footer-item _card-join__footer__item">
                 <a @click.prevent="isSignup = !isSignup">{{ isSignup ? `Đăng nhập?` : `Đăng ký?` }}</a>
                 <button
                   class="button is-info"
@@ -66,7 +66,7 @@
         </form>
         <!-- Login form -->
         <form v-show="!isSignup">
-          <div class="card">
+          <div class="card _card-join">
             <header class="card-header">
               <p class="card-header-title is-size-4">Đăng nhập</p>
             </header>
@@ -101,7 +101,7 @@
               <!-- <b-checkbox>Remember me</b-checkbox> -->
             </div>
             <footer class="card-footer" style="border-top: none">
-              <div class="card-footer-item">
+              <div class="card-footer-item _card-join__footer__item">
                 <p>
                   <a
                     @click.prevent="isSignup = !isSignup"
@@ -224,12 +224,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.card {
-  margin-top: 2rem;
-  .card-footer .card-footer-item {
-    justify-content: space-between;
-  }
-}
-</style>

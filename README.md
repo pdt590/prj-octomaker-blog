@@ -167,7 +167,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
 - Rules
 
-  ```json
+  ```js
   service firebase.storage {
     match /b/{bucket}/o {
       match /{allPaths=**} {
@@ -210,6 +210,9 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   - Test `Tocbot` without bulma css
 - Implement embed link select
   - Fix responsives iframe issue
+- Implement emoji modal select
 - Add View image event on editor and post
 - Fix min-height editor issue
 - Recheck logic in activekey page
+- Unify code language using English or Vietnamese or i18n
+- Fix autosave issue on login and signup form

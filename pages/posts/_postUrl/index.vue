@@ -112,7 +112,7 @@
         <div class="card">
           <div class="card-content">
             <!-- Content -->
-            <h1 class="v-post-title">{{ postTitle }}</h1>
+            <h1 class="_post-title">{{ postTitle }}</h1>
             <hr />
             <div class="tags">
               <span v-for="(tag, index) in postTags" :key="index" class="tag is-info">{{ tag }}</span>
@@ -241,30 +241,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-@media screen and (min-width: 768px) {
-  .v-item-description {
-    padding: 0 1.5rem;
-  }
-}
-@media screen and (max-width: 768px) {
-  .v-item-description {
-    padding-top: 1rem;
-  }
-}
-.v-list-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.5rem;
-}
-.v-post-title {
-  text-align: left;
-  line-height: 1.2;
-  font-weight: 700;
-  color: #1b1b1b;
-  word-wrap: break-word;
-  word-break: break-word;
-  font-size: 2.5rem;
-}
-</style>

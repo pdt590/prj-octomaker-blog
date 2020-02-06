@@ -26,7 +26,7 @@ export default {
             .split("=")[1];
         }
         if (new Date().getTime() > +expirationDate || !uid) {
-          console.error("Invalid uid");
+          console.error("[nuxtServerInit]", "Invalid uid");
           await vuexContext.dispatch("logOut");
           return;
         }

@@ -5,7 +5,7 @@
         <div style="position: sticky; top: 8rem;">
           <div class="card">
             <div class="card-content">
-              <div class="v-username" v-if="user">
+              <div class="_user-avatar">
                 <nuxt-link :to="`/user/profile`">
                   <figure class="image v-image-border">
                     <client-only>
@@ -20,7 +20,7 @@
                   </figure>
                 </nuxt-link>
                 <br />
-                <h5 class="title is-size-5">{{ user.username }}</h5>
+                <h5 class="title is-size-5">{{ userName }}</h5>
               </div>
             </div>
           </div>
@@ -35,11 +35,7 @@
                   <b-icon icon="post-outline"></b-icon>
                   <span>Bài viết</span>
                 </template>
-                <div
-                  style="padding-top: 1rem;"
-                  v-for="post in loadedPersonalPosts"
-                  :key="post.url"
-                >
+                <div style="padding-top: 1rem;" v-for="post in loadedPersonalPosts" :key="post.url">
                   <v-card-post-4user :value="post" />
                 </div>
               </b-tab-item>
@@ -59,10 +55,23 @@ export default {
   computed: {
     ...mapGetters(["user", "queryLoading"]),
     userAvatarUrl() {
-      if (this.user.avatar) {
-        return this.user.avatar.url;
+      if (this.user) {
+        if (this.user.avatar) {
+          return this.user.avatar.url;
+        } else {
+          return "/icon-user.png";
+        }
       } else {
-        return "/icon-user.png";
+        // Check if logout happens
+        return;
+      }
+    },
+    userName() {
+      if (this.user) {
+        return this.user.username;
+      } else {
+        // Check if logout happens
+        return;
       }
     }
   },
@@ -78,12 +87,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.v-username {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-</style>

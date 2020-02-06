@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <div class="v-header">
+    <div class="_section-header">
       <p class="is-size-5 is-capitalized has-text-black has-text-weight-semibold">Posts</p>
     </div>
     <div class="columns is-multiline is-variable is-2">
@@ -77,26 +77,3 @@ export default {
   }
 };
 </script>
-
-<style lang="scss" scoped>
-.v-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-bottom: 1.5rem;
-}
-
-@media screen and (min-width: 768px) {
-  iframe {
-    width: 20vw;
-    height: 26vh;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  iframe {
-    width: 90vw;
-    height: 30vh;
-  }
-}
-</style>
