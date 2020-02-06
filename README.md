@@ -189,7 +189,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - `Shoud use cloudinary to upload images?`
 - `Check problem: reload search page when entering search button`
 - Change Category list display on navbar
-- Re-check default style
+- Re-check default style - [Refer](https://dev.to/overscoremedia/use-bulma-and-fontawesome-5-with-nuxt-js-11le)
   - Change class style to prefix `_`
   - Button position on modals
   - Fix navbar-item style on Navbar component

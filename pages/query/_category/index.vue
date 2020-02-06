@@ -12,7 +12,10 @@
     </nav>
     <div class="card">
       <div class="card-content">
-        <div class="columns is-multiline is-variable is-1" style="padding-top: 1rem">
+        <div
+          class="columns is-multiline is-variable is-1"
+          style="padding-top: 1rem"
+        >
           <div class="column is-2" v-for="post in loadedPosts" :key="post.url">
             <v-card-post class="is-hidden-mobile" :value="post" />
             <v-card-post-mobile class="is-hidden-tablet" :value="post" />
@@ -40,6 +43,9 @@ export default {
     ...mapGetters(["queryLoading"]),
     totalPosts() {
       return this.loadedPosts.length;
+    },
+    postThumbnail() {
+      return `${process.env.baseUrl}/icon-photo.png`;
     }
   },
   async asyncData({ app, store, params }) {
@@ -67,6 +73,38 @@ export default {
     onPagPostChange(pageCount) {
       this.currentPostPage = pageCount;
     }
+  },
+  head() {
+    return {
+      title: this.queryName,
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: `"${this.queryName}" - OctoMaker`
+        },
+        {
+          hid: "og-url",
+          property: "og:url",
+          content: `${process.env.baseUrl}${this.$route.path}`
+        },
+        {
+          hid: "og-title",
+          property: "og:title",
+          content: this.queryName
+        },
+        {
+          hid: "og-description",
+          property: "og:description",
+          content: `"${this.queryName}" category`
+        },
+        {
+          hid: "og-image",
+          property: "og:image",
+          content: this.postThumbnail
+        }
+      ]
+    };
   }
 };
 </script>

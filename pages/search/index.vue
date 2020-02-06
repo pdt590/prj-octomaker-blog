@@ -42,6 +42,9 @@ export default {
     ...mapGetters(["queryLoading"]),
     totalPosts() {
       return this.loadedPosts.length;
+    },
+    postThumbnail() {
+      return `${process.env.baseUrl}/icon-photo.png`;
     }
   },
   async asyncData({ store, query, error }) {
@@ -67,6 +70,38 @@ export default {
     onPagPostChange(pageCount) {
       this.currentPostPage = pageCount;
     }
+  },
+  head() {
+    return {
+      title: "Search Results - OctoMaker",
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: `"${this.searchKey}" - OctoMaker`
+        },
+        {
+          hid: "og-url",
+          property: "og:url",
+          content: `${process.env.baseUrl}${this.$route.path}`
+        },
+        {
+          hid: "og-title",
+          property: "og:title",
+          content: "Search Results - OctoMaker"
+        },
+        {
+          hid: "og-description",
+          property: "og:description",
+          content: `Search "${this.searchKey}"`
+        },
+        {
+          hid: "og-image",
+          property: "og:image",
+          content: this.postThumbnail
+        }
+      ]
+    };
   }
 };
 </script>
