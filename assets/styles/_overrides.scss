@@ -233,7 +233,16 @@ body {
 
 ////////////////////////////////////////////////
 // Customizes simplemde
+// https://github.com/sparksuite/simplemde-markdown-editor/blob/master/src/css/simplemde.css
 ////////////////////////////////////////////////
+
+.CodeMirror-fullscreen, .editor-toolbar.fullscreen, .editor-preview-side {
+  z-index: $navbar-z + 2;
+}
+
+.editor-preview {
+  z-index: $navbar-z + 1;
+}
 
 .markdown-editor .CodeMirror,
 .markdown-editor .CodeMirror-scroll {

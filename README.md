@@ -194,7 +194,6 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   - Fix navbar-item style on Navbar component
   - Fix mobile layout
   - Re-design Logo
-  - Change Avatar from square to circle
   - Redesign CardPost - [Refer](https://www.hackster.io/)
   - Change new float style in each post
     - Avatar
@@ -203,16 +202,16 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Add section highlight for each post (Markdown TOC - Table of Content) - [Refer](https://www.jqueryscript.net/blog/best-table-contents-plugins.html)
   - Test `Tocbot` without bulma css
 - Implement embed link select
-  - Fix responsives iframe issue
+  - Fix responsive iframe issue
 - Implement emoji modal select
-- Add View image event on editor and post
-- Fix min-height editor issue
+- Add View image event on editor and post - [Refer](https://codemirror.net/doc/manual.html#events)
 - Recheck logic in activekey page
 - Unify code language using English or Vietnamese or i18n
 - Fix autosave issue on login and signup form
 - Add like/share fb button
 - Seperate Loading state
   - Fix loading button issue
-- Fix height of scroll CodeMirror issue
+- Fix height of scroll CodeMirror issue - [Refer](https://github.com/sparksuite/simplemde-markdown-editor/blob/master/src/css/simplemde.css)
 - Add admin role
 - Change image-lazy-load plugin
+- Use `simplemde` instead of `vue-simplemde`
