@@ -24,14 +24,14 @@
       </b-field>
       <div class="columns is-variable is-multiline is-mobile" style="margin-top: 0.1rem">
         <div class="column is-one-quarter" v-for="(file, index) in previewImages" :key="index">
-          <figure class="image is-128x128 v-image-frame" style="cursor: pointer;">
+          <figure class="image is-128x128 _image-frame" style="cursor: pointer;">
             <img
-              class="v-preview-image"
+              class="_image-preview"
               :src="file.url"
               :alt="`image_${index}`"
               @click="onSelect(index)"
             />
-            <a class="delete v-image-bndelete" @click="onDelete(index)"></a>
+            <a class="delete _image-button-delete" @click="onDelete(index)"></a>
           </figure>
         </div>
       </div>

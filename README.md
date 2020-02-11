@@ -204,8 +204,12 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Add recommendation posts in each post
   - Add carousel - [Refer](https://buefy.org/documentation/carousel/)
 - Add highlight.js and fix github-css issue
-  - Check issue in [github-markdown-css](https://github.com/sindresorhus/github-markdown-css) & [simplemde-markdown-editor](https://github.com/sparksuite/simplemde-markdown-editor)
-  - Check other renders
+  - [github-markdown-css](https://github.com/sindresorhus/github-markdown-css)
+  - [simplemde-markdown-editor](https://github.com/sparksuite/simplemde-markdown-editor)
+  - [highlightjs](https://github.com/highlightjs/highlight.js)
+  - [conflict with highlight.js](https://github.com/sindresorhus/github-markdown-css/issues/52)
+  - [vue-hljs](https://github.com/SunskyXH/vue-hljs)
+  - [vue-highlight.js](https://github.com/gluons/vue-highlight.js/)
 - Add section highlight for each post (Markdown TOC - Table of Content) - [Refer](https://www.jqueryscript.net/blog/best-table-contents-plugins.html)
   - Test `Tocbot` without bulma css
 - Implement embed link select
@@ -216,3 +220,8 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Recheck logic in activekey page
 - Unify code language using English or Vietnamese or i18n
 - Fix autosave issue on login and signup form
+- Change bulma.scss to main.scss
+- Add like/share fb button
+- Seperate Loading state
+  - Fix loading button issue
+- Fix height of scroll CodeMirror issue

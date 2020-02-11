@@ -5,21 +5,24 @@
         <div style="position: sticky; top: 8rem;">
           <div class="card">
             <div class="card-content">
-              <div class="_user-avatar">
-                <nuxt-link :to="`/user/profile`">
-                  <figure class="image v-image-border">
-                    <client-only>
-                      <img
-                        class="v-user-avatar"
-                        v-lazy="userAvatarUrl"
-                        style="display: none"
-                        onload="this.style.display = 'block'"
-                        alt="user_avatar"
-                      />
-                    </client-only>
-                  </figure>
-                </nuxt-link>
-                <br />
+              <div class="level">
+                <div class="level-item">
+                  <nuxt-link :to="`/user/profile`">
+                    <figure class="image _image-border">
+                      <client-only>
+                        <img
+                          class="_user-avatar"
+                          v-lazy="userAvatarUrl"
+                          style="display: none"
+                          onload="this.style.display = 'block'"
+                          alt="user_avatar"
+                        />
+                      </client-only>
+                    </figure>
+                  </nuxt-link>
+                </div>
+              </div>
+              <div class="has-text-centered">
                 <h5 class="title is-size-5">{{ userName }}</h5>
               </div>
             </div>
@@ -35,7 +38,11 @@
                   <b-icon icon="post-outline"></b-icon>
                   <span>Bài viết</span>
                 </template>
-                <div style="padding-top: 1rem;" v-for="post in loadedPersonalPosts" :key="post.url">
+                <div
+                  style="padding-top: 1rem;"
+                  v-for="post in loadedPersonalPosts"
+                  :key="post.url"
+                >
                   <v-card-post-4user :value="post" />
                 </div>
               </b-tab-item>

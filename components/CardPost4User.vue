@@ -5,7 +5,7 @@
         <figure class="image is-96x96">
           <client-only>
             <img
-              class="v-image-mobile-card"
+              class="_image-mobile-card"
               v-lazy="postThumbnail"
               style="display: none"
               onload="this.style.display = 'block'"

@@ -11,9 +11,12 @@ $link: #209cee !default;
 
 $subtitle-color: $grey;
 
-$family-heading: "Montserrat", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+$family-montserrat: "Montserrat", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
+$family-primary: $family-montserrat;
+$family-secondary: $family-montserrat;
+$family-code: $family-montserrat;
 
-$body-size: 16px !default;
+$body-size: 15px !default;
 
 $navbar-height: 4.5rem;
 $navbar-item-hover-color: $link;

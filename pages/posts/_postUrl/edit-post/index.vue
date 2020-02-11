@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <form>
-      <b-field class="content" :type="$v.postTitle.$error ? `is-danger` : ``">
+      <b-field :type="$v.postTitle.$error ? `is-danger` : ``">
         <b-input
           placeholder="Title"
           type="text"
@@ -12,7 +12,7 @@
         ></b-input>
       </b-field>
 
-      <b-field class="content">
+      <b-field>
         <b-select
           placeholder="Danh mục"
           v-model="postContent.category"
@@ -24,20 +24,18 @@
             v-for="(category, i) in categories"
             :key="i"
             :value="category.id"
-            >{{ category.name }}</option
-          >
+          >{{ category.name }}</option>
         </b-select>
       </b-field>
 
-      <b-field class="content">
+      <b-field>
         <b-taginput
           placeholder="Add a tag"
           v-model="postContent.tags"
           maxtags="3"
           :has-counter="false"
           icon="label"
-        >
-        </b-taginput>
+        ></b-taginput>
       </b-field>
 
       <!-- simpleMDE -->
@@ -47,7 +45,7 @@
             ref="markdownEditor"
             :configs="configs"
             v-model="postContent.markdown"
-            preview-class="markdown-body"
+            preview-class="content markdown-body"
           />
         </client-only>
       </b-field>
@@ -58,14 +56,12 @@
           v-model="postContent.mode"
           native-value="public"
           :disabled="$v.postTitle.$invalid"
-          >Public</b-radio
-        >
+        >Public</b-radio>
         <b-radio
           v-model="postContent.mode"
           native-value="private"
           :disabled="$v.postTitle.$invalid"
-          >Private</b-radio
-        >
+        >Private</b-radio>
       </div>
 
       <button
@@ -74,25 +70,19 @@
         :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
         type="submit"
         @click.prevent="onPublish"
-      >
-        Update
-      </button>
+      >Update</button>
       <button
         class="button is-info"
         :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
         type="submit"
         @click.prevent="isModalConfirmActive = true"
-      >
-        Delete
-      </button>
+      >Delete</button>
       <button
         class="button is-info"
         :disabled="$v.postTitle.$invalid"
         type="submit"
         @click.prevent="$router.push(`/posts/${postUrl}`)"
-      >
-        Back
-      </button>
+      >Back</button>
     </form>
 
     <!-- Modal -->
@@ -117,6 +107,7 @@ import { mapGetters } from "vuex";
 import { isImage, deepCopy } from "~/libs/helpers";
 import { categories } from "~/libs/lists";
 import { required } from "vuelidate/lib/validators";
+import Prism from "prismjs";
 
 export default {
   middleware: ["server-client-auth", "server-client-edit-permission"],
@@ -160,6 +151,17 @@ export default {
         autofocus: true,
         placeholder: `Content format: \n # Introduction \n - Describe overall your post \n - Don't use picture/bullet/link \n # Content \n - Write your post`,
         spellChecker: false,
+        tabSize: 4,
+        previewRender: function(plainText, preview) {
+          setTimeout(
+            function() {
+              preview.innerHTML = this.parent.markdown(plainText);
+              Prism.highlightAll();
+            }.bind(this),
+            1
+          );
+          return "Loading...";
+        },
         toolbar: [
           "bold",
           "italic",
@@ -249,7 +251,7 @@ export default {
       isModalConfirmActive: false,
 
       categories: categories,
-      
+
       postTitle: "",
       //postImages: [],
       postContent: {}

@@ -25,7 +25,7 @@
           <a class="navbar-item _m-navbar-end__item" data-target="mobile-menu" @click="onActiveProfile">
             <client-only v-if="user && !isProfileActive">
               <img
-                class="v-nav-avatar-mobile"
+                class="_nav-avatar-mobile"
                 v-lazy="user.avatar ? user.avatar.url : `/icon-user.png`"
                 style="display: none"
                 onload="this.style.display = 'block'"

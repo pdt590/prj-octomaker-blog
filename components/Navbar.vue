@@ -44,7 +44,7 @@
               <a class="navbar-link">
                 <client-only>
                   <img
-                    class="v-nav-avatar"
+                    class="_nav-avatar"
                     v-lazy="userAvatarUrl"
                     style="display: none"
                     onload="this.style.display = 'block'"

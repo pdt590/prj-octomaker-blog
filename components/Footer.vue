@@ -11,7 +11,7 @@
           ></a>
         </div>
         <p>
-          octomaker.com © 2020.
+          OCTOMAKER © 2020.
         </p>
       </div>
     </div>

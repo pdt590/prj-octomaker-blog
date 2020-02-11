@@ -1,6 +1,7 @@
 import Compressor from "compressorjs";
 
-export const acceptedImages = ".png, .PNG, .jpeg, .JPEG, .jpg, .JPG, .gif, .GIF"
+export const acceptedImages =
+  ".png, .PNG, .jpeg, .JPEG, .jpg, .JPG, .gif, .GIF";
 
 export const isImage = file => {
   const acceptedFiles = [
@@ -104,10 +105,14 @@ export function fetchKey(object, value) {
 
 export function fetchDesc(value) {
   const matches = [];
-  value.replace(/<p>(.*?)<\/p>/g, function () {
+  value.replace(/<p>(.*?)<\/p>/g, function() {
     matches.push(arguments[1]);
   });
-  return matches[0];
+  if (matches[0]) {
+    return matches[0];
+  } else {
+    return "";
+  }
 }
 
 export function deepCopy(arg) {

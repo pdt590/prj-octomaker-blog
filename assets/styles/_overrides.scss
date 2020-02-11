@@ -1,16 +1,18 @@
-// Overrides
+////////////////////////////////////////////////
+// Customizes for LITERA
+// https://github.com/jenil/bulmaswatch/tree/gh-pages/litera
+////////////////////////////////////////////////
+
 @if $bulmaswatch-import-font {
   @import url(https://fonts.googleapis.com/css?family=Montserrat);
 }
 
 * {
-  font-family: $family-heading;
   transition: all 200ms ease;
 }
 
 .button {
   transition: all 200ms ease;
-  font-family: $family-heading;
 
   &.is-active,
   &.is-focused,
@@ -19,11 +21,13 @@
     box-shadow: 0 0 0 2px rgba($button-active-border-color, 0.3);
   }
 
-  @each $name, $pair in $colors {
+  @each $name,
+  $pair in $colors {
     $color: nth($pair, 1);
     $color-invert: nth($pair, 2);
 
     &.is-#{$name} {
+
       &.is-active,
       &.is-focused,
       &:active,
@@ -48,27 +52,23 @@ h4,
 h5,
 h6 {
   font-weight: 700;
-  font-family: $family-heading;
 }
 
 blockquote {
   font-style: italic;
 }
 
-ul {
-  list-style: circle;
-}
-
 .input,
 .textarea {
   transition: all 200ms ease;
   box-shadow: none;
-  font-family: $family-heading;
   font-size: $body-size;
 }
 
 .notification {
-  @each $name, $pair in $colors {
+
+  @each $name,
+  $pair in $colors {
     $color: nth($pair, 1);
     $color-invert: nth($pair, 2);
 
@@ -139,7 +139,7 @@ ul {
 }
 
 ////////////////////////////////////////////////
-// Customizes
+// Customizes 
 ////////////////////////////////////////////////
 
 html,
@@ -147,58 +147,26 @@ body {
   background-color: #fff;
 }
 
-embed,
-iframe,
-object,
-video {
-  min-height: 50rem; // TODO
-}
-
-pre,
-code {
-  font-size: $body-size !important;
-}
-
 @media screen and (min-width: 768px) {
-  .v-modal-card {
+  ._modal-card {
     max-width: 20vw;
   }
 }
 
 @media screen and (max-width: 768px) {
-  .v-modal-card {
+  ._modal-card {
     padding: 6vw;
   }
 }
 
-input {
-  font-size: 1rem !important;
-}
-
-.v-image-contain {
-  object-fit: contain;
-}
-
-.v-image-cover,
-.v-image-card {
-  object-fit: cover;
-}
-
-@media screen and (min-width: 768px) {
-  .v-image-cover {
-    border-top-right-radius: 0.3rem;
-    border-top-left-radius: 0.3rem;
-  }
-}
-
-.v-image-mobile-card {
+._image-mobile-card {
   object-fit: cover;
   width: 96px !important;
   height: 96px !important;
   border: none !important;
 }
 
-.v-user-avatar {
+._user-avatar {
   object-fit: cover;
   width: 5rem !important;
   height: 5rem !important;
@@ -206,18 +174,18 @@ input {
   border-radius: 50%;
 }
 
-.v-preview-image {
+._image-preview {
   object-fit: cover;
   width: 9rem !important;
   height: 9rem !important;
 }
 
-.v-image-border {
+._image-border {
   border: solid 1px #d8d8d8;
   border-radius: 50%;
 }
 
-.v-nav-avatar {
+._nav-avatar {
   object-fit: cover;
   width: 2.1rem !important;
   height: 2.1rem !important;
@@ -225,52 +193,36 @@ input {
   border-radius: 50%;
 }
 
-.v-nav-avatar-mobile {
+._nav-avatar-mobile {
   object-fit: cover;
   width: 1.5rem !important;
   height: 1.5rem !important;
   border: solid 1px #d8d8d8;
 }
 
-.v-image-frame {
+._image-frame {
   position: relative;
   border: solid 1px #d8d8d8;
 
-  .v-image-bndelete {
+  ._image-button-delete {
     position: absolute;
     top: 2%;
     right: 2%;
   }
 
-  .v-image-size {
+  ._image-size {
     display: flex;
     justify-content: center;
   }
 }
 
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-
-input[type="number"] {
-  -moz-appearance: textfield;
-}
-
-.v-wrap-text {
-  word-wrap: break-word;
-  white-space: pre-wrap;
-}
-
-.textarea {
-  max-height: 6rem !important;
-  min-height: 4rem !important;
-}
+////////////////////////////////////////////////
+// Customizes scrollbar
+////////////////////////////////////////////////
 
 /* width */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 0.8rem;
 }
 
 /* Track */
@@ -287,14 +239,36 @@ input[type="number"] {
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  background: #777;
 }
 
-/* 
-*
-* Scoped styles
-*
-*/
+////////////////////////////////////////////////
+// Customizes simplemde
+////////////////////////////////////////////////
+
+.markdown-editor .CodeMirror,
+.markdown-editor .CodeMirror-scroll {
+  height: 3rem;
+}
+
+////////////////////////////////////////////////
+// Customizes markdown-css
+////////////////////////////////////////////////
+
+.markdown-body {
+  font-family: $family-primary;
+  font-size: $body-size;
+
+  pre,
+  code {
+    font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace;
+    font-size: $body-size;
+  }
+}
+
+////////////////////////////////////////////////
+// Customizes scoped styles
+////////////////////////////////////////////////
 
 /* layouts/error.vue */
 /* components/Footer.vue */
@@ -329,13 +303,13 @@ input[type="number"] {
 
 @media screen and (min-width: 768px) {
   ._default__main {
-    margin: 1rem 0 2rem 0
+    margin: 1rem 0 2rem 0;
   }
 }
 
 @media screen and (max-width: 768px) {
   ._default__main {
-    margin: 1rem 1rem 2rem 1rem
+    margin: 1rem 1rem 2rem 1rem;
   }
 }
 
@@ -350,10 +324,12 @@ input[type="number"] {
   position: relative;
   transition: all 2s cubic-bezier(0.215, 0.61, 0.355, 1);
   border-bottom: 1px solid #d8d8d8;
+
   img {
     border-top-left-radius: 0.3rem;
     border-top-right-radius: 0.3rem;
   }
+
   &:hover ._card__image__post-desc {
     opacity: 0.9;
   }
@@ -399,7 +375,7 @@ input[type="number"] {
 }
 
 ._navbar-tag {
-  margin-top: 4.5rem; //$navbar-height: 4.5rem;
+  margin-top: $navbar-height;
   z-index: 5;
   align-items: center;
   box-sizing: border-box;
@@ -418,7 +394,7 @@ input[type="number"] {
   background: url(/logo.png) no-repeat center center;
   background-size: cover;
   width: 14rem;
-  height: 4.5rem;
+  height: $navbar-height;
 }
 
 ._navbar-menu__search {
@@ -430,6 +406,7 @@ input[type="number"] {
   display: flex;
   align-items: center;
   padding-right: 1rem;
+
   p {
     margin-left: 1rem;
   }
@@ -472,6 +449,7 @@ input[type="number"] {
 ._m-navbar-dropdown__item {
   display: flex;
   align-items: center;
+
   p {
     margin-left: 1rem;
   }

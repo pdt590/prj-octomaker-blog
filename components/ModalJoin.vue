@@ -2,7 +2,7 @@
   <div>
     <!-- Signup form -->
     <form v-show="isSignup">
-      <div class="modal-card v-modal-card">
+      <div class="modal-card _modal-card">
         <header class="modal-card-head">
           <p class="modal-card-title">Đăng ký</p>
         </header>
@@ -69,7 +69,7 @@
     </form>
     <!-- Login form -->
     <form v-show="!isSignup">
-      <div class="modal-card v-modal-card">
+      <div class="modal-card _modal-card">
         <header class="modal-card-head">
           <p class="modal-card-title">Đăng nhập</p>
         </header>

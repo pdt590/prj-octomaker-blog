@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <form>
-      <b-field class="content" :type="$v.postTitle.$error ? `is-danger` : ``">
+      <b-field :type="$v.postTitle.$error ? `is-danger` : ``">
         <b-input
           placeholder="Title"
           type="text"
@@ -12,7 +12,7 @@
         ></b-input>
       </b-field>
 
-      <b-field class="content">
+      <b-field>
         <b-select
           placeholder="Danh mục"
           v-model="postContent.category"
@@ -28,7 +28,7 @@
         </b-select>
       </b-field>
 
-      <b-field class="content">
+      <b-field>
         <b-taginput
           placeholder="Add a tag"
           v-model="postContent.tags"
@@ -45,7 +45,7 @@
             ref="markdownEditor"
             :configs="configs"
             v-model="postContent.markdown"
-            preview-class="markdown-body"
+            preview-class="content markdown-body"
           />
         </client-only>
       </b-field>
@@ -101,6 +101,7 @@ import { mapGetters } from "vuex";
 import { isImage } from "~/libs/helpers";
 import { categories } from "~/libs/lists";
 import { required } from "vuelidate/lib/validators";
+import Prism from "prismjs";
 
 export default {
   middleware: ["server-client-auth"],
@@ -123,6 +124,17 @@ export default {
         autofocus: true,
         placeholder: `Content format: \n # Introduction \n - Describe overall your post \n - Don't use picture/bullet/link \n # Content \n - Write your post`,
         spellChecker: false,
+        tabSize: 4,
+        previewRender: function(plainText, preview) {
+          setTimeout(
+            function() {
+              preview.innerHTML = this.parent.markdown(plainText);
+              Prism.highlightAll();
+            }.bind(this),
+            1
+          );
+          return "Loading...";
+        },
         toolbar: [
           "bold",
           "italic",

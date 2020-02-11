@@ -9,10 +9,10 @@
               <div class="level">
                 <div class="level-item">
                   <nuxt-link :to="`/about`">
-                    <figure class="image v-image-border">
+                    <figure class="image _image-border">
                       <client-only>
                         <img
-                          class="v-user-avatar"
+                          class="_user-avatar"
                           v-lazy="userAvatarUrl"
                           style="display: none"
                           onload="this.style.display = 'block'"
@@ -65,10 +65,10 @@
               <div class="level">
                 <div class="level-item">
                   <nuxt-link :to="`/about`">
-                    <figure class="image v-image-border">
+                    <figure class="image _image-border">
                       <client-only>
                         <img
-                          class="v-user-avatar"
+                          class="_user-avatar"
                           v-lazy="userAvatarUrl"
                           style="display: none"
                           onload="this.style.display = 'block'"
@@ -111,14 +111,14 @@
       <div class="column is-10">
         <div class="card">
           <div class="card-content">
-            <!-- Content -->
+            <!-- Post -->
             <h1 class="_post-title">{{ postTitle }}</h1>
             <hr />
             <div class="tags">
               <span v-for="(tag, index) in postTags" :key="index" class="tag is-info">{{ tag }}</span>
             </div>
-            <article class="markdown-body">
-              <span v-html="postHtml"></span>
+            <article class="content markdown-body" v-highlight>
+                <span v-html="postHtml"></span>
             </article>
             <!--  -->
           </div>

@@ -15,8 +15,8 @@ module.exports = {
       { hid: 'description', name: 'description', content: pkg.description }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico?v1' },
-      { rel: 'stylesheet', href: '//cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css' },
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' },
+      { rel: 'stylesheet', href: 'https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css' },
     ]
   },
 
@@ -29,9 +29,7 @@ module.exports = {
   ** Global CSS
   */
   css: [
-    '~assets/styles/bulma.scss',
-    'simplemde/dist/simplemde.min.css',
-    "github-markdown-css/github-markdown.css"
+    '~assets/styles/bulma.scss'
   ],
 
   /*
@@ -49,6 +47,7 @@ module.exports = {
     {src: '~plugins/vuelidate.js'},
     {src: '~plugins/lazyload.js', mode: 'client'},
     {src: '~plugins/simplemde.js', mode: 'client' },
+    {src: '~plugins/prism.js', mode: 'client' },
 
     {src: '~plugins/test.js', mode: 'client' }
   ],

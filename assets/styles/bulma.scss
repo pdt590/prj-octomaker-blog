@@ -7,6 +7,9 @@
 // Buefy style
 @import "~buefy/src/scss/buefy";
 
-// Customize Bulma style
-// Customized style using variables is placed behind default Bulma style
+@import "simplemde/dist/simplemde.min.css";
+@import "github-markdown-css/github-markdown.css";
+@import "prismjs/themes/prism-okaidia.css";
+
+// Customized style
 @import "_overrides";

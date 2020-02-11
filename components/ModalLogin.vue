@@ -1,7 +1,7 @@
 <template>
   <div>
     <form>
-      <div class="modal-card v-modal-card">
+      <div class="modal-card _modal-card">
         <header class="modal-card-head">
           <p class="modal-card-title">Đăng nhập</p>
         </header>
