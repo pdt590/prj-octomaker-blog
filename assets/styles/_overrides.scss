@@ -371,33 +371,16 @@ body {
 ._navbar {
   border: none;
   border-bottom: 1px solid #d8d8d8;
-  z-index: 6;
 }
 
 ._navbar-tag {
   margin-top: $navbar-height;
-  z-index: 5;
-  align-items: center;
+  z-index: $navbar-z - 1;
   box-sizing: border-box;
-  border-top: 1px solid #d8d8d8;
   border-bottom: 1px solid #d8d8d8;
-  min-height: unset;
-  height: 3rem;
 }
 
-._navbar-tag__menu {
-  margin-top: 0.7rem;
-  height: 3rem;
-}
-
-._navbar-brand__item {
-  background: url(/logo.png) no-repeat center center;
-  background-size: cover;
-  width: 14rem;
-  height: $navbar-height;
-}
-
-._navbar-menu__search {
+._navbar-search {
   display: flex;
   align-items: center;
 }
@@ -406,7 +389,6 @@ body {
   display: flex;
   align-items: center;
   padding-right: 1rem;
-
   p {
     margin-left: 1rem;
   }

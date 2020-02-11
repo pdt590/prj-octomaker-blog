@@ -111,10 +111,6 @@
         <v-modal-join />
       </b-modal>
     </nav>
-
-    <div v-if="isAuthMessage" style="margin-top: 4rem;">
-      <b-message type="is-danger" size="is-small">Tài khoản chưa được kích hoạt</b-message>
-    </div>
   </div>
 </template>
 
@@ -132,11 +128,11 @@ export default {
         return "/icon-user.png";
       }
     },
-    isAuthMessage() {
+    isUserActive() {
       if (this.user && !this.user.isActive) {
-        return true;
-      } else {
         return false;
+      } else {
+        return true;
       }
     }
   },

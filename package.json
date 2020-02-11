@@ -11,9 +11,9 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
-    "buefy": "^0.8.9",
+    "buefy": "^0.8.10",
     "compressorjs": "^1.0.6",
-    "cross-env": "^6.0.3",
+    "cross-env": "^7.0.0",
     "firebase": "^7.7.0",
     "github-markdown-css": "^3.0.1",
     "js-cookie": "^2.2.1",
