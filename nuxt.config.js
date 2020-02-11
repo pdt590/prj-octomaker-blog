@@ -29,7 +29,7 @@ module.exports = {
   ** Global CSS
   */
   css: [
-    '~assets/styles/bulma.scss'
+    '~assets/styles/main.scss'
   ],
 
   /*
