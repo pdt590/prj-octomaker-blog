@@ -7,10 +7,10 @@
             <div class="card-content">
               <div class="level">
                 <div class="level-item">
-                  <figure class="image _image-border">
+                  <figure>
                     <client-only>
                       <img
-                        class="_user-avatar"
+                        class="_profile-avatar"
                         v-lazy="userAvatarUrl"
                         style="display: none"
                         onload="this.style.display = 'block'"
@@ -49,10 +49,7 @@
                     ></b-input>
                   </b-field>
                   <b-field label="Họ và tên">
-                    <b-input
-                      v-model.trim="userContent.fullname"
-                      icon="account-card-details"
-                    ></b-input>
+                    <b-input v-model.trim="userContent.fullname" icon="account-card-details"></b-input>
                   </b-field>
 
                   <b-field
@@ -74,16 +71,11 @@
 
                   <b-field grouped>
                     <b-field label="Địa chỉ" expanded>
-                      <b-input
-                        v-model="userContent.address"
-                        icon="map-marker"
-                      ></b-input>
+                      <b-input v-model="userContent.address" icon="map-marker"></b-input>
                     </b-field>
                     <b-field label="Tỉnh/Thành">
                       <b-select v-model="userContent.province">
-                        <option v-for="(province, i) in provinces" :key="i">
-                          {{ province }}
-                        </option>
+                        <option v-for="(province, i) in provinces" :key="i">{{ province }}</option>
                       </b-select>
                     </b-field>
                   </b-field>
@@ -97,9 +89,7 @@
                       :disabled="$v.userContent.$invalid"
                       type="submit"
                       @click.prevent="onUpdateContent"
-                    >
-                      Lưu thay đổi
-                    </button>
+                    >Lưu thay đổi</button>
                   </div>
                 </div>
               </b-tab-item>
@@ -149,9 +139,7 @@
                       "
                       type="submit"
                       @click.prevent="onUpdateEmail"
-                    >
-                      Lưu thay đổi
-                    </button>
+                    >Lưu thay đổi</button>
                   </div>
                 </div>
               </b-tab-item>
@@ -218,9 +206,7 @@
                       "
                       type="submit"
                       @click.prevent="onUpdatePassword"
-                    >
-                      Lưu thay đổi
-                    </button>
+                    >Lưu thay đổi</button>
                   </div>
                 </div>
               </b-tab-item>
@@ -251,34 +237,31 @@
                   <div class="level">
                     <div class="level-item" v-if="userOldAvatar">
                       <figure class="image is-128x128 _image-frame">
-                        <img
-                          class="_image-preview"
-                          :src="userOldAvatar.url"
-                          style="display: none"
-                          onload="this.style.display = 'block'"
-                          alt="shop_cover"
-                        />
-                        <span class="_image-size">
-                          {{ userOldAvatar.metadata.size | fmBytes }}
-                        </span>
-                        <a
-                          class="delete _image-button-delete"
-                          @click="userOldAvatar = null"
-                        ></a>
+                        <client-only>
+                          <img
+                            class="_image-preview"
+                            v-lazy="userOldAvatar.url"
+                            style="display: none"
+                            onload="this.style.display = 'block'"
+                            alt="user_avatar"
+                          />
+                        </client-only>
+                        <span class="_image-size">{{ userOldAvatar.metadata.size | fmBytes }}</span>
+                        <a class="delete _image-button-delete" @click="userOldAvatar = null"></a>
                       </figure>
                     </div>
                     <div class="level-item" v-if="userNewAvatar">
                       <figure class="image is-128x128 _image-frame">
-                        <img
-                          class="_image-preview"
-                          :src="userPreviewAvatar.url"
-                          style="display: none"
-                          onload="this.style.display = 'block'"
-                          alt="shop_cover"
-                        />
-                        <span class="_image-size">
-                          {{ userPreviewAvatar.size | fmBytes }}
-                        </span>
+                        <client-only>
+                          <img
+                            class="_image-preview"
+                            v-lazy="userPreviewAvatar.url"
+                            style="display: none"
+                            onload="this.style.display = 'block'"
+                            alt="preview_avatar"
+                          />
+                        </client-only>
+                        <span class="_image-size">{{ userPreviewAvatar.size | fmBytes }}</span>
                         <a
                           class="delete _image-button-delete"
                           @click="
@@ -299,9 +282,7 @@
                       type="submit"
                       :disabled="!isAvatarChanged"
                       @click.prevent="onUpdateAvatar"
-                    >
-                      Lưu thay đổi
-                    </button>
+                    >Lưu thay đổi</button>
                   </div>
                 </div>
               </b-tab-item>
@@ -336,9 +317,7 @@
                       :disabled="$v.confirmPasswordForDeleting.$invalid"
                       type="submit"
                       @click.prevent="onDelete"
-                    >
-                      Xóa tài khoản
-                    </button>
+                    >Xóa tài khoản</button>
                   </div>
                 </div>
               </b-tab-item>

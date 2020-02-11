@@ -83,7 +83,7 @@
                       v-lazy="userAvatarUrl"
                       style="display: none"
                       onload="this.style.display = 'block'"
-                      alt="avatar"
+                      alt="user_avatar"
                     />
                   </client-only>
                 </a>

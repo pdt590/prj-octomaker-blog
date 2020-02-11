@@ -8,10 +8,10 @@
               <div class="level">
                 <div class="level-item">
                   <nuxt-link :to="`/user/profile`">
-                    <figure class="image _image-border">
+                    <figure>
                       <client-only>
                         <img
-                          class="_user-avatar"
+                          class="_profile-avatar"
                           v-lazy="userAvatarUrl"
                           style="display: none"
                           onload="this.style.display = 'block'"

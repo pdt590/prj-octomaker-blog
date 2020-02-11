@@ -8,7 +8,14 @@
         <!-- Upload Image -->
         <div class="level">
           <div class="level-item">
-            <b-upload v-model="images" @input="onAdd" :loading="postLoading" drag-drop multiple :accept="acceptedImages">
+            <b-upload
+              v-model="images"
+              @input="onAdd"
+              :loading="postLoading"
+              drag-drop
+              multiple
+              :accept="acceptedImages"
+            >
               <section class="section">
                 <div class="content has-text-centered">
                   <p>
@@ -24,13 +31,17 @@
       </b-field>
       <div class="columns is-variable is-multiline is-mobile" style="margin-top: 0.1rem">
         <div class="column is-one-quarter" v-for="(file, index) in previewImages" :key="index">
-          <figure class="image is-128x128 _image-frame" style="cursor: pointer;">
-            <img
-              class="_image-preview"
-              :src="file.url"
-              :alt="`image_${index}`"
-              @click="onSelect(index)"
-            />
+          <figure class="image _image-frame" style="cursor: pointer;">
+            <client-only>
+              <img
+                class="_image-preview"
+                v-lazy="file.url"
+                style="display: none"
+                onload="this.style.display = 'block'"
+                :alt="`image_${index}`"
+                @click="onSelect(index)"
+              />
+            </client-only>
             <a class="delete _image-button-delete" @click="onDelete(index)"></a>
           </figure>
         </div>
@@ -73,14 +84,18 @@ export default {
   },
   methods: {
     async onAdd() {
-      const uniqueImages = this.images.filter( // Check duplicate images
+      const uniqueImages = this.images.filter(
+        // Check duplicate images
         image =>
           !this.previewImages.some(item => item.metadata.orgName === image.name)
       );
-      if(!uniqueImages.length) {
+      if (!uniqueImages.length) {
         return;
       }
-      await this.$store.dispatch("addCompressedPostImage", uniqueImages);
+      await this.$store.dispatch(
+        "addCompressedPostImage",
+        uniqueImages.reverse()
+      );
       if (this.postLoading) {
         this.$store.commit("setPostLoading", false);
         this.$buefy.toast.open({

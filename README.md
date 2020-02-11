@@ -214,3 +214,5 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Seperate Loading state
   - Fix loading button issue
 - Fix height of scroll CodeMirror issue
+- Add admin role
+- Change image-lazy-load plugin

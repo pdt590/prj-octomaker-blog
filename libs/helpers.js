@@ -38,7 +38,6 @@ export function compressImage(image) {
     new Compressor(image, {
       quality: quality,
       convertSize: maxSize,
-      checkOrientation: false,
       success(result) {
         resolve(result);
       },
