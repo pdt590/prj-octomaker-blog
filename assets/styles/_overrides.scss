@@ -207,24 +207,24 @@ body {
 
 /* width */
 ::-webkit-scrollbar {
-  width: 0.8rem;
+  width: 1rem;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
   background: #f1f1f1;
-  border-radius: 0.3rem;
+  border-radius: 0.2rem;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: #aaa;
-  border-radius: 0.3rem;
+  border-radius: 0.2rem;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #777;
+  background: #888;
 }
 
 ////////////////////////////////////////////////
@@ -247,7 +247,7 @@ body {
 }
 
 .CodeMirror {
-	height: 50rem;
+	height: 40rem;
 }
 
 ////////////////////////////////////////////////

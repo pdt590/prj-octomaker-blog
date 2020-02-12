@@ -149,11 +149,6 @@ export default {
     return {
       configs: {
         autofocus: true,
-        autosave: {
-          enabled: true,
-          uniqueId: "octomaker.com/edit-post",
-          delay: 1000
-        },
         placeholder: `Content format: \n # Introduction \n - Describe overall your post \n - Don't use picture/bullet/link \n # Content \n - Write your post`,
         spellChecker: false,
         tabSize: 4,
