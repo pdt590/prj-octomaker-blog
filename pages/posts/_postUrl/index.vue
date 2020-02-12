@@ -3,54 +3,48 @@
     <div class="columns">
       <div class="column is-2">
         <div style="position: sticky; top: 8rem;">
-          <!-- for computer -->
-          <div class="card is-hidden-mobile">
-            <div class="card-content">
-              <div class="level">
-                <div class="level-item">
-                  <nuxt-link :to="`/about`">
-                    <figure>
-                      <client-only>
-                        <img
-                          class="_profile-avatar"
-                          v-lazy="userAvatarUrl"
-                          style="display: none"
-                          onload="this.style.display = 'block'"
-                          alt="user_avatar"
-                        />
-                      </client-only>
-                    </figure>
-                  </nuxt-link>
-                </div>
-              </div>
-              <div class="has-text-centered">
-                <h5 class="title is-size-5">{{ userName }}</h5>
-              </div>
-              <hr />
-              <div class="buttons">
-                <nuxt-link
-                  v-if="isEditable"
-                  class="button is-info is-outlined"
-                  :to="`/posts/${$route.params.postUrl}/edit-post`"
-                >
-                  <b-icon icon="settings-outline" size="is-small"></b-icon>
-                  <strong>Chỉnh sửa</strong>
-                </nuxt-link>
-                <a
-                  class="button is-info is-outlined"
-                  :href="
-                    `https://www.facebook.com/sharer/sharer.php?u=${baseUrl}/posts/${$route.params.postUrl}`
-                  "
-                  target="_blank"
-                >
-                  <b-icon icon="share-variant"></b-icon>
-                  <strong>Chia sẻ</strong>
-                </a>
-              </div>
+          <div class="level">
+            <div class="level-item">
+              <nuxt-link :to="`/about`">
+                <figure>
+                  <client-only>
+                    <img
+                      class="_profile-avatar"
+                      v-lazy="userAvatarUrl"
+                      style="display: none"
+                      onload="this.style.display = 'block'"
+                      alt="user_avatar"
+                    />
+                  </client-only>
+                </figure>
+              </nuxt-link>
             </div>
           </div>
-          <!--  -->
-          <!-- for mobile -->
+          <div class="level">
+            <div class="level-item">
+              <nuxt-link
+                v-if="isEditable"
+                class="button is-outlined"
+                :to="`/posts/${$route.params.postUrl}/edit-post`"
+              >
+                <b-icon icon="settings-outline"></b-icon>
+              </nuxt-link>
+            </div>
+          </div>
+          <div class="level">
+            <div class="level-item">
+              <a
+                class="button is-outlined"
+                :href="
+                  `https://www.facebook.com/sharer/sharer.php?u=${baseUrl}/posts/${$route.params.postUrl}`
+                "
+                target="_blank"
+              >
+                <b-icon icon="share-variant"></b-icon>
+              </a>
+            </div>
+          </div>
+          <!-- start mobile-layout -->
           <b-collapse class="card is-hidden-tablet" :open="false">
             <header class="card-header" slot="trigger" slot-scope="props">
               <p class="card-header-title">
@@ -105,7 +99,7 @@
               </div>
             </div>
           </b-collapse>
-          <!--  -->
+          <!-- end mobile-layout -->
         </div>
       </div>
       <div class="column is-10">
@@ -115,10 +109,15 @@
             <h1 class="_post-title">{{ postTitle }}</h1>
             <hr />
             <div class="tags">
-              <span v-for="(tag, index) in postTags" :key="index" class="tag is-info">{{ tag }}</span>
+              <span
+                v-for="(tag, index) in postTags"
+                :key="index"
+                class="tag is-info"
+                >{{ tag }}</span
+              >
             </div>
             <article class="content markdown-body" v-highlight>
-                <span v-html="postHtml"></span>
+              <span v-html="postHtml"></span>
             </article>
             <!--  -->
           </div>
