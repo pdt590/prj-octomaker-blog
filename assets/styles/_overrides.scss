@@ -171,6 +171,10 @@ body {
   border-radius: 50%;
 }
 
+._nav-avatar--danger {
+  border: solid 1px #ff3860;
+}
+
 ._nav-avatar-mobile {
   object-fit: cover;
   width: 1.5rem;
@@ -247,7 +251,7 @@ body {
 }
 
 .CodeMirror {
-	height: 40rem;
+  height: 40rem;
 }
 
 ////////////////////////////////////////////////

@@ -74,12 +74,13 @@
                 :active="!isUserActive"
                 label="Tài khoản chưa được kích hoạt"
                 position="is-right"
-                type="is-warning"
+                type="is-danger"
               >
                 <a class="navbar-link">
                   <client-only>
                     <img
                       class="_nav-avatar"
+                      :class="{'_nav-avatar--danger': !isUserActive}"
                       v-lazy="userAvatarUrl"
                       style="display: none"
                       onload="this.style.display = 'block'"

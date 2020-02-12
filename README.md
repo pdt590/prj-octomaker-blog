@@ -221,3 +221,5 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Change image-lazy-load plugin
 - Use simplemde instead of vue-simplemde
 - Use vue-fontawesome
+- Change highlight color on simplemde
+- Add Facebook & Google login
