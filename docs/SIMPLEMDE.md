@@ -11,7 +11,7 @@
   - [Code](https://github.com/ththth0303/laravel-vue-coreui/blob/editor/resources/assets/js/admin/views/markdown/index.vue)
 
 - [simplemde-markdown-editor*](https://github.com/sparksuite/simplemde-markdown-editor)
-- [CodeMirror*](https://github.com/codemirror/CodeMirror)
+- [CodeMirror*](https://codemirror.net/doc/manual.html#events)
 - [marked](https://github.com/markedjs/marked)
 - [Remarkable](https://github.com/jonschlinkert/remarkable)
 
@@ -62,7 +62,9 @@
     - `github-markdown-css` maybe compatible with `github.css` style of `highlightjs` 
     - This [github-markdown.css](https://zzzzbw.github.io/github-markdown-css/github-markdown.css) maybe
       compatible with all `highlightjs` styles
-    - In vue-simplemde, if set `highlight: true`, it is unnessesary to set `codeSyntaxHighlighting: true`
+    - In vue-simplemde
+      - if set `highlight: true`, it is unnessesary to set `codeSyntaxHighlighting: true` in config
+      - if set `previewRender: function(plainText)`, it is unnessesary to set `previewRender: function(plainText)` in config
     - Solution in the project
       - Use new [github-markdown.css](https://zzzzbw.github.io/github-markdown-css/github-markdown.css)
       - For post page, use `vue-hljs`

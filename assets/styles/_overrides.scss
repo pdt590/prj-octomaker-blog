@@ -21,13 +21,11 @@
     box-shadow: 0 0 0 2px rgba($button-active-border-color, 0.3);
   }
 
-  @each $name,
-  $pair in $colors {
+  @each $name, $pair in $colors {
     $color: nth($pair, 1);
     $color-invert: nth($pair, 2);
 
     &.is-#{$name} {
-
       &.is-active,
       &.is-focused,
       &:active,
@@ -66,9 +64,7 @@ blockquote {
 }
 
 .notification {
-
-  @each $name,
-  $pair in $colors {
+  @each $name, $pair in $colors {
     $color: nth($pair, 1);
     $color-invert: nth($pair, 2);
 
@@ -139,7 +135,7 @@ blockquote {
 }
 
 ////////////////////////////////////////////////
-// Customizes 
+// Customizes
 ////////////////////////////////////////////////
 
 html,
@@ -236,7 +232,9 @@ body {
 // https://github.com/sparksuite/simplemde-markdown-editor/blob/master/src/css/simplemde.css
 ////////////////////////////////////////////////
 
-.CodeMirror-fullscreen, .editor-toolbar.fullscreen, .editor-preview-side {
+.CodeMirror-fullscreen,
+.editor-toolbar.fullscreen,
+.editor-preview-side {
   z-index: $navbar-z + 2;
 }
 
@@ -244,9 +242,12 @@ body {
   z-index: $navbar-z + 1;
 }
 
-.markdown-editor .CodeMirror,
-.markdown-editor .CodeMirror-scroll {
-  height: 3rem;
+.editor-preview-side.content:not(:last-child).markdown-body.editor-preview-active-side {
+  margin-bottom: 0;
+}
+
+.CodeMirror {
+	height: 50rem;
 }
 
 ////////////////////////////////////////////////
@@ -259,7 +260,8 @@ body {
 
   pre,
   code {
-    font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace;
+    font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier,
+      monospace;
     font-size: $body-size;
   }
 }

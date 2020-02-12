@@ -179,15 +179,15 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
 ## TODO
 
-- `Notify Internet Disconnection when saving - [Refer](https://nuxtjs.org/api/$nuxt)`
-- `Remove old link when removing a image`
-- `404 GET /user/join issue`
-- `Remove special characteristic on title (square brackets ...)`
-- `Fix long load issue when clicking edit`
-- `Implement remember-me login`
-- `Improve search performance`
-- `Shoud use cloudinary to upload images?`
-- `Check problem: reload search page when entering search button`
+- Notify Internet Disconnection when saving - [Refer](https://nuxtjs.org/api/$nuxt)
+- Remove old link when removing a image
+- 404 GET /user/join issue
+- Remove special characteristic on title (square brackets ...)
+- Fix long load issue when clicking edit
+- Implement remember-me login
+- Improve search performance
+- Shoud use cloudinary to upload images?
+- Check problem: reload search page when entering search button
 - Change Category list display on navbar
 - Re-check default style - [Refer](https://dev.to/overscoremedia/use-bulma-and-fontawesome-5-with-nuxt-js-11le)
   - Button position on modals
@@ -204,14 +204,20 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Implement embed link select
   - Fix responsive iframe issue
 - Implement emoji modal select
-- Add View image event on editor and post - [Refer](https://codemirror.net/doc/manual.html#events)
+- Add image view event on editor and post - [Refer](https://codemirror.net/doc/manual.html#events)
+- Add image resize
 - Recheck logic in activekey page
 - Unify code language using English or Vietnamese or i18n
 - Fix autosave issue on login and signup form
 - Add like/share fb button
 - Seperate Loading state
   - Fix loading button issue
-- Fix height of scroll CodeMirror issue - [Refer](https://github.com/sparksuite/simplemde-markdown-editor/blob/master/src/css/simplemde.css)
+- `Fix editor issue - [Refer](https://github.com/sparksuite/simplemde-markdown-editor/blob/master/src/css/simplemde.css)
+  - `Height of CodeMirror`
+  - Scroll event is not smooth
+  - Reload when text changes in preview mode
+  - Dont focus at the end of editor when pasting text
+  - `Layout Preview-side issue`
 - Add admin role
 - Change image-lazy-load plugin
-- Use `simplemde` instead of `vue-simplemde`
+- Use simplemde instead of vue-simplemde
