@@ -12,14 +12,10 @@ const imagesPostRef = storage.ref("posts");
 
 export default {
   state: {
-    titleLoading: false,
     postLoading: false,
     loadedPost: null
   },
   mutations: {
-    setTitleLoading(state, payload) {
-      state.titleLoading = payload;
-    },
     setPostLoading(state, payload) {
       state.postLoading = payload;
     },
@@ -29,7 +25,7 @@ export default {
   },
   actions: {
     async addPostTitle(vuexContext, postTitle) {
-      vuexContext.commit("setTitleLoading", true);
+      vuexContext.commit("setPostLoading", true);
       try {
         const postId = genId(5);
         const postUrl = genUrl(postTitle, postId);
@@ -56,7 +52,7 @@ export default {
         };
         await postsRef.child(postId).set(post);
         vuexContext.commit("setPost", post);
-        vuexContext.commit("setTitleLoading", false);
+        vuexContext.commit("setPostLoading", false);
         return postUrl;
       } catch (e) {
         console.error("[ERROR-addPostTitle]", e);
@@ -64,7 +60,7 @@ export default {
     },
 
     async updatePostTitle(vuexContext, newPostTitle) {
-      vuexContext.commit("setTitleLoading", true);
+      vuexContext.commit("setPostLoading", true);
       try {
         const loadedPost = vuexContext.getters.loadedPost;
         const postId = fetchId(loadedPost.url);
@@ -78,7 +74,7 @@ export default {
           ...loadedPost,
           ...update
         });
-        vuexContext.commit("setTitleLoading", false);
+        vuexContext.commit("setPostLoading", false);
       } catch (e) {
         console.error("[ERROR-updatePostTitle]", e);
       }
@@ -299,6 +295,7 @@ export default {
             updates[`${postData.key}/creator/avatar`] = updatedUser.avatar
           }
         });
+        // TODO Update current loadedPost
         await postsRef.update(updates);
         vuexContext.commit("setPostLoading", false);
       } catch (e) {
@@ -361,9 +358,6 @@ export default {
     }
   },
   getters: {
-    titleLoading(state) {
-      return state.titleLoading;
-    },
     postLoading(state) {
       return state.postLoading;
     },

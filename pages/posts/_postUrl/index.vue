@@ -24,7 +24,8 @@
             <div class="level-item">
               <nuxt-link
                 v-if="isEditable"
-                class="button is-outlined"
+                class="button"
+                :class="{ 'is-loading': postLoading }"
                 :to="`/posts/${$route.params.postUrl}/edit-post`"
               >
                 <b-icon icon="settings-outline"></b-icon>
@@ -34,7 +35,7 @@
           <div class="level">
             <div class="level-item">
               <a
-                class="button is-outlined"
+                class="button"
                 :href="
                   `https://www.facebook.com/sharer/sharer.php?u=${baseUrl}/posts/${$route.params.postUrl}`
                 "

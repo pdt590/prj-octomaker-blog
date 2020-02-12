@@ -195,6 +195,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   - Fix mobile layout
   - Re-design Logo
   - Redesign CardPost - [Refer](https://www.hackster.io/)
+  - `Change new float style in each post`
 - Add recommendation posts in each post
   - Add carousel - [Refer](https://buefy.org/documentation/carousel/)
 - Add section highlight for each post (Markdown TOC - Table of Content) - [Refer](https://www.jqueryscript.net/blog/best-table-contents-plugins.html)

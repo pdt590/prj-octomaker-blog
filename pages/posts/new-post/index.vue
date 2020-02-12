@@ -8,7 +8,7 @@
           v-model.trim="postTitle"
           @blur="onChangeTitle"
           icon="post-outline"
-          :loading="titleLoading"
+          :loading="postLoading && loadEvent === `onChangeTitle`"
         ></b-input>
       </b-field>
 
@@ -24,7 +24,8 @@
             v-for="(category, i) in categories"
             :key="i"
             :value="category.id"
-          >{{ category.name }}</option>
+            >{{ category.name }}</option
+          >
         </b-select>
       </b-field>
 
@@ -56,41 +57,47 @@
           v-model="postContent.mode"
           native-value="public"
           :disabled="$v.postTitle.$invalid || !isTitleAdded"
-        >Public</b-radio>
+          >Public</b-radio
+        >
         <b-radio
           v-model="postContent.mode"
           native-value="private"
           :disabled="$v.postTitle.$invalid || !isTitleAdded"
-        >Private</b-radio>
+          >Private</b-radio
+        >
       </div>
 
       <button
         class="button is-info"
-        :class="{ 'is-loading': postLoading }"
+        :class="{ 'is-loading': postLoading && loadEvent === `onPublish` }"
         :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
         type="submit"
         @click.prevent="onPublish"
-      >Publish</button>
+      >
+        Publish
+      </button>
       <button
         class="button is-info"
         :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
         type="submit"
         @click.prevent="isModalConfirmActive = true"
-      >Discard</button>
+      >
+        Discard
+      </button>
     </form>
 
     <!-- Modal -->
-    <b-modal :active.sync="isModalLinkActive" has-modal-card>
-      <v-modal-link @insert="onInsertLink" />
-    </b-modal>
     <b-modal :active.sync="isModalImageActive" has-modal-card>
       <v-modal-image :value="postImages" @select="onSelectImage" />
     </b-modal>
-    <b-modal :active.sync="isModalEmbedActive" has-modal-card>
-      <v-modal-embed @insert="onInsertEmbed" />
-    </b-modal>
     <b-modal :active.sync="isModalConfirmActive" has-modal-card>
       <v-modal-confirm @delete="onDelete" />
+    </b-modal>
+    <b-modal :active.sync="isModalLinkActive" has-modal-card>
+      <v-modal-link @insert="onInsertLink" />
+    </b-modal>
+    <b-modal :active.sync="isModalEmbedActive" has-modal-card>
+      <v-modal-embed @insert="onInsertEmbed" />
     </b-modal>
     <!--  -->
   </div>
@@ -105,7 +112,7 @@ import Prism from "prismjs";
 export default {
   middleware: ["server-client-auth"],
   computed: {
-    ...mapGetters(["loadedPost", "titleLoading", "postLoading"]),
+    ...mapGetters(["loadedPost", "postLoading"]),
     simplemde() {
       return this.$refs.markdownEditor.simplemde;
     },
@@ -228,7 +235,8 @@ export default {
         html: ""
       },
 
-      isTitleAdded: false
+      isTitleAdded: false,
+      loadEvent: ""
     };
   },
   validations: {
@@ -245,38 +253,8 @@ export default {
     }
   },
   methods: {
-    async onPublish() {
-      this.postContent.html = this.simplemde.markdown(
-        this.postContent.markdown
-      );
-      await this.$store.dispatch("addPostContent", this.postContent);
-      if (this.postLoading) {
-        this.$store.commit("setPostLoading", false);
-        this.$buefy.toast.open({
-          duration: 3000,
-          message: "onPublish() Error",
-          type: "is-danger"
-        });
-      } else {
-        const postUrl = this.loadedPost.url;
-        this.$router.push(`/posts/${postUrl}`);
-      }
-    },
-    async onDelete() {
-      await this.$store.dispatch("deletePost");
-      if (this.postLoading) {
-        this.$store.commit("setPostLoading", false);
-        this.$buefy.toast.open({
-          duration: 3000,
-          message: "onDiscard() Error",
-          type: "is-danger"
-        });
-      } else {
-        this.isModalConfirmActive = false;
-        this.$router.push("/");
-      }
-    },
     async onChangeTitle() {
+      this.loadEvent = "onChangeTitle";
       this.$v.postTitle.$touch();
       if (!this.$v.postTitle.$invalid) {
         if (this.isTitleAdded) {
@@ -294,7 +272,43 @@ export default {
           type: "is-danger"
         });
       }
+      this.loadEvent = "";
     },
+    async onPublish() {
+      this.loadEvent = "onPublish";
+      this.postContent.html = this.simplemde.markdown(
+        this.postContent.markdown
+      );
+      await this.$store.dispatch("addPostContent", this.postContent);
+      if (this.postLoading) {
+        this.$store.commit("setPostLoading", false);
+        this.$buefy.toast.open({
+          duration: 3000,
+          message: "onPublish() Error",
+          type: "is-danger"
+        });
+      } else {
+        const postUrl = this.loadedPost.url;
+        this.$router.push(`/posts/${postUrl}`);
+      }
+      this.loadEvent = "";
+    },
+    async onDelete() {
+      await this.$store.dispatch("deletePost");
+      if (this.postLoading) {
+        this.$store.commit("setPostLoading", false);
+        this.$buefy.toast.open({
+          duration: 3000,
+          message: "onDiscard() Error",
+          type: "is-danger"
+        });
+      } else {
+        this.isModalConfirmActive = false;
+        this.$router.push("/");
+      }
+    },
+
+    /* Start simplemde events */
     async onSelectImage(image) {
       const cm = this.simplemde.codemirror;
       cm.replaceSelection(`![](${image.url})`);
@@ -319,6 +333,7 @@ export default {
         cm.focus();
       }, 0);
     }
+    /* End simplemde events */
   },
   head() {
     return {
