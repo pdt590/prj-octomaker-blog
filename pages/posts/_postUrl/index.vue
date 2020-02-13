@@ -34,15 +34,9 @@
           </div>
           <div class="level">
             <div class="level-item">
-              <a
-                class="button"
-                :href="
-                  `https://www.facebook.com/sharer/sharer.php?u=${baseUrl}/posts/${$route.params.postUrl}`
-                "
-                target="_blank"
-              >
+              <button class="button" @click="onWindowPopup">
                 <b-icon pack="fab" icon="facebook-f"></b-icon>
-              </a>
+              </button>
             </div>
           </div>
         </div>
@@ -52,7 +46,7 @@
           <!-- Start post content -->
           <div class="card-content">
             <h1 class="_post-title">{{ postTitle }}</h1>
-            <br>
+            <br />
             <div class="tags">
               <span
                 v-for="(tag, index) in postTags"
@@ -61,7 +55,7 @@
                 >{{ tag }}</span
               >
             </div>
-            <br>
+            <br />
             <article class="content markdown-body" v-highlight>
               <span v-html="postHtml"></span>
             </article>
@@ -87,7 +81,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { fetchDesc } from "~/libs/helpers";
+import { fetchDesc, windowPopup } from "~/libs/helpers";
 import { categories } from "~/libs/lists";
 
 export default {
@@ -151,6 +145,16 @@ export default {
       baseUrl: process.env.baseUrl,
       isModalJoinActive: false
     };
+  },
+  methods: {
+    onWindowPopup() {
+      windowPopup(
+        `https://www.facebook.com/sharer/sharer.php?u=${this.baseUrl}/posts/${this.$route.params.postUrl}`,
+        "Post to Facebook",
+        "900",
+        "500"
+      );
+    }
   },
   head() {
     return {

@@ -210,7 +210,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Unify code language using English or Vietnamese or i18n
 - Fix autosave issue on login and signup form
 - Add like/share fb button
-  - Open sharing after clicking
+  - `Add popup fb share`
 - `Fix loading button issue`
 - `Fix editor issue - [Refer](https://github.com/sparksuite/simplemde-markdown-editor/blob/master/src/css/simplemde.css)
   - Use simplemde-markdown-editor instead of vue-simplemde
