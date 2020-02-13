@@ -49,7 +49,10 @@
                     ></b-input>
                   </b-field>
                   <b-field label="Họ và tên">
-                    <b-input v-model.trim="userContent.fullname" icon="id-card"></b-input>
+                    <b-input
+                      v-model.trim="userContent.fullname"
+                      icon="id-card"
+                    ></b-input>
                   </b-field>
 
                   <b-field
@@ -71,16 +74,21 @@
 
                   <b-field grouped>
                     <b-field label="Địa chỉ" expanded>
-                      <b-input v-model="userContent.address" icon="map-marker-alt"></b-input>
+                      <b-input
+                        v-model="userContent.address"
+                        icon="map-marker-alt"
+                      ></b-input>
                     </b-field>
                     <b-field label="Tỉnh/Thành">
                       <b-select v-model="userContent.province">
-                        <option v-for="(province, i) in provinces" :key="i">{{ province }}</option>
+                        <option v-for="(province, i) in provinces" :key="i">{{
+                          province
+                        }}</option>
                       </b-select>
                     </b-field>
                   </b-field>
                 </form>
-                <div class="level is-mobile">
+                <div class="level">
                   <div class="level-left"></div>
                   <div class="level-right">
                     <button
@@ -89,7 +97,9 @@
                       :disabled="$v.userContent.$invalid"
                       type="submit"
                       @click.prevent="onUpdateContent"
-                    >Lưu thay đổi</button>
+                    >
+                      Lưu thay đổi
+                    </button>
                   </div>
                 </div>
               </b-tab-item>
@@ -128,7 +138,7 @@
                     ></b-input>
                   </b-field>
                 </form>
-                <div class="level is-mobile">
+                <div class="level">
                   <div class="level-left"></div>
                   <div class="level-right">
                     <button
@@ -140,7 +150,9 @@
                       "
                       type="submit"
                       @click.prevent="onUpdateEmail"
-                    >Lưu thay đổi</button>
+                    >
+                      Lưu thay đổi
+                    </button>
                   </div>
                 </div>
               </b-tab-item>
@@ -197,7 +209,7 @@
                     ></b-input>
                   </b-field>
                 </form>
-                <div class="level is-mobile">
+                <div class="level">
                   <div class="level-left"></div>
                   <div class="level-right">
                     <button
@@ -210,13 +222,16 @@
                       "
                       type="submit"
                       @click.prevent="onUpdatePassword"
-                    >Lưu thay đổi</button>
+                    >
+                      Lưu thay đổi
+                    </button>
                   </div>
                 </div>
               </b-tab-item>
 
               <b-tab-item label="Avatar">
                 <form style="padding-top: 1rem; padding-bottom: 2rem;">
+                  <!-- Start image upload -->
                   <b-field label="Avatar">
                     <div class="level">
                       <div class="level-item">
@@ -238,6 +253,7 @@
                       </div>
                     </div>
                   </b-field>
+                  <!-- End image upload -->
                   <div class="level">
                     <div class="level-item" v-if="userOldAvatar">
                       <figure class="image is-128x128 _image-frame">
@@ -250,8 +266,13 @@
                             alt="user_avatar"
                           />
                         </client-only>
-                        <span class="_image-size">{{ userOldAvatar.metadata.size | fmBytes }}</span>
-                        <a class="delete _image-button-delete" @click="userOldAvatar = null"></a>
+                        <span class="_image-size">{{
+                          userOldAvatar.metadata.size | fmBytes
+                        }}</span>
+                        <a
+                          class="delete _image-button-delete"
+                          @click="userOldAvatar = null"
+                        ></a>
                       </figure>
                     </div>
                     <div class="level-item" v-if="userNewAvatar">
@@ -265,7 +286,9 @@
                             alt="preview_avatar"
                           />
                         </client-only>
-                        <span class="_image-size">{{ userPreviewAvatar.size | fmBytes }}</span>
+                        <span class="_image-size">{{
+                          userPreviewAvatar.size | fmBytes
+                        }}</span>
                         <a
                           class="delete _image-button-delete"
                           @click="
@@ -277,7 +300,7 @@
                     </div>
                   </div>
                 </form>
-                <div class="level is-mobile">
+                <div class="level">
                   <div class="level-left"></div>
                   <div class="level-right">
                     <button
@@ -286,7 +309,9 @@
                       type="submit"
                       :disabled="!isAvatarChanged"
                       @click.prevent="onUpdateAvatar"
-                    >Lưu thay đổi</button>
+                    >
+                      Lưu thay đổi
+                    </button>
                   </div>
                 </div>
               </b-tab-item>
@@ -313,7 +338,7 @@
                     ></b-input>
                   </b-field>
                 </form>
-                <div class="level is-mobile">
+                <div class="level">
                   <div class="level-left"></div>
                   <div class="level-right">
                     <button
@@ -322,7 +347,9 @@
                       :disabled="$v.confirmPasswordForDeleting.$invalid"
                       type="submit"
                       @click.prevent="onDelete"
-                    >Xóa tài khoản</button>
+                    >
+                      Xóa tài khoản
+                    </button>
                   </div>
                 </div>
               </b-tab-item>

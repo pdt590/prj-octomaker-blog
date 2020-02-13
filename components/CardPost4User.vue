@@ -5,7 +5,7 @@
         <figure class="image is-96x96">
           <client-only>
             <img
-              class="_image-mobile-card"
+              class="_image-horizontal-card"
               v-lazy="postThumbnail"
               style="display: none"
               onload="this.style.display = 'block'"
@@ -25,24 +25,8 @@
           </nuxt-link>
         </strong>
         <small class="is-uppercase">- {{ postCategory }}</small>
-        <!-- For mobile -->
-        <div class="has-text-grey-light is-hidden-tablet">
-          <b-icon icon="clock" size="is-small"></b-icon>
-          {{ postUpdatedDate | fmDate }}
-        </div>
-        <!--  -->
       </div>
-      <!-- For mobile -->
-      <div class="buttons is-hidden-tablet">
-        <a class="button is-danger is-outlined" @click="isModalConfirmActive = true">Xóa</a>
-        <nuxt-link
-          class="button is-info is-outlined"
-          :to="`/posts/${value.url}/edit-post`"
-          target="_blank"
-        >Sửa</nuxt-link>
-      </div>
-      <!--  -->
-      <div class="level is-mobile is-hidden-mobile">
+      <div class="level">
         <div class="level-left">
           <div class="level-item">
             <div class="has-text-grey-light">
@@ -53,7 +37,7 @@
         </div>
       </div>
     </div>
-    <div class="media-right is-hidden-mobile">
+    <div class="media-right">
       <div class="buttons">
         <a class="button is-danger is-outlined" @click="isModalConfirmActive = true">Xóa</a>
         <nuxt-link

@@ -1,12 +1,19 @@
 <template>
   <div class="container">
     <div class="_section-header">
-      <p class="is-size-5 is-capitalized has-text-black has-text-weight-semibold">Posts</p>
+      <p
+        class="is-size-5 is-capitalized has-text-black has-text-weight-semibold"
+      >
+        Posts
+      </p>
     </div>
     <div class="columns is-multiline is-variable is-2">
-      <div class="column is-2" v-for="(post, index) in loadedPosts" :key="index">
-        <v-card-post class="is-hidden-mobile" :value="post" />
-        <v-card-post-mobile class="is-hidden-tablet" :value="post" />
+      <div
+        class="column is-2"
+        v-for="(post, index) in loadedPosts"
+        :key="index"
+      >
+        <v-card-post :value="post" />
       </div>
     </div>
     <div class="level">
@@ -16,7 +23,9 @@
           :class="{ 'is-loading': queryLoading }"
           :disabled="!loadedPosts.length"
           @click="onLoad"
-        >Xem thêm</button>
+        >
+          Xem thêm
+        </button>
       </div>
     </div>
   </div>

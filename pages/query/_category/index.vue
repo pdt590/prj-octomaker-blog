@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <nav class="breadcrumb is-hidden-mobile">
+    <nav class="breadcrumb">
       <ul>
         <li>
           <nuxt-link to="/">Trang chủ</nuxt-link>
@@ -17,8 +17,7 @@
           style="padding-top: 1rem"
         >
           <div class="column is-2" v-for="post in loadedPosts" :key="post.url">
-            <v-card-post class="is-hidden-mobile" :value="post" />
-            <v-card-post-mobile class="is-hidden-tablet" :value="post" />
+            <v-card-post :value="post" />
           </div>
         </div>
         <b-pagination

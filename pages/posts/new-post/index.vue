@@ -39,7 +39,7 @@
         ></b-taginput>
       </b-field>
 
-      <!-- simpleMDE -->
+      <!-- Start simpleMDE -->
       <b-field>
         <client-only placeholder="Loading ...">
           <vue-simplemde
@@ -50,8 +50,8 @@
           />
         </client-only>
       </b-field>
-      <!--  -->
-
+      <!-- End simpleMDE -->
+      
       <div class="block">
         <b-radio
           v-model="postContent.mode"

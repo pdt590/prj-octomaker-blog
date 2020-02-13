@@ -15,8 +15,7 @@ module.exports = {
       { hid: 'description', name: 'description', content: pkg.description }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' },
-      //{ rel: 'stylesheet', href: 'https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css' },
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }
     ]
   },
 
@@ -49,6 +48,7 @@ module.exports = {
     {src: '~plugins/fontawesome.js'},
     {src: '~plugins/lazyload.js', mode: 'client'},
     {src: '~plugins/simplemde.js', mode: 'client' },
+    {src: '~plugins/prism.js', mode: 'client' },
 
     {src: '~plugins/test.js', mode: 'client' }
   ],

@@ -175,13 +175,6 @@ body {
   border: solid 1px #ff3860;
 }
 
-._nav-avatar-mobile {
-  object-fit: cover;
-  width: 1.5rem;
-  height: 1.5rem;
-  border: solid 1px #d8d8d8;
-}
-
 // Image upload preview
 ._image-frame {
   position: relative;
@@ -382,27 +375,12 @@ body {
   padding-bottom: 0.5rem;
 }
 
-._image-mobile-card {
+._image-horizontal-card {
   object-fit: cover;
   width: 96px !important;
   height: 96px !important;
   border: none !important;
 }
-
-/* components/CardPostMobile.vue */
-/* 
-._media {
-  border-bottom: 1px solid #d8d8d8;
-  padding-bottom: 0.5rem;
-}
-
-._image-mobile-card {
-  object-fit: cover;
-  width: 96px !important;
-  height: 96px !important;
-  border: none !important;
-}
-*/
 
 /* components/Navbar.vue */
 ._navbar {
@@ -426,49 +404,6 @@ body {
   display: flex;
   align-items: center;
   padding-right: 1rem;
-  p {
-    margin-left: 1rem;
-  }
-}
-
-/* components/NavbarMobile.vue */
-._m-navbar {
-  border: none;
-  border-bottom: 1px solid #d8d8d8;
-}
-
-._m-navbar__logo {
-  background: url(/logo-mobile.png) no-repeat center center;
-  background-size: cover;
-  width: 4rem;
-}
-
-._m-navbar-end {
-  display: flex;
-  justify-content: flex-end;
-  align-items: stretch;
-  margin-left: auto;
-  padding: 0;
-}
-
-._m-navbar-end__item {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 4rem;
-  width: 3rem;
-  position: relative;
-  margin-left: auto;
-}
-
-._m-navbar-menu {
-  height: 100vh;
-}
-
-._m-navbar-dropdown__item {
-  display: flex;
-  align-items: center;
-
   p {
     margin-left: 1rem;
   }

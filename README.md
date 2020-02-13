@@ -192,7 +192,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Re-check default style - [Refer](https://dev.to/overscoremedia/use-bulma-and-fontawesome-5-with-nuxt-js-11le)
   - Button position on modals
   - Fix navbar-item style on Navbar component
-  - Remove mobile layout
+  - `Remove mobile layout`
   - Redesign mobile layout
   - `Re-design Logo`
   - Redesign CardPost - [Refer](https://www.hackster.io/)

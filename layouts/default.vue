@@ -1,7 +1,6 @@
 <template>
   <div class="_default">
-    <v-navbar class="is-hidden-mobile" />
-    <v-navbar-mobile class="is-hidden-tablet" />
+    <v-navbar />
     <main class="_default__main">
       <nuxt />
     </main>

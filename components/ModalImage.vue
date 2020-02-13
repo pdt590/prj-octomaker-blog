@@ -5,7 +5,7 @@
     </header>
     <section class="modal-card-body">
       <b-field>
-        <!-- Upload Image -->
+        <!-- Start image upload -->
         <div class="level">
           <div class="level-item">
             <b-upload
@@ -27,9 +27,9 @@
             </b-upload>
           </div>
         </div>
-        <!--  -->
+        <!-- End image upload -->
       </b-field>
-      <div class="columns is-variable is-multiline is-mobile" style="margin-top: 0.1rem">
+      <div class="columns is-variable is-multiline" style="margin-top: 0.1rem">
         <div class="column is-one-quarter" v-for="(file, index) in previewImages" :key="index">
           <figure class="image _image-frame" style="cursor: pointer;">
             <client-only>
