@@ -251,7 +251,26 @@ body {
 }
 
 .CodeMirror {
-  height: 40rem;
+  height: 35rem;
+}
+
+.CodeMirror .CodeMirror-code .cm-comment {
+  background: initial;
+  border-radius: initial;
+  color: rgba(100, 44, 30, 0.76);
+  font-weight: bold;
+}
+
+.CodeMirror .CodeMirror-selected {
+  background: #bbb;
+}
+
+.CodeMirror .CodeMirror-code .cm-link {
+  color: #0d87d8;
+}
+
+.CodeMirror .CodeMirror-code .cm-url {
+  color: #000;
 }
 
 ////////////////////////////////////////////////

@@ -209,17 +209,19 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Unify code language using English or Vietnamese or i18n
 - Fix autosave issue on login and signup form
 - Add like/share fb button
-- Seperate Loading state
-  - Fix loading button issue
+  - Open sharing after clicking
+- `Fix loading button issue`
 - `Fix editor issue - [Refer](https://github.com/sparksuite/simplemde-markdown-editor/blob/master/src/css/simplemde.css)
   - `Height of CodeMirror`
   - Scroll event is not smooth
   - Reload when text changes in preview mode
   - Dont focus at the end of editor when pasting text
   - `Layout Preview-side issue`
+  - Fix editor size - [Refer](https://viblo.asia/posts/aWj53LAGK6m/edit)
 - Add admin role
 - Change image-lazy-load plugin
 - Use simplemde instead of vue-simplemde
 - Use vue-fontawesome
-- Change highlight color on simplemde
+  - Change fb_share and edit icon
+- `Change highlight color on simplemde`
 - Add Facebook & Google login
