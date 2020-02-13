@@ -55,12 +55,14 @@
 
       <div class="block">
         <b-radio
+          type="is-info"
           v-model="postContent.mode"
           native-value="public"
           :disabled="$v.postTitle.$invalid"
           >Public</b-radio
         >
         <b-radio
+          type="is-info"
           v-model="postContent.mode"
           native-value="private"
           :disabled="$v.postTitle.$invalid"

@@ -43,6 +43,7 @@
       <b-field>
         <client-only placeholder="Loading ...">
           <vue-simplemde
+            v-highlight
             ref="markdownEditor"
             :configs="configs"
             v-model="postContent.markdown"
@@ -54,12 +55,14 @@
 
       <div class="block">
         <b-radio
+          type="is-info"
           v-model="postContent.mode"
           native-value="public"
           :disabled="$v.postTitle.$invalid || !isTitleAdded"
           >Public</b-radio
         >
         <b-radio
+          type="is-info"
           v-model="postContent.mode"
           native-value="private"
           :disabled="$v.postTitle.$invalid || !isTitleAdded"
