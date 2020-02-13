@@ -27,7 +27,7 @@
         <small class="is-uppercase">- {{ postCategory }}</small>
         <!-- For mobile -->
         <div class="has-text-grey-light is-hidden-tablet">
-          <b-icon icon="clock-outline" size="is-small"></b-icon>
+          <b-icon icon="clock" size="is-small"></b-icon>
           {{ postUpdatedDate | fmDate }}
         </div>
         <!--  -->
@@ -46,7 +46,7 @@
         <div class="level-left">
           <div class="level-item">
             <div class="has-text-grey-light">
-              <b-icon icon="clock-outline" size="is-small"></b-icon>
+              <b-icon icon="clock" size="is-small"></b-icon>
               {{ postUpdatedDate | fmDate }}
             </div>
           </div>

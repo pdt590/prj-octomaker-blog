@@ -16,7 +16,7 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' },
-      { rel: 'stylesheet', href: 'https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css' },
+      //{ rel: 'stylesheet', href: 'https://cdn.materialdesignicons.com/4.8.95/css/materialdesignicons.min.css' },
     ]
   },
 
@@ -29,7 +29,8 @@ module.exports = {
   ** Global CSS
   */
   css: [
-    '~assets/styles/main.scss'
+    '~assets/styles/main.scss',
+    '@fortawesome/fontawesome-svg-core/styles.css'
   ],
 
   /*
@@ -45,9 +46,9 @@ module.exports = {
 
     {src: '~plugins/buefy.js'},
     {src: '~plugins/vuelidate.js'},
+    {src: '~plugins/fontawesome.js'},
     {src: '~plugins/lazyload.js', mode: 'client'},
     {src: '~plugins/simplemde.js', mode: 'client' },
-    {src: '~plugins/prism.js', mode: 'client' },
 
     {src: '~plugins/test.js', mode: 'client' }
   ],

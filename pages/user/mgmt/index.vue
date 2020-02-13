@@ -35,7 +35,7 @@
             <b-tabs type="is-boxed">
               <b-tab-item>
                 <template slot="header">
-                  <b-icon icon="post-outline"></b-icon>
+                  <b-icon icon="newspaper"></b-icon>
                   <span>Bài viết</span>
                 </template>
                 <div

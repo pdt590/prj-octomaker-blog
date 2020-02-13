@@ -23,7 +23,7 @@
                   <b-input
                     placeholder="Search..."
                     type="search"
-                    icon="magnify"
+                    icon="search"
                     v-model="searchKey"
                   ></b-input>
                   <p class="control">
@@ -94,14 +94,14 @@
                     class="navbar-item _navbar-dropdown__item"
                     to="/user/profile"
                   >
-                    <b-icon icon="settings-outline"></b-icon>
+                    <b-icon icon="cog"></b-icon>
                     <p class="is-size-6">Cài đặt</p>
                   </nuxt-link>
                   <nuxt-link
                     class="navbar-item _navbar-dropdown__item"
                     to="/user/mgmt"
                   >
-                    <b-icon icon="finance"></b-icon>
+                    <b-icon icon="newspaper"></b-icon>
                     <p class="is-size-6">Quản lý</p>
                   </nuxt-link>
                   <hr class="navbar-divider" />
@@ -109,7 +109,7 @@
                     class="navbar-item _navbar-dropdown__item"
                     @click="onLogout"
                   >
-                    <b-icon icon="logout-variant"></b-icon>
+                    <b-icon icon="sign-out-alt"></b-icon>
                     <p class="is-size-6">Thoát</p>
                   </a>
                 </div>
@@ -148,10 +148,10 @@
               class="navbar-item"
               style="padding-right: 1.5rem; padding-left: 1.5rem; border-left: 1px solid #D8D8D8"
             >
-              <b-icon icon="facebook"></b-icon>
+              <b-icon pack="fab" icon="facebook"></b-icon>
             </a>
             <a href="/" target="_blank" class="navbar-item">
-              <b-icon icon="youtube"></b-icon>
+              <b-icon pack="fab" icon="youtube"></b-icon>
             </a>
           </div>
         </div>

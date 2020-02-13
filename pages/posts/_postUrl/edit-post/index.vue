@@ -7,7 +7,7 @@
           type="text"
           v-model.trim="postTitle"
           @blur="onChangeTitle"
-          icon="post-outline"
+          icon="newspaper"
           :loading="postLoading && loadEvent === `onChangeTitle`"
         ></b-input>
       </b-field>
@@ -18,7 +18,7 @@
           v-model="postContent.category"
           expanded
           :disabled="$v.postTitle.$invalid"
-          icon="check-circle"
+          icon="list"
         >
           <option
             v-for="(category, i) in categories"
@@ -35,7 +35,7 @@
           v-model="postContent.tags"
           maxtags="3"
           :has-counter="false"
-          icon="label"
+          icon="tag"
         ></b-taginput>
       </b-field>
 
@@ -68,7 +68,7 @@
       </div>
 
       <button
-        class="button is-info"
+        class="button is-info is-outlined"
         :class="{ 'is-loading': postLoading && loadEvent === `onPublish` }"
         :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
         type="submit"
@@ -77,7 +77,7 @@
         Update
       </button>
       <button
-        class="button is-info"
+        class="button is-info is-outlined"
         :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
         type="submit"
         @click.prevent="isModalConfirmActive = true"

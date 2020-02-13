@@ -192,8 +192,9 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Re-check default style - [Refer](https://dev.to/overscoremedia/use-bulma-and-fontawesome-5-with-nuxt-js-11le)
   - Button position on modals
   - Fix navbar-item style on Navbar component
-  - Fix mobile layout
-  - Re-design Logo
+  - Remove mobile layout
+  - Redesign mobile layout
+  - `Re-design Logo`
   - Redesign CardPost - [Refer](https://www.hackster.io/)
   - `Change new float style in each post`
 - Add recommendation posts in each post
@@ -221,7 +222,10 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Add admin role
 - Change image-lazy-load plugin
 - Use simplemde instead of vue-simplemde
-- Use vue-fontawesome
-  - Change fb_share and edit icon
+- `Use vue-fontawesome`
+  - `Change fb_share and edit icon`
+  - [Icons](https://buefy.org/documentation/start/)
+  - [Constructor options](https://buefy.org/documentation/constructor-options/)
+  - [vue-fontawesome#nuxtjs](https://www.npmjs.com/package/@fortawesome/vue-fontawesome#nuxtjs)
 - `Change highlight color on simplemde`
 - Add Facebook & Google login

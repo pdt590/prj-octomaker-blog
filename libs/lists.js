@@ -4,7 +4,7 @@ export const categories = [
   {
     id: "iot",
     name: "IoT",
-    icon: "radio-tower"
+    icon: "broadcast-tower"
   },
   {
     id: "ai",
@@ -14,17 +14,17 @@ export const categories = [
   {
     id: "electronic",
     name: "Điện tử",
-    icon: "safe"
+    icon: "microchip"
   },
   {
     id: "pcb",
     name: "PCB",
-    icon: "source-repository"
+    icon: "code-branch"
   },
   {
     id: "others",
     name: "Khác",
-    icon: "unfold-more-vertical"
+    icon: "receipt"
   }
 ];
 

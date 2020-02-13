@@ -45,11 +45,11 @@
                     <b-input
                       v-model="userContent.username"
                       @blur="$v.userContent.username.$touch()"
-                      icon="account"
+                      icon="user-circle"
                     ></b-input>
                   </b-field>
                   <b-field label="Họ và tên">
-                    <b-input v-model.trim="userContent.fullname" icon="account-card-details"></b-input>
+                    <b-input v-model.trim="userContent.fullname" icon="id-card"></b-input>
                   </b-field>
 
                   <b-field
@@ -65,13 +65,13 @@
                       type="tel"
                       v-model="userContent.phone"
                       @blur="$v.userContent.phone.$touch()"
-                      icon="cellphone"
+                      icon="phone-square-alt"
                     ></b-input>
                   </b-field>
 
                   <b-field grouped>
                     <b-field label="Địa chỉ" expanded>
-                      <b-input v-model="userContent.address" icon="map-marker"></b-input>
+                      <b-input v-model="userContent.address" icon="map-marker-alt"></b-input>
                     </b-field>
                     <b-field label="Tỉnh/Thành">
                       <b-select v-model="userContent.province">
@@ -84,7 +84,7 @@
                   <div class="level-left"></div>
                   <div class="level-right">
                     <button
-                      class="button is-info"
+                      class="button is-info is-outlined"
                       :class="{ 'is-loading': authLoading }"
                       :disabled="$v.userContent.$invalid"
                       type="submit"
@@ -105,7 +105,7 @@
                       type="email"
                       v-model.trim="userEmail"
                       @blur="$v.userEmail.$touch()"
-                      icon="email"
+                      icon="envelope"
                     ></b-input>
                   </b-field>
                   <b-field
@@ -124,6 +124,7 @@
                       v-model.trim="confirmPasswordForNewEmail"
                       @blur="$v.confirmPasswordForNewEmail.$touch()"
                       password-reveal
+                      icon="unlock-alt"
                     ></b-input>
                   </b-field>
                 </form>
@@ -131,7 +132,7 @@
                   <div class="level-left"></div>
                   <div class="level-right">
                     <button
-                      class="button is-info"
+                      class="button is-info is-outlined"
                       :class="{ 'is-loading': authLoading }"
                       :disabled="
                         $v.userEmail.$invalid ||
@@ -162,6 +163,7 @@
                       v-model.trim="confirmPasswordForNewPassword"
                       @blur="$v.confirmPasswordForNewPassword.$touch()"
                       password-reveal
+                      icon="unlock-alt"
                     ></b-input>
                   </b-field>
                   <b-field
@@ -176,6 +178,7 @@
                       v-model.trim="userPassword"
                       @blur="$v.userPassword.$touch()"
                       password-reveal
+                      icon="key"
                     ></b-input>
                   </b-field>
                   <b-field
@@ -190,6 +193,7 @@
                       v-model.trim="confirmUserPassword"
                       @blur="$v.confirmUserPassword.$touch()"
                       password-reveal
+                      icon="key"
                     ></b-input>
                   </b-field>
                 </form>
@@ -197,7 +201,7 @@
                   <div class="level-left"></div>
                   <div class="level-right">
                     <button
-                      class="button is-info"
+                      class="button is-info is-outlined"
                       :class="{ 'is-loading': authLoading }"
                       :disabled="
                         $v.confirmPasswordForNewPassword.$invalid ||
@@ -277,7 +281,7 @@
                   <div class="level-left"></div>
                   <div class="level-right">
                     <button
-                      class="button is-info"
+                      class="button is-info is-outlined"
                       :class="{ 'is-loading': authLoading }"
                       type="submit"
                       :disabled="!isAvatarChanged"
@@ -305,6 +309,7 @@
                       v-model.trim="confirmPasswordForDeleting"
                       @blur="$v.confirmPasswordForDeleting.$touch()"
                       password-reveal
+                      icon="key"
                     ></b-input>
                   </b-field>
                 </form>

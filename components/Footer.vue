@@ -4,10 +4,10 @@
       <div class="container has-text-centered">
         <div class="block">
           <a href="/" target="_blank" style="padding: 1rem"
-            ><b-icon icon="facebook" type="is-white"></b-icon
+            ><b-icon pack="fab" icon="facebook" type="is-white"></b-icon
           ></a>
           <a href="/" target="_blank" style="padding: 1rem"
-            ><b-icon icon="youtube" type="is-white"></b-icon
+            ><b-icon pack="fab" icon="youtube" type="is-white"></b-icon
           ></a>
         </div>
         <p>

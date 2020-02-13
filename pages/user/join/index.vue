@@ -55,7 +55,7 @@
               <div class="card-footer-item _card-join__footer__item">
                 <a @click.prevent="isSignup = !isSignup">{{ isSignup ? `Đăng nhập?` : `Đăng ký?` }}</a>
                 <button
-                  class="button is-info"
+                  class="button is-info is-outlined"
                   :class="{ 'is-loading': authLoading }"
                   :disabled="$v.formDataSignup.$invalid"
                   @click.prevent="onSignup"
@@ -110,7 +110,7 @@
                   <nuxt-link to="/user/resetpassword">Quên mật khẩu?</nuxt-link>
                 </p>
                 <button
-                  class="button is-info"
+                  class="button is-info is-outlined"
                   :class="{ 'is-loading': authLoading }"
                   :disabled="$v.formDataLogin.$invalid"
                   @click.prevent="onLogin"

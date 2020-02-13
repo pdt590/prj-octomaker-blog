@@ -7,17 +7,17 @@
         <div class="navbar-end _m-navbar-end">
           <a class="navbar-item _m-navbar-end__item" data-target="mobile-search" @click="onActiveSearch">
             <b-icon
-              :icon="isSearchActive ? `close-box` : `magnify`"
+              :icon="isSearchActive ? `close-box` : `search`"
               :type="isSearchActive ? `is-danger` : ``"
             ></b-icon>
           </a>
           <a class="navbar-item _m-navbar-end__item" data-target="mobile-new-post" @click="onOpenNewPost" v-if="user">
-            <b-icon icon="plus-box-outline"></b-icon>
+            <b-icon icon="plus-square"></b-icon>
           </a>
           <a class="navbar-item _m-navbar-end__item" data-target="mobile-page-list" @click="onActiveCategories">
             <b-icon
               :icon="
-                isCategoriesActive ? `close-box` : `view-dashboard-outline`
+                isCategoriesActive ? `close-box` : `list-alt`
               "
               :type="isCategoriesActive ? `is-danger` : ``"
             ></b-icon>
@@ -46,7 +46,7 @@
           <div class="navbar-item">
             <form>
               <b-field position="is-centered">
-                <b-input placeholder="Search..." type="text" icon="magnify" v-model="searchKey"></b-input>
+                <b-input placeholder="Search..." type="text" icon="search" v-model="searchKey"></b-input>
                 <button class="button" type="submit" @click.prevent="onSearch">Tìm Kiếm</button>
               </b-field>
             </form>
@@ -92,16 +92,16 @@
         <div v-if="user" class="navbar-item has-dropdown is-hoverable">
           <div class="navbar-dropdown is-right">
             <nuxt-link class="navbar-item _m-navbar-dropdown__item" to="/user/profile">
-              <b-icon icon="settings-outline"></b-icon>
+              <b-icon icon="cog"></b-icon>
               <p class="is-size-6">Cài đặt</p>
             </nuxt-link>
             <nuxt-link class="navbar-item _m-navbar-dropdown__item" to="/user/mgmt">
-              <b-icon icon="finance"></b-icon>
+              <b-icon icon="newspaper"></b-icon>
               <p class="is-size-6">Quản lý</p>
             </nuxt-link>
             <hr class="navbar-divider" />
             <a class="navbar-item _m-navbar-dropdown__item" @click="onLogout">
-              <b-icon icon="logout-variant"></b-icon>
+              <b-icon icon="sign-out-alt"></b-icon>
               <p class="is-size-6">Thoát</p>
             </a>
           </div>

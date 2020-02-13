@@ -51,7 +51,7 @@
         <footer class="modal-card-foot" style="justify-content: flex-end">
           <button class="button" type="button" @click="$parent.close()">Close</button>
           <button
-            class="button is-info"
+            class="button is-info is-outlined"
             :class="{ 'is-loading': authLoading }"
             :disabled="$v.formData.$invalid"
             @click.prevent="onSignup"

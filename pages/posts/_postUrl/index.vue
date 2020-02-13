@@ -28,7 +28,7 @@
                 :class="{ 'is-loading': postLoading }"
                 :to="`/posts/${$route.params.postUrl}/edit-post`"
               >
-                <b-icon icon="settings-outline"></b-icon>
+                <b-icon icon="pencil-alt"></b-icon>
               </nuxt-link>
             </div>
           </div>
@@ -41,7 +41,7 @@
                 "
                 target="_blank"
               >
-                <b-icon icon="share-variant"></b-icon>
+                <b-icon pack="fab" icon="facebook-f"></b-icon>
               </a>
             </div>
           </div>
