@@ -204,8 +204,6 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Implement embed link select
   - Fix responsive iframe issue
 - Implement emoji modal select
-- Add image view event on editor and post - [Refer](https://codemirror.net/doc/manual.html#events)
-- Add image resize
 - Recheck logic in activekey page
 - Unify code language using English or Vietnamese or i18n
 - Fix autosave issue on login and signup form
@@ -221,6 +219,8 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   - Dont focus at the end of editor when pasting text
   - `Layout Preview-side issue`
   - Fix editor size - [Refer](https://viblo.asia/posts/aWj53LAGK6m/edit)
+  - Add image view event on editor and post - [Refer](https://codemirror.net/doc/manual.html#events)
+  - Add image resize
 - Add admin role
 - Change image-lazy-load plugin
 - `Use vue-fontawesome`

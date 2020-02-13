@@ -7,9 +7,14 @@
 // Buefy style
 @import "~buefy/src/scss/buefy";
 
+// Simplemde style
 @import "simplemde/dist/simplemde.min.css";
 @import "github-markdown-css/github-markdown.css";
+// Prism style
 @import "prismjs/themes/prism-okaidia.css";
+// ToC style
+@import '~tocbot/src/scss/tocbot-core';
+@import '~tocbot/src/scss/tocbot-default-theme';
 
 // Customized style
 @import "_overrides";

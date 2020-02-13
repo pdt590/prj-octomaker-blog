@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="columns">
-      <div class="column is-2">
+      <div class="column is-1">
         <div style="position: sticky; top: 8rem;">
           <div class="level">
             <div class="level-item">
@@ -41,7 +41,7 @@
           </div>
         </div>
       </div>
-      <div class="column is-10">
+      <div class="column is-9">
         <div class="card">
           <!-- Start post content -->
           <div class="card-content">
@@ -56,7 +56,7 @@
               >
             </div>
             <br />
-            <article class="content markdown-body" v-highlight>
+            <article class="content markdown-body toc-content" v-highlight>
               <span v-html="postHtml"></span>
             </article>
           </div>
@@ -75,6 +75,11 @@
           </div>
         </div>
       </div>
+      <div class="column is-2">
+        <div style="position: sticky; top: 8rem;">
+          <div class="toc"></div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -88,6 +93,7 @@ export default {
   middleware: ["server-client-view-permission"],
   mounted() {
     this.$initFbSdk();
+    this.$initToC();
   },
   computed: {
     ...mapGetters(["user", "loadedPost", "postLoading"]),

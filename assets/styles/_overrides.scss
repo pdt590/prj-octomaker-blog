@@ -157,8 +157,8 @@ body {
 
 ._profile-avatar {
   object-fit: cover;
-  width: 5rem;
-  height: 5rem;
+  width: 4rem;
+  height: 4rem;
   border: solid 1px #d8d8d8;
   border-radius: 50%;
 }
@@ -226,7 +226,6 @@ body {
 
 ////////////////////////////////////////////////
 // Customizes simplemde
-// https://github.com/sparksuite/simplemde-markdown-editor/blob/master/src/css/simplemde.css
 ////////////////////////////////////////////////
 
 .CodeMirror-fullscreen,
@@ -280,6 +279,14 @@ body {
       monospace;
     font-size: $body-size;
   }
+}
+
+////////////////////////////////////////////////
+// Customizes tocbot styles
+////////////////////////////////////////////////
+
+.toc-link.is-active-link::before {
+  background-color: $link;
 }
 
 ////////////////////////////////////////////////
