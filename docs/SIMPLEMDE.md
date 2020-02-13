@@ -12,8 +12,7 @@
 
 - [simplemde-markdown-editor*](https://github.com/sparksuite/simplemde-markdown-editor)
 - [CodeMirror*](https://codemirror.net/doc/manual.html#events)
-- [marked](https://github.com/markedjs/marked)
-- [Remarkable](https://github.com/jonschlinkert/remarkable)
+- [marked*](https://github.com/markedjs/marked)
 
 - Use other renders
   - [How to disable some tags](https://github.com/F-loat/vue-simplemde/issues/25)
@@ -22,6 +21,8 @@
 - Markdown style
   - [markdown-style](https://github.com/F-loat/vue-simplemde#markdown-style)
   - [github-markdown-css](https://github.com/sindresorhus/github-markdown-css)
+- Prism style
+  - [Prism*](https://prismjs.com/#basic-usage)
 - Highlight style
   - [Highlight](https://github.com/F-loat/vue-simplemde#highlight)
   - [vue-hljs](https://github.com/SunskyXH/vue-hljs)
@@ -30,6 +31,7 @@
 - Others
   - [BubuAnabelas/awesome-markdown](https://github.com/BubuAnabelas/awesome-markdown)
   - [mundimark/awesome-markdown](https://github.com/mundimark/awesome-markdown)
+  - [Remarkable](https://github.com/jonschlinkert/remarkable)
 
 ## Issues
 
@@ -73,6 +75,7 @@
         <script src="https://cdn.jsdelivr.net/highlight.js/latest/highlight.min.js"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/highlight.js/latest/styles/github.min.css">
         ```
+
   - Notes
     - In order to use highlight.js, consider strongly [Getting Started](https://github.com/highlightjs/highlight.js#getting-started)
     - Code highlight before parsing the content with `marked`

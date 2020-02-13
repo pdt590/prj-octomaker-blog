@@ -213,15 +213,16 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   - Open sharing after clicking
 - `Fix loading button issue`
 - `Fix editor issue - [Refer](https://github.com/sparksuite/simplemde-markdown-editor/blob/master/src/css/simplemde.css)
+  - Use simplemde-markdown-editor instead of vue-simplemde
+  - Side-by-Side code highlight issue
   - `Height of CodeMirror`
   - Scroll event is not smooth
-  - Reload when text changes in preview mode
+  - `Reload when text changes in preview mode`
   - Dont focus at the end of editor when pasting text
   - `Layout Preview-side issue`
   - Fix editor size - [Refer](https://viblo.asia/posts/aWj53LAGK6m/edit)
 - Add admin role
 - Change image-lazy-load plugin
-- Use simplemde instead of vue-simplemde
 - `Use vue-fontawesome`
   - `Change fb_share and edit icon`
   - [Icons](https://buefy.org/documentation/start/)

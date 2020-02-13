@@ -51,7 +51,7 @@
         </client-only>
       </b-field>
       <!-- End simpleMDE -->
-      
+
       <div class="block">
         <b-radio
           v-model="postContent.mode"
@@ -136,16 +136,6 @@ export default {
         placeholder: `Content format: \n # Introduction \n - Describe overall your post \n - Don't use picture/bullet/link \n # Content \n - Write your post`,
         spellChecker: false,
         tabSize: 4,
-        previewRender: function(plainText, preview) {
-          setTimeout(
-            function() {
-              preview.innerHTML = this.parent.markdown(plainText);
-              Prism.highlightAll();
-            }.bind(this),
-            1
-          );
-          return "Loading...";
-        },
         toolbar: [
           "bold",
           "italic",
@@ -189,8 +179,26 @@ export default {
             title: "Add Embed"
           }, */
           "|",
-          "preview",
-          "side-by-side",
+          //"preview",
+          //"side-by-side",
+          {
+            name: "preview",
+            action: () => {
+              this.simplemde.togglePreview();
+              Prism.highlightAll();
+            },
+            className: "fa fa-eye no-disable",
+            title: "Toggle Preview (Ctrl-P)"
+          },
+          {
+            name: "side-by-side",
+            action: () => {
+              this.simplemde.toggleSideBySide();
+              Prism.highlightAll();
+            },
+            className: "fa fa-columns no-disable no-mobile",
+            title: "Toggle Side-by-Side (F9)"
+          },
           "fullscreen",
           "|",
           "undo",
