@@ -4,12 +4,12 @@ export function formatString(string, length) {
   let short = string.substr(0, length);
   if (/^\S/.test(string.substr(length))) {
     if (length < string.length) {
-      return short.replace(/\s+\S*$/, "") + "...";
+      return short.replace(/\s+\S*$/, "") + " ...";
     } else {
       return short.replace(/\s+\S*$/, "");
     }
   }
-  return length < string.length ? short + "..." : short;
+  return length < string.length ? short + " ..." : short;
 }
 
 export function windowPopup(url, title, w, h) {
@@ -134,6 +134,8 @@ export function genId(length) {
 }
 
 export function genUrl(title, uuid) {
+  // remove all special characters except spaces
+  title = title.replace(/[^a-zA-Z ]/g, "");
   if (uuid) {
     return title.replace(/\s+|[,\/?]/g, "-").toLowerCase() + "-" + uuid;
   } else {

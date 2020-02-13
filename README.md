@@ -182,7 +182,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Notify Internet Disconnection when saving - [Refer](https://nuxtjs.org/api/$nuxt)
 - Remove old link when removing a image
 - 404 GET /user/join issue
-- Remove special characteristic on title (square brackets ...)
+- `Remove special characters on title (square brackets ...)`
 - Fix long load issue when clicking edit
 - Implement remember-me login
 - Improve search performance

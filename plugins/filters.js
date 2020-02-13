@@ -52,12 +52,12 @@ function formatString(string, length) {
   let short = string.substr(0, length);
   if (/^\S/.test(string.substr(length))) {
     if (length < string.length) {
-      return short.replace(/\s+\S*$/, "") + "...";
+      return short.replace(/\s+\S*$/, "") + " ...";
     } else {
       return short.replace(/\s+\S*$/, "");
     }
   }
-  return length < string.length ? short + "..." : short;
+  return length < string.length ? short + " ..." : short;
 }
 
 /** main */
