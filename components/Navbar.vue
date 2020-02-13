@@ -89,7 +89,7 @@
                   </client-only>
                 </a>
 
-                <div class="navbar-dropdown is-right">
+                <div class="navbar-dropdown _navbar-dropdown is-right">
                   <nuxt-link
                     class="navbar-item _navbar-dropdown__item"
                     to="/user/profile"
@@ -127,7 +127,7 @@
         <div class="navbar-menu">
           <div class="navbar-start">
             <div class="navbar-item has-dropdown is-hoverable">
-              <a class="navbar-link">Danh mục</a>
+              <a class="navbar-link _navbar-link-category">Danh mục</a>
               <div class="navbar-dropdown">
                 <nuxt-link
                   class="navbar-item _navbar-dropdown__item"
