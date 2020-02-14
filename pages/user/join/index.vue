@@ -2,123 +2,135 @@
   <div class="container">
     <div class="columns">
       <div class="column is-4 is-offset-4">
-        <!-- Signup form -->
-        <form v-show="isSignup">
-          <div class="card _card-join">
-            <header class="card-header">
-              <p class="card-header-title is-size-4">Đăng ký</p>
-            </header>
-            <div class="card-content">
-              <b-field
-                label="Username"
-                :type="$v.formDataSignup.username.$error ? `is-danger` : ``"
-                :message="!$v.formDataSignup.username.minlen ? `At least 6 characters` : ``"
-              >
-                <b-input
-                  type="text"
-                  v-model.trim="formDataSignup.username"
-                  @blur="$v.formDataSignup.username.$touch()"
-                  placeholder="Nhập username"
-                ></b-input>
-              </b-field>
+        <!-- Start login -->
+        <div class="card _card-join" v-show="!isSignup">
+          <header class="card-header">
+            <p class="card-header-title is-size-4">Đăng nhập</p>
+          </header>
+          <div class="card-content">
+            <b-field
+              label="Email"
+              :type="$v.formDataLogin.email.$error ? `is-danger` : ``"
+              :message="!$v.formDataLogin.email.email ? `Invalid email` : ``"
+            >
+              <b-input
+                type="email"
+                v-model.trim="formDataLogin.email"
+                @blur="$v.formDataLogin.email.$touch()"
+                placeholder="Nhập Email"
+              ></b-input>
+            </b-field>
 
-              <b-field
-                label="Email"
-                :type="$v.formDataSignup.email.$error ? `is-danger` : ``"
-                :message="!$v.formDataSignup.email.email ? `Invalid email` : ``"
-              >
-                <b-input
-                  type="email"
-                  v-model.trim="formDataSignup.email"
-                  @blur="$v.formDataSignup.email.$touch()"
-                  placeholder="Nhập email"
-                ></b-input>
-              </b-field>
-
-              <b-field
-                label="Password"
-                :type="$v.formDataSignup.password.$error ? `is-danger` : ``"
-                :message="!$v.formDataSignup.password.minlen ? `At least 6 characters` : ``"
-              >
-                <b-input
-                  type="password"
-                  v-model.trim="formDataSignup.password"
-                  @blur="$v.formDataSignup.password.$touch()"
-                  password-reveal
-                  placeholder="Nhập mật khẩu"
-                ></b-input>
-              </b-field>
-
-              <!-- <b-checkbox>Remember me</b-checkbox> -->
-            </div>
-            <footer class="card-footer">
-              <div class="card-footer-item _card-join__footer__item">
-                <a @click.prevent="isSignup = !isSignup">{{ isSignup ? `Đăng nhập?` : `Đăng ký?` }}</a>
-                <button
-                  class="button is-info is-outlined"
-                  :class="{ 'is-loading': authLoading }"
-                  :disabled="$v.formDataSignup.$invalid"
-                  @click.prevent="onSignup"
-                >Đăng ký</button>
-              </div>
-            </footer>
+            <b-field
+              label="Password"
+              :type="$v.formDataLogin.password.$error ? `is-danger` : ``"
+              :message="
+                !$v.formDataLogin.password.minlen ? `At least 6 characters` : ``
+              "
+            >
+              <b-input
+                type="password"
+                v-model.trim="formDataLogin.password"
+                @blur="$v.formDataLogin.password.$touch()"
+                password-reveal
+                placeholder="Nhập mật khẩu"
+              ></b-input>
+            </b-field>
+            <!-- <b-checkbox>Remember me</b-checkbox> -->
           </div>
-        </form>
-        <!-- Login form -->
-        <form v-show="!isSignup">
-          <div class="card _card-join">
-            <header class="card-header">
-              <p class="card-header-title is-size-4">Đăng nhập</p>
-            </header>
-            <div class="card-content">
-              <b-field
-                label="Email"
-                :type="$v.formDataLogin.email.$error ? `is-danger` : ``"
-                :message="!$v.formDataLogin.email.email ? `Invalid email` : ``"
+          <footer class="card-footer" style="border-top: none; padding: 0.5rem">
+            <div class="card-footer-item" style="justify-content: space-between">
+              <p>
+                <a @click="isSignup = !isSignup">{{
+                  isSignup ? `Đăng nhập?` : `Đăng ký?`
+                }}</a>
+                <br />
+                <nuxt-link to="/user/resetpassword">Quên mật khẩu?</nuxt-link>
+              </p>
+              <button
+                class="button is-info is-outlined"
+                :class="{ 'is-loading': authLoading }"
+                :disabled="$v.formDataLogin.$invalid"
+                @click="onLogin"
               >
-                <b-input
-                  type="email"
-                  v-model.trim="formDataLogin.email"
-                  @blur="$v.formDataLogin.email.$touch()"
-                  placeholder="Nhập Email"
-                ></b-input>
-              </b-field>
-
-              <b-field
-                label="Password"
-                :type="$v.formDataLogin.password.$error ? `is-danger` : ``"
-                :message="!$v.formDataLogin.password.minlen ? `At least 6 characters` : ``"
-              >
-                <b-input
-                  type="password"
-                  v-model.trim="formDataLogin.password"
-                  @blur="$v.formDataLogin.password.$touch()"
-                  password-reveal
-                  placeholder="Nhập mật khẩu"
-                ></b-input>
-              </b-field>
-
-              <!-- <b-checkbox>Remember me</b-checkbox> -->
+                Đăng nhập
+              </button>
             </div>
-            <footer class="card-footer" style="border-top: none">
-              <div class="card-footer-item _card-join__footer__item">
-                <p>
-                  <a
-                    @click.prevent="isSignup = !isSignup"
-                  >{{ isSignup ? `Đăng nhập?` : `Đăng ký?` }}</a>
-                  /
-                  <nuxt-link to="/user/resetpassword">Quên mật khẩu?</nuxt-link>
-                </p>
-                <button
-                  class="button is-info is-outlined"
-                  :class="{ 'is-loading': authLoading }"
-                  :disabled="$v.formDataLogin.$invalid"
-                  @click.prevent="onLogin"
-                >Đăng nhập</button>
-              </div>
-            </footer>
+          </footer>
+        </div>
+        <!-- End login -->
+        <!-- Start signup -->
+        <div class="card _card-join" v-show="isSignup">
+          <header class="card-header">
+            <p class="card-header-title is-size-4">Đăng ký</p>
+          </header>
+          <div class="card-content">
+            <b-field
+              label="Username"
+              :type="$v.formDataSignup.username.$error ? `is-danger` : ``"
+              :message="
+                !$v.formDataSignup.username.minlen
+                  ? `At least 6 characters`
+                  : ``
+              "
+            >
+              <b-input
+                type="text"
+                v-model.trim="formDataSignup.username"
+                @blur="$v.formDataSignup.username.$touch()"
+                placeholder="Nhập username"
+              ></b-input>
+            </b-field>
+
+            <b-field
+              label="Email"
+              :type="$v.formDataSignup.email.$error ? `is-danger` : ``"
+              :message="!$v.formDataSignup.email.email ? `Invalid email` : ``"
+            >
+              <b-input
+                type="email"
+                v-model.trim="formDataSignup.email"
+                @blur="$v.formDataSignup.email.$touch()"
+                placeholder="Nhập email"
+              ></b-input>
+            </b-field>
+
+            <b-field
+              label="Password"
+              :type="$v.formDataSignup.password.$error ? `is-danger` : ``"
+              :message="
+                !$v.formDataSignup.password.minlen
+                  ? `At least 6 characters`
+                  : ``
+              "
+            >
+              <b-input
+                type="password"
+                v-model.trim="formDataSignup.password"
+                @blur="$v.formDataSignup.password.$touch()"
+                password-reveal
+                placeholder="Nhập mật khẩu"
+              ></b-input>
+            </b-field>
+            <!-- <b-checkbox>Remember me</b-checkbox> -->
           </div>
-        </form>
+          <footer class="card-footer" style="border-top: none; padding: 0.5rem">
+            <div class="card-footer-item" style="justify-content: space-between">
+              <a @click="isSignup = !isSignup">{{
+                isSignup ? `Đăng nhập?` : `Đăng ký?`
+              }}</a>
+              <button
+                class="button is-info is-outlined"
+                :class="{ 'is-loading': authLoading }"
+                :disabled="$v.formDataSignup.$invalid"
+                @click="onSignup"
+              >
+                Đăng ký
+              </button>
+            </div>
+          </footer>
+        </div>
+        <!-- End signup -->
       </div>
     </div>
   </div>

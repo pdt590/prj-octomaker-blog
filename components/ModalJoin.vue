@@ -1,133 +1,138 @@
 <template>
-  <div>
-    <!-- Signup form -->
-    <form v-show="isSignup">
-      <div class="modal-card _modal-card">
-        <header class="modal-card-head">
-          <p class="modal-card-title">Đăng ký</p>
-        </header>
-        <section class="modal-card-body">
-          <b-field
-            label="Username"
-            :type="$v.formDataSignup.username.$error ? `is-danger` : `` "
-            :message="!$v.formDataSignup.username.minlen ? `At least 6 characters` : ``"
-          >
-            <b-input
-              type="text"
-              v-model.trim="formDataSignup.username"
-              @blur="$v.formDataSignup.username.$touch()"
-              placeholder="Nhập username"
-            ></b-input>
-          </b-field>
+  <section>
+    <!-- Start login -->
+    <div class="modal-card" v-show="!isSignup">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Đăng nhập</p>
+      </header>
+      <section class="modal-card-body">
+        <b-field
+          label="Email"
+          :type="$v.formDataLogin.email.$error ? `is-danger` : ``"
+          :message="!$v.formDataLogin.email.email ? `Invalid email` : ``"
+        >
+          <b-input
+            type="email"
+            v-model.trim="formDataLogin.email"
+            @blur="$v.formDataLogin.email.$touch()"
+            placeholder="Nhập Email"
+          ></b-input>
+        </b-field>
 
-          <b-field
-            label="Email"
-            :type="$v.formDataSignup.email.$error ? `is-danger` : ``"
-            :message="!$v.formDataSignup.email.email ? `Invalid email` : ``"
-          >
-            <b-input
-              type="email"
-              v-model.trim="formDataSignup.email"
-              @blur="$v.formDataSignup.email.$touch()"
-              placeholder="Nhập email"
-            ></b-input>
-          </b-field>
-
-          <b-field
-            label="Password"
-            :type="$v.formDataSignup.password.$error ? `is-danger` : ``"
-            :message="!$v.formDataSignup.password.minlen ? `At least 6 characters` : ``"
-          >
-            <b-input
-              type="password"
-              v-model.trim="formDataSignup.password"
-              @blur="$v.formDataSignup.password.$touch()"
-              password-reveal
-              placeholder="Nhập mật khẩu"
-            ></b-input>
-          </b-field>
-
-          <!-- <b-checkbox>Remember me</b-checkbox> -->
-        </section>
-        <footer class="modal-card-foot" style="justify-content: space-between">
-          <a @click.prevent="isSignup = !isSignup">
-            {{
-            isSignup ? `Đăng nhập?` : `Đăng ký?`
-            }}
+        <b-field
+          label="Password"
+          :type="$v.formDataLogin.password.$error ? `is-danger` : ``"
+          :message="
+            !$v.formDataLogin.password.minlen ? `At least 6 characters` : ``
+          "
+        >
+          <b-input
+            type="password"
+            v-model.trim="formDataLogin.password"
+            @blur="$v.formDataLogin.password.$touch()"
+            password-reveal
+            placeholder="Nhập mật khẩu"
+          ></b-input>
+        </b-field>
+        <!-- <b-checkbox>Remember me</b-checkbox> -->
+      </section>
+      <footer class="modal-card-foot" style="justify-content: space-between">
+        <p>
+          <a @click="isSignup = !isSignup">
+            {{ isSignup ? `Đăng nhập?` : `Đăng ký?` }}
           </a>
-          <div class="buttons" style="justify-content: flex-end">
-            <button class="button" type="button" @click="$parent.close()">Close</button>
-            <button
-              class="button is-info is-outlined"
-              :class="{ 'is-loading': authLoading }"
-              :disabled="$v.formDataSignup.$invalid"
-              @click.prevent="onSignup"
-            >Đăng ký</button>
-          </div>
-        </footer>
-      </div>
-    </form>
-    <!-- Login form -->
-    <form v-show="!isSignup">
-      <div class="modal-card _modal-card">
-        <header class="modal-card-head">
-          <p class="modal-card-title">Đăng nhập</p>
-        </header>
-        <section class="modal-card-body">
-          <b-field
-            label="Email"
-            :type="$v.formDataLogin.email.$error ? `is-danger` : ``"
-            :message="!$v.formDataLogin.email.email ? `Invalid email` : ``"
+          <br>
+          <a @click="onForgetPassword">Quên mật khẩu?</a>
+        </p>
+        <div class="buttons">
+          <button class="button is-info is-outlined" @click="$parent.close()">
+            Close
+          </button>
+          <button
+            class="button is-info is-outlined"
+            :class="{ 'is-loading': authLoading }"
+            :disabled="$v.formDataLogin.$invalid"
+            @click="onLogin"
           >
-            <b-input
-              type="email"
-              v-model.trim="formDataLogin.email"
-              @blur="$v.formDataLogin.email.$touch()"
-              placeholder="Nhập Email"
-            ></b-input>
-          </b-field>
+            Đăng nhập
+          </button>
+        </div>
+      </footer>
+    </div>
+    <!-- End login -->
+    <!-- Start signup -->
+    <div class="modal-card" v-show="isSignup">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Đăng ký</p>
+      </header>
+      <section class="modal-card-body">
+        <b-field
+          label="Username"
+          :type="$v.formDataSignup.username.$error ? `is-danger` : ``"
+          :message="
+            !$v.formDataSignup.username.minlen ? `At least 6 characters` : ``
+          "
+        >
+          <b-input
+            type="text"
+            v-model.trim="formDataSignup.username"
+            @blur="$v.formDataSignup.username.$touch()"
+            placeholder="Nhập username"
+          ></b-input>
+        </b-field>
 
-          <b-field
-            label="Password"
-            :type="$v.formDataLogin.password.$error ? `is-danger` : ``"
-            :message="!$v.formDataLogin.password.minlen ? `At least 6 characters` : ``"
+        <b-field
+          label="Email"
+          :type="$v.formDataSignup.email.$error ? `is-danger` : ``"
+          :message="!$v.formDataSignup.email.email ? `Invalid email` : ``"
+        >
+          <b-input
+            type="email"
+            v-model.trim="formDataSignup.email"
+            @blur="$v.formDataSignup.email.$touch()"
+            placeholder="Nhập email"
+          ></b-input>
+        </b-field>
+
+        <b-field
+          label="Password"
+          :type="$v.formDataSignup.password.$error ? `is-danger` : ``"
+          :message="
+            !$v.formDataSignup.password.minlen ? `At least 6 characters` : ``
+          "
+        >
+          <b-input
+            type="password"
+            v-model.trim="formDataSignup.password"
+            @blur="$v.formDataSignup.password.$touch()"
+            password-reveal
+            placeholder="Nhập mật khẩu"
+          ></b-input>
+        </b-field>
+        <!-- <b-checkbox>Remember me</b-checkbox> -->
+      </section>
+      <footer class="modal-card-foot" style="justify-content: space-between">
+        <a @click="isSignup = !isSignup">
+          {{ isSignup ? `Đăng nhập?` : `Đăng ký?` }}
+        </a>
+        <div class="buttons">
+          <button class="button is-info is-outlined" @click="$parent.close()">
+            Close
+          </button>
+          <button
+            class="button is-info is-outlined"
+            :class="{ 'is-loading': authLoading }"
+            :disabled="$v.formDataSignup.$invalid"
+            @click="onSignup"
           >
-            <b-input
-              type="password"
-              v-model.trim="formDataLogin.password"
-              @blur="$v.formDataLogin.password.$touch()"
-              password-reveal
-              placeholder="Nhập mật khẩu"
-            ></b-input>
-          </b-field>
-
-          <!-- <b-checkbox>Remember me</b-checkbox> -->
-        </section>
-        <footer class="modal-card-foot" style="justify-content: space-between;">
-          <p>
-            <a @click.prevent="isSignup = !isSignup">
-              {{
-              isSignup ? `Đăng nhập?` : `Đăng ký?`
-              }}
-            </a>
-            <br />
-            <a @click="onFgPassword">Quên mật khẩu?</a>
-          </p>
-          <div class="buttons" style="justify-content: flex-end">
-            <button class="button" type="button" @click="$parent.close()">Close</button>
-            <button
-              class="button is-info is-outlined"
-              :class="{ 'is-loading': authLoading }"
-              :disabled="$v.formDataLogin.$invalid"
-              @click.prevent="onLogin"
-            >Đăng nhập</button>
-          </div>
-        </footer>
-      </div>
-    </form>
-  </div>
+            Đăng ký
+          </button>
+        </div>
+      </footer>
+    </div>
+    <!-- End signup -->
+  </section>
 </template>
-
 <script>
 import { mapGetters } from "vuex";
 import { required, email, minLength } from "vuelidate/lib/validators";
@@ -209,7 +214,7 @@ export default {
         this.$parent.close();
       }
     },
-    onFgPassword() {
+    onForgetPassword() {
       this.$parent.close();
       this.$router.push("/user/resetpassword");
     }

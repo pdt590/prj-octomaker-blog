@@ -1,61 +1,74 @@
 <template>
-  <div class="modal-card">
-    <header class="modal-card-head">
-      <p class="modal-card-title">Upload Image</p>
-    </header>
-    <section class="modal-card-body">
-      <b-field>
-        <!-- Start image upload -->
-        <div class="level">
-          <div class="level-item">
-            <b-upload
-              v-model="images"
-              @input="onAdd"
-              :loading="postLoading"
-              drag-drop
-              multiple
-              :accept="acceptedImages"
-            >
-              <section class="section">
-                <div class="content has-text-centered">
-                  <p>
-                    <b-icon icon="upload" size="is-large"></b-icon>
-                  </p>
-                  <p>Drop your files here or click to upload</p>
-                </div>
-              </section>
-            </b-upload>
+  <section>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Upload Image</p>
+      </header>
+      <section class="modal-card-body">
+        <b-field>
+          <!-- Start image upload -->
+          <div class="level">
+            <div class="level-item">
+              <b-upload
+                v-model="images"
+                @input="onAdd"
+                :loading="postLoading"
+                drag-drop
+                multiple
+                :accept="acceptedImages"
+              >
+                <section class="section">
+                  <div class="content has-text-centered">
+                    <p>
+                      <b-icon icon="upload" size="is-large"></b-icon>
+                    </p>
+                    <p>Drop your files here or click to upload</p>
+                  </div>
+                </section>
+              </b-upload>
+            </div>
+          </div>
+          <!-- End image upload -->
+        </b-field>
+        <div
+          class="columns is-variable is-multiline"
+          style="margin-top: 0.1rem"
+        >
+          <div
+            class="column is-one-quarter"
+            v-for="(file, index) in previewImages"
+            :key="index"
+          >
+            <figure class="image _image-frame" style="cursor: pointer;">
+              <client-only>
+                <img
+                  class="_image-preview"
+                  v-lazy="file.url"
+                  style="display: none"
+                  onload="this.style.display = 'block'"
+                  :alt="`image_${index}`"
+                  @click="onSelect(index)"
+                />
+              </client-only>
+              <a
+                class="delete _image-button-delete"
+                @click="onDelete(index)"
+              ></a>
+            </figure>
           </div>
         </div>
-        <!-- End image upload -->
-      </b-field>
-      <div class="columns is-variable is-multiline" style="margin-top: 0.1rem">
-        <div class="column is-one-quarter" v-for="(file, index) in previewImages" :key="index">
-          <figure class="image _image-frame" style="cursor: pointer;">
-            <client-only>
-              <img
-                class="_image-preview"
-                v-lazy="file.url"
-                style="display: none"
-                onload="this.style.display = 'block'"
-                :alt="`image_${index}`"
-                @click="onSelect(index)"
-              />
-            </client-only>
-            <a class="delete _image-button-delete" @click="onDelete(index)"></a>
-          </figure>
-        </div>
-      </div>
-    </section>
-    <footer class="modal-card-foot">
-      <button
-        class="button"
-        type="button"
-        @click="$parent.close()"
-        style="justify-content: flex-end;"
-      >Close</button>
-    </footer>
-  </div>
+      </section>
+      <footer class="modal-card-foot" style="justify-content: flex-end">
+        <button
+          class="button is-info is-outlined"
+          @click="$parent.close()"
+          style="justify-content: flex-end;"
+        >
+          Close
+        </button>
+      </footer>
+    </div>
+  </section>
 </template>
 
 <script>

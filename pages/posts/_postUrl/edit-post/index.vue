@@ -70,23 +70,28 @@
         >
       </div>
 
-      <button
-        class="button is-info is-outlined"
-        :class="{ 'is-loading': postLoading && loadEvent === `onPublish` }"
-        :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
-        type="submit"
-        @click.prevent="onPublish"
-      >
-        Update
-      </button>
-      <button
-        class="button is-info is-outlined"
-        :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
-        type="submit"
-        @click.prevent="isModalConfirmActive = true"
-      >
-        Delete
-      </button>
+      <div class="level">
+        <div class="level-left"></div>
+        <div class="level-right">
+          <button
+            class="level-item button is-info is-outlined"
+            :class="{ 'is-loading': postLoading && loadEvent === `onPublish` }"
+            :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
+            type="submit"
+            @click.prevent="onPublish"
+          >
+            Update
+          </button>
+          <button
+            class="level-item button is-info is-outlined"
+            :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
+            type="submit"
+            @click.prevent="isModalConfirmActive = true"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
     </form>
 
     <!-- Modal -->

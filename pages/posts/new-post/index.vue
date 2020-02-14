@@ -69,24 +69,28 @@
           >Private</b-radio
         >
       </div>
-
-      <button
-        class="button is-info is-outlined"
-        :class="{ 'is-loading': postLoading && loadEvent === `onPublish` }"
-        :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
-        type="submit"
-        @click.prevent="onPublish"
-      >
-        Publish
-      </button>
-      <button
-        class="button is-info is-outlined"
-        :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
-        type="submit"
-        @click.prevent="isModalConfirmActive = true"
-      >
-        Discard
-      </button>
+      <div class="level">
+        <div class="level-left"></div>
+        <div class="level-right">
+          <button
+            class="level-item button is-info is-outlined"
+            :class="{ 'is-loading': postLoading && loadEvent === `onPublish` }"
+            :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
+            type="submit"
+            @click.prevent="onPublish"
+          >
+            Publish
+          </button>
+          <button
+            class="level-item button is-info is-outlined"
+            :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
+            type="submit"
+            @click.prevent="isModalConfirmActive = true"
+          >
+            Discard
+          </button>
+        </div>
+      </div>
     </form>
 
     <!-- Modal -->

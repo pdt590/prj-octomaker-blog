@@ -82,7 +82,7 @@ blockquote {
 }
 
 .navbar-item img {
-  max-height: 2.25rem;
+  max-height: 3rem;
 }
 
 .hero {
@@ -135,72 +135,11 @@ blockquote {
 }
 
 ////////////////////////////////////////////////
-// Customizes
+// Customizes layout
 ////////////////////////////////////////////////
-
-html,
 body {
   background-color: #fff;
 }
-
-@media screen and (min-width: 768px) {
-  ._modal-card {
-    max-width: 20vw;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  ._modal-card {
-    padding: 6vw;
-  }
-}
-
-._profile-avatar {
-  object-fit: cover;
-  width: 4rem;
-  height: 4rem;
-  border: solid 1px #d8d8d8;
-  border-radius: 50%;
-}
-
-._nav-avatar {
-  object-fit: cover;
-  width: 2rem;
-  height: 2rem;
-  border: solid 1px #d8d8d8;
-  border-radius: 50%;
-}
-
-._nav-avatar--danger {
-  border: solid 1px #ff3860;
-}
-
-// Image upload preview
-._image-frame {
-  position: relative;
-  border: solid 1px #d8d8d8;
-
-  ._image-preview {
-    object-fit: cover;
-    width: auto;
-    height: auto;
-  }
-
-  ._image-button-delete {
-    position: absolute;
-    top: 2%;
-    right: 2%;
-  }
-
-  ._image-size {
-    display: flex;
-    justify-content: center;
-  }
-}
-
-////////////////////////////////////////////////
-// Customizes scrollbar
-////////////////////////////////////////////////
 
 /* width */
 ::-webkit-scrollbar {
@@ -298,7 +237,6 @@ body {
 /* components/Loading.vue */
 /* components/ModalConfirm.vue */
 /* components/ModalEmbed.vue */
-/* components/ModalImage.vue */
 /* components/ModalJoin.vue */
 /* components/ModalLink.vue */
 /* components/ModalLogin.vue */
@@ -310,7 +248,6 @@ body {
 /* pages/search/index.vue */
 /* pages/user/index.vue */
 /* pages/user/activekey/index.vue */
-/* pages/user/profile/index.vue */
 /* pages/user/resetpassword/index.vue */
 
 /* layouts/default.vue */
@@ -389,6 +326,29 @@ body {
   border: none !important;
 }
 
+/* components/ModalImage.vue */
+._image-frame {
+  position: relative;
+  border: solid 1px #d8d8d8;
+
+  ._image-preview {
+    object-fit: cover;
+    width: auto;
+    height: auto;
+  }
+
+  ._image-button-delete {
+    position: absolute;
+    top: 2%;
+    right: 2%;
+  }
+
+  ._image-size {
+    display: flex;
+    justify-content: center;
+  }
+}
+
 /* components/Navbar.vue */
 ._navbar {
   border: none;
@@ -425,10 +385,30 @@ body {
 ._navbar-dropdown__item {
   display: flex;
   align-items: center;
-  padding-right: 1rem;
   p {
     margin-left: 1rem;
   }
+}
+
+._navbar-item-facebook {
+  padding: 0 2rem 0 2rem; 
+  border-left: 1px solid #D8D8D8
+}
+
+._navbar-item-youtube {
+  margin-right: 0.25rem;
+}
+
+._nav-avatar {
+  object-fit: cover;
+  width: 2rem;
+  height: 2rem;
+  border: solid 1px #d8d8d8;
+  border-radius: 50%;
+}
+
+._nav-avatar--danger {
+  border: solid 1px #ff3860;
 }
 
 /* pages/index.vue */
@@ -440,6 +420,14 @@ body {
 }
 
 /* pages/posts/_postUrl/index.vue */
+._profile-avatar {
+  object-fit: cover;
+  width: 4rem;
+  height: 4rem;
+  border: solid 1px #d8d8d8;
+  border-radius: 50%;
+}
+
 ._post-title {
   text-align: left;
   line-height: 1.2;
@@ -455,14 +443,46 @@ body {
   margin-top: 2rem;
 }
 
-._card-join__footer__item {
-  justify-content: space-between;
-}
-
 /* pages/user/mgmt/index.vue */
-/* ._profile-avatar {
+/* 
+._profile-avatar {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-} */
+}
+ */
+
+ /* pages/user/profile/index.vue */
+ /* 
+._profile-avatar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+ */
+
+/*  
+ ._image-frame {
+  position: relative;
+  border: solid 1px #d8d8d8;
+
+  ._image-preview {
+    object-fit: cover;
+    width: auto;
+    height: auto;
+  }
+
+  ._image-button-delete {
+    position: absolute;
+    top: 2%;
+    right: 2%;
+  }
+
+  ._image-size {
+    display: flex;
+    justify-content: center;
+  }
+} 
+ */

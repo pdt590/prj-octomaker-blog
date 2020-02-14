@@ -1,27 +1,27 @@
 <template>
-  <div>
-    <form class>
-      <div class="modal-card _modal-card">
-        <header class="modal-card-head">
-          <p class="modal-card-title">Đồng ý xóa?</p>
-        </header>
-        <section class="modal-card-body">
-          <div class="buttons" style="display: flex; justify-content: center">
-            <a
-              class="button is-grey is-outlined is-medium"
-              :class="{ 'is-loading': postLoading }"
-              @click.prevent="onDelete"
-            >Đồng ý</a>
-            <a
-              class="button is-grey is-outlined is-medium"
-              @click.prevent="$parent.close()"
-            >Hủy</a>
-          </div>
-        </section>
-        <footer class="modal-card-foot"></footer>
-      </div>
-    </form>
-  </div>
+  <section>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Đồng ý xóa?</p>
+      </header>
+      <section class="modal-card-body">
+        <div class="buttons" style="display: flex; justify-content: center">
+          <a
+            class="button is-info is-outlined is-medium"
+            :class="{ 'is-loading': postLoading }"
+            @click="onDelete"
+            >Đồng ý</a
+          >
+          <a
+            class="button is-info is-outlined is-medium"
+            @click="$parent.close()"
+            >Hủy</a
+          >
+        </div>
+      </section>
+      <footer class="modal-card-foot"></footer>
+    </div>
+  </section>
 </template>
 
 <script>

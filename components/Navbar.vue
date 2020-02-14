@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <section>
+    <!-- Start navbar -->
     <nav class="navbar _navbar is-fixed-top">
       <div class="container">
         <div class="navbar-brand">
@@ -80,7 +81,7 @@
                   <client-only>
                     <img
                       class="_nav-avatar"
-                      :class="{'_nav-avatar--danger': !isUserActive}"
+                      :class="{ '_nav-avatar--danger': !isUserActive }"
                       v-lazy="userAvatarUrl"
                       style="display: none"
                       onload="this.style.display = 'block'"
@@ -122,6 +123,8 @@
         <v-modal-join />
       </b-modal>
     </nav>
+    <!-- End navbar -->
+    <!-- Start navbar tag -->
     <nav class="navbar _navbar-tag">
       <div class="container">
         <div class="navbar-menu">
@@ -145,19 +148,23 @@
             <a
               href="/"
               target="_blank"
-              class="navbar-item"
-              style="padding-right: 1.5rem; padding-left: 1.5rem; border-left: 1px solid #D8D8D8"
+              class="navbar-item _navbar-item-facebook"
             >
               <b-icon pack="fab" icon="facebook"></b-icon>
             </a>
-            <a href="/" target="_blank" class="navbar-item">
+            <a
+              href="/"
+              target="_blank"
+              class="navbar-item _navbar-item-youtube"
+            >
               <b-icon pack="fab" icon="youtube"></b-icon>
             </a>
           </div>
         </div>
       </div>
     </nav>
-  </div>
+    <!-- End navbar tag -->
+  </section>
 </template>
 
 <script>
