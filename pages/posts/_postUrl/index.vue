@@ -46,7 +46,7 @@
           <!-- Start post content -->
           <div class="card-content">
             <h1 class="_post-title">{{ postTitle }}</h1>
-            <br>
+            <br />
             <div class="tags">
               <span
                 v-for="(tag, index) in postTags"
@@ -55,14 +55,14 @@
                 >{{ tag }}</span
               >
             </div>
-            <br>
+            <br />
             <article class="content markdown-body toc-content" v-highlight>
               <span v-html="postHtml"></span>
             </article>
           </div>
           <!-- End post content -->
         </div>
-        <br>
+        <br />
         <div class="card">
           <div class="card-content">
             <div id="fb-root"></div>

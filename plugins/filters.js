@@ -39,7 +39,7 @@ function formatDate(inputDate) {
   const year = date.getFullYear();
   const month = date.getMonth();
   const day = date.getDate();
-  const formattedDate = day + ". " + months[month] + ". " + year;
+  const formattedDate = (day<10 ? '0'+day : day) + ". " + months[month] + ". " + year;
   return formattedDate;
 }
 

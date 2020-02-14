@@ -7,9 +7,9 @@
         Posts
       </p>
     </div>
-    <div class="columns is-multiline is-variable is-2">
+    <div class="columns is-multiline is-variable is-4">
       <div
-        class="column is-2"
+        class="column is-3"
         v-for="(post, index) in loadedPosts"
         :key="index"
       >
@@ -19,7 +19,7 @@
     <div class="level">
       <div class="level-item">
         <button
-          class="button is-outlined"
+          class="button is-info is-outlined"
           :class="{ 'is-loading': queryLoading }"
           :disabled="!loadedPosts.length"
           @click="onLoad"

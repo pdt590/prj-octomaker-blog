@@ -5,14 +5,16 @@
       <div class="container">
         <div class="navbar-brand">
           <nuxt-link class="navbar-item" to="/">
-            <client-only>
-              <img
-                v-lazy="`/logo.png`"
-                style="display: none"
-                onload="this.style.display = 'block'"
-                alt="logo_image"
-              />
-            </client-only>
+            <figure>
+              <client-only>
+                <img
+                  v-lazy="`/logo.png`"
+                  style="display: none"
+                  onload="this.style.display = 'block'"
+                  alt="logo_image"
+                />
+              </client-only>
+            </figure>
           </nuxt-link>
         </div>
         <div class="navbar-menu">
@@ -78,16 +80,18 @@
                 type="is-danger"
               >
                 <a class="navbar-link">
-                  <client-only>
-                    <img
-                      class="_nav-avatar"
-                      :class="{ '_nav-avatar--danger': !isUserActive }"
-                      v-lazy="userAvatarUrl"
-                      style="display: none"
-                      onload="this.style.display = 'block'"
-                      alt="user_avatar"
-                    />
-                  </client-only>
+                  <figure>
+                    <client-only>
+                      <img
+                        class="_nav-avatar"
+                        :class="{ '_nav-avatar--danger': !isUserActive }"
+                        v-lazy="userAvatarUrl"
+                        style="display: none"
+                        onload="this.style.display = 'block'"
+                        alt="user_avatar"
+                      />
+                    </client-only>
+                  </figure>
                 </a>
 
                 <div class="navbar-dropdown _navbar-dropdown is-right">

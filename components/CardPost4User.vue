@@ -2,14 +2,14 @@
   <div class="media _media">
     <div class="media-left">
       <nuxt-link :to="`/posts/${postUrl}`">
-        <figure class="image is-96x96">
+        <figure class="image is-128x128">
           <client-only>
             <img
-              class="_image-horizontal-card"
+              class="_thumbnail-image-horizontal"
               v-lazy="postThumbnail"
               style="display: none"
               onload="this.style.display = 'block'"
-              alt="item_image"
+              alt="post_thumbnail"
             />
           </client-only>
         </figure>
@@ -18,33 +18,32 @@
     <div class="media-content" style="overflow: hidden;">
       <div class="content">
         <strong>
-          <nuxt-link :to="`/posts/${postUrl}`">
-            {{
-            postTitle
-            }}
+          <nuxt-link :to="`/posts/${postUrl}`" class="is-size-5">
+            {{ postTitle }}
           </nuxt-link>
         </strong>
-        <small class="is-uppercase">- {{ postCategory }}</small>
       </div>
       <div class="level">
         <div class="level-left">
-          <div class="level-item">
-            <div class="has-text-grey-light">
-              <b-icon icon="clock" size="is-small"></b-icon>
-              {{ postUpdatedDate | fmDate }}
-            </div>
-          </div>
+          <b-icon pack="far" icon="clock" size="is-small"></b-icon>
+          &nbsp;
+          <p>{{ postUpdatedDate | fmDate }}</p>
         </div>
       </div>
     </div>
     <div class="media-right">
       <div class="buttons">
-        <a class="button is-danger is-outlined" @click="isModalConfirmActive = true">Xóa</a>
+        <a
+          class="button is-danger is-outlined"
+          @click="isModalConfirmActive = true"
+          >Xóa</a
+        >
         <nuxt-link
           class="button is-info is-outlined"
           :to="`/posts/${postUrl}/edit-post`"
           target="_blank"
-        >Sửa</nuxt-link>
+          >Sửa</nuxt-link
+        >
       </div>
     </div>
     <b-modal :active.sync="isModalConfirmActive" has-modal-card>
@@ -77,6 +76,9 @@ export default {
       const category = categories.find(item => item.id === this.value.category);
       return category.name;
     },
+    postTags() {
+      return this.value.tags;
+    },
     postUpdatedDate() {
       return this.value.updatedDate;
     },
@@ -89,6 +91,16 @@ export default {
       } else {
         return "/icon-photo.png";
       }
+    },
+    creatorAvatar() {
+      if (this.value.creator.avatar) {
+        return this.value.creator.avatar.url;
+      } else {
+        return "/icon-user.png";
+      }
+    },
+    creatorUsername() {
+      return this.value.creator.username;
     }
   },
   data() {

@@ -39,7 +39,7 @@
             v-for="(file, index) in previewImages"
             :key="index"
           >
-            <figure class="image _image-frame" style="cursor: pointer;">
+            <figure class="_image-frame" style="cursor: pointer;">
               <client-only>
                 <img
                   class="_image-preview"

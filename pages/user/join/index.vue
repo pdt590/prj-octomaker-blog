@@ -39,7 +39,10 @@
             <!-- <b-checkbox>Remember me</b-checkbox> -->
           </div>
           <footer class="card-footer" style="border-top: none; padding: 0.5rem">
-            <div class="card-footer-item" style="justify-content: space-between">
+            <div
+              class="card-footer-item"
+              style="justify-content: space-between"
+            >
               <p>
                 <a @click="isSignup = !isSignup">{{
                   isSignup ? `Đăng nhập?` : `Đăng ký?`
@@ -115,7 +118,10 @@
             <!-- <b-checkbox>Remember me</b-checkbox> -->
           </div>
           <footer class="card-footer" style="border-top: none; padding: 0.5rem">
-            <div class="card-footer-item" style="justify-content: space-between">
+            <div
+              class="card-footer-item"
+              style="justify-content: space-between"
+            >
               <a @click="isSignup = !isSignup">{{
                 isSignup ? `Đăng nhập?` : `Đăng ký?`
               }}</a>

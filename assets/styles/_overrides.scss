@@ -274,56 +274,50 @@ body {
 }
 
 /* components/CardPost.vue */
+$creator-avatar-height: 3rem;
+
 ._card {
-  border-radius: 4px;
-  border: 1px solid #d8d8d8;
   box-shadow: none;
 }
 
-._card__image {
-  position: relative;
-  transition: all 2s cubic-bezier(0.215, 0.61, 0.355, 1);
-  border-bottom: 1px solid #d8d8d8;
-
-  img {
-    border-top-left-radius: 0.3rem;
-    border-top-right-radius: 0.3rem;
-  }
-
-  &:hover ._card__image__post-desc {
-    opacity: 0.9;
-  }
+._card-image {
+  border: solid 1px #ddd;
 }
 
-._card__image__post-desc {
+._thumbnail-image {
+  object-fit: cover;
+}
+
+._card-avatar {
   position: absolute;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  padding: 1.5rem;
-  background-color: #eee;
-  opacity: 0;
+  left: 1rem;
+  bottom: -$creator-avatar-height/2;
 }
 
-._card__footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  padding: 0.6rem 1.5rem;
+._creator-avatar {
+  object-fit: cover;
+  width: $creator-avatar-height;
+  height: $creator-avatar-height;
+  border: solid 1px #d8d8d8;
+  border-radius: 50%;
+}
+
+._card-content {
+  background-color: transparent;
+  padding: 3rem 0;
 }
 
 /* components/CardPost4User.vue */
 ._media {
+  align-items: center;
   border-bottom: 1px solid #d8d8d8;
   padding-bottom: 0.5rem;
 }
 
-._image-horizontal-card {
+._thumbnail-image-horizontal {
   object-fit: cover;
-  width: 96px !important;
-  height: 96px !important;
-  border: none !important;
+  width: 128px !important;
+  height: 128px !important;
 }
 
 /* components/ModalImage.vue */
@@ -333,8 +327,6 @@ body {
 
   ._image-preview {
     object-fit: cover;
-    width: auto;
-    height: auto;
   }
 
   ._image-button-delete {
@@ -375,11 +367,9 @@ body {
   padding-right: 0;
 }
 
-@media screen and (min-width: 1024px) {
-  ._navbar-dropdown.is-right {
-    left: auto;
-    right: 0.75rem;
-  }
+._navbar-dropdown.is-right {
+  left: auto;
+  right: 0.75rem;
 }
 
 ._navbar-dropdown__item {
@@ -391,8 +381,8 @@ body {
 }
 
 ._navbar-item-facebook {
-  padding: 0 2rem 0 2rem; 
-  border-left: 1px solid #D8D8D8
+  padding: 0 2rem 0 2rem;
+  border-left: 1px solid #d8d8d8;
 }
 
 ._navbar-item-youtube {
@@ -446,20 +436,22 @@ body {
 /* pages/user/mgmt/index.vue */
 /* 
 ._profile-avatar {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  object-fit: cover;
+  width: 4rem;
+  height: 4rem;
+  border: solid 1px #d8d8d8;
+  border-radius: 50%;
 }
  */
 
- /* pages/user/profile/index.vue */
- /* 
+/* pages/user/profile/index.vue */
+/* 
 ._profile-avatar {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  object-fit: cover;
+  width: 4rem;
+  height: 4rem;
+  border: solid 1px #d8d8d8;
+  border-radius: 50%;
 }
  */
 

@@ -41,7 +41,7 @@
           <a @click="isSignup = !isSignup">
             {{ isSignup ? `Đăng nhập?` : `Đăng ký?` }}
           </a>
-          <br>
+          <br />
           <a @click="onForgetPassword">Quên mật khẩu?</a>
         </p>
         <div class="buttons">

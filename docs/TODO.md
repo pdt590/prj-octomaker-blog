@@ -16,7 +16,7 @@
   - `Remove mobile layout`
   - Redesign mobile layout (search bulma mobile layout)
   - `Re-design Logo`
-  - Redesign CardPost - [Refer](https://www.hackster.io/)
+  - `Redesign CardPost` - [Refer](https://www.hackster.io/)
   - `Change new float style in each post`
   - Change font (search the best font for web)
 - Add recommendation posts in each post

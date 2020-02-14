@@ -1,38 +1,60 @@
 <template>
   <div class="card _card">
-    <div class="card-image _card__image">
+    <div class="card-image _card-image">
       <nuxt-link :to="`/posts/${postUrl}`">
         <figure class="image is-4by3">
           <client-only>
             <img
+              class="_thumbnail-image"
               v-lazy="postThumbnail"
               style="display: none"
               onload="this.style.display = 'block'"
-              alt="post_image"
+              alt="post_thumbnail"
             />
           </client-only>
         </figure>
-        <div class="content _card__image__post-desc">
-          <p
-            class="is-size-6 has-text-black has-text-weight-normal"
-            style="line-height: 1.5em;"
-          >
-            {{ postDescription | fmString(60) }}
-          </p>
+      </nuxt-link>
+      <figure class="_card-avatar">
+        <client-only>
+          <img
+            class="_creator-avatar"
+            v-lazy="creatorAvatar"
+            style="display: none"
+            onload="this.style.display = 'block'"
+            alt="creator_avatar"
+          />
+        </client-only>
+      </figure>
+    </div>
+    <div class="card-content _card-content">
+      <div class="content">
+        <div class="media">
+          <div class="media-content">
+            <p class="title is-4">{{ postTitle }}</p>
+          </div>
         </div>
-      </nuxt-link>
+        {{ postDescription | fmString(120) }}
+        <br />
+        <br />
+        <div class="level">
+          <div class="level-left">
+            <div class="tags">
+              <span
+                v-for="(tag, index) in postTags"
+                :key="index"
+                class="tag is-light is-small"
+                >{{ tag }}</span
+              >
+            </div>
+          </div>
+          <div class="level-right">
+            <b-icon pack="far" icon="clock" size="is-small"> </b-icon>
+            &nbsp;
+            <p class="is-size-7">{{ postUpdatedDate | fmDate }}</p>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="card-content">
-      <p class="is-size-6 is-uppercase has-text-grey-light">
-        {{ postCategory }}
-      </p>
-      <nuxt-link :to="`/posts/${postUrl}`">
-        <span class="is-size-6 has-text-black has-text-weight-bold">{{
-          postTitle
-        }}</span>
-      </nuxt-link>
-    </div>
-    <div class="card-footer _card__footer"></div>
   </div>
 </template>
 
@@ -50,19 +72,23 @@ export default {
   },
   computed: {
     postUrl() {
-      return this.value.url
+      return this.value.url;
     },
     postTitle() {
-      return this.value.title
+      return this.value.title;
     },
     postCategory() {
-      const category = categories.find(
-        item => item.id === this.value.category
-      );
+      const category = categories.find(item => item.id === this.value.category);
       return category.name;
+    },
+    postTags() {
+      return this.value.tags;
     },
     postDescription() {
       return fetchDesc(this.value.html);
+    },
+    postUpdatedDate() {
+      return this.value.updatedDate;
     },
     postThumbnail() {
       if (this.value.images) {
@@ -70,6 +96,16 @@ export default {
       } else {
         return "/icon-photo.png";
       }
+    },
+    creatorAvatar() {
+      if (this.value.creator.avatar) {
+        return this.value.creator.avatar.url;
+      } else {
+        return "/icon-user.png";
+      }
+    },
+    creatorUsername() {
+      return this.value.creator.username;
     }
   }
 };

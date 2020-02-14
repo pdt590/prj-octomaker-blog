@@ -70,7 +70,7 @@
           Kích hoạt tài khoản thành công!
         </p>
         <p class="title is-3" v-else>Mã kích hoạt không hợp lệ!</p>
-        <br>
+        <br />
         <nuxt-link class="subtitle is-4 has-text-link" to="/"
           >Quay về trang chủ</nuxt-link
         >
@@ -86,11 +86,11 @@
       <div v-if="!authLoading && emailRecoverd !== null">
         <p v-if="emailRecoverd">
           <span class="title is-3">Khôi phục email thành công!</span>
-          <br>
+          <br />
           <span class="title is-3">Kiểm tra hộp thư để đổi mật khẩu</span>
         </p>
         <p class="title is-3" v-else>Mã kích hoạt không hợp lệ!</p>
-        <br>
+        <br />
         <nuxt-link class="subtitle is-4 has-text-link" to="/"
           >Quay về trang chủ</nuxt-link
         >
