@@ -19,7 +19,7 @@
     <div class="level">
       <div class="level-item">
         <button
-          class="button is-info is-outlined"
+          class="button is-info is-outlined is-medium"
           :class="{ 'is-loading': queryLoading }"
           :disabled="!loadedPosts.length"
           @click="onLoad"

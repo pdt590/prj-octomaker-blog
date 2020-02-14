@@ -9,33 +9,31 @@
 - Shoud use cloudinary to upload images?
   - Add 3 size options to select for uploading
 - `Check problem: reload search page when entering search button`
-- Change Category list display on navbar
+- `Change Category list display on navbar`
+- Recheck logic in activekey page
+- Add Facebook & Google login
+- Unify code language using English or Vietnamese or i18n
+- Fix autosave issue on login and signup form
 - Re-check default style - [Refer](https://dev.to/overscoremedia/use-bulma-and-fontawesome-5-with-nuxt-js-11le)
   - `Button position on modals`
   - `Fix navbar-item style on Navbar component`
   - `Remove mobile layout`
-  - Redesign mobile layout (search bulma mobile layout)
   - `Re-design Logo`
   - `Redesign CardPost` - [Refer](https://www.hackster.io/)
   - `Change new float style in each post`
   - Change font (search the best font for web)
+  - Redesign mobile layout (search bulma mobile layout)
 - Add recommendation posts in each post
   - Add carousel - [Refer](https://buefy.org/documentation/carousel/)
 - `Add section highlight for each post (Markdown TOC - Table of Content)` - [Refer](https://www.jqueryscript.net/blog/best-table-contents-plugins.html)
-- Implement embed link select
-  - Fix responsive iframe issue
-- Implement emoji modal select
-- Recheck logic in activekey page
-- Unify code language using English or Vietnamese or i18n
-- Fix autosave issue on login and signup form
 - Add like/share fb button
   - `Add popup fb share`
 - `Fix loading button issue`
-- `Fix editor issue - [Refer](https://github.com/sparksuite/simplemde-markdown-editor/blob/master/src/css/simplemde.css)
+- Fix editor issue
   - Use simplemde-markdown-editor instead of vue-simplemde as a new component
     - [Refer-01](https://github.com/F-loat/vue-simplemde/blob/master/src/index.vue)
     - [Refer-02](https://github.com/ththth0303/laravel-vue-coreui/blob/editor/resources/assets/js/admin/views/markdown/index.vue)
-  - Side-by-Side code highlight issue
+  - Side-by-Side code highlight issue - [Refer](https://github.com/sparksuite/simplemde-markdown-editor/blob/master/src/css/simplemde.css)
   - `Height of CodeMirror`
   - Scroll event is not smooth
   - `Reload when text changes in preview mode`
@@ -45,6 +43,9 @@
   - Add image view event on editor and post - [Refer](https://codemirror.net/doc/manual.html#events)
   - Add image resize
   - Remove old link when removing a image
+  - Implement embed link select
+  - Fix responsive iframe issue
+  - Implement emoji modal select
 - Add admin role
 - Change image-lazy-load plugin
 - `Use vue-fontawesome`
@@ -53,4 +54,3 @@
   - [Constructor options](https://buefy.org/documentation/constructor-options/)
   - [vue-fontawesome#nuxtjs](https://www.npmjs.com/package/@fortawesome/vue-fontawesome#nuxtjs)
 - `Change highlight color on simplemde`
-- Add Facebook & Google login
