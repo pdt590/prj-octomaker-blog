@@ -10,23 +10,19 @@
         </li>
       </ul>
     </nav>
-    <div class="card">
-      <div class="card-content">
-        <div class="columns is-multiline is-variable is-4">
-          <div class="column is-3" v-for="post in loadedPosts" :key="post.url">
-            <v-card-post :value="post" />
-          </div>
-        </div>
-        <b-pagination
-          :total="totalPosts"
-          :current.sync="currentPostPage"
-          order="is-centered"
-          size="is-medium"
-          :per-page="perPage"
-          @change="onPagPostChange"
-        ></b-pagination>
+    <div class="columns is-multiline is-variable is-4">
+      <div class="column is-3" v-for="post in loadedPosts" :key="post.url">
+        <v-card-post :value="post" />
       </div>
     </div>
+    <b-pagination
+      :total="totalPosts"
+      :current.sync="currentPostPage"
+      order="is-centered"
+      size="is-medium"
+      :per-page="perPage"
+      @change="onPagPostChange"
+    ></b-pagination>
   </div>
 </template>
 
@@ -62,7 +58,7 @@ export default {
   data() {
     return {
       currentPostPage: 1,
-      perPage: 6
+      perPage: 12
     };
   },
   methods: {

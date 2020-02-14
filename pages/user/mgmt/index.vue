@@ -35,8 +35,10 @@
             <b-tabs type="is-boxed">
               <b-tab-item>
                 <template slot="header">
-                  <b-icon icon="newspaper"></b-icon>
-                  <span>Bài viết</span>
+                  <div class="_align">
+                    <b-icon icon="newspaper"></b-icon>
+                    <span>Bài viết</span>
+                  </div>
                 </template>
                 <div
                   style="padding-top: 1rem;"

@@ -354,11 +354,13 @@ $creator-avatar-height: 3rem;
   border-bottom: 1px solid #d8d8d8;
 }
 
-._navbar-search {
-  display: flex;
-  align-items: center;
+/* 
+._align {
+  display: flex; 
+  align-items: center
 }
-
+ */
+ 
 ._navbar-link-category {
   padding-left: 0;
 }
@@ -434,6 +436,10 @@ $creator-avatar-height: 3rem;
 }
 
 /* pages/user/mgmt/index.vue */
+._align {
+  display: flex; 
+  align-items: center
+}
 /* 
 ._profile-avatar {
   object-fit: cover;

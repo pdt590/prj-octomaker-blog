@@ -19,7 +19,7 @@
     <div class="level">
       <div class="level-item">
         <button
-          class="button is-info is-outlined is-medium"
+          class="button is-info is-outlined"
           :class="{ 'is-loading': queryLoading }"
           :disabled="!loadedPosts.length"
           @click="onLoad"
@@ -40,7 +40,7 @@ export default {
   },
   async asyncData({ app, store, params, error }) {
     let loadedPosts = [];
-    const limit = 18;
+    const limit = 12;
     loadedPosts = await store.dispatch("loadPosts", { limit: limit });
     if (store.getters.queryLoading) {
       store.commit("setQueryLoading", false);

@@ -19,7 +19,7 @@
         </div>
         <div class="navbar-menu">
           <div class="navbar-start"></div>
-          <div class="_navbar-search">
+          <div class="_align">
             <div class="navbar-item">
               <form>
                 <b-field position="is-centered">
