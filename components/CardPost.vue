@@ -42,7 +42,7 @@
               <span
                 v-for="(tag, index) in postTags"
                 :key="index"
-                class="tag is-light is-small"
+                class="tag is-warning is-small"
                 >{{ tag }}</span
               >
             </div>

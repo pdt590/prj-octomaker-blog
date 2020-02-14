@@ -12,11 +12,8 @@
     </nav>
     <div class="card">
       <div class="card-content">
-        <div
-          class="columns is-multiline is-variable is-1"
-          style="padding-top: 1rem"
-        >
-          <div class="column is-2" v-for="post in loadedPosts" :key="post.url">
+        <div class="columns is-multiline is-variable is-4">
+          <div class="column is-3" v-for="post in loadedPosts" :key="post.url">
             <v-card-post :value="post" />
           </div>
         </div>
