@@ -33,9 +33,9 @@
             <p class="title is-4">{{ postTitle }}</p>
           </div>
         </div>
-        {{ postDescription | fmString(120) }}
-        <br />
-        <br />
+        <p>
+          {{ postDescription | fmString(120) }}
+        </p>
         <div class="level">
           <div class="level-left">
             <div class="tags">
