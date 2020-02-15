@@ -33,22 +33,15 @@
     </div>
     <div class="media-right">
       <div class="buttons">
-        <a
-          class="button is-danger is-outlined"
-          @click="isModalConfirmActive = true"
-          >Xóa</a
-        >
+        <a class="button is-danger is-outlined" @click="onDelete">Delete</a>
         <nuxt-link
           class="button is-info is-outlined"
           :to="`/posts/${postUrl}/edit-post`"
           target="_blank"
-          >Sửa</nuxt-link
+          >Edit</nuxt-link
         >
       </div>
     </div>
-    <b-modal :active.sync="isModalConfirmActive" has-modal-card>
-      <v-modal-confirm @delete="onDelete" />
-    </b-modal>
   </div>
 </template>
 
@@ -103,25 +96,29 @@ export default {
       return this.value.creator.username;
     }
   },
-  data() {
-    return {
-      isModalConfirmActive: false
-    };
-  },
   methods: {
-    async onDelete() {
-      await this.$store.dispatch("deletePostByUser", this.postUrl);
-      if (this.postLoading) {
-        this.$store.commit("setPostLoading", false);
-        this.$buefy.toast.open({
-          duration: 3000,
-          message: "onDelete() Error",
-          type: "is-danger"
-        });
-      } else {
-        this.isModalConfirmActive = false;
-        location.reload();
-      }
+    onDelete() {
+      this.$buefy.dialog.confirm({
+        title: "Deleting Post",
+        message:
+          "Are you sure you want to <b>delete</b> your post? This action cannot be undone.",
+        confirmText: "Delete",
+        type: "is-danger",
+        hasIcon: true,
+        onConfirm: async () => {
+          await this.$store.dispatch("deletePostByUser", this.postUrl);
+          if (this.postLoading) {
+            this.$store.commit("setPostLoading", false);
+            this.$buefy.toast.open({
+              duration: 3000,
+              message: "onDelete() Error",
+              type: "is-danger"
+            });
+          } else {
+            location.reload();
+          }
+        }
+      });
     }
   }
 };

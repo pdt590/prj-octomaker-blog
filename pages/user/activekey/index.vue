@@ -3,59 +3,57 @@
     <!-- Start resetPassword -->
     <div class="columns" v-if="mode === `resetPassword`">
       <div class="column is-4 is-offset-4">
-        <form>
-          <div class="card" style="margin-top: 2rem">
-            <header class="card-header">
-              <p class="card-header-title is-size-4">Yêu cầu đổi mật khẩu</p>
-            </header>
-            <div class="card-content">
-              <b-field
-                label="Mật khẩu mới*"
-                :type="$v.formData.newPassword.$error ? `is-danger` : ``"
-                :message="
-                  !$v.formData.newPassword.minlen ? `Tối thiểu 6 kí tự` : ``
-                "
-              >
-                <b-input
-                  type="password"
-                  v-model.trim="formData.newPassword"
-                  @blur="$v.formData.newPassword.$touch()"
-                  password-reveal
-                ></b-input>
-              </b-field>
-              <b-field
-                label="Xác nhận mật khẩu mới*"
-                :type="$v.formData.confirmNewPassword.$error ? `is-danger` : ``"
-                :message="
-                  !$v.formData.confirmNewPassword.minlen
-                    ? `Tối thiểu 6 kí tự`
-                    : $v.formData.confirmNewPassword.$error
-                    ? `Mật khẩu không trùng khớp`
-                    : ``
-                "
-              >
-                <b-input
-                  type="password"
-                  v-model.trim="formData.confirmNewPassword"
-                  @blur="$v.formData.confirmNewPassword.$touch()"
-                  password-reveal
-                ></b-input>
-              </b-field>
-            </div>
-            <footer class="card-footer">
-              <div class="card-footer-item">
-                <button
-                  class="button is-info is-outlined"
-                  :class="{ 'is-loading': authLoading }"
-                  :disabled="$v.formData.$invalid"
-                  @click.prevent="onResetPassword"
-                >
-                  Gửi yêu cầu
-                </button>
-              </div>
-            </footer>
+        <div class="card" style="margin-top: 2rem">
+          <header class="card-header">
+            <p class="card-header-title is-size-4">Yêu cầu đổi mật khẩu</p>
+          </header>
+          <div class="card-content">
+            <b-field
+              label="Mật khẩu mới*"
+              :type="$v.formData.newPassword.$error ? `is-danger` : ``"
+              :message="
+                !$v.formData.newPassword.minlen ? `Tối thiểu 6 kí tự` : ``
+              "
+            >
+              <b-input
+                type="password"
+                v-model.trim="formData.newPassword"
+                @blur="$v.formData.newPassword.$touch()"
+                password-reveal
+              ></b-input>
+            </b-field>
+            <b-field
+              label="Xác nhận mật khẩu mới*"
+              :type="$v.formData.confirmNewPassword.$error ? `is-danger` : ``"
+              :message="
+                !$v.formData.confirmNewPassword.minlen
+                  ? `Tối thiểu 6 kí tự`
+                  : $v.formData.confirmNewPassword.$error
+                  ? `Mật khẩu không trùng khớp`
+                  : ``
+              "
+            >
+              <b-input
+                type="password"
+                v-model.trim="formData.confirmNewPassword"
+                @blur="$v.formData.confirmNewPassword.$touch()"
+                password-reveal
+              ></b-input>
+            </b-field>
           </div>
-        </form>
+          <footer class="card-footer">
+            <div class="card-footer-item">
+              <button
+                class="button is-info is-outlined"
+                :class="{ 'is-loading': authLoading }"
+                :disabled="$v.formData.$invalid"
+                @click="onResetPassword"
+              >
+                Gửi yêu cầu
+              </button>
+            </div>
+          </footer>
+        </div>
       </div>
     </div>
     <!-- End resetPassword -->

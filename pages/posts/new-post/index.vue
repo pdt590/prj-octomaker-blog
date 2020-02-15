@@ -1,96 +1,91 @@
 <template>
   <div class="container">
-    <form>
-      <b-field :type="$v.postTitle.$error ? `is-danger` : ``">
-        <b-input
-          placeholder="Title"
-          type="text"
-          v-model.trim="postTitle"
-          @blur="onChangeTitle"
-          icon="newspaper"
-          :loading="postLoading && loadEvent === `onChangeTitle`"
-        ></b-input>
-      </b-field>
+    <b-field :type="$v.postTitle.$error ? `is-danger` : ``">
+      <b-input
+        placeholder="Title"
+        type="text"
+        v-model.trim="postTitle"
+        @blur="onChangeTitle"
+        icon="newspaper"
+        :loading="postLoading && loadEvent === `onChangeTitle`"
+      ></b-input>
+    </b-field>
 
-      <b-field>
-        <b-select
-          placeholder="Danh mục"
-          v-model="postContent.category"
-          expanded
-          :disabled="$v.postTitle.$invalid || !isTitleAdded"
-          icon="list"
+    <b-field>
+      <b-select
+        placeholder="Danh mục"
+        v-model="postContent.category"
+        expanded
+        :disabled="$v.postTitle.$invalid || !isTitleAdded"
+        icon="list"
+      >
+        <option
+          v-for="(category, i) in categories"
+          :key="i"
+          :value="category.id"
+          >{{ category.name }}</option
         >
-          <option
-            v-for="(category, i) in categories"
-            :key="i"
-            :value="category.id"
-            >{{ category.name }}</option
-          >
-        </b-select>
-      </b-field>
+      </b-select>
+    </b-field>
 
-      <b-field>
-        <b-taginput
-          placeholder="Add a tag"
-          v-model="postContent.tags"
-          maxtags="3"
-          :has-counter="false"
-          icon="tag"
-        ></b-taginput>
-      </b-field>
+    <b-field>
+      <b-taginput
+        placeholder="Add a tag"
+        v-model="postContent.tags"
+        maxtags="3"
+        :has-counter="false"
+        icon="tag"
+      ></b-taginput>
+    </b-field>
 
-      <!-- Start simpleMDE -->
-      <b-field>
-        <client-only placeholder="Loading ...">
-          <v-editor ref="editor" :value="postContent.markdown" :images="postImages" />
-        </client-only>
-      </b-field>
-      <!-- End simpleMDE -->
+    <!-- Start simpleMDE -->
+    <b-field>
+      <client-only placeholder="Loading ...">
+        <v-editor
+          ref="editor"
+          :value="postContent.markdown"
+          :images="postImages"
+        />
+      </client-only>
+    </b-field>
+    <!-- End simpleMDE -->
 
-      <div class="block">
-        <b-radio
-          type="is-info"
-          v-model="postContent.mode"
-          native-value="public"
-          :disabled="$v.postTitle.$invalid || !isTitleAdded"
-          >Public</b-radio
+    <div class="block">
+      <b-radio
+        type="is-info"
+        v-model="postContent.mode"
+        native-value="public"
+        :disabled="$v.postTitle.$invalid || !isTitleAdded"
+        >Public</b-radio
+      >
+      <b-radio
+        type="is-info"
+        v-model="postContent.mode"
+        native-value="private"
+        :disabled="$v.postTitle.$invalid || !isTitleAdded"
+        >Private</b-radio
+      >
+    </div>
+    <div class="level">
+      <div class="level-left"></div>
+      <div class="level-right">
+        <button
+          class="level-item button is-info is-outlined"
+          :class="{ 'is-loading': postLoading && loadEvent === `onPublish` }"
+          :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
+          @click="onPublish"
         >
-        <b-radio
-          type="is-info"
-          v-model="postContent.mode"
-          native-value="private"
-          :disabled="$v.postTitle.$invalid || !isTitleAdded"
-          >Private</b-radio
+          Publish
+        </button>
+        <button
+          class="level-item button is-info is-outlined"
+          :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
+          @click="onDelete"
         >
+          Discard
+        </button>
       </div>
-      <div class="level">
-        <div class="level-left"></div>
-        <div class="level-right">
-          <button
-            class="level-item button is-info is-outlined"
-            :class="{ 'is-loading': postLoading && loadEvent === `onPublish` }"
-            :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
-            type="submit"
-            @click.prevent="onPublish"
-          >
-            Publish
-          </button>
-          <button
-            class="level-item button is-info is-outlined"
-            :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
-            type="submit"
-            @click.prevent="isModalConfirmActive = true"
-          >
-            Discard
-          </button>
-        </div>
-      </div>
-    </form>
-    <!-- Start modal -->
-    <b-modal :active.sync="isModalConfirmActive" has-modal-card>
-      <v-modal-confirm @delete="onDelete" />
-    </b-modal>
-    <!-- End modal -->
+    </div>
   </div>
 </template>
 
@@ -128,7 +123,6 @@ export default {
       },
       isTitleAdded: false,
       loadEvent: "",
-      isModalConfirmActive: false
     };
   },
   validations: {
@@ -185,20 +179,28 @@ export default {
       }
       this.loadEvent = "";
     },
-    async onDelete() {
-      await this.$store.dispatch("deletePost");
-      if (this.postLoading) {
-        this.$store.commit("setPostLoading", false);
-        this.$buefy.toast.open({
-          duration: 3000,
-          message: "onDiscard() Error",
-          type: "is-danger"
-        });
-      } else {
-        this.isModalConfirmActive = false;
-        this.$router.push("/");
-      }
-    },
+    onDelete() {
+      this.$buefy.dialog.confirm({
+        title: "Deleting Post",
+        message: "Are you sure you want to <b>delete</b> your post? This action cannot be undone.",
+        confirmText: "Delete",
+        type: "is-danger",
+        hasIcon: true,
+        onConfirm: async () => {
+          await this.$store.dispatch("deletePost");
+          if (this.postLoading) {
+            this.$store.commit("setPostLoading", false);
+            this.$buefy.toast.open({
+              duration: 3000,
+              message: "onDiscard() Error",
+              type: "is-danger"
+            });
+          } else {
+            this.$router.push("/");
+          }
+        }
+      });
+    }
   },
   head() {
     return {

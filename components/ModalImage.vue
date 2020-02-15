@@ -59,7 +59,7 @@
         </div>
       </section>
       <footer class="modal-card-foot">
-        <button class="button is-info is-outlined" @click.prevent="$parent.close()">
+        <button class="button is-info is-outlined" @click="$parent.close()">
           Close
         </button>
       </footer>

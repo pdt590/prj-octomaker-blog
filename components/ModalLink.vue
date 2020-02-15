@@ -19,10 +19,10 @@
       </section>
       <footer class="modal-card-foot">
         <div class="buttons">
-          <button class="button is-info is-outlined" @click.prevent="$parent.close()">
+          <button class="button is-info is-outlined" @click="$parent.close()">
             Close
           </button>
-          <button class="button is-info is-outlined" :disabled="$v.link.$invalid" @click.prevent="onDraw">
+          <button class="button is-info is-outlined" :disabled="$v.link.$invalid" @click="onDraw">
             Insert
           </button>
         </div>

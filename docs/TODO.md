@@ -13,7 +13,7 @@
 - Recheck logic in activekey page
 - Add Facebook & Google login
 - Unify code language using English or Vietnamese or i18n
-- Fix autosave issue on login and signup form
+- `Fix autosave issue on login and signup form`
 - Re-check default style - [Refer](https://dev.to/overscoremedia/use-bulma-and-fontawesome-5-with-nuxt-js-11le)
   - `Button position on modals`
   - `Fix navbar-item style on Navbar component`
@@ -30,7 +30,7 @@
   - `Add popup fb share`
 - `Fix loading button issue`
 - Fix editor issue
-  - Use simplemde-markdown-editor instead of vue-simplemde as a new component
+  - `Use simplemde-markdown-editor instead of vue-simplemde as a new component`
     - [Refer-01](https://github.com/F-loat/vue-simplemde/blob/master/src/index.vue)
     - [Refer-02](https://github.com/ththth0303/laravel-vue-coreui/blob/editor/resources/assets/js/admin/views/markdown/index.vue)
   - Side-by-Side code highlight issue - [Refer](https://github.com/sparksuite/simplemde-markdown-editor/blob/master/src/css/simplemde.css)
@@ -46,6 +46,7 @@
   - Implement embed link select
   - Fix responsive iframe issue
   - Implement emoji modal select
+  - Add enable/disable editor mode
 - Add admin role
 - Change image-lazy-load plugin
 - `Use vue-fontawesome`
@@ -55,6 +56,7 @@
   - [vue-fontawesome#nuxtjs](https://www.npmjs.com/package/@fortawesome/vue-fontawesome#nuxtjs)
 - `Change highlight color on simplemde`
 - Fix load post limit issue
-- Modal auto closes when pressing ENTER
+- `Modal auto closes when pressing ENTER`
+  - `Reason: <form> in new-post and edit-post page`
 - window.prompt() doen't work in drawLink
-- Change Buefy Dialog for ModalEmbed/ModalLink/ModalConfirm
+- `Change Buefy Dialog for ModalConfirm`

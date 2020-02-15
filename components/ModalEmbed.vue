@@ -25,14 +25,14 @@
         <div class="buttons">
           <button
             class="button is-info is-outlined"
-            @click.prevent="$parent.close()"
+            @click="$parent.close()"
           >
             Close
           </button>
           <button
             class="button is-info is-outlined"
             :disabled="$v.link.$invalid"
-            @click.prevent="onDraw"
+            @click="onDraw"
           >
             Insert
           </button>

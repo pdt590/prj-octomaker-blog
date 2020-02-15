@@ -32,7 +32,7 @@
           <div class="card-content">
             <b-tabs type="is-boxed">
               <b-tab-item label="Thông tin">
-                <form style="padding-top: 1rem; padding-bottom: 2rem;">
+                <div style="padding-top: 1rem; padding-bottom: 2rem;">
                   <b-field
                     label="Username"
                     :type="$v.userContent.username.$error ? `is-danger` : ``"
@@ -87,7 +87,7 @@
                       </b-select>
                     </b-field>
                   </b-field>
-                </form>
+                </div>
                 <div class="level">
                   <div class="level-left"></div>
                   <div class="level-right">
@@ -95,8 +95,7 @@
                       class="button is-info is-outlined"
                       :class="{ 'is-loading': authLoading }"
                       :disabled="$v.userContent.$invalid"
-                      type="submit"
-                      @click.prevent="onUpdateContent"
+                      @click="onUpdateContent"
                     >
                       Lưu thay đổi
                     </button>
@@ -105,7 +104,7 @@
               </b-tab-item>
 
               <b-tab-item label="Email">
-                <form style="padding-top: 1rem; padding-bottom: 2rem;">
+                <div style="padding-top: 1rem; padding-bottom: 2rem;">
                   <b-field
                     label="Thay đổi Email"
                     :type="$v.userEmail.$error ? `is-danger` : ``"
@@ -137,7 +136,7 @@
                       icon="unlock-alt"
                     ></b-input>
                   </b-field>
-                </form>
+                </div>
                 <div class="level">
                   <div class="level-left"></div>
                   <div class="level-right">
@@ -148,8 +147,7 @@
                         $v.userEmail.$invalid ||
                           $v.confirmPasswordForNewEmail.$invalid
                       "
-                      type="submit"
-                      @click.prevent="onUpdateEmail"
+                      @click="onUpdateEmail"
                     >
                       Lưu thay đổi
                     </button>
@@ -158,7 +156,7 @@
               </b-tab-item>
 
               <b-tab-item label="Mật khẩu">
-                <form style="padding-top: 1rem; padding-bottom: 2rem;">
+                <div style="padding-top: 1rem; padding-bottom: 2rem;">
                   <b-field
                     label="Mật khẩu cũ"
                     :type="
@@ -208,7 +206,7 @@
                       icon="key"
                     ></b-input>
                   </b-field>
-                </form>
+                </div>
                 <div class="level">
                   <div class="level-left"></div>
                   <div class="level-right">
@@ -220,8 +218,7 @@
                           $v.userPassword.$invalid ||
                           $v.confirmUserPassword.$invalid
                       "
-                      type="submit"
-                      @click.prevent="onUpdatePassword"
+                      @click="onUpdatePassword"
                     >
                       Lưu thay đổi
                     </button>
@@ -230,7 +227,7 @@
               </b-tab-item>
 
               <b-tab-item label="Avatar">
-                <form style="padding-top: 1rem; padding-bottom: 2rem;">
+                <div style="padding-top: 1rem; padding-bottom: 2rem;">
                   <!-- Start image upload -->
                   <b-field label="Avatar">
                     <div class="level">
@@ -299,16 +296,15 @@
                       </figure>
                     </div>
                   </div>
-                </form>
+                </div>
                 <div class="level">
                   <div class="level-left"></div>
                   <div class="level-right">
                     <button
                       class="button is-info is-outlined"
                       :class="{ 'is-loading': authLoading }"
-                      type="submit"
                       :disabled="!isAvatarChanged"
-                      @click.prevent="onUpdateAvatar"
+                      @click="onUpdateAvatar"
                     >
                       Lưu thay đổi
                     </button>
@@ -317,7 +313,7 @@
               </b-tab-item>
 
               <b-tab-item label="Xóa tài khoản">
-                <form style="padding-top: 1rem; padding-bottom: 2rem;">
+                <div style="padding-top: 1rem; padding-bottom: 2rem;">
                   <b-field
                     label="Xác nhận mật khẩu"
                     :type="
@@ -337,7 +333,7 @@
                       icon="key"
                     ></b-input>
                   </b-field>
-                </form>
+                </div>
                 <div class="level">
                   <div class="level-left"></div>
                   <div class="level-right">
@@ -345,8 +341,7 @@
                       class="button is-danger"
                       :class="{ 'is-loading': authLoading }"
                       :disabled="$v.confirmPasswordForDeleting.$invalid"
-                      type="submit"
-                      @click.prevent="onDelete"
+                      @click="onDelete"
                     >
                       Xóa tài khoản
                     </button>
@@ -571,17 +566,30 @@ export default {
         });
       }
     },
-    async onDelete() {
-      await this.$store.dispatch("deleteUser", this.confirmPasswordForDeleting);
-      if (this.authLoading) {
-        this.$buefy.toast.open({
-          duration: 3000,
-          message: authMessage(this.authError),
-          type: "is-danger"
-        });
-      } else {
-        this.$router.push("/");
-      }
+    onDelete() {
+      this.$buefy.dialog.confirm({
+        title: "Deleting Post",
+        message:
+          "Are you sure you want to <b>delete</b> your account? This action cannot be undone.",
+        confirmText: "Delete",
+        type: "is-danger",
+        hasIcon: true,
+        onConfirm: async () => {
+          await this.$store.dispatch(
+            "deleteUser",
+            this.confirmPasswordForDeleting
+          );
+          if (this.authLoading) {
+            this.$buefy.toast.open({
+              duration: 3000,
+              message: authMessage(this.authError),
+              type: "is-danger"
+            });
+          } else {
+            this.$router.push("/");
+          }
+        }
+      });
     },
     onAvatarChange() {
       this.userPreviewAvatar = null;

@@ -2,37 +2,37 @@
   <div class="container">
     <div class="columns">
       <div class="column is-4 is-offset-4">
-        <form>
-          <div class="card" style="margin-top: 2rem">
-            <header class="card-header">
-              <p class="card-header-title is-size-4">Yêu cầu đổi mật khẩu</p>
-            </header>
-            <div class="card-content">
-              <b-field
-                label="Email"
-                :type="$v.formData.email.$error ? `is-danger` : ``"
-                :message="!$v.formData.email.email ? `Invalid email`: ``"
-              >
-                <b-input
-                  type="email"
-                  v-model.trim="formData.email"
-                  @blur="$v.formData.email.$touch()"
-                  placeholder="Nhập email đã đăng ký tài khoản"
-                ></b-input>
-              </b-field>
-            </div>
-            <footer class="card-footer" style="border-top: none">
-              <div class="card-footer-item">
-                <button
-                  class="button is-info is-outlined"
-                  :class="{ 'is-loading': authLoading }"
-                  :disabled="$v.formData.$invalid"
-                  @click.prevent="onResetPassword"
-                >Send</button>
-              </div>
-            </footer>
+        <div class="card" style="margin-top: 2rem">
+          <header class="card-header">
+            <p class="card-header-title is-size-4">Yêu cầu đổi mật khẩu</p>
+          </header>
+          <div class="card-content">
+            <b-field
+              label="Email"
+              :type="$v.formData.email.$error ? `is-danger` : ``"
+              :message="!$v.formData.email.email ? `Invalid email` : ``"
+            >
+              <b-input
+                type="email"
+                v-model.trim="formData.email"
+                @blur="$v.formData.email.$touch()"
+                placeholder="Nhập email đã đăng ký tài khoản"
+              ></b-input>
+            </b-field>
           </div>
-        </form>
+          <footer class="card-footer" style="border-top: none">
+            <div class="card-footer-item">
+              <button
+                class="button is-info is-outlined"
+                :class="{ 'is-loading': authLoading }"
+                :disabled="$v.formData.$invalid"
+                @click="onResetPassword"
+              >
+                Send
+              </button>
+            </div>
+          </footer>
+        </div>
       </div>
     </div>
   </div>
