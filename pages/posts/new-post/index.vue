@@ -45,6 +45,7 @@
           ref="editor"
           :value="postContent.markdown"
           :images="postImages"
+          :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
         />
       </client-only>
     </b-field>

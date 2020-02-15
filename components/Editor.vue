@@ -1,7 +1,7 @@
 <template>
-  <section>
+  <div :class="{'_disable': disabled}">
     <!-- Start simpleMDE -->
-    <!--
+    <!-- Don't work
       :value="markdown" 
       @input="handleInput($event.target.value)"
     -->
@@ -9,17 +9,29 @@
     <!-- End simpleMDE -->
 
     <!-- Start modals -->
-    <b-modal :active.sync="isModalImageActive" has-modal-card :can-cancel="false">
+    <b-modal
+      :active.sync="isModalImageActive"
+      has-modal-card
+      :can-cancel="false"
+    >
       <v-modal-image :value="images" @select="drawImage" />
     </b-modal>
-    <b-modal :active.sync="isModalLinkActive" has-modal-card :can-cancel="false">
+    <b-modal
+      :active.sync="isModalLinkActive"
+      has-modal-card
+      :can-cancel="false"
+    >
       <v-modal-link @draw="drawLink" />
     </b-modal>
-    <b-modal :active.sync="isModalEmbedActive" has-modal-card :can-cancel="false">
+    <b-modal
+      :active.sync="isModalEmbedActive"
+      has-modal-card
+      :can-cancel="false"
+    >
       <v-modal-embed @draw="drawEmbed" />
     </b-modal>
     <!-- End modals -->
-  </section>
+  </div>
 </template>
 
 <script>
@@ -29,7 +41,8 @@ import Prism from "prismjs";
 export default {
   props: {
     value: String,
-    images: Array
+    images: Array,
+    disabled: Boolean
   },
   mounted() {
     this.initialize();
@@ -174,11 +187,16 @@ export default {
       });
     },
     addPreviewClass(className) {
+      // Fetch <div class="CodeMirror" />
       const wrapper = this.codemirror.getWrapperElement();
+
+      // Add new class for <div class="editor-preview /> inside <div class="CodeMirror" />
       const preview = document.createElement("div");
-      wrapper.nextSibling.className += ` ${className}`;
       preview.className = `editor-preview ${className}`;
       wrapper.appendChild(preview);
+
+      // Add new class for <div class="editor-preview-side />
+      wrapper.nextSibling.className += ` ${className}`;
     },
     handleInput(arg) {
       this.isValueUpdatedFromInside = true;
@@ -189,13 +207,16 @@ export default {
     drawImage(image) {
       this.codemirror.replaceSelection(`![](${image.url})`);
       this.isModalImageActive = false;
-      setTimeout(function() {
-        this.codemirror.focus();
-      }.bind(this), 100);
+      setTimeout(
+        function() {
+          this.codemirror.focus();
+        }.bind(this),
+        100
+      );
     },
     drawLink(link) {
       window.prompt = () => {
-        return link
+        return link;
       };
       this.simplemde.drawLink();
       this.isModalLinkActive = false;
@@ -203,9 +224,12 @@ export default {
     drawEmbed(link) {
       this.codemirror.replaceSelection(`{@embed: ${link}}`);
       this.isModalEmbedActive = false;
-      setTimeout(function() {
-        this.codemirror.focus();
-      }.bind(this), 100);
+      setTimeout(
+        function() {
+          this.codemirror.focus();
+        }.bind(this),
+        100
+      );
     }
     /* End simplemde events */
   }

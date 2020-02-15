@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <div>
     <!-- Start login -->
     <div class="modal-card" v-show="!isSignup">
       <header class="modal-card-head">
@@ -131,7 +131,7 @@
       </footer>
     </div>
     <!-- End signup -->
-  </section>
+  </div>
 </template>
 <script>
 import { mapGetters } from "vuex";

@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <div>
     <!-- Start navbar -->
     <nav class="navbar _navbar is-fixed-top">
       <div class="container">
@@ -168,7 +168,7 @@
       </div>
     </nav>
     <!-- End navbar tag -->
-  </section>
+  </div>
 </template>
 
 <script>

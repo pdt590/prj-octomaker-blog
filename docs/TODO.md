@@ -46,7 +46,7 @@
   - Implement embed link select
   - Fix responsive iframe issue
   - Implement emoji modal select
-  - Add enable/disable editor mode
+  - `Add enable/disable editor mode`
   - window.prompt() doen't work in drawLink
 - Add admin role
 - Change image-lazy-load plugin

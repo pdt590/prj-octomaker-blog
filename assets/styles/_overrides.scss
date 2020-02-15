@@ -345,6 +345,11 @@ $creator-avatar-height: 3rem;
   }
 }
 
+/* components/Editor.vue */
+._disable {
+  pointer-events: none;
+}
+
 /* components/Navbar.vue */
 ._navbar {
   border: none;
