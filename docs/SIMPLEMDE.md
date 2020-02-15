@@ -10,6 +10,7 @@
 - [Lam trinh soan thao giong Viblo](https://viblo.asia/p/lam-trinh-soan-thao-giong-voi-viblo-Do754JBLZM6)
   - [Code](https://github.com/ththth0303/laravel-vue-coreui/blob/editor/resources/assets/js/admin/views/markdown/index.vue)
 
+- [vue-simplemde*](https://github.com/F-loat/vue-simplemde/blob/master/src/index.vue)
 - [simplemde-markdown-editor*](https://github.com/sparksuite/simplemde-markdown-editor)
 - [CodeMirror*](https://codemirror.net/doc/manual.html#events)
 - [marked*](https://github.com/markedjs/marked)

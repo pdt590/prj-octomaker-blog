@@ -42,13 +42,7 @@
       <!-- Start simpleMDE -->
       <b-field>
         <client-only placeholder="Loading ...">
-          <vue-simplemde
-            v-highlight
-            ref="markdownEditor"
-            :configs="configs"
-            v-model="postContent.markdown"
-            preview-class="content markdown-body"
-          />
+          <v-editor ref="editor" :value="postContent.markdown" :images="postImages" />
         </client-only>
       </b-field>
       <!-- End simpleMDE -->
@@ -92,21 +86,11 @@
         </div>
       </div>
     </form>
-
-    <!-- Modal -->
-    <b-modal :active.sync="isModalImageActive" has-modal-card>
-      <v-modal-image :value="postImages" @select="onSelectImage" />
-    </b-modal>
+    <!-- Start modal -->
     <b-modal :active.sync="isModalConfirmActive" has-modal-card>
       <v-modal-confirm @delete="onDelete" />
     </b-modal>
-    <b-modal :active.sync="isModalLinkActive" has-modal-card>
-      <v-modal-link @insert="onInsertLink" />
-    </b-modal>
-    <b-modal :active.sync="isModalEmbedActive" has-modal-card>
-      <v-modal-embed @insert="onInsertEmbed" />
-    </b-modal>
-    <!--  -->
+    <!-- End modal -->
   </div>
 </template>
 
@@ -121,7 +105,7 @@ export default {
   computed: {
     ...mapGetters(["loadedPost", "postLoading"]),
     simplemde() {
-      return this.$refs.markdownEditor.simplemde;
+      return this.$refs.editor.simplemde;
     },
     postImages() {
       if (this.loadedPost && this.loadedPost.images) {
@@ -133,115 +117,8 @@ export default {
   },
   data() {
     return {
-      configs: {
-        autofocus: true,
-        autosave: {
-          enabled: true,
-          uniqueId: "new-post",
-          delay: 500
-        },
-        placeholder: `Content format: \n # Introduction \n - Describe overall your post \n - Don't use picture/bullet/link \n # Content \n - Write your post`,
-        spellChecker: false,
-        tabSize: 4,
-        toolbar: [
-          "bold",
-          "italic",
-          "strikethrough",
-          "heading-1",
-          "heading-2",
-          "heading-3",
-          "|",
-          "code",
-          "quote",
-          "unordered-list",
-          "ordered-list",
-          "table",
-          "horizontal-rule",
-          "clean-block",
-          "|",
-          {
-            name: "link",
-            action: () => {
-              this.isModalLinkActive = true;
-            },
-            className: "fa fa-link",
-            title: "Insert Link"
-          },
-          {
-            name: "image",
-            action: () => {
-              if (!this.$v.postTitle.$invalid && this.isTitleAdded) {
-                this.isModalImageActive = true;
-              }
-            },
-            className: "fa fa-image",
-            title: "Upload Image"
-          },
-          /* {
-            name: "embed",
-            action: () => {
-              this.isModalEmbedActive = true;
-            },
-            className: "fa fa-file-code-o",
-            title: "Add Embed"
-          }, */
-          "|",
-          //"preview",
-          //"side-by-side",
-          {
-            name: "preview",
-            action: () => {
-              this.simplemde.togglePreview();
-              Prism.highlightAll();
-            },
-            className: "fa fa-eye no-disable",
-            title: "Toggle Preview (Ctrl-P)"
-          },
-          {
-            name: "side-by-side",
-            action: () => {
-              this.simplemde.toggleSideBySide();
-              Prism.highlightAll();
-            },
-            className: "fa fa-columns no-disable no-mobile",
-            title: "Toggle Side-by-Side (F9)"
-          },
-          "fullscreen",
-          "|",
-          "undo",
-          "redo",
-          "|",
-          {
-            name: "guide",
-            action: () => {
-              window.open(
-                "https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet",
-                "_blank"
-              );
-            },
-            className: "fa fa-question-circle",
-            title: "Help"
-          },
-          {
-            name: "emoji",
-            action: () => {
-              window.open("https://gist.github.com/rxaviers/7360908", "_blank");
-            },
-            className: "fa fa-smile-o",
-            title: "Emoji"
-          }
-        ]
-      },
-
-      isModalLinkActive: false,
-      isModalImageActive: false,
-      isModalEmbedActive: false,
-      isModalConfirmActive: false,
-
       categories: categories,
-
       postTitle: "",
-      //postImages: [],
       postContent: {
         category: "iot",
         tags: [],
@@ -249,9 +126,9 @@ export default {
         markdown: "",
         html: ""
       },
-
       isTitleAdded: false,
-      loadEvent: ""
+      loadEvent: "",
+      isModalConfirmActive: false
     };
   },
   validations: {
@@ -322,33 +199,6 @@ export default {
         this.$router.push("/");
       }
     },
-
-    /* Start simplemde events */
-    async onSelectImage(image) {
-      const cm = this.simplemde.codemirror;
-      cm.replaceSelection(`![](${image.url})`);
-      this.isModalImageActive = false;
-      setTimeout(function() {
-        cm.focus();
-      }, 0);
-    },
-    onInsertLink(link) {
-      window.prompt = () => {
-        return link;
-      };
-      this.simplemde.drawLink();
-      this.isModalLinkActive = false;
-    },
-    onInsertEmbed(link) {
-      // TODO
-      const cm = this.simplemde.codemirror;
-      cm.replaceSelection(`{@embed: ${link} }`);
-      this.isModalEmbedActive = false;
-      setTimeout(function() {
-        cm.focus();
-      }, 0);
-    }
-    /* End simplemde events */
   },
   head() {
     return {

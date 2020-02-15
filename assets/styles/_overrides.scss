@@ -135,10 +135,14 @@ blockquote {
 }
 
 ////////////////////////////////////////////////
-// Customizes layout
+// Customizes general
 ////////////////////////////////////////////////
 body {
   background-color: #fff;
+}
+
+.modal-card-foot {
+  justify-content: flex-end
 }
 
 /* width */

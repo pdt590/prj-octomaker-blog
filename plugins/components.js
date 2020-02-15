@@ -2,6 +2,9 @@ import Vue from "vue";
 
 Vue.component("v-navbar", () => import("~/components/Navbar"));
 Vue.component("v-footer", () => import("~/components/Footer"));
+if (process.client) {
+  Vue.component("v-editor", () => import("~/components/Editor"));
+}
 
 // Card
 Vue.component("v-card-post", () => import("~/components/CardPost"));

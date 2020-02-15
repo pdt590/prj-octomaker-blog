@@ -48,7 +48,6 @@ module.exports = {
     {src: '~plugins/fontawesome.js'},
     {src: '~plugins/toc.js'},
     {src: '~plugins/lazyload.js', mode: 'client'},
-    {src: '~plugins/simplemde.js', mode: 'client' },
     {src: '~plugins/prism.js', mode: 'client' },
 
     {src: '~plugins/test.js', mode: 'client' }

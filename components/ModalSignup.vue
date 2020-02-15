@@ -46,7 +46,7 @@
         </b-field>
         <!-- <b-checkbox>Remember me</b-checkbox> -->
       </section>
-      <footer class="modal-card-foot" style="justify-content: flex-end">
+      <footer class="modal-card-foot">
         <button class="button is-info is-outlined" @click="$parent.close()">
           Close
         </button>

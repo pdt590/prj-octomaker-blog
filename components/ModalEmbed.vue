@@ -14,18 +14,26 @@
           "
         >
           <b-input
-            icon="link"
+            type="text"
             v-model.trim="link"
             @blur="$v.link.$touch()"
+            icon="link"
           ></b-input>
         </b-field>
       </section>
-      <footer class="modal-card-foot" style="justify-content: space-between">
+      <footer class="modal-card-foot">
         <div class="buttons">
-          <button class="button" type="button" @click="$parent.close()">
+          <button
+            class="button is-info is-outlined"
+            @click.prevent="$parent.close()"
+          >
             Close
           </button>
-          <button class="button" :disabled="$v.link.$invalid" @click="onInsert">
+          <button
+            class="button is-info is-outlined"
+            :disabled="$v.link.$invalid"
+            @click.prevent="onDraw"
+          >
             Insert
           </button>
         </div>
@@ -53,9 +61,9 @@ export default {
     }
   },
   methods: {
-    onInsert() {
+    onDraw() {
       this.$parent.close();
-      this.$emit("insert", this.link);
+      this.$emit("draw", this.link);
     }
   }
 };

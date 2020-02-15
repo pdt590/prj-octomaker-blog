@@ -58,12 +58,8 @@
           </div>
         </div>
       </section>
-      <footer class="modal-card-foot" style="justify-content: flex-end">
-        <button
-          class="button is-info is-outlined"
-          @click="$parent.close()"
-          style="justify-content: flex-end;"
-        >
+      <footer class="modal-card-foot">
+        <button class="button is-info is-outlined" @click.prevent="$parent.close()">
           Close
         </button>
       </footer>
