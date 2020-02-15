@@ -39,7 +39,7 @@
   - `Reload when text changes in preview mode`
   - Dont focus at the end of editor when pasting text
   - `Layout Preview-side issue`
-  - Fix editor size - [Refer](https://viblo.asia/posts/aWj53LAGK6m/edit)
+  - `Fix editor size` - [Refer](https://viblo.asia/posts/aWj53LAGK6m/edit)
   - Add image view event on editor and post - [Refer](https://codemirror.net/doc/manual.html#events)
   - Add image resize
   - Remove old link when removing a image

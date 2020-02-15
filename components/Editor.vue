@@ -1,5 +1,5 @@
 <template>
-  <div :class="{'_disable': disabled}">
+  <div :class="{ _disable: disabled }">
     <!-- Start simpleMDE -->
     <!-- Don't work
       :value="markdown" 
@@ -96,6 +96,7 @@ export default {
             className: "fa fa-link",
             title: "Draw Link"
           },
+          //"image",
           {
             name: "image",
             action: () => {
@@ -114,7 +115,6 @@ export default {
           },
           "|",
           //"preview",
-          //"side-by-side",
           {
             name: "preview",
             action: () => {
@@ -124,6 +124,7 @@ export default {
             className: "fa fa-eye no-disable",
             title: "Toggle Preview (Ctrl-P)"
           },
+          //"side-by-side",
           {
             name: "side-by-side",
             action: () => {

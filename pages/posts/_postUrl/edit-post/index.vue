@@ -1,90 +1,93 @@
 <template>
-  <div class="container">
-    <b-field :type="$v.postTitle.$error ? `is-danger` : ``">
-      <b-input
-        placeholder="Title"
-        type="text"
-        v-model.trim="postTitle"
-        @blur="onChangeTitle"
-        icon="newspaper"
-        :loading="postLoading && loadEvent === `onChangeTitle`"
-      ></b-input>
-    </b-field>
+  <div class="_fullscreen">
+    <div class="container">
+      <b-field :type="$v.postTitle.$error ? `is-danger` : ``">
+        <b-input
+          placeholder="Title"
+          type="text"
+          v-model.trim="postTitle"
+          @blur="onChangeTitle"
+          icon="newspaper"
+          :loading="postLoading && loadEvent === `onChangeTitle`"
+        ></b-input>
+      </b-field>
 
-    <b-field>
-      <b-select
-        placeholder="Danh mục"
-        v-model="postContent.category"
-        expanded
-        :disabled="$v.postTitle.$invalid"
-        icon="list"
-      >
-        <option
-          v-for="(category, i) in categories"
-          :key="i"
-          :value="category.id"
-          >{{ category.name }}</option
+      <b-field>
+        <b-select
+          placeholder="Danh mục"
+          v-model="postContent.category"
+          expanded
+          :disabled="$v.postTitle.$invalid"
+          icon="list"
         >
-      </b-select>
-    </b-field>
+          <option
+            v-for="(category, i) in categories"
+            :key="i"
+            :value="category.id"
+            >{{ category.name }}</option
+          >
+        </b-select>
+      </b-field>
 
-    <b-field>
-      <b-taginput
-        placeholder="Add a tag"
-        v-model="postContent.tags"
-        maxtags="3"
-        :has-counter="false"
-        icon="tag"
-      ></b-taginput>
-    </b-field>
+      <b-field>
+        <b-taginput
+          placeholder="Add a tag"
+          v-model="postContent.tags"
+          maxtags="3"
+          :has-counter="false"
+          icon="tag"
+        ></b-taginput>
+      </b-field>
 
-    <!-- Start simpleMDE -->
-    <b-field>
-      <client-only placeholder="Loading ...">
-        <v-editor
-          ref="editor"
-          v-model="postContent.markdown"
-          :images="postImages"
-        />
-      </client-only>
-    </b-field>
-    <!-- End simpleMDE -->
+      <!-- Start simpleMDE -->
+      <b-field>
+        <client-only placeholder="Loading ...">
+          <v-editor
+            ref="editor"
+            v-model="postContent.markdown"
+            :images="postImages"
+            :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
+          />
+        </client-only>
+      </b-field>
+      <!-- End simpleMDE -->
 
-    <div class="block">
-      <b-radio
-        type="is-info"
-        v-model="postContent.mode"
-        native-value="public"
-        :disabled="$v.postTitle.$invalid"
-        >Public</b-radio
-      >
-      <b-radio
-        type="is-info"
-        v-model="postContent.mode"
-        native-value="private"
-        :disabled="$v.postTitle.$invalid"
-        >Private</b-radio
-      >
-    </div>
-
-    <div class="level">
-      <div class="level-left"></div>
-      <div class="level-right">
-        <button
-          class="level-item button is-info is-outlined"
-          :class="{ 'is-loading': postLoading && loadEvent === `onPublish` }"
-          :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
-          @click="onPublish"
+      <div class="block">
+        <b-radio
+          type="is-info"
+          v-model="postContent.mode"
+          native-value="public"
+          :disabled="$v.postTitle.$invalid"
+          >Public</b-radio
         >
-          Update
-        </button>
-        <button
-          class="level-item button is-info is-outlined"
-          :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
-          @click="onDelete"
+        <b-radio
+          type="is-info"
+          v-model="postContent.mode"
+          native-value="private"
+          :disabled="$v.postTitle.$invalid"
+          >Private</b-radio
         >
-          Delete
-        </button>
+      </div>
+
+      <div class="level">
+        <div class="level-left"></div>
+        <div class="level-right">
+          <button
+            class="level-item button is-info is-outlined"
+            :class="{ 'is-loading': postLoading && loadEvent === `onPublish` }"
+            :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
+            @click="onPublish"
+          >
+            Update
+          </button>
+          <button
+            class="level-item button is-info is-outlined"
+            :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
+            @click="onDelete"
+          >
+            Delete
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -191,7 +194,8 @@ export default {
     onDelete() {
       this.$buefy.dialog.confirm({
         title: "Deleting Post",
-        message: "Are you sure you want to <b>delete</b> your post? This action cannot be undone.",
+        message:
+          "Are you sure you want to <b>delete</b> your post? This action cannot be undone.",
         confirmText: "Delete",
         type: "is-danger",
         hasIcon: true,
