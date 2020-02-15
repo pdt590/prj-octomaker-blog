@@ -18,7 +18,11 @@
     <div class="media-content" style="overflow: hidden;">
       <div class="content">
         <strong>
-          <nuxt-link :to="`/posts/${postUrl}`" class="is-size-5">
+          <nuxt-link
+            :to="`/posts/${postUrl}`"
+            class="is-size-5"
+            target="_blank"
+          >
             {{ postTitle }}
           </nuxt-link>
         </strong>

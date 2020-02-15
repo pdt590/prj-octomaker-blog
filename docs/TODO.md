@@ -47,6 +47,7 @@
   - Fix responsive iframe issue
   - Implement emoji modal select
   - Add enable/disable editor mode
+  - window.prompt() doen't work in drawLink
 - Add admin role
 - Change image-lazy-load plugin
 - `Use vue-fontawesome`
@@ -55,8 +56,7 @@
   - [Constructor options](https://buefy.org/documentation/constructor-options/)
   - [vue-fontawesome#nuxtjs](https://www.npmjs.com/package/@fortawesome/vue-fontawesome#nuxtjs)
 - `Change highlight color on simplemde`
-- Fix load post limit issue
+- `Fix load post limit issue`
 - `Modal auto closes when pressing ENTER`
   - `Reason: <form> in new-post and edit-post page`
-- window.prompt() doen't work in drawLink
 - `Change Buefy Dialog for ModalConfirm`

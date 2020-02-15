@@ -16,26 +16,36 @@ export default {
     async loadPosts(vuexContext, payload) {
       vuexContext.commit("setQueryLoading", true);
       try {
-        let postsData = null;
-        if (payload.endAtKey !== undefined) {
-          postsData = await postsRef
-            .orderByChild("updatedDate")
-            .endAt(payload.endAtKey)
-            .limitToLast(payload.limit)
-            .once("value");
-        } else {
-          postsData = await postsRef
-            .orderByChild("updatedDate")
-            .limitToLast(payload.limit)
-            .once("value");
-        }
-        const loadedPosts = [];
-        postsData.forEach(postData => {
-          const postObj = postData.val();
-          if (postObj.mode === "public") {
-            loadedPosts.push(postObj);
+        let postsData = [];
+        let loadedPosts = [];
+        let maxPosts = payload.limit;
+        let count = 0;
+        while (loadedPosts.length < maxPosts) {
+          // Try to load 3 times
+          if (count == 3) {
+            break;
           }
-        });
+          count++;
+          loadedPosts = [];
+          if (payload.endAtKey !== undefined) {
+            postsData = await postsRef
+              .orderByChild("updatedDate")
+              .endAt(payload.endAtKey)
+              .limitToLast(maxPosts * count)
+              .once("value");
+          } else {
+            postsData = await postsRef
+              .orderByChild("updatedDate")
+              .limitToLast(maxPosts * count)
+              .once("value");
+          }
+          postsData.forEach(postData => {
+            const postObj = postData.val();
+            if (postObj.mode === "public") {
+              loadedPosts.push(postObj);
+            }
+          });
+        }
         loadedPosts.reverse();
         vuexContext.commit("setQueryLoading", false);
         return loadedPosts;

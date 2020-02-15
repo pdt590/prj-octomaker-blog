@@ -39,16 +39,15 @@ export default {
     ...mapGetters(["queryLoading"])
   },
   async asyncData({ app, store, params, error }) {
-    let loadedPosts = [];
-    const limit = 12;
-    loadedPosts = await store.dispatch("loadPosts", { limit: limit });
+    const maxPosts = 12;
+    let loadedPosts = await store.dispatch("loadPosts", { limit: maxPosts });
     if (store.getters.queryLoading) {
       store.commit("setQueryLoading", false);
       error({ statusCode: 500, message: "loadPosts() Error" });
     }
     return {
       loadedPosts: loadedPosts,
-      limit: limit
+      maxPosts: maxPosts
     };
   },
   methods: {
@@ -56,7 +55,7 @@ export default {
       const endAtKey = this.loadedPosts[this.loadedPosts.length - 1]
         .updatedDate;
       let loadedMorePosts = await this.$store.dispatch("loadPosts", {
-        limit: this.limit + 1,
+        limit: this.maxPosts + 1,
         endAtKey: endAtKey
       });
       if (this.queryLoading) {
