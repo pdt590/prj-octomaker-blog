@@ -46,22 +46,6 @@ export default {
   },
   mounted() {
     this.initialize();
-    /* document
-      .getElementsByClassName("editor-preview-side")[0]
-      .addEventListener("scroll", () => {
-        setTimeout(() => {
-          Prism.highlightAll();
-        }, 1);
-      }); */
-    /* this.$nextTick(() => {
-      document
-        .getElementsByClassName("editor-preview-side")[0]
-        .addEventListener("scroll", () => {
-          setTimeout(() => {
-            Prism.highlightAll();
-          }, 1);
-        });
-    }); */
   },
   watch: {
     value(arg) {
@@ -89,16 +73,6 @@ export default {
         spellChecker: false,
         tabSize: 4,
         forceSync: true,
-        /* previewRender: function(plainText, preview) {
-          setTimeout(
-            function() {
-              preview.innerHTML = this.parent.markdown(plainText);
-              Prism.highlightAll();
-            }.bind(this),
-            1
-          );
-          return "Loading...";
-        }, */
         toolbar: [
           "bold",
           "italic",
@@ -153,17 +127,6 @@ export default {
             title: "Toggle Preview (Ctrl-P)"
           },
           "side-by-side",
-          /* {
-            name: "side-by-side",
-            action: () => {
-              this.simplemde.toggleSideBySide();
-              setTimeout(() => {
-                Prism.highlightAll();
-              }, 1);
-            },
-            className: "fa fa-columns no-disable no-mobile",
-            title: "Toggle Side-by-Side (F9)"
-          }, */
           "fullscreen",
           "|",
           "undo",
@@ -232,14 +195,10 @@ export default {
       // Add new class for <div class="editor-preview /> inside <div class="CodeMirror" />
       const preview = document.createElement("div");
       preview.className = `editor-preview ${className}`;
-      preview.setAttribute("v-highlight", "");
-      preview.setAttribute("ref", "preview");
       wrapper.appendChild(preview);
 
       // Add new class for <div class="editor-preview-side />
       wrapper.nextSibling.className += ` ${className}`;
-      wrapper.nextSibling.setAttribute("v-highlight", "");
-      wrapper.nextSibling.setAttribute("ref", "preview");
     },
     handleInput(arg) {
       this.isValueUpdatedFromInside = true;
