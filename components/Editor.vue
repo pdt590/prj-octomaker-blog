@@ -46,9 +46,26 @@ export default {
   },
   mounted() {
     this.initialize();
+    /* document
+      .getElementsByClassName("editor-preview-side")[0]
+      .addEventListener("scroll", () => {
+        setTimeout(() => {
+          Prism.highlightAll();
+        }, 1);
+      }); */
+    /* this.$nextTick(() => {
+      document
+        .getElementsByClassName("editor-preview-side")[0]
+        .addEventListener("scroll", () => {
+          setTimeout(() => {
+            Prism.highlightAll();
+          }, 1);
+        });
+    }); */
   },
   watch: {
     value(arg) {
+      Prism.highlightAll();
       if (this.isValueUpdatedFromInside) {
         this.isValueUpdatedFromInside = false;
         return;
@@ -71,6 +88,17 @@ export default {
         placeholder: `Content format: \n # Introduction \n - Describe overall your post \n - Don't use picture/bullet/link \n # Content \n - Write your post`,
         spellChecker: false,
         tabSize: 4,
+        forceSync: true,
+        /* previewRender: function(plainText, preview) {
+          setTimeout(
+            function() {
+              preview.innerHTML = this.parent.markdown(plainText);
+              Prism.highlightAll();
+            }.bind(this),
+            1
+          );
+          return "Loading...";
+        }, */
         toolbar: [
           "bold",
           "italic",
@@ -124,16 +152,18 @@ export default {
             className: "fa fa-eye no-disable",
             title: "Toggle Preview (Ctrl-P)"
           },
-          //"side-by-side",
-          {
+          "side-by-side",
+          /* {
             name: "side-by-side",
             action: () => {
               this.simplemde.toggleSideBySide();
-              Prism.highlightAll();
+              setTimeout(() => {
+                Prism.highlightAll();
+              }, 1);
             },
             className: "fa fa-columns no-disable no-mobile",
             title: "Toggle Side-by-Side (F9)"
-          },
+          }, */
           "fullscreen",
           "|",
           "undo",
@@ -186,6 +216,14 @@ export default {
         const value = this.simplemde.value();
         this.handleInput(value);
       });
+      this.codemirror.on("viewportChange", () => {
+        Prism.highlightAll();
+      });
+      this.codemirror.on("refresh", () => {
+        setTimeout(() => {
+          Prism.highlightAll();
+        }, 1);
+      });
     },
     addPreviewClass(className) {
       // Fetch <div class="CodeMirror" />
@@ -194,10 +232,14 @@ export default {
       // Add new class for <div class="editor-preview /> inside <div class="CodeMirror" />
       const preview = document.createElement("div");
       preview.className = `editor-preview ${className}`;
+      preview.setAttribute("v-highlight", "");
+      preview.setAttribute("ref", "preview");
       wrapper.appendChild(preview);
 
       // Add new class for <div class="editor-preview-side />
       wrapper.nextSibling.className += ` ${className}`;
+      wrapper.nextSibling.setAttribute("v-highlight", "");
+      wrapper.nextSibling.setAttribute("ref", "preview");
     },
     handleInput(arg) {
       this.isValueUpdatedFromInside = true;
@@ -212,7 +254,7 @@ export default {
         function() {
           this.codemirror.focus();
         }.bind(this),
-        100
+        1
       );
     },
     drawLink(link) {
@@ -229,7 +271,7 @@ export default {
         function() {
           this.codemirror.focus();
         }.bind(this),
-        100
+        1
       );
     }
     /* End simplemde events */

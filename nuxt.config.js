@@ -41,7 +41,7 @@ module.exports = {
     {src: '~plugins/filters.js'},
     {src: '~plugins/fc.js', mode: 'client'},
     {src: '~plugins/ga.js', mode: 'client'},
-    {src: '~plugins/authevent.js', mode: 'client'},
+    {src: '~plugins/reloading.js', mode: 'client'},
 
     {src: '~plugins/buefy.js'},
     {src: '~plugins/vuelidate.js'},

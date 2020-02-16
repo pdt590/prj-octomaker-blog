@@ -153,18 +153,17 @@ body {
 /* Track */
 ::-webkit-scrollbar-track {
   background: #f1f1f1;
-  border-radius: 0.2rem;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #aaa;
-  border-radius: 0.2rem;
+  background: #bbb;
+  border-radius: 0.5rem;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #888;
+  background: #999;
 }
 
 ////////////////////////////////////////////////
@@ -182,16 +181,17 @@ body {
 }
 
 .editor-toolbar.fullscreen {
+  background-color: #eee;
   top: $navbar-height;
-  height: 3rem
+  height: 3rem;
 }
 
 .CodeMirror-fullscreen {
-  top: $navbar-height + 3rem
+  top: $navbar-height + 3rem;
 }
 
 .editor-preview-side {
-  top: $navbar-height + 3rem
+  top: $navbar-height + 3rem;
 }
 
 .editor-preview-side.content:not(:last-child).markdown-body.editor-preview-active-side {
@@ -199,7 +199,7 @@ body {
 }
 
 .CodeMirror {
-  height: 50vh;
+  height: 60vh;
 }
 
 .CodeMirror .CodeMirror-code .cm-comment {
@@ -210,7 +210,7 @@ body {
 }
 
 .CodeMirror .CodeMirror-selected {
-  background: #bbb;
+  background: #aaa;
 }
 
 .CodeMirror .CodeMirror-code .cm-link {
@@ -234,6 +234,10 @@ body {
     font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier,
       monospace;
     font-size: $body-size;
+  }
+  
+  pre[class*="language-"] {
+    overflow: hidden; /* this is the culprit */
   }
 }
 
@@ -452,7 +456,7 @@ $creator-avatar-height: 3rem;
 
 /* pages/posts/_postUrl/edit-post/index.vue */
 ._fullscreen {
-  background: #fff;
+  background: #eee;
   position: fixed;
   padding-top: $navbar-height + 1rem;
   top: 0;
@@ -477,7 +481,7 @@ $creator-avatar-height: 3rem;
   z-index: $navbar-z - 1; // 29
 }
  */
- 
+
 /* pages/user/join/index.vue */
 ._card-join {
   margin-top: 2rem;

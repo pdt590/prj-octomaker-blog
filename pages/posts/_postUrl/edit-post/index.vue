@@ -1,32 +1,33 @@
 <template>
   <div class="_fullscreen">
     <div class="container">
-      <b-field :type="$v.postTitle.$error ? `is-danger` : ``">
-        <b-input
-          placeholder="Title"
-          type="text"
-          v-model.trim="postTitle"
-          @blur="onChangeTitle"
-          icon="newspaper"
-          :loading="postLoading && loadEvent === `onChangeTitle`"
-        ></b-input>
-      </b-field>
-
-      <b-field>
-        <b-select
-          placeholder="Danh mục"
-          v-model="postContent.category"
-          expanded
-          :disabled="$v.postTitle.$invalid"
-          icon="list"
-        >
-          <option
-            v-for="(category, i) in categories"
-            :key="i"
-            :value="category.id"
-            >{{ category.name }}</option
+      <b-field grouped>
+        <b-field :type="$v.postTitle.$error ? `is-danger` : ``" expanded>
+          <b-input
+            placeholder="Title"
+            type="text"
+            v-model.trim="postTitle"
+            @blur="onChangeTitle"
+            icon="newspaper"
+            :loading="postLoading && loadEvent === `onChangeTitle`"
+          ></b-input>
+        </b-field>
+        <b-field expanded>
+          <b-select
+            placeholder="Danh mục"
+            v-model="postContent.category"
+            expanded
+            :disabled="$v.postTitle.$invalid"
+            icon="list"
           >
-        </b-select>
+            <option
+              v-for="(category, i) in categories"
+              :key="i"
+              :value="category.id"
+              >{{ category.name }}</option
+            >
+          </b-select>
+        </b-field>
       </b-field>
 
       <b-field>
@@ -52,25 +53,25 @@
       </b-field>
       <!-- End simpleMDE -->
 
-      <div class="block">
-        <b-radio
-          type="is-info"
-          v-model="postContent.mode"
-          native-value="public"
-          :disabled="$v.postTitle.$invalid"
-          >Public</b-radio
-        >
-        <b-radio
-          type="is-info"
-          v-model="postContent.mode"
-          native-value="private"
-          :disabled="$v.postTitle.$invalid"
-          >Private</b-radio
-        >
-      </div>
-
       <div class="level">
-        <div class="level-left"></div>
+        <div class="level-left">
+          <div class="block">
+            <b-radio
+              type="is-info"
+              v-model="postContent.mode"
+              native-value="public"
+              :disabled="$v.postTitle.$invalid"
+              >Public</b-radio
+            >
+            <b-radio
+              type="is-info"
+              v-model="postContent.mode"
+              native-value="private"
+              :disabled="$v.postTitle.$invalid"
+              >Private</b-radio
+            >
+          </div>
+        </div>
         <div class="level-right">
           <button
             class="level-item button is-info is-outlined"

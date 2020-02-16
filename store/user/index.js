@@ -61,8 +61,8 @@ export default {
         };
         vuexContext.commit("setUser", newUser);
         vuexContext.commit("setAuthLoading", false);
-        localStorage.setItem("auth-event", "");
-        localStorage.removeItem("auth-event");
+        localStorage.setItem("reloading", "");
+        localStorage.removeItem("reloading");
       } catch (e) {
         vuexContext.commit("setAuthError", e);
         console.error("[ERROR-signUserUp]", e);
@@ -114,8 +114,8 @@ export default {
         vuexContext.commit("setUser", userProfile);
 
         vuexContext.commit("setAuthLoading", false);
-        localStorage.setItem("auth-event", "");
-        localStorage.removeItem("auth-event");
+        localStorage.setItem("reloading", "");
+        localStorage.removeItem("reloading");
       } catch (e) {
         vuexContext.commit("setAuthError", e);
         console.error("[ERROR-signUserIn]", e);
@@ -147,8 +147,8 @@ export default {
         vuexContext.commit("setUser", null);
         vuexContext.commit("setAuthLoading", false);
         if (process.client) {
-          localStorage.setItem("auth-event", "");
-          localStorage.removeItem("auth-event");
+          localStorage.setItem("reloading", "");
+          localStorage.removeItem("reloading");
           location.reload(true)
         }
       } catch (e) {
@@ -178,8 +178,8 @@ export default {
           ...newUserContent
         });
         vuexContext.commit("setAuthLoading", false);
-        localStorage.setItem("auth-event", "");
-        localStorage.removeItem("auth-event");
+        localStorage.setItem("reloading", "");
+        localStorage.removeItem("reloading");
       } catch (e) {
         console.error("[ERROR-updateUserContent]", e);
       }
@@ -212,8 +212,8 @@ export default {
           email: newEmail
         });
         vuexContext.commit("setAuthLoading", false);
-        localStorage.setItem("auth-event", "");
-        localStorage.removeItem("auth-event");
+        localStorage.setItem("reloading", "");
+        localStorage.removeItem("reloading");
       } catch (e) {
         vuexContext.commit("setAuthError", e);
         console.error("[ERROR-updateUserEmail]", e);
@@ -235,8 +235,8 @@ export default {
         user = firebase.auth().currentUser; // RetrieveData
         await user.updatePassword(newPassword);
         vuexContext.commit("setAuthLoading", false);
-        localStorage.setItem("auth-event", "");
-        localStorage.removeItem("auth-event");
+        localStorage.setItem("reloading", "");
+        localStorage.removeItem("reloading");
       } catch (e) {
         vuexContext.commit("setAuthError", e);
         console.error("[ERROR-updateUserPassword]", e);
@@ -266,8 +266,8 @@ export default {
           };
           vuexContext.commit("setUser", updatedUser);
           vuexContext.commit("setAuthLoading", false);
-          localStorage.setItem("auth-event", "");
-          localStorage.removeItem("auth-event");
+          localStorage.setItem("reloading", "");
+          localStorage.removeItem("reloading");
           return;
         }
         let avatarObject = null;
@@ -309,8 +309,8 @@ export default {
         };
         vuexContext.commit("setUser", updatedUser);
         vuexContext.commit("setAuthLoading", false);
-        localStorage.setItem("auth-event", "");
-        localStorage.removeItem("auth-event");
+        localStorage.setItem("reloading", "");
+        localStorage.removeItem("reloading");
       } catch (e) {
         console.error("[ERROR-updateAvatar]", e);
       }
@@ -323,8 +323,8 @@ export default {
         const auth = firebase.auth();
         await auth.sendPasswordResetEmail(comfirmedEmail);
         vuexContext.commit("setAuthLoading", false);
-        localStorage.setItem("auth-event", "");
-        localStorage.removeItem("auth-event");
+        localStorage.setItem("reloading", "");
+        localStorage.removeItem("reloading");
       } catch (e) {
         vuexContext.commit("setAuthError", e);
         console.error("[ERROR-resetUserPassword]", e);
@@ -342,8 +342,8 @@ export default {
         );
         // user.reload()
         vuexContext.commit("setAuthLoading", false);
-        localStorage.setItem("auth-event", "");
-        localStorage.removeItem("auth-event");
+        localStorage.setItem("reloading", "");
+        localStorage.removeItem("reloading");
       } catch (e) {
         vuexContext.commit("setAuthError", e);
         console.error("[ERROR-handleResetPassword]", e);
@@ -369,8 +369,8 @@ export default {
           });
         }
         vuexContext.commit("setAuthLoading", false);
-        localStorage.setItem("auth-event", "");
-        localStorage.removeItem("auth-event");
+        localStorage.setItem("reloading", "");
+        localStorage.removeItem("reloading");
         return true;
       } catch (e) {
         vuexContext.commit("setAuthError", e);
@@ -427,8 +427,8 @@ export default {
         Cookie.remove("expirationDate");
         vuexContext.commit("setUser", null);
         vuexContext.commit("setAuthLoading", false);
-        localStorage.setItem("auth-event", "");
-        localStorage.removeItem("auth-event");
+        localStorage.setItem("reloading", "");
+        localStorage.removeItem("reloading");
       } catch (e) {
         vuexContext.commit("setAuthError", e);
         console.error("[ERROR-deleteUser]", e);
