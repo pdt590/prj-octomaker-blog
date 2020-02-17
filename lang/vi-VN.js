@@ -271,16 +271,17 @@ export default {
       success_message: "Cập nhật thành công"
     },
     email: {
-      title: "Email",
+      title: "Đổi Email",
       new_email_label: "Email mới",
       new_email_message: "Email không hợp lệ",
+      warning_email_message: "Nhập email mới",
       confirm_password_label: "Xác nhận mật khẩu",
       confirm_password_message: "Ít nhất 6 ký tự",
       save_btn: "Lưu",
       announce_message: "Kiểm tra hộp thư để kích hoạt email"
     },
     password: {
-      title: "Mật Khẩu",
+      title: "Đổi Mật Khẩu",
       password_label: "Mật khẩu",
       password_message: "Ít nhất 6 ký tự",
       new_password_label: "Mật khẩu mới",

@@ -112,23 +112,23 @@
                 </form>
               </b-tab-item>
               <!-- End info -->
-              <!-- Start email -->
+              <!-- Start new email -->
               <b-tab-item :label="$t('profile.email.title')">
                 <form>
                   <div style="padding-top: 1rem; padding-bottom: 2rem;">
                     <b-field
                       :label="$t('profile.email.new_email_label')"
-                      :type="$v.userEmail.$error ? `is-danger` : ``"
+                      :type="$v.newEmail.$error ? `is-danger` : ``"
                       :message="
-                        !$v.userEmail.email
+                        !$v.newEmail.email
                           ? $t('profile.email.new_email_message')
-                          : ``
+                          : (!$v.newEmail.isValidEmail ? $t('profile.email.warning_email_message') : ``)
                       "
                     >
                       <b-input
                         type="email"
-                        v-model.trim="userEmail"
-                        @blur="$v.userEmail.$touch()"
+                        v-model.trim="newEmail"
+                        @blur="$v.newEmail.$touch()"
                         icon="envelope"
                       ></b-input>
                     </b-field>
@@ -159,7 +159,7 @@
                         class="button is-info is-outlined"
                         :class="{ 'is-loading': authLoading }"
                         :disabled="
-                          $v.userEmail.$invalid ||
+                          $v.newEmail.$invalid ||
                             $v.confirmPasswordForNewEmail.$invalid
                         "
                         @click.prevent="onUpdateEmail"
@@ -170,8 +170,8 @@
                   </div>
                 </form>
               </b-tab-item>
-              <!-- End email -->
-              <!-- Start password -->
+              <!-- End new email -->
+              <!-- Start new password -->
               <b-tab-item :label="$t('profile.password.title')">
                 <form>
                   <div style="padding-top: 1rem; padding-bottom: 2rem;">
@@ -198,26 +198,26 @@
                     </b-field>
                     <b-field
                       :label="$t('profile.password.new_password_label')"
-                      :type="$v.userPassword.$error ? `is-danger` : ``"
+                      :type="$v.newPassword.$error ? `is-danger` : ``"
                       :message="
-                        !$v.userPassword.minLen
+                        !$v.newPassword.minLen
                           ? $t('profile.password.new_password_message')
                           : ``
                       "
                     >
                       <b-input
                         type="password"
-                        v-model.trim="userPassword"
-                        @blur="$v.userPassword.$touch()"
+                        v-model.trim="newPassword"
+                        @blur="$v.newPassword.$touch()"
                         password-reveal
                         icon="key"
                       ></b-input>
                     </b-field>
                     <b-field
                       :label="$t('profile.password.confirm_new_password_label')"
-                      :type="$v.confirmUserPassword.$error ? `is-danger` : ``"
+                      :type="$v.confirmNewPassword.$error ? `is-danger` : ``"
                       :message="
-                        $v.confirmUserPassword.$error
+                        $v.confirmNewPassword.$error
                           ? $t(
                               'profile.password.confirm_new_password_error_message'
                             )
@@ -226,8 +226,8 @@
                     >
                       <b-input
                         type="password"
-                        v-model.trim="confirmUserPassword"
-                        @blur="$v.confirmUserPassword.$touch()"
+                        v-model.trim="confirmNewPassword"
+                        @blur="$v.confirmNewPassword.$touch()"
                         password-reveal
                         icon="key"
                       ></b-input>
@@ -241,8 +241,8 @@
                         :class="{ 'is-loading': authLoading }"
                         :disabled="
                           $v.confirmPasswordForNewPassword.$invalid ||
-                            $v.userPassword.$invalid ||
-                            $v.confirmUserPassword.$invalid
+                            $v.newPassword.$invalid ||
+                            $v.confirmNewPassword.$invalid
                         "
                         @click.prevent="onUpdatePassword"
                       >
@@ -252,8 +252,8 @@
                   </div>
                 </form>
               </b-tab-item>
-              <!-- End password -->
-              <!-- Start avatar -->
+              <!-- End new password -->
+              <!-- Start new avatar -->
               <b-tab-item :label="$t('profile.avatar.title')">
                 <form>
                   <div style="padding-top: 1rem; padding-bottom: 2rem;">
@@ -262,7 +262,7 @@
                       <div class="level">
                         <div class="level-item">
                           <b-upload
-                            v-model="userNewAvatar"
+                            v-model="newAvatar"
                             @input="onAvatarChange"
                             drag-drop
                             :accept="acceptedImages"
@@ -284,45 +284,45 @@
                     </b-field>
                     <!-- End image upload -->
                     <div class="level">
-                      <div class="level-item" v-if="userOldAvatar">
+                      <div class="level-item" v-if="oldAvatar">
                         <figure class="image is-128x128 _image-frame">
                           <client-only>
                             <img
                               class="_image-preview"
-                              v-lazy="userOldAvatar.url"
+                              v-lazy="oldAvatar.url"
                               style="display: none"
                               onload="this.style.display = 'block'"
                               alt="user_avatar"
                             />
                           </client-only>
                           <span class="_image-size">{{
-                            userOldAvatar.metadata.size | fmBytes
+                            oldAvatar.metadata.size | fmBytes
                           }}</span>
                           <a
                             class="delete _image-button-delete"
-                            @click.prevent="userOldAvatar = null"
+                            @click.prevent="oldAvatar = null"
                           ></a>
                         </figure>
                       </div>
-                      <div class="level-item" v-if="userNewAvatar">
+                      <div class="level-item" v-if="newAvatar">
                         <figure class="image is-128x128 _image-frame">
                           <client-only>
                             <img
                               class="_image-preview"
-                              v-lazy="userPreviewAvatar.url"
+                              v-lazy="previewAvatar.url"
                               style="display: none"
                               onload="this.style.display = 'block'"
                               alt="preview_avatar"
                             />
                           </client-only>
                           <span class="_image-size">{{
-                            userPreviewAvatar.size | fmBytes
+                            previewAvatar.size | fmBytes
                           }}</span>
                           <a
                             class="delete _image-button-delete"
                             @click.prevent="
-                              userPreviewAvatar = null;
-                              userNewAvatar = null;
+                              previewAvatar = null;
+                              newAvatar = null;
                             "
                           ></a>
                         </figure>
@@ -344,7 +344,7 @@
                   </div>
                 </form>
               </b-tab-item>
-              <!-- End avatar -->
+              <!-- End new avatar -->
               <!-- Start delete account -->
               <b-tab-item :label="$t('profile.delete.title')">
                 <form>
@@ -410,8 +410,7 @@ import {
 export default {
   middleware: "server-client-auth",
   created() {
-    this.userEmail = this.user.email;
-    this.userOldAvatar = this.user.avatar;
+    this.oldAvatar = this.user.avatar;
     this.userContent = {
       username: this.user.username,
       fullname: this.user.fullname,
@@ -445,13 +444,13 @@ export default {
     isAvatarChanged() {
       if (this.user) {
         if (this.user.avatar) {
-          if (!this.userOldAvatar) {
+          if (!this.oldAvatar) {
             return true;
           } else {
             return false;
           }
         } else {
-          if (this.userNewAvatar) {
+          if (this.newAvatar) {
             return true;
           } else {
             return false;
@@ -468,18 +467,22 @@ export default {
       provinces: provinces,
       userContent: {},
 
-      userEmail: null,
+      // New email
+      newEmail: null,
       confirmPasswordForNewEmail: null,
 
-      userPassword: null,
-      confirmUserPassword: null,
+      // New password
+      newPassword: null,
+      confirmNewPassword: null,
       confirmPasswordForNewPassword: null,
 
+      // New avatar
       acceptedImages: acceptedImages,
-      userNewAvatar: null,
-      userPreviewAvatar: null,
-      userOldAvatar: null,
+      newAvatar: null,
+      previewAvatar: null,
+      oldAvatar: null,
 
+      // Delete account
       confirmPasswordForDeleting: null
     };
   },
@@ -495,7 +498,7 @@ export default {
       }
     },
 
-    userEmail: {
+    newEmail: {
       required,
       email,
       isValidEmail: not(
@@ -520,12 +523,12 @@ export default {
       required,
       minLen: minLength(6)
     },
-    userPassword: {
+    newPassword: {
       required,
       minLen: minLength(6)
     },
-    confirmUserPassword: {
-      isValidPassword: sameAs("userPassword")
+    confirmNewPassword: {
+      isValidPassword: sameAs("newPassword")
     },
 
     confirmPasswordForDeleting: {
@@ -554,7 +557,7 @@ export default {
     async onUpdateEmail() {
       await this.$store.dispatch("updateUserEmail", {
         confirmPassword: this.confirmPasswordForNewEmail,
-        newEmail: this.userEmail
+        newEmail: this.newEmail
       });
       if (this.authLoading) {
         this.$store.commit("setAuthLoading", false);
@@ -574,7 +577,7 @@ export default {
     async onUpdatePassword() {
       await this.$store.dispatch("updateUserPassword", {
         confirmPassword: this.confirmPasswordForNewPassword,
-        newPassword: this.userPassword
+        newPassword: this.newPassword
       });
       if (this.authLoading) {
         this.$store.commit("setAuthLoading", false);
@@ -592,7 +595,7 @@ export default {
       }
     },
     async onUpdateAvatar() {
-      await this.$store.dispatch("updateUserAvatar", this.userNewAvatar);
+      await this.$store.dispatch("updateUserAvatar", this.newAvatar);
       if (this.authLoading) {
         this.$store.commit("setAuthLoading", false);
         this.$buefy.toast.open({
@@ -635,10 +638,10 @@ export default {
       });
     },
     onAvatarChange() {
-      this.userPreviewAvatar = null;
-      this.userPreviewAvatar = {
-        url: URL.createObjectURL(this.userNewAvatar),
-        size: this.userNewAvatar.size
+      this.previewAvatar = null;
+      this.previewAvatar = {
+        url: URL.createObjectURL(this.newAvatar),
+        size: this.newAvatar.size
       };
     }
   },

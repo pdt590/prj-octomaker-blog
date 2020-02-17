@@ -274,16 +274,17 @@ export default {
       success_message: "Update successfully"
     },
     email: {
-      title: "Email",
-      new_email_label: "Change email",
+      title: "Change Email",
+      new_email_label: "New email",
       new_email_message: "Invalid email",
+      warning_email_message: "Enter new email",
       confirm_password_label: "Confirm password",
       confirm_password_message: "At least 6 characters",
       save_btn: "Save",
       announce_message: "Check inbox to activate your email"
     },
     password: {
-      title: "Password",
+      title: "Change Password",
       password_label: "Password",
       password_message: "At least 6 characters",
       new_password_label: "New password",
