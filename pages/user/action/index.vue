@@ -65,8 +65,7 @@
     <!-- End resetPassword -->
     <!-- Start verifyEmail -->
     <div
-      class="has-text-centered"
-      style="padding-top: 5rem"
+      class="has-text-centered _card-input"
       v-else-if="mode === `verifyEmail`"
     >
       <div v-if="!authLoading && emailVerified !== null">
@@ -85,8 +84,7 @@
     <!-- End verifyEmail -->
     <!-- Start recoverEmail -->
     <div
-      class="has-text-centered"
-      style="padding-top: 5rem"
+      class="has-text-centered _card-input"
       v-else-if="mode === `recoverEmail`"
     >
       <div v-if="!authLoading && emailRecoverd !== null">
@@ -192,7 +190,7 @@ export default {
           type: "is-danger"
         });
       } else {
-        this.$router.push(`/${lang}/user/join`);
+        this.$router.push(this.localePath("/user/join"));
         this.$buefy.toast.open({
           duration: 3000,
           message: this.$t("action.reset_password.toast.message"),

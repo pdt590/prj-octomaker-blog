@@ -1,7 +1,7 @@
 <template>
-  <div class="hero" style="padding-top: 5rem">
+  <div class="hero">
     <div class="hero-body">
-      <div class="container has-text-centered">
+      <div class="container has-text-centered _card-input">
         <p class="title is-3" v-if="error.statusCode === 404">
           {{ $t('error.page_not_found') }}
         </p>

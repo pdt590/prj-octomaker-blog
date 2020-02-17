@@ -12,7 +12,7 @@
 - `Change Category list display on navbar`
 - Recheck logic in user/action page and auth store functions
 - Add Facebook & Google login
-- Unify code language using English or Vietnamese or i18n
+- `Unify code language using English or Vietnamese or i18n`
 - `Fix autosave issue on login and signup form`
 - Re-check default style - [Refer](https://dev.to/overscoremedia/use-bulma-and-fontawesome-5-with-nuxt-js-11le)
   - `Button position on modals`
@@ -23,8 +23,10 @@
   - `Change new float style in each post`
   - Change font (search the best font for web)
   - Redesign mobile layout (search bulma mobile layout)
+  - Recheck error and user/action style
 - Add recommendation posts in each post
   - Add carousel - [Refer](https://buefy.org/documentation/carousel/)
+  - Refer new card on facebook
 - `Add section highlight for each post (Markdown TOC - Table of Content)` - [Refer](https://www.jqueryscript.net/blog/best-table-contents-plugins.html)
 - Add like/share fb button
   - `Add popup fb share`
@@ -66,3 +68,5 @@
 - Fix reload issue when deleting a post in mgmt page
 - `Fix 'Password field is not contained in a form' issue`
 - Fix and rename variables in user/profile page
+- Fix delete account issue
+- Add post lazy load for mgmt page

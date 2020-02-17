@@ -76,6 +76,7 @@ export default {
     async onResetPassword() {
       await this.$store.dispatch("resetUserPassword", this.formData.email);
       if (this.authLoading) {
+        this.$store.commit("setAuthLoading", false);
         this.$buefy.toast.open({
           duration: 3000,
           message: authMessage(this.authError),

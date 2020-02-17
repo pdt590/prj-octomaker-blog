@@ -537,6 +537,7 @@ export default {
     async onUpdateContent() {
       await this.$store.dispatch("updateUserContent", this.userContent);
       if (this.authLoading) {
+        this.$store.commit("setAuthLoading", false);
         this.$buefy.toast.open({
           duration: 3000,
           message: "onUpdateContent() Error",
@@ -556,6 +557,7 @@ export default {
         newEmail: this.userEmail
       });
       if (this.authLoading) {
+        this.$store.commit("setAuthLoading", false);
         this.$buefy.toast.open({
           duration: 3000,
           message: authMessage(this.authError),
@@ -575,6 +577,7 @@ export default {
         newPassword: this.userPassword
       });
       if (this.authLoading) {
+        this.$store.commit("setAuthLoading", false);
         this.$buefy.toast.open({
           duration: 3000,
           message: authMessage(this.authError),
@@ -591,6 +594,7 @@ export default {
     async onUpdateAvatar() {
       await this.$store.dispatch("updateUserAvatar", this.userNewAvatar);
       if (this.authLoading) {
+        this.$store.commit("setAuthLoading", false);
         this.$buefy.toast.open({
           duration: 3000,
           message: "onUpdateAvatar() Error",
@@ -618,6 +622,7 @@ export default {
             this.confirmPasswordForDeleting
           );
           if (this.authLoading) {
+            this.$store.commit("setAuthLoading", false);
             this.$buefy.toast.open({
               duration: 3000,
               message: authMessage(this.authError),

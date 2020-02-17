@@ -21,7 +21,6 @@
           <nuxt-link
             class="is-size-5"
             :to="localePath(`/posts/${postUrl}`)"
-            target="_blank"
           >
             {{ postTitle }}
           </nuxt-link>
@@ -40,7 +39,6 @@
         <nuxt-link
           class="button is-info is-outlined"
           :to="localePath(`/posts/${postUrl}/edit-post`)"
-          target="_blank"
           >{{ $t("card_post_horizontal.edit_btn") }}</nuxt-link
         >
         <a class="button is-danger is-outlined" @click="onDelete">{{

@@ -70,7 +70,6 @@ export default {
     },
 
     async signUserIn(vuexContext, payload) {
-      console.log(payload)
       vuexContext.commit("setAuthLoading", true);
       vuexContext.commit("clearAuthError");
       try {
@@ -199,7 +198,7 @@ export default {
           user.email,
           confirmPassword
         );
-        await user.reauthenticateAndRetrieveDataWithCredential(credential);
+        await user.reauthenticateWithCredential(credential);
         user = firebase.auth().currentUser; // RetrieveData
         await user.updateEmail(newEmail);
         await user.sendEmailVerification();
@@ -232,7 +231,7 @@ export default {
           user.email,
           confirmPassword
         );
-        await user.reauthenticateAndRetrieveDataWithCredential(credential);
+        await user.reauthenticateWithCredential(credential);
         user = firebase.auth().currentUser; // RetrieveData
         await user.updatePassword(newPassword);
         vuexContext.commit("setAuthLoading", false);
@@ -418,7 +417,7 @@ export default {
           user.email,
           confirmPassword
         );
-        await user.reauthenticateAndRetrieveDataWithCredential(credential);
+        await user.reauthenticateWithCredential(credential);
         user = firebase.auth().currentUser;
         await user.delete();
         if (userAvatar) {
@@ -444,7 +443,7 @@ export default {
           loadedUser.email,
           confirmPassword
         );
-        await user.reauthenticateAndRetrieveDataWithCredential(credential);
+        await user.reauthenticateWithCredential(credential);
       } catch (e) {
         console.error("[ERROR-isCorrectPassword]", e);
       }
