@@ -4,7 +4,7 @@
     <nav class="navbar _navbar is-fixed-top">
       <div class="container">
         <div class="navbar-brand">
-          <nuxt-link class="navbar-item" to="/">
+          <nuxt-link class="navbar-item" :to="localePath('/')">
             <figure>
               <client-only>
                 <img
@@ -24,7 +24,7 @@
               <form>
                 <b-field position="is-centered">
                   <b-input
-                    placeholder="Search..."
+                    :placeholder="$t('navbar.search_placeholder')"
                     type="search"
                     icon="search"
                     v-model="searchKey"
@@ -35,7 +35,7 @@
                       type="submit"
                       @click.prevent="onSearch"
                     >
-                      Tìm Kiếm
+                      {{ $t('navbar.search_btn') }}
                     </button>
                   </p>
                 </b-field>
@@ -45,11 +45,38 @@
           <div class="navbar-end">
             <div
               class="navbar-item"
+              v-if="user && $route.path !== localePath('/posts/new-post')"
+            >
+              <nuxt-link
+                class="button is-info is-outlined"
+                :to="localePath('/posts/new-post')"
+              >
+                <strong>{{ $t('navbar.new_post_btn') }}</strong>
+              </nuxt-link>
+            </div>
+            <div class="navbar-item">
+              <nuxt-link
+                v-if="$i18n.locale === 'en'"
+                class="button is-info is-outlined"
+                :to="switchLocalePath('vi')"
+              >
+                <strong>Vi</strong>
+              </nuxt-link>
+              <nuxt-link
+                v-else
+                class="button is-info is-outlined"
+                :to="switchLocalePath('en')"
+              >
+                <strong>En</strong>
+              </nuxt-link>
+            </div>
+            <div
+              class="navbar-item"
               v-if="
                 !user &&
-                  $route.path !== '/user/join' &&
-                  $route.path !== '/user/activekey' &&
-                  $route.path !== '/user/resetpassword'
+                  !$route.path.includes('/user/join') &&
+                  !$route.path.includes('/user/action') &&
+                  !$route.path.includes('/user/resetpassword')
               "
             >
               <div class="buttons">
@@ -57,25 +84,14 @@
                   class="button is-info is-outlined"
                   @click="isModalJoinActive = true"
                 >
-                  <strong>Đăng nhập</strong>
+                  <strong>{{ $t('navbar.login_btn') }}</strong>
                 </a>
               </div>
-            </div>
-            <div
-              class="navbar-item"
-              v-if="user && $route.path !== '/posts/new-post'"
-            >
-              <nuxt-link
-                class="button is-info is-outlined"
-                to="/posts/new-post"
-              >
-                <strong>Tạo bài viết</strong>
-              </nuxt-link>
             </div>
             <div class="navbar-item has-dropdown is-hoverable" v-if="user">
               <b-tooltip
                 :active="!isUserActive"
-                label="Tài khoản chưa được kích hoạt"
+                :label="$t('navbar.user_tooltip_message')"
                 position="is-right"
                 type="is-danger"
               >
@@ -97,17 +113,17 @@
                 <div class="navbar-dropdown _navbar-dropdown is-right">
                   <nuxt-link
                     class="navbar-item _navbar-dropdown__item"
-                    to="/user/profile"
+                    :to="localePath('/user/profile')"
                   >
                     <b-icon icon="cog"></b-icon>
-                    <p class="is-size-6">Cài đặt</p>
+                    <p class="is-size-6">{{ $t('navbar.profile_link') }}</p>
                   </nuxt-link>
                   <nuxt-link
                     class="navbar-item _navbar-dropdown__item"
-                    to="/user/mgmt"
+                    :to="localePath('/user/mgmt')"
                   >
                     <b-icon icon="newspaper"></b-icon>
-                    <p class="is-size-6">Quản lý</p>
+                    <p class="is-size-6">{{ $t('navbar.mgmt_link') }}</p>
                   </nuxt-link>
                   <hr class="navbar-divider" />
                   <a
@@ -115,7 +131,7 @@
                     @click="onLogout"
                   >
                     <b-icon icon="sign-out-alt"></b-icon>
-                    <p class="is-size-6">Thoát</p>
+                    <p class="is-size-6">{{ $t('navbar.signout_link') }}</p>
                   </a>
                 </div>
               </b-tooltip>
@@ -134,11 +150,11 @@
         <div class="navbar-menu">
           <div class="navbar-start">
             <div class="navbar-item has-dropdown is-hoverable">
-              <a class="navbar-link _navbar-link-category">Danh mục</a>
+              <a class="navbar-link _navbar-link-category">{{ $t('navbar.category_link') }}</a>
               <div class="navbar-dropdown">
                 <nuxt-link
                   class="navbar-item _navbar-dropdown__item"
-                  :to="`/query/${category.id}`"
+                  :to="localePath(`/query/${category.id}`)"
                   v-for="(category, i) in categories"
                   :key="i"
                 >
@@ -212,14 +228,16 @@ export default {
         });
       } else {
         if (this.$route.params.postUrl) {
-          this.$router.push(`/posts/${this.$route.params.postUrl}`);
+          this.$router.push(
+            this.localePath(`/posts/${this.$route.params.postUrl}`)
+          );
         } else {
-          this.$router.push("/");
+          this.$router.push(this.localePath("/"));
         }
       }
     },
     onSearch() {
-      location.href = `/search?key=${this.searchKey}`;
+      location.href = this.localePath(`/search?key=${this.searchKey}`);
     }
   }
 };

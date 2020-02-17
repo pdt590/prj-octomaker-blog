@@ -23,6 +23,7 @@
     "github-markdown-css": "^3.0.1",
     "js-cookie": "^2.2.1",
     "nuxt": "^2.11.0",
+    "nuxt-i18n": "^6.5.0",
     "prismjs": "^1.19.0",
     "simplemde": "^1.11.2",
     "tocbot": "^4.10.0",

@@ -3,16 +3,20 @@
     <!-- Start resetPassword -->
     <div class="columns" v-if="mode === `resetPassword`">
       <div class="column is-4 is-offset-4">
-        <div class="card" style="margin-top: 2rem">
+        <div class="card _card-input">
           <header class="card-header">
-            <p class="card-header-title is-size-4">Yêu cầu đổi mật khẩu</p>
+            <p class="card-header-title is-size-4">
+              {{ $t("action.reset_password.title") }}
+            </p>
           </header>
           <div class="card-content">
             <b-field
-              label="Mật khẩu mới*"
+              :label="$t('action.reset_password.new_password.label')"
               :type="$v.formData.newPassword.$error ? `is-danger` : ``"
               :message="
-                !$v.formData.newPassword.minlen ? `Tối thiểu 6 kí tự` : ``
+                !$v.formData.newPassword.minlen
+                  ? $t('action.reset_password.new_password.message')
+                  : ``
               "
             >
               <b-input
@@ -23,13 +27,15 @@
               ></b-input>
             </b-field>
             <b-field
-              label="Xác nhận mật khẩu mới*"
+              :label="$t('action.reset_password.confirm_new_password.label')"
               :type="$v.formData.confirmNewPassword.$error ? `is-danger` : ``"
               :message="
                 !$v.formData.confirmNewPassword.minlen
-                  ? `Tối thiểu 6 kí tự`
+                  ? $t('action.reset_password.confirm_new_password.message')
                   : $v.formData.confirmNewPassword.$error
-                  ? `Mật khẩu không trùng khớp`
+                  ? $t(
+                      'action.reset_password.confirm_new_password.error_message'
+                    )
                   : ``
               "
             >
@@ -41,7 +47,7 @@
               ></b-input>
             </b-field>
           </div>
-          <footer class="card-footer">
+          <footer class="card-footer" style="border-top: none; padding: 0.5rem">
             <div class="card-footer-item">
               <button
                 class="button is-info is-outlined"
@@ -49,7 +55,7 @@
                 :disabled="$v.formData.$invalid"
                 @click="onResetPassword"
               >
-                Gửi yêu cầu
+                {{ $t("action.reset_password.send_btn") }}
               </button>
             </div>
           </footer>
@@ -65,13 +71,15 @@
     >
       <div v-if="!authLoading && emailVerified !== null">
         <p class="title is-3" v-if="emailVerified">
-          Kích hoạt tài khoản thành công!
+          {{ $t("action.verify_email.success_message") }}
         </p>
-        <p class="title is-3" v-else>Mã kích hoạt không hợp lệ!</p>
+        <p class="title is-3" v-else>
+          {{ $t("action.verify_email.error_message") }}
+        </p>
         <br />
-        <nuxt-link class="subtitle is-4 has-text-link" to="/"
-          >Quay về trang chủ</nuxt-link
-        >
+        <nuxt-link class="subtitle is-4 has-text-link" :to="localePath('/')">{{
+          $t("action.verify_email.home_link")
+        }}</nuxt-link>
       </div>
     </div>
     <!-- End verifyEmail -->
@@ -83,15 +91,21 @@
     >
       <div v-if="!authLoading && emailRecoverd !== null">
         <p v-if="emailRecoverd">
-          <span class="title is-3">Khôi phục email thành công!</span>
+          <span class="title is-3">{{
+            $t("action.recover_email.success_message")
+          }}</span>
           <br />
-          <span class="title is-3">Kiểm tra hộp thư để đổi mật khẩu</span>
+          <span class="title is-3">{{
+            $t("action.recover_email.announce_message")
+          }}</span>
         </p>
-        <p class="title is-3" v-else>Mã kích hoạt không hợp lệ!</p>
+        <p class="title is-3" v-else>
+          {{ $t("action.recover_email.error_message") }}
+        </p>
         <br />
-        <nuxt-link class="subtitle is-4 has-text-link" to="/"
-          >Quay về trang chủ</nuxt-link
-        >
+        <nuxt-link class="subtitle is-4 has-text-link" :to="localePath('/')">{{
+          $t("action.recover_email.home_link")
+        }}</nuxt-link>
       </div>
     </div>
     <!-- End recoverEmail -->
@@ -131,6 +145,9 @@ export default {
     },
     apiKey() {
       return this.$route.query.apiKey;
+    },
+    lang() {
+      return this.$route.query.lang;
     }
   },
   data() {
@@ -175,14 +192,19 @@ export default {
           type: "is-danger"
         });
       } else {
-        this.$router.push("/user/join");
+        this.$router.push(`/${lang}/user/join`);
         this.$buefy.toast.open({
           duration: 3000,
-          message: "Mật khẩu thay đổi thành công",
+          message: this.$t("action.reset_password.toast.message"),
           type: "is-success"
         });
       }
     }
+  },
+  head() {
+    return {
+      title: this.$t("action.head.title")
+    };
   }
 };
 </script>

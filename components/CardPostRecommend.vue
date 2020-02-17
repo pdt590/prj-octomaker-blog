@@ -33,26 +33,6 @@
             <p class="title is-4">{{ postTitle }}</p>
           </div>
         </div>
-        <p>
-          {{ postDescription | fmString(120) }}
-        </p>
-        <div class="level">
-          <div class="level-left">
-            <div class="tags">
-              <span
-                v-for="(tag, index) in postTags"
-                :key="index"
-                class="tag is-warning is-small"
-                >{{ tag }}</span
-              >
-            </div>
-          </div>
-          <div class="level-right">
-            <b-icon pack="far" icon="clock" size="is-small"> </b-icon>
-            &nbsp;
-            <p class="is-size-7">{{ postUpdatedDate | fmDate }}</p>
-          </div>
-        </div>
       </div>
     </div>
   </div>

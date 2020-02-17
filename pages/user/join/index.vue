@@ -3,21 +3,26 @@
     <div class="columns">
       <div class="column is-4 is-offset-4">
         <!-- Start login -->
-        <div class="card _card-join" v-show="!isSignup">
+        <div class="card _card-input" v-show="!isSignup">
           <header class="card-header">
-            <p class="card-header-title is-size-4">Đăng nhập</p>
+            <p class="card-header-title is-size-4">
+              {{ $t("join.login.title") }}
+            </p>
           </header>
           <div class="card-content">
             <b-field
               label="Email"
               :type="$v.formDataLogin.email.$error ? `is-danger` : ``"
-              :message="!$v.formDataLogin.email.email ? `Invalid email` : ``"
+              :message="
+                !$v.formDataLogin.email.email
+                  ? $t('join.login.email_message')
+                  : ``
+              "
             >
               <b-input
                 type="email"
                 v-model.trim="formDataLogin.email"
                 @blur="$v.formDataLogin.email.$touch()"
-                placeholder="Nhập Email"
               ></b-input>
             </b-field>
 
@@ -25,7 +30,9 @@
               label="Password"
               :type="$v.formDataLogin.password.$error ? `is-danger` : ``"
               :message="
-                !$v.formDataLogin.password.minlen ? `At least 6 characters` : ``
+                !$v.formDataLogin.password.minlen
+                  ? $t('join.login.password_message')
+                  : ``
               "
             >
               <b-input
@@ -33,7 +40,6 @@
                 v-model.trim="formDataLogin.password"
                 @blur="$v.formDataLogin.password.$touch()"
                 password-reveal
-                placeholder="Nhập mật khẩu"
               ></b-input>
             </b-field>
             <!-- <b-checkbox>Remember me</b-checkbox> -->
@@ -45,10 +51,14 @@
             >
               <p>
                 <a @click="isSignup = !isSignup">{{
-                  isSignup ? `Đăng nhập?` : `Đăng ký?`
+                  isSignup
+                    ? $t("join.login.login_text")
+                    : $t("join.signup.signup_text")
                 }}</a>
                 <br />
-                <nuxt-link to="/user/resetpassword">Quên mật khẩu?</nuxt-link>
+                <nuxt-link :to="localePath('/user/resetpassword')">{{
+                  $t("join.login.forget_password_link")
+                }}</nuxt-link>
               </p>
               <button
                 class="button is-info is-outlined"
@@ -56,16 +66,18 @@
                 :disabled="$v.formDataLogin.$invalid"
                 @click="onLogin"
               >
-                Đăng nhập
+                {{ $t("join.login.login_btn") }}
               </button>
             </div>
           </footer>
         </div>
         <!-- End login -->
         <!-- Start signup -->
-        <div class="card _card-join" v-show="isSignup">
+        <div class="card _card-input" v-show="isSignup">
           <header class="card-header">
-            <p class="card-header-title is-size-4">Đăng ký</p>
+            <p class="card-header-title is-size-4">
+              {{ $t("join.signup.title") }}
+            </p>
           </header>
           <div class="card-content">
             <b-field
@@ -73,7 +85,7 @@
               :type="$v.formDataSignup.username.$error ? `is-danger` : ``"
               :message="
                 !$v.formDataSignup.username.minlen
-                  ? `At least 6 characters`
+                  ? $t('join.signup.username_message')
                   : ``
               "
             >
@@ -81,20 +93,22 @@
                 type="text"
                 v-model.trim="formDataSignup.username"
                 @blur="$v.formDataSignup.username.$touch()"
-                placeholder="Nhập username"
               ></b-input>
             </b-field>
 
             <b-field
               label="Email"
               :type="$v.formDataSignup.email.$error ? `is-danger` : ``"
-              :message="!$v.formDataSignup.email.email ? `Invalid email` : ``"
+              :message="
+                !$v.formDataSignup.email.email
+                  ? $t('join.signup.email_message')
+                  : ``
+              "
             >
               <b-input
                 type="email"
                 v-model.trim="formDataSignup.email"
                 @blur="$v.formDataSignup.email.$touch()"
-                placeholder="Nhập email"
               ></b-input>
             </b-field>
 
@@ -103,7 +117,7 @@
               :type="$v.formDataSignup.password.$error ? `is-danger` : ``"
               :message="
                 !$v.formDataSignup.password.minlen
-                  ? `At least 6 characters`
+                  ? $t('join.signup.password_message')
                   : ``
               "
             >
@@ -112,7 +126,6 @@
                 v-model.trim="formDataSignup.password"
                 @blur="$v.formDataSignup.password.$touch()"
                 password-reveal
-                placeholder="Nhập mật khẩu"
               ></b-input>
             </b-field>
             <!-- <b-checkbox>Remember me</b-checkbox> -->
@@ -123,7 +136,9 @@
               style="justify-content: space-between"
             >
               <a @click="isSignup = !isSignup">{{
-                isSignup ? `Đăng nhập?` : `Đăng ký?`
+                isSignup
+                  ? $t("join.login.login_text")
+                  : $t("join.signup.signup_text")
               }}</a>
               <button
                 class="button is-info is-outlined"
@@ -131,7 +146,7 @@
                 :disabled="$v.formDataSignup.$invalid"
                 @click="onSignup"
               >
-                Đăng ký
+                {{ $t("join.signup.signup_btn") }}
               </button>
             </div>
           </footer>
@@ -206,10 +221,10 @@ export default {
           type: "is-danger"
         });
       } else {
-        this.$router.push("/");
+        this.$router.push(this.localePath("/"));
         this.$buefy.toast.open({
           duration: 3000,
-          message: "Kiểm tra hộp thư để kích hoạt tài khoản",
+          message: this.$t("join.signup.toast.message"),
           type: "is-warning"
         });
       }
@@ -224,18 +239,18 @@ export default {
           type: "is-danger"
         });
       } else {
-        this.$router.push("/");
+        this.$router.push(this.localePath("/"));
       }
     }
   },
   head() {
     return {
-      title: "Đăng nhập/Đăng ký",
+      title: this.$t("join.head.title"),
       meta: [
         {
           hid: "description",
           name: "description",
-          content: "Đăng nhập-Đăng ký"
+          content: this.$t("join.head.content")
         }
       ]
     };

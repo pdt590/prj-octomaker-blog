@@ -2,6 +2,7 @@
   <div class="container">
     <div class="columns">
       <div class="column is-3">
+        <!-- Start avatar card -->
         <div style="position: sticky; top: 8rem;">
           <div class="card">
             <div class="card-content">
@@ -26,19 +27,22 @@
             </div>
           </div>
         </div>
+        <!-- End avatar card -->
       </div>
       <div class="column is-9">
+        <!-- Start user profile -->
         <div class="card">
           <div class="card-content">
             <b-tabs type="is-boxed">
-              <b-tab-item label="Thông tin">
+              <!-- Start info -->
+              <b-tab-item :label="$t('profile.info.title')">
                 <div style="padding-top: 1rem; padding-bottom: 2rem;">
                   <b-field
-                    label="Username"
+                    :label="$t('profile.info.username_label')"
                     :type="$v.userContent.username.$error ? `is-danger` : ``"
                     :message="
                       !$v.userContent.username.minLen
-                        ? `At least 6 characters`
+                        ? $t('profile.info.username_message')
                         : ``
                     "
                   >
@@ -48,7 +52,7 @@
                       icon="user-circle"
                     ></b-input>
                   </b-field>
-                  <b-field label="Họ và tên">
+                  <b-field :label="$t('profile.info.fullname_label')">
                     <b-input
                       v-model.trim="userContent.fullname"
                       icon="id-card"
@@ -56,11 +60,11 @@
                   </b-field>
 
                   <b-field
-                    label="Số điện thoại"
+                    :label="$t('profile.info.phone_label')"
                     :type="$v.userContent.phone.$error ? `is-danger` : ``"
                     :message="
                       !$v.userContent.phone.numeric
-                        ? `Invalid phone number`
+                        ? $t('profile.info.phone_message')
                         : ``
                     "
                   >
@@ -73,13 +77,13 @@
                   </b-field>
 
                   <b-field grouped>
-                    <b-field label="Địa chỉ" expanded>
+                    <b-field :label="$t('profile.info.address_label')" expanded>
                       <b-input
                         v-model="userContent.address"
                         icon="map-marker-alt"
                       ></b-input>
                     </b-field>
-                    <b-field label="Tỉnh/Thành">
+                    <b-field :label="$t('profile.info.province_label')">
                       <b-select v-model="userContent.province">
                         <option v-for="(province, i) in provinces" :key="i">{{
                           province
@@ -97,18 +101,23 @@
                       :disabled="$v.userContent.$invalid"
                       @click="onUpdateContent"
                     >
-                      Lưu thay đổi
+                      {{ $t("profile.info.save_btn") }}
                     </button>
                   </div>
                 </div>
               </b-tab-item>
-
-              <b-tab-item label="Email">
+              <!-- End info -->
+              <!-- Start email -->
+              <b-tab-item :label="$t('profile.email.title')">
                 <div style="padding-top: 1rem; padding-bottom: 2rem;">
                   <b-field
-                    label="Thay đổi Email"
+                    :label="$t('profile.email.new_email_label')"
                     :type="$v.userEmail.$error ? `is-danger` : ``"
-                    :message="!$v.userEmail.email ? `Invalid email` : ``"
+                    :message="
+                      !$v.userEmail.email
+                        ? $t('profile.email.new_email_message')
+                        : ``
+                    "
                   >
                     <b-input
                       type="email"
@@ -118,13 +127,13 @@
                     ></b-input>
                   </b-field>
                   <b-field
-                    label="Xác nhận mật khẩu"
+                    :label="$t('profile.email.confirm_password_label')"
                     :type="
                       $v.confirmPasswordForNewEmail.$error ? `is-danger` : ``
                     "
                     :message="
                       !$v.confirmPasswordForNewEmail.minLen
-                        ? `At least 6 characters`
+                        ? $t('profile.email.confirm_password_message')
                         : ``
                     "
                   >
@@ -149,22 +158,23 @@
                       "
                       @click="onUpdateEmail"
                     >
-                      Lưu thay đổi
+                      {{ $t("profile.email.save_btn") }}
                     </button>
                   </div>
                 </div>
               </b-tab-item>
-
-              <b-tab-item label="Mật khẩu">
+              <!-- End email -->
+              <!-- Start password -->
+              <b-tab-item :label="$t('profile.password.title')">
                 <div style="padding-top: 1rem; padding-bottom: 2rem;">
                   <b-field
-                    label="Mật khẩu cũ"
+                    :label="$t('profile.password.password_label')"
                     :type="
                       $v.confirmPasswordForNewPassword.$error ? `is-danger` : ``
                     "
                     :message="
                       !$v.confirmPasswordForNewPassword.minLen
-                        ? `At least 6 characters`
+                        ? $t('profile.password.password_message')
                         : ``
                     "
                   >
@@ -177,10 +187,12 @@
                     ></b-input>
                   </b-field>
                   <b-field
-                    label="Mật khẩu mới"
+                    :label="$t('profile.password.new_password_label')"
                     :type="$v.userPassword.$error ? `is-danger` : ``"
                     :message="
-                      !$v.userPassword.minLen ? `At least 6 characters` : ``
+                      !$v.userPassword.minLen
+                        ? $t('profile.password.new_password_message')
+                        : ``
                     "
                   >
                     <b-input
@@ -192,10 +204,14 @@
                     ></b-input>
                   </b-field>
                   <b-field
-                    label="Xác nhận mật khẩu mới"
+                    :label="$t('profile.password.confirm_new_password_label')"
                     :type="$v.confirmUserPassword.$error ? `is-danger` : ``"
                     :message="
-                      $v.confirmUserPassword.$error ? `Password isn't same` : ``
+                      $v.confirmUserPassword.$error
+                        ? $t(
+                            'profile.password.confirm_new_password_error_message'
+                          )
+                        : ``
                     "
                   >
                     <b-input
@@ -220,16 +236,17 @@
                       "
                       @click="onUpdatePassword"
                     >
-                      Lưu thay đổi
+                      {{ $t("profile.password.save_btn") }}
                     </button>
                   </div>
                 </div>
               </b-tab-item>
-
-              <b-tab-item label="Avatar">
+              <!-- End password -->
+              <!-- Start avatar -->
+              <b-tab-item :label="$t('profile.avatar.title')">
                 <div style="padding-top: 1rem; padding-bottom: 2rem;">
                   <!-- Start image upload -->
-                  <b-field label="Avatar">
+                  <b-field :label="$t('profile.avatar.avatar_label')">
                     <div class="level">
                       <div class="level-item">
                         <b-upload
@@ -243,7 +260,7 @@
                               <p>
                                 <b-icon icon="upload" size="is-large"></b-icon>
                               </p>
-                              <p>Upload avatar cho tài khoản</p>
+                              <p>{{ $t("profile.avatar.placeholder") }}</p>
                             </div>
                           </section>
                         </b-upload>
@@ -306,22 +323,23 @@
                       :disabled="!isAvatarChanged"
                       @click="onUpdateAvatar"
                     >
-                      Lưu thay đổi
+                      {{ $t("profile.avatar.save_btn") }}
                     </button>
                   </div>
                 </div>
               </b-tab-item>
-
-              <b-tab-item label="Xóa tài khoản">
+              <!-- End avatar -->
+              <!-- Start delete account -->
+              <b-tab-item :label="$t('profile.delete.title')">
                 <div style="padding-top: 1rem; padding-bottom: 2rem;">
                   <b-field
-                    label="Xác nhận mật khẩu"
+                    :label="$t('profile.delete.confirm_password_label')"
                     :type="
                       $v.confirmPasswordForDeleting.$error ? `is-danger` : ``
                     "
                     :message="
                       !$v.confirmPasswordForDeleting.minLen
-                        ? `At least 6 characters`
+                        ? $t('profile.delete.confirm_password_message')
                         : ``
                     "
                   >
@@ -343,14 +361,16 @@
                       :disabled="$v.confirmPasswordForDeleting.$invalid"
                       @click="onDelete"
                     >
-                      Xóa tài khoản
+                      {{ $t('profile.delete.delete_btn') }}
                     </button>
                   </div>
                 </div>
               </b-tab-item>
+              <!-- End delete account -->
             </b-tabs>
           </div>
         </div>
+        <!-- End user profile -->
       </div>
     </div>
   </div>
@@ -507,7 +527,7 @@ export default {
       } else {
         this.$buefy.toast.open({
           duration: 3000,
-          message: "Cập nhật thành công",
+          message: this.$t('profile.info.success_message'),
           type: "is-success"
         });
       }
@@ -526,7 +546,7 @@ export default {
       } else {
         this.$buefy.toast.open({
           duration: 3000,
-          message: "Kiểm tra hộp thư mới để kích hoạt tài khoản",
+          message: this.$t('profile.email.announce_message'),
           type: "is-warning"
         });
       }
@@ -545,7 +565,7 @@ export default {
       } else {
         this.$buefy.toast.open({
           duration: 3000,
-          message: "Cập nhật thành công",
+          message: this.$t('profile.password.success_message'),
           type: "is-success"
         });
       }
@@ -561,17 +581,17 @@ export default {
       } else {
         this.$buefy.toast.open({
           duration: 3000,
-          message: "Cập nhật thành công",
+          message: this.$t('profile.avatar.success_message'),
           type: "is-success"
         });
       }
     },
     onDelete() {
       this.$buefy.dialog.confirm({
-        title: "Deleting Post",
-        message:
-          "Are you sure you want to <b>delete</b> your account? This action cannot be undone.",
-        confirmText: "Delete",
+        title: this.$t('profile.delete.dialog.title'),
+        message: this.$t('profile.delete.dialog.message'),
+        confirmText: this.$t('profile.delete.dialog.confirm_text'),
+        cancelText: this.$t('profile.delete.dialog.cancel_text'),
         type: "is-danger",
         hasIcon: true,
         onConfirm: async () => {
@@ -586,7 +606,7 @@ export default {
               type: "is-danger"
             });
           } else {
-            this.$router.push("/");
+            this.$router.push(this.localePath("/"));
           }
         }
       });
@@ -597,6 +617,11 @@ export default {
         url: URL.createObjectURL(this.userNewAvatar),
         size: this.userNewAvatar.size
       };
+    }
+  },
+  head() {
+    return {
+      title: this.$t('profile.head.title')
     }
   }
 };

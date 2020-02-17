@@ -4,7 +4,7 @@
       <b-field grouped>
         <b-field :type="$v.postTitle.$error ? `is-danger` : ``" expanded>
           <b-input
-            placeholder="Title"
+            :placeholder="$t('edit_post.title_placeholder')"
             type="text"
             v-model.trim="postTitle"
             @blur="onChangeTitle"
@@ -14,7 +14,7 @@
         </b-field>
         <b-field expanded>
           <b-select
-            placeholder="Danh mục"
+            :placeholder="$t('edit_post.category_placeholder')"
             v-model="postContent.category"
             expanded
             :disabled="$v.postTitle.$invalid"
@@ -32,7 +32,7 @@
 
       <b-field>
         <b-taginput
-          placeholder="Add a tag"
+          :placeholder="$t('edit_post.tag_placeholder')"
           v-model="postContent.tags"
           maxtags="3"
           :has-counter="false"
@@ -61,14 +61,14 @@
               v-model="postContent.mode"
               native-value="public"
               :disabled="$v.postTitle.$invalid"
-              >Public</b-radio
+              >{{ $t('edit_post.public_radio') }}</b-radio
             >
             <b-radio
               type="is-info"
               v-model="postContent.mode"
               native-value="private"
               :disabled="$v.postTitle.$invalid"
-              >Private</b-radio
+              >{{ $t('edit_post.private_radio') }}</b-radio
             >
           </div>
         </div>
@@ -79,14 +79,14 @@
             :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
             @click="onPublish"
           >
-            Update
+            {{ $t('edit_post.update_btn') }}
           </button>
           <button
             class="level-item button is-info is-outlined"
             :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
             @click="onDelete"
           >
-            Delete
+            {{ $t('edit_post.delete_btn') }}
           </button>
         </div>
       </div>
@@ -188,16 +188,16 @@ export default {
           type: "is-danger"
         });
       } else {
-        this.$router.push(`/posts/${this.postUrl}`);
+        this.$router.push(this.localePath(`/posts/${this.postUrl}`));
       }
       this.loadEvent = "";
     },
     onDelete() {
       this.$buefy.dialog.confirm({
-        title: "Deleting Post",
-        message:
-          "Are you sure you want to <b>delete</b> your post? This action cannot be undone.",
-        confirmText: "Delete",
+        title: this.$t('edit_post.dialog.title'),
+        message: this.$t('edit_post.dialog.message'),
+        confirmText: this.$t('edit_post.dialog.confirm_text'),
+        cancelText: this.$t('edit_post.dialog.cancel_text'),
         type: "is-danger",
         hasIcon: true,
         onConfirm: async () => {
@@ -210,7 +210,7 @@ export default {
               type: "is-danger"
             });
           } else {
-            this.$router.push("/");
+            this.$router.push(this.localePath("/"));
           }
         }
       });
@@ -218,14 +218,7 @@ export default {
   },
   head() {
     return {
-      title: "Edit Post",
-      meta: [
-        {
-          hid: "description",
-          name: "description",
-          content: "Chỉnh sửa bài viết"
-        }
-      ]
+      title: this.$t('edit_post.head.title')
     };
   }
 };

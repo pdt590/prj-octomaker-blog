@@ -7,7 +7,7 @@
             <div class="card-content">
               <div class="level">
                 <div class="level-item">
-                  <nuxt-link :to="`/user/profile`">
+                  <nuxt-link :to="localePath('/user/profile')">
                     <figure>
                       <client-only>
                         <img
@@ -37,7 +37,7 @@
                 <template slot="header">
                   <div class="_align">
                     <b-icon icon="newspaper"></b-icon>
-                    <span>Bài viết</span>
+                    <span>{{ $t('mgmt.posts_label') }}</span>
                   </div>
                 </template>
                 <div
@@ -45,7 +45,7 @@
                   v-for="post in loadedPersonalPosts"
                   :key="post.url"
                 >
-                  <v-card-post-4user :value="post" />
+                  <v-card-post-horizontal :value="post" />
                 </div>
               </b-tab-item>
             </b-tabs>
@@ -93,6 +93,11 @@ export default {
     return {
       loadedPersonalPosts: loadedPersonalPosts
     };
+  },
+  head() {
+    return {
+      title: this.$t('mgmt.head.title')
+    }
   }
 };
 </script>

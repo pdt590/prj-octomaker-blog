@@ -36,8 +36,8 @@ export default {
             vuexContext.getters.user.avatar : null
         };
         const postContent = {
-          category: "others",
-          tags: [],
+          category: "iot",
+          tags: ["iot"],
           mode: "private",
           markdown: "",
           html: ""

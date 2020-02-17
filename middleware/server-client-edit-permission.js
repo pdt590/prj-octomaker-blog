@@ -1,4 +1,4 @@
-export default async function({ store, params, redirect }) {
+export default async function({ app, store, params, redirect }) {
   const user = store.getters.user;
   if (!store.getters.loadedPost) {
     // for Server side
@@ -6,6 +6,7 @@ export default async function({ store, params, redirect }) {
   }
   const loadedPost = store.getters.loadedPost;
   if (loadedPost.creator.id !== user.id) {
-    redirect("/user/join");
+    redirect(app.localePath('/user/join'));
+    //redirect(`/${app.i18n.defaultLocale}/user/join'`);
   }
 }

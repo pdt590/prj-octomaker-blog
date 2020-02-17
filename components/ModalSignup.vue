@@ -1,53 +1,50 @@
 <template>
   <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">Đăng ký</p>
+      <p class="modal-card-title">{{ $t('modal_signup.title') }}</p>
     </header>
     <section class="modal-card-body">
       <b-field
-        label="Username*"
+        label="Username"
         :type="$v.formData.username.$error ? `is-danger` : ``"
-        :message="!$v.formData.username.minlen ? `At least 6 characters` : ``"
+        :message="!$v.formData.username.minlen ? $t('modal_signup.username_message') : ``"
       >
         <b-input
           type="text"
           v-model.trim="formData.username"
           @blur="$v.formData.username.$touch()"
-          placeholder="Nhập username"
         ></b-input>
       </b-field>
 
       <b-field
-        label="Email*"
+        label="Email"
         :type="$v.formData.email.$error ? `is-danger` : ``"
-        :message="!$v.formData.email.email ? `Invalid email` : ``"
+        :message="!$v.formData.email.email ? $t('modal_signup.email_message') : ``"
       >
         <b-input
           type="email"
           v-model.trim="formData.email"
           @blur="$v.formData.email.$touch()"
-          placeholder="Nhập email"
         ></b-input>
       </b-field>
 
       <b-field
-        label="Password*"
+        label="Password"
         :type="$v.formData.password.$error ? `is-danger` : ``"
-        :message="!$v.formData.password.minlen ? `At least 6 characters` : ``"
+        :message="!$v.formData.password.minlen ? $t('modal_signup.password_message') : ``"
       >
         <b-input
           type="password"
           v-model.trim="formData.password"
           @blur="$v.formData.password.$touch()"
           password-reveal
-          placeholder="Nhập mật khẩu"
         ></b-input>
       </b-field>
       <!-- <b-checkbox>Remember me</b-checkbox> -->
     </section>
     <footer class="modal-card-foot">
       <button class="button is-info is-outlined" @click="$parent.close()">
-        Close
+        {{ $t('modal_signup.close_btn') }}
       </button>
       <button
         class="button is-info is-outlined"
@@ -55,7 +52,7 @@
         :disabled="$v.formData.$invalid"
         @click="onSignup"
       >
-        Đăng ký
+        {{ $t('modal_signup.signup_btn') }}
       </button>
     </footer>
   </div>
@@ -109,7 +106,7 @@ export default {
         this.$parent.close();
         this.$buefy.toast.open({
           duration: 3000,
-          message: "Kiểm tra hộp thư để kích hoạt tài khoản",
+          message: this.$t('modal_signup.toast.message'),
           type: "is-warning"
         });
       }

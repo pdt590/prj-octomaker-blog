@@ -5,7 +5,7 @@
         <div style="position: sticky; top: 8rem;">
           <div class="level">
             <div class="level-item">
-              <nuxt-link :to="`/about`">
+              <nuxt-link :to="localePath('/about')">
                 <figure>
                   <client-only>
                     <img
@@ -26,7 +26,7 @@
                 v-if="isEditable"
                 class="button"
                 :class="{ 'is-loading': postLoading }"
-                :to="`/posts/${$route.params.postUrl}/edit-post`"
+                :to="localePath(`/posts/${$route.params.postUrl}/edit-post`)"
               >
                 <b-icon icon="pencil-alt"></b-icon>
               </nuxt-link>
@@ -68,7 +68,7 @@
             <div id="fb-root"></div>
             <div
               class="fb-comments"
-              :data-href="`${baseUrl}/posts/${$route.params.postUrl}`"
+              :data-href="`${baseUrl}${$route.path}`"
               data-numposts="5"
               data-width="100%"
             ></div>
@@ -155,7 +155,7 @@ export default {
   methods: {
     onWindowPopup() {
       windowPopup(
-        `https://www.facebook.com/sharer/sharer.php?u=${this.baseUrl}/posts/${this.$route.params.postUrl}`,
+        `https://www.facebook.com/sharer/sharer.php?u=${this.baseUrl}${this.$route.path}`,
         "Post to Facebook",
         "900",
         "500"

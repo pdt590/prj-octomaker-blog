@@ -1,12 +1,12 @@
 <template>
   <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">Insert Link</p>
+      <p class="modal-card-title">{{ $t('modal_link.title') }}</p>
     </header>
     <section class="modal-card-body">
       <b-field
         :type="$v.link.$error ? `is-danger` : ``"
-        :message="$v.link.$error ? `Invalid URL` : ``"
+        :message="$v.link.$error ? $t('modal_link.link_message') : ``"
       >
         <b-input
           type="text"
@@ -19,14 +19,14 @@
     <footer class="modal-card-foot">
       <div class="buttons">
         <button class="button is-info is-outlined" @click="$parent.close()">
-          Close
+          {{ $t('modal_link.close_btn') }}
         </button>
         <button
           class="button is-info is-outlined"
           :disabled="$v.link.$invalid"
           @click="onDraw"
         >
-          Insert
+          {{ $t('modal_link.insert_btn') }}
         </button>
       </div>
     </footer>

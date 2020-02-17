@@ -2,21 +2,21 @@
   <div class="container">
     <div class="columns">
       <div class="column is-4 is-offset-4">
-        <div class="card" style="margin-top: 2rem">
+        <div class="card _card-input">
           <header class="card-header">
-            <p class="card-header-title is-size-4">Yêu cầu đổi mật khẩu</p>
+            <p class="card-header-title is-size-4">{{ $t('resetpassword.title') }}</p>
           </header>
           <div class="card-content">
             <b-field
               label="Email"
               :type="$v.formData.email.$error ? `is-danger` : ``"
-              :message="!$v.formData.email.email ? `Invalid email` : ``"
+              :message="!$v.formData.email.email ? $t('resetpassword.email_message') : ``"
             >
               <b-input
                 type="email"
                 v-model.trim="formData.email"
                 @blur="$v.formData.email.$touch()"
-                placeholder="Nhập email đã đăng ký tài khoản"
+                :placeholder="$t('resetpassword.email_placeholder')"
               ></b-input>
             </b-field>
           </div>
@@ -28,7 +28,7 @@
                 :disabled="$v.formData.$invalid"
                 @click="onResetPassword"
               >
-                Send
+                {{ $t('resetpassword.send_btn') }}
               </button>
             </div>
           </footer>
@@ -78,11 +78,16 @@ export default {
       } else {
         this.$buefy.toast.open({
           duration: 3000,
-          message: "Kiểm tra hộp thư để thiết lập lại mật khẩu",
+          message: this.$t('resetpassword.toast.message'),
           type: "is-warning"
         });
-        this.$router.push("/user/join");
+        this.$router.push(this.localePath("/user/join"));
       }
+    }
+  },
+  head() {
+    return {
+      title: this.$t('resetpassword.head.title')
     }
   }
 };

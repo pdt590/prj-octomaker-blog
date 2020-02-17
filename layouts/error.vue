@@ -3,11 +3,11 @@
     <div class="hero-body">
       <div class="container has-text-centered">
         <p class="title is-3" v-if="error.statusCode === 404">
-          Không tìm thấy trang!
+          {{ $t('error.page_not_found') }}
         </p>
         <p class="title is-3" v-else>{{ error.message }}</p>
-        <nuxt-link class="subtitle is-4 has-text-link" to="/"
-          >Quay về trang chủ</nuxt-link
+        <nuxt-link class="subtitle is-4 has-text-link" :to="localePath('/')"
+          >{{ $t('error.home_link') }}</nuxt-link
         >
       </div>
     </div>
@@ -16,6 +16,11 @@
 
 <script>
 export default {
-  props: ["error"]
+  props: ["error"],
+  head() {
+    return {
+      title: this.$t('error.head.title')
+    }
+  }
 };
 </script>

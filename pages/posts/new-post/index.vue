@@ -4,7 +4,7 @@
       <b-field grouped>
         <b-field :type="$v.postTitle.$error ? `is-danger` : ``" expanded>
           <b-input
-            placeholder="Title"
+            :placeholder="$t('new_post.title_placeholder')"
             type="text"
             v-model.trim="postTitle"
             @blur="onChangeTitle"
@@ -14,7 +14,7 @@
         </b-field>
         <b-field expanded>
           <b-select
-            placeholder="Danh mục"
+            :placeholder="$t('new_post.category_placeholder')"
             v-model="postContent.category"
             expanded
             :disabled="$v.postTitle.$invalid || !isTitleAdded"
@@ -32,7 +32,7 @@
 
       <b-field>
         <b-taginput
-          placeholder="Add a tag"
+          :placeholder="$t('new_post.tag_placeholder')"
           v-model="postContent.tags"
           maxtags="3"
           :has-counter="false"
@@ -61,14 +61,14 @@
               v-model="postContent.mode"
               native-value="public"
               :disabled="$v.postTitle.$invalid || !isTitleAdded"
-              >Public</b-radio
+              >{{ $t('new_post.public_radio') }}</b-radio
             >
             <b-radio
               type="is-info"
               v-model="postContent.mode"
               native-value="private"
               :disabled="$v.postTitle.$invalid || !isTitleAdded"
-              >Private</b-radio
+              >{{ $t('new_post.private_radio') }}</b-radio
             >
           </div>
         </div>
@@ -79,14 +79,14 @@
             :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
             @click="onPublish"
           >
-            Publish
+            {{ $t('new_post.publish_btn') }}
           </button>
           <button
             class="level-item button is-info is-outlined"
             :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
             @click="onDelete"
           >
-            Discard
+            {{ $t('new_post.delete_btn') }}
           </button>
         </div>
       </div>
@@ -179,16 +179,16 @@ export default {
         });
       } else {
         const postUrl = this.loadedPost.url;
-        this.$router.push(`/posts/${postUrl}`);
+        this.$router.push(this.localePath(`/posts/${postUrl}`));
       }
       this.loadEvent = "";
     },
     onDelete() {
       this.$buefy.dialog.confirm({
-        title: "Deleting Post",
-        message:
-          "Are you sure you want to <b>delete</b> your post? This action cannot be undone.",
-        confirmText: "Delete",
+        title: this.$t('new_post.dialog.title'),
+        message: this.$t('new_post.dialog.message'),
+        confirmText: this.$t('new_post.dialog.confirm_text'),
+        cancelText: this.$t('new_post.dialog.cancel_text'),
         type: "is-danger",
         hasIcon: true,
         onConfirm: async () => {
@@ -201,7 +201,7 @@ export default {
               type: "is-danger"
             });
           } else {
-            this.$router.push("/");
+            this.$router.push(this.localePath("/"));
           }
         }
       });
@@ -209,10 +209,7 @@ export default {
   },
   head() {
     return {
-      title: "New Post",
-      meta: [
-        { hid: "description", name: "description", content: "Tạo bài viết" }
-      ]
+      title: this.$t('new_post.head.title'),
     };
   }
 };

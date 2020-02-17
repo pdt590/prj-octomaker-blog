@@ -235,7 +235,7 @@ body {
       monospace;
     font-size: $body-size;
   }
-  
+
   pre[class*="language-"] {
     overflow: hidden; /* this is the culprit */
   }
@@ -253,23 +253,7 @@ body {
 // Customizes scoped styles
 ////////////////////////////////////////////////
 
-/* layouts/error.vue */
-/* components/Footer.vue */
-/* components/Loading.vue */
-/* components/ModalConfirm.vue */
-/* components/ModalEmbed.vue */
-/* components/ModalJoin.vue */
-/* components/ModalLink.vue */
-/* components/ModalLogin.vue */
-/* components/ModalSignup.vue */
-/* pages/about/index.vue */
-/* pages/query/_category/index.vue */
-/* pages/search/index.vue */
-/* pages/user/index.vue */
-/* pages/user/activekey/index.vue */
-/* pages/user/resetpassword/index.vue */
-
-/* layouts/default.vue */
+// layouts/default.vue
 ._default {
   display: flex;
   flex-direction: column;
@@ -292,7 +276,9 @@ body {
   }
 }
 
-/* components/CardPost.vue */
+// layouts/error.vue
+
+// components/CardPost.vue
 $creator-avatar-height: 3rem;
 
 ._card {
@@ -326,7 +312,7 @@ $creator-avatar-height: 3rem;
   padding: 3rem 0;
 }
 
-/* components/CardPost4User.vue */
+// components/CardPostHorizontal.vue
 ._media {
   align-items: center;
   border-bottom: 1px solid #d8d8d8;
@@ -339,7 +325,17 @@ $creator-avatar-height: 3rem;
   height: 128px !important;
 }
 
-/* components/ModalImage.vue */
+// components/CardPostRecommend.vue
+// components/Editor.vue
+._disable {
+  pointer-events: none;
+}
+
+// components/Footer.vue
+// components/Loading.vue
+// components/ModalConfirm.vue
+// components/ModalEmbed.vue
+// components/ModalImage.vue
 ._image-frame {
   position: relative;
   border: solid 1px #d8d8d8;
@@ -360,12 +356,11 @@ $creator-avatar-height: 3rem;
   }
 }
 
-/* components/Editor.vue */
-._disable {
-  pointer-events: none;
-}
-
-/* components/Navbar.vue */
+// components/ModalJoin.vue
+// components/ModalLink.vue
+// components/ModalLogin.vue
+// components/ModalSignup.vue
+// components/Navbar.vue
 ._navbar {
   border: none;
   border-bottom: 1px solid #d8d8d8;
@@ -427,7 +422,7 @@ $creator-avatar-height: 3rem;
   border: solid 1px #ff3860;
 }
 
-/* pages/index.vue */
+// pages/index.vue
 ._section-header {
   display: flex;
   justify-content: space-between;
@@ -435,7 +430,9 @@ $creator-avatar-height: 3rem;
   margin-bottom: 1.5rem;
 }
 
-/* pages/posts/_postUrl/index.vue */
+// pages/about/index.vue
+// pages/posts/index.vue
+// pages/posts/_postUrl/index.vue
 ._profile-avatar {
   object-fit: cover;
   width: 4rem;
@@ -454,7 +451,7 @@ $creator-avatar-height: 3rem;
   font-size: 2.5rem;
 }
 
-/* pages/posts/_postUrl/edit-post/index.vue */
+// pages/posts/_postUrl/edit-post/index.vue
 ._fullscreen {
   background: #eee;
   position: fixed;
@@ -467,7 +464,7 @@ $creator-avatar-height: 3rem;
   z-index: $navbar-z - 1; // 29
 }
 
-/* pages/posts/new-post/index.vue */
+// pages/posts/new-post/index.vue
 /* 
 ._fullscreen {
   background: #fff;
@@ -482,12 +479,20 @@ $creator-avatar-height: 3rem;
 }
  */
 
-/* pages/user/join/index.vue */
-._card-join {
-  margin-top: 2rem;
+// pages/query/_category/index.vue
+// pages/search/index.vue
+// pages/user/index.vue
+// pages/user/action/index.vue
+._card-input {
+  margin-top: 10vh;
 }
+// pages/user/join/index.vue
+/* 
+._card-input {
+  margin-top: 10vh;
+} */
 
-/* pages/user/mgmt/index.vue */
+// pages/user/mgmt/index.vue
 ._align {
   display: flex;
   align-items: center;
@@ -503,7 +508,7 @@ $creator-avatar-height: 3rem;
 }
  */
 
-/* pages/user/profile/index.vue */
+// pages/user/profile/index.vue
 /* 
 ._profile-avatar {
   object-fit: cover;
@@ -536,3 +541,9 @@ border: solid 1px #d8d8d8;
   justify-content: center;
 } 
  */
+
+// pages/user/resetpassword/index.vue
+/* 
+._card-input {
+  margin-top: 10vh;
+} */

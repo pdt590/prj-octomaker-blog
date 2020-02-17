@@ -1,42 +1,40 @@
 <template>
   <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">Đăng nhập</p>
+      <p class="modal-card-title">{{ $t('modal_login.title') }}</p>
     </header>
     <section class="modal-card-body">
       <b-field
         label="Email"
         :type="$v.formData.email.$error ? `is-danger` : ``"
-        :message="!$v.formData.email.email ? `Invalid email` : ``"
+        :message="!$v.formData.email.email ? $t('modal_login.email_message') : ``"
       >
         <b-input
           type="email"
           v-model.trim="formData.email"
           @blur="$v.formData.email.$touch()"
-          placeholder="Nhập Email"
         ></b-input>
       </b-field>
 
       <b-field
         label="Password"
         :type="$v.formData.password.$error ? `is-danger` : ``"
-        :message="!$v.formData.password.minlen ? `At least 6 characters` : ``"
+        :message="!$v.formData.password.minlen ? $t('modal_login.password_message') : ``"
       >
         <b-input
           type="password"
           v-model.trim="formData.password"
           @blur="$v.formData.password.$touch()"
           password-reveal
-          placeholder="Nhập mật khẩu"
         ></b-input>
       </b-field>
       <!-- <b-checkbox>Remember me</b-checkbox> -->
     </section>
     <footer class="modal-card-foot" style="justify-content: space-between">
-      <a @click="onForgetPassword">Quên mật khẩu?</a>
+      <a @click="onForgetPassword">{{ $t('modal_login.forget_password_link') }}</a>
       <div class="buttons">
         <button class="button is-info is-outlined" @click="$parent.close()">
-          Close
+          {{ $t('modal_login.close_btn') }}
         </button>
         <button
           class="button is-info is-outlined"
@@ -44,7 +42,7 @@
           :disabled="$v.formData.$invalid"
           @click="onLogin"
         >
-          Đăng nhập
+          {{ $t('modal_login.login_btn') }}
         </button>
       </div>
     </footer>
@@ -96,7 +94,7 @@ export default {
     },
     onForgetPassword() {
       this.$parent.close();
-      this.$router.push("/user/resetpassword");
+      this.$router.push(this.localePath("/user/resetpassword"));
     }
   }
 };

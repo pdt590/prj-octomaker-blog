@@ -1,7 +1,7 @@
 <template>
   <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">Upload Image</p>
+      <p class="modal-card-title">{{ $t('modal_image.title') }}</p>
     </header>
     <section class="modal-card-body">
       <b-field>
@@ -21,7 +21,7 @@
                   <p>
                     <b-icon icon="upload" size="is-large"></b-icon>
                   </p>
-                  <p>Drop your files here or click to upload</p>
+                  <p>{{ $t('modal_image.placeholder') }}</p>
                 </div>
               </section>
             </b-upload>
@@ -53,7 +53,7 @@
     </section>
     <footer class="modal-card-foot">
       <button class="button is-info is-outlined" @click="$parent.close()">
-        Close
+        {{ $t('modal_image.close_btn') }}
       </button>
     </footer>
   </div>

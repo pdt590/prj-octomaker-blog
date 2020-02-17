@@ -10,7 +10,7 @@
   - Add 3 size options to select for uploading
 - `Check problem: reload search page when entering search button`
 - `Change Category list display on navbar`
-- Recheck logic in activekey page
+- Recheck logic in user/action page
 - Add Facebook & Google login
 - Unify code language using English or Vietnamese or i18n
 - `Fix autosave issue on login and signup form`
@@ -61,3 +61,8 @@
 - `Modal auto closes when pressing ENTER`
   - `Reason: <form> in new-post and edit-post page`
 - `Change Buefy Dialog for ModalConfirm`
+- Add different favicon/logo sizes for SEO
+- Fix 'TODO' tasks
+- Fix reload issue when deleting a post in mgmt page
+- Fix 'Password field is not contained in a form' issue
+- Fix and rename variables in user/profile page

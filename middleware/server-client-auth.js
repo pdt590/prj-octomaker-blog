@@ -1,4 +1,4 @@
-export default function({ store, redirect }) {
+export default function({ app, store, redirect }) {
   const user = store.getters.user;
-  !user ? redirect("/user/join") : ``;
+  !user ? redirect(app.localePath('/user/join')) : ``;
 }

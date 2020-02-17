@@ -3,19 +3,22 @@
     <!-- Start login -->
     <div class="modal-card" v-show="!isSignup">
       <header class="modal-card-head">
-        <p class="modal-card-title">Đăng nhập</p>
+        <p class="modal-card-title">{{ $t("modal_join.login.title") }}</p>
       </header>
       <section class="modal-card-body">
         <b-field
           label="Email"
           :type="$v.formDataLogin.email.$error ? `is-danger` : ``"
-          :message="!$v.formDataLogin.email.email ? `Invalid email` : ``"
+          :message="
+            !$v.formDataLogin.email.email
+              ? $t('modal_join.login.email_message')
+              : ``
+          "
         >
           <b-input
             type="email"
             v-model.trim="formDataLogin.email"
             @blur="$v.formDataLogin.email.$touch()"
-            placeholder="Nhập Email"
           ></b-input>
         </b-field>
 
@@ -23,7 +26,9 @@
           label="Password"
           :type="$v.formDataLogin.password.$error ? `is-danger` : ``"
           :message="
-            !$v.formDataLogin.password.minlen ? `At least 6 characters` : ``
+            !$v.formDataLogin.password.minlen
+              ? $t('modal_join.login.password_message')
+              : ``
           "
         >
           <b-input
@@ -31,7 +36,6 @@
             v-model.trim="formDataLogin.password"
             @blur="$v.formDataLogin.password.$touch()"
             password-reveal
-            placeholder="Nhập mật khẩu"
           ></b-input>
         </b-field>
         <!-- <b-checkbox>Remember me</b-checkbox> -->
@@ -39,14 +43,20 @@
       <footer class="modal-card-foot" style="justify-content: space-between">
         <p>
           <a @click="isSignup = !isSignup">
-            {{ isSignup ? `Đăng nhập?` : `Đăng ký?` }}
+            {{
+              isSignup
+                ? $t("modal_join.login.login_text")
+                : $t("modal_join.signup.signup_text")
+            }}
           </a>
           <br />
-          <a @click="onForgetPassword">Quên mật khẩu?</a>
+          <a @click="onForgetPassword">{{
+            $t("modal_join.login.forget_password_link")
+          }}</a>
         </p>
         <div class="buttons">
           <button class="button is-info is-outlined" @click="$parent.close()">
-            Close
+            {{ $t("modal_join.login.close_btn") }}
           </button>
           <button
             class="button is-info is-outlined"
@@ -54,7 +64,7 @@
             :disabled="$v.formDataLogin.$invalid"
             @click="onLogin"
           >
-            Đăng nhập
+            {{ $t("modal_join.login.login_btn") }}
           </button>
         </div>
       </footer>
@@ -63,34 +73,38 @@
     <!-- Start signup -->
     <div class="modal-card" v-show="isSignup">
       <header class="modal-card-head">
-        <p class="modal-card-title">Đăng ký</p>
+        <p class="modal-card-title">{{ $t("modal_join.signup.title") }}</p>
       </header>
       <section class="modal-card-body">
         <b-field
           label="Username"
           :type="$v.formDataSignup.username.$error ? `is-danger` : ``"
           :message="
-            !$v.formDataSignup.username.minlen ? `At least 6 characters` : ``
+            !$v.formDataSignup.username.minlen
+              ? $t('modal_join.signup.username_message')
+              : ``
           "
         >
           <b-input
             type="text"
             v-model.trim="formDataSignup.username"
             @blur="$v.formDataSignup.username.$touch()"
-            placeholder="Nhập username"
           ></b-input>
         </b-field>
 
         <b-field
           label="Email"
           :type="$v.formDataSignup.email.$error ? `is-danger` : ``"
-          :message="!$v.formDataSignup.email.email ? `Invalid email` : ``"
+          :message="
+            !$v.formDataSignup.email.email
+              ? $t('modal_join.signup.email_message')
+              : ``
+          "
         >
           <b-input
             type="email"
             v-model.trim="formDataSignup.email"
             @blur="$v.formDataSignup.email.$touch()"
-            placeholder="Nhập email"
           ></b-input>
         </b-field>
 
@@ -98,7 +112,9 @@
           label="Password"
           :type="$v.formDataSignup.password.$error ? `is-danger` : ``"
           :message="
-            !$v.formDataSignup.password.minlen ? `At least 6 characters` : ``
+            !$v.formDataSignup.password.minlen
+              ? $t('modal_join.signup.password_message')
+              : ``
           "
         >
           <b-input
@@ -106,18 +122,21 @@
             v-model.trim="formDataSignup.password"
             @blur="$v.formDataSignup.password.$touch()"
             password-reveal
-            placeholder="Nhập mật khẩu"
           ></b-input>
         </b-field>
         <!-- <b-checkbox>Remember me</b-checkbox> -->
       </section>
       <footer class="modal-card-foot" style="justify-content: space-between">
         <a @click="isSignup = !isSignup">
-          {{ isSignup ? `Đăng nhập?` : `Đăng ký?` }}
+          {{
+            isSignup
+              ? $t("modal_join.login.login_text")
+              : $t("modal_join.signup.signup_text")
+          }}
         </a>
         <div class="buttons">
           <button class="button is-info is-outlined" @click="$parent.close()">
-            Close
+            {{ $t("modal_join.signup.close_btn") }}
           </button>
           <button
             class="button is-info is-outlined"
@@ -125,7 +144,7 @@
             :disabled="$v.formDataSignup.$invalid"
             @click="onSignup"
           >
-            Đăng ký
+            {{ $t("modal_join.signup.signup_btn") }}
           </button>
         </div>
       </footer>
@@ -196,7 +215,7 @@ export default {
         this.$parent.close();
         this.$buefy.toast.open({
           duration: 3000,
-          message: "Kiểm tra hộp thư để kích hoạt tài khoản",
+          message: this.$t("modal_join.signup.toast.message"),
           type: "is-warning"
         });
       }
@@ -216,7 +235,7 @@ export default {
     },
     onForgetPassword() {
       this.$parent.close();
-      this.$router.push("/user/resetpassword");
+      this.$router.push(this.localePath("/user/resetpassword"));
     }
   }
 };

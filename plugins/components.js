@@ -8,7 +8,8 @@ if (process.client) {
 
 // Card
 Vue.component("v-card-post", () => import("~/components/CardPost"));
-Vue.component("v-card-post-4user", () => import("~/components/CardPost4User"));
+Vue.component("v-card-post-recommend", () => import("~/components/CardPostRecommend"));
+Vue.component("v-card-post-horizontal", () => import("~/components/CardPostHorizontal"));
 
 // Modal
 Vue.component("v-modal-login", () => import("~/components/ModalLogin"));

@@ -1,7 +1,7 @@
 <template>
   <div class="media _media">
     <div class="media-left">
-      <nuxt-link :to="`/posts/${postUrl}`">
+      <nuxt-link :to="localePath(`/posts/${postUrl}`)">
         <figure class="image is-128x128">
           <client-only>
             <img
@@ -19,8 +19,8 @@
       <div class="content">
         <strong>
           <nuxt-link
-            :to="`/posts/${postUrl}`"
             class="is-size-5"
+            :to="localePath(`/posts/${postUrl}`)"
             target="_blank"
           >
             {{ postTitle }}
@@ -37,13 +37,13 @@
     </div>
     <div class="media-right">
       <div class="buttons">
-        <a class="button is-danger is-outlined" @click="onDelete">Delete</a>
         <nuxt-link
           class="button is-info is-outlined"
-          :to="`/posts/${postUrl}/edit-post`"
+          :to="localePath(`/posts/${postUrl}/edit-post`)"
           target="_blank"
-          >Edit</nuxt-link
+          >{{ $t('card_post_horizontal.edit_btn') }}</nuxt-link
         >
+        <a class="button is-danger is-outlined" @click="onDelete">{{ $t('card_post_horizontal.delete_btn') }}</a>
       </div>
     </div>
   </div>
@@ -103,10 +103,10 @@ export default {
   methods: {
     onDelete() {
       this.$buefy.dialog.confirm({
-        title: "Deleting Post",
-        message:
-          "Are you sure you want to <b>delete</b> your post? This action cannot be undone.",
-        confirmText: "Delete",
+        title: this.$t('card_post_horizontal.dialog.title'),
+        message: this.$t('card_post_horizontal.dialog.message'),
+        confirmText: this.$t('card_post_horizontal.dialog.confirm_text'),
+        cancelText: this.$t('card_post_horizontal.dialog.cancel_text'),
         type: "is-danger",
         hasIcon: true,
         onConfirm: async () => {

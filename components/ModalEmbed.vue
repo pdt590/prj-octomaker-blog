@@ -1,14 +1,14 @@
 <template>
   <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">Insert Embed</p>
+      <p class="modal-card-title">{{ $t('modal_embed.title') }}</p>
     </header>
     <section class="modal-card-body">
       <b-field
         :type="$v.link.$error ? `is-danger` : ``"
         :message="
           $v.link.$error
-            ? `Invalid URL - Accept Youtube, Vimeo, Slideshare, Codepen, Gist, JsFiddle, GoogleSlide, Soundcloud`
+            ? $t('modal_embed.link_message')
             : ``
         "
       >
@@ -23,14 +23,14 @@
     <footer class="modal-card-foot">
       <div class="buttons">
         <button class="button is-info is-outlined" @click="$parent.close()">
-          Close
+          {{ $t('modal_embed.close_btn') }}
         </button>
         <button
           class="button is-info is-outlined"
           :disabled="$v.link.$invalid"
           @click="onDraw"
         >
-          Insert
+          {{ $t('modal_embed.insert_btn') }}
         </button>
       </div>
     </footer>
