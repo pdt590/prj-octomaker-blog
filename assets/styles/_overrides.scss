@@ -537,28 +537,29 @@ $creator-avatar-height: 3rem;
 }
  */
 
-/*  
-._image-frame {
-position: relative;
-border: solid 1px #d8d8d8;
+._image-avatar-frame {
+  position: relative;
+  border: solid 1px #d8d8d8;
 
-._image-preview {
-  object-fit: cover;
-  width: auto;
-  height: auto;
+  ._image-avatar-preview {
+    object-fit: cover;
+    width: inherit;
+    height: inherit;
+    border: solid 1px #d8d8d8;
+    border-radius: 50%;
+  }
+
+  ._image-avatar-button-delete {
+    position: absolute;
+    top: 2%;
+    right: 2%;
+  }
+
+  ._image-avatar-size {
+    display: flex;
+    justify-content: center;
+  }
 }
-
-._image-button-delete {
-  position: absolute;
-  top: 2%;
-  right: 2%;
-}
-
-._image-size {
-  display: flex;
-  justify-content: center;
-} 
- */
 
 // pages/user/resetpassword/index.vue
 /* 

@@ -285,41 +285,41 @@
                     <!-- End image upload -->
                     <div class="level">
                       <div class="level-item" v-if="oldAvatar">
-                        <figure class="image is-128x128 _image-frame">
+                        <figure class="image is-128x128 _image-avatar-frame">
                           <client-only>
                             <img
-                              class="_image-preview"
+                              class="_image-avatar-preview"
                               v-lazy="oldAvatar.url"
                               style="display: none"
                               onload="this.style.display = 'block'"
                               alt="user_avatar"
                             />
                           </client-only>
-                          <span class="_image-size">{{
+                          <span class="_image-avatar-size">{{
                             oldAvatar.metadata.size | fmBytes
                           }}</span>
                           <a
-                            class="delete _image-button-delete"
+                            class="delete _image-avatar-button-delete"
                             @click.prevent="oldAvatar = null"
                           ></a>
                         </figure>
                       </div>
                       <div class="level-item" v-if="newAvatar">
-                        <figure class="image is-128x128 _image-frame">
+                        <figure class="image is-128x128 _image-avatar-frame">
                           <client-only>
                             <img
-                              class="_image-preview"
+                              class="_image-avatar-preview"
                               v-lazy="previewAvatar.url"
                               style="display: none"
                               onload="this.style.display = 'block'"
                               alt="preview_avatar"
                             />
                           </client-only>
-                          <span class="_image-size">{{
+                          <span class="_image-avatar-size">{{
                             previewAvatar.size | fmBytes
                           }}</span>
                           <a
-                            class="delete _image-button-delete"
+                            class="delete _image-avatar-button-delete"
                             @click.prevent="
                               previewAvatar = null;
                               newAvatar = null;

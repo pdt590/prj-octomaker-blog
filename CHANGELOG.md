@@ -3,7 +3,8 @@
 - Notify Internet Disconnection when saving - [Refer](https://nuxtjs.org/api/$nuxt)
 - 404 GET /user/join issue
 - `Remove special characters on title (square brackets ...)`
-- Fix long load issue when clicking edit
+- `Fix long load issue when clicking edit`
+  - `due to hot reloading in nuxt`
 - Implement remember-me login
 - Improve search performance
 - Shoud use cloudinary to upload images?
