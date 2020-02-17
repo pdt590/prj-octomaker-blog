@@ -3,7 +3,7 @@ export default {
   // layouts/error.vue
   error: {
     page_not_found: "Page Not Found",
-    home_link: "Home",
+    home_link: "Home Page",
     head: {
       title: "Error"
     }
@@ -209,13 +209,13 @@ export default {
     verify_email: {
       success_message: "Activate successfully",
       error_message: "Activated code is wrong",
-      home_link: "Home"
+      home_link: "Home Page"
     },
     recover_email: {
       success_message: "Recover successfully",
       announce_message: "Check inbox to change password",
       error_message: "Activated code is wrong",
-      home_link: "Home"
+      home_link: "Home Page"
     },
     head: {
       title: "Activation"

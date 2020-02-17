@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <!-- Start resetPassword -->
-    <div class="columns" v-if="mode === `resetPassword`">
+    <div class="columns" v-if="mode === 'resetPassword'">
       <div class="column is-4 is-offset-4">
         <form class="card _card-input">
           <header class="card-header">
@@ -64,47 +64,39 @@
     </div>
     <!-- End resetPassword -->
     <!-- Start verifyEmail -->
-    <div
-      class="has-text-centered _card-input"
-      v-else-if="mode === `verifyEmail`"
-    >
-      <div v-if="!authLoading && emailVerified !== null">
-        <p class="title is-3" v-if="emailVerified">
-          {{ $t("action.verify_email.success_message") }}
-        </p>
-        <p class="title is-3" v-else>
-          {{ $t("action.verify_email.error_message") }}
-        </p>
+    <div class="_center_view" v-else-if="mode === 'verifyEmail' && isSuccess !== null">
+      <b-message type="is-success" has-icon size="is-large" v-if="isSuccess">
+        {{ $t("action.verify_email.success_message") }}
         <br />
-        <nuxt-link class="subtitle is-4 has-text-link" :to="localePath('/')">{{
+        <nuxt-link :to="localePath('/')">{{
           $t("action.verify_email.home_link")
         }}</nuxt-link>
-      </div>
+      </b-message>
+
+      <b-message type="is-danger" has-icon size="is-large" v-else>
+        {{ $t("action.verify_email.error_message") }}
+        <br />
+        <nuxt-link :to="localePath('/')">{{
+          $t("action.verify_email.home_link")
+        }}</nuxt-link>
+      </b-message>
     </div>
     <!-- End verifyEmail -->
     <!-- Start recoverEmail -->
-    <div
-      class="has-text-centered _card-input"
-      v-else-if="mode === `recoverEmail`"
-    >
-      <div v-if="!authLoading && emailRecoverd !== null">
-        <p v-if="emailRecoverd">
-          <span class="title is-3">{{
-            $t("action.recover_email.success_message")
-          }}</span>
-          <br />
-          <span class="title is-3">{{
-            $t("action.recover_email.announce_message")
-          }}</span>
-        </p>
-        <p class="title is-3" v-else>
-          {{ $t("action.recover_email.error_message") }}
-        </p>
+    <div class="_center_view" v-else-if="mode === 'recoverEmail' && isSuccess !== null">
+      <b-message type="is-success" has-icon size="is-large" v-if="isSuccess">
+        {{ $t("action.recover_email.success_message") }}
         <br />
-        <nuxt-link class="subtitle is-4 has-text-link" :to="localePath('/')">{{
+        {{ $t("action.recover_email.announce_message") }}
+      </b-message>
+
+      <b-message type="is-danger" has-icon size="is-large" v-else>
+        {{ $t("action.recover_email.error_message") }}
+        <br />
+        <nuxt-link :to="localePath('/')">{{
           $t("action.recover_email.home_link")
         }}</nuxt-link>
-      </div>
+      </b-message>
     </div>
     <!-- End recoverEmail -->
   </div>
@@ -113,7 +105,7 @@
 <script>
 import { mapGetters } from "vuex";
 import { authMessage } from "~/libs/helpers";
-import { required, sameAs, minLength, email } from "vuelidate/lib/validators";
+import { required, sameAs, minLength } from "vuelidate/lib/validators";
 
 export default {
   validate({ store }) {
@@ -122,12 +114,12 @@ export default {
   },
   async mounted() {
     if (this.mode === "verifyEmail") {
-      this.emailVerified = await this.$store.dispatch(
+      this.isSuccess = await this.$store.dispatch(
         "handleVerifyEmail",
         this.actionCode
       );
     } else if (this.mode === "recoverEmail") {
-      this.emailRecoverd = await this.$store.dispatch(
+      this.isSuccess = await this.$store.dispatch(
         "handleRecoverEmail",
         this.actionCode
       );
@@ -154,9 +146,7 @@ export default {
         newPassword: null,
         confirmNewPassword: null
       },
-      restoredEmail: null,
-      emailVerified: null,
-      emailRecoverd: null
+      isSuccess: null
     };
   },
   validations: {
@@ -170,10 +160,6 @@ export default {
         minlen: minLength(6),
         isValidPassword: sameAs("newPassword")
       }
-    },
-    restoredEmail: {
-      required,
-      email
     }
   },
   methods: {

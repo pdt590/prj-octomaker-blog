@@ -375,6 +375,7 @@ export default {
       } catch (e) {
         vuexContext.commit("setAuthError", e);
         console.error("[ERROR-handleVerifyEmail]", e);
+        vuexContext.commit("setAuthLoading", false);
         return false;
       }
     },
@@ -399,6 +400,7 @@ export default {
       } catch (e) {
         vuexContext.commit("setAuthError", e);
         console.error("[ERROR-handleRecoverEmail]", e);
+        vuexContext.commit("setAuthLoading", false);
         return false;
       }
     },

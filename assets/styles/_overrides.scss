@@ -277,6 +277,13 @@ body {
 }
 
 // layouts/error.vue
+._center_view {
+  height: 100vh;
+  margin-top: -2 * $navbar-height;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 // components/CardPost.vue
 $creator-avatar-height: 3rem;
@@ -483,14 +490,25 @@ $creator-avatar-height: 3rem;
 // pages/search/index.vue
 // pages/user/index.vue
 // pages/user/action/index.vue
-._card-input {
-  margin-top: 10vh;
-}
-// pages/user/join/index.vue
 /* 
 ._card-input {
   margin-top: 10vh;
-} */
+} 
+*/
+/* 
+._center_view {
+  height: 100vh;
+  margin-top: -2 * $navbar-height;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+ */
+
+// pages/user/join/index.vue
+._card-input {
+  margin-top: 10vh;
+}
 
 // pages/user/mgmt/index.vue
 ._align {
@@ -546,4 +564,5 @@ border: solid 1px #d8d8d8;
 /* 
 ._card-input {
   margin-top: 10vh;
-} */
+} 
+*/

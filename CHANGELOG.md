@@ -23,7 +23,7 @@
   - `Change new float style in each post`
   - Change font (search the best font for web)
   - Redesign mobile layout (search bulma mobile layout)
-  - Recheck error and user/action style
+  - `Recheck error and user/action style`
 - Add recommendation posts in each post
   - Add carousel - [Refer](https://buefy.org/documentation/carousel/)
   - Refer new card on facebook
@@ -70,3 +70,4 @@
 - Fix and rename variables in user/profile page
 - Fix delete account issue
 - Add post lazy load for mgmt page
+- Check icon size issue
