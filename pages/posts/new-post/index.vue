@@ -61,14 +61,14 @@
               v-model="postContent.mode"
               native-value="public"
               :disabled="$v.postTitle.$invalid || !isTitleAdded"
-              >{{ $t('new_post.public_radio') }}</b-radio
+              >{{ $t("new_post.public_radio") }}</b-radio
             >
             <b-radio
               type="is-info"
               v-model="postContent.mode"
               native-value="private"
               :disabled="$v.postTitle.$invalid || !isTitleAdded"
-              >{{ $t('new_post.private_radio') }}</b-radio
+              >{{ $t("new_post.private_radio") }}</b-radio
             >
           </div>
         </div>
@@ -79,14 +79,14 @@
             :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
             @click="onPublish"
           >
-            {{ $t('new_post.publish_btn') }}
+            {{ $t("new_post.publish_btn") }}
           </button>
           <button
             class="level-item button is-info is-outlined"
             :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
             @click="onDelete"
           >
-            {{ $t('new_post.delete_btn') }}
+            {{ $t("new_post.delete_btn") }}
           </button>
         </div>
       </div>
@@ -185,10 +185,10 @@ export default {
     },
     onDelete() {
       this.$buefy.dialog.confirm({
-        title: this.$t('new_post.dialog.title'),
-        message: this.$t('new_post.dialog.message'),
-        confirmText: this.$t('new_post.dialog.confirm_text'),
-        cancelText: this.$t('new_post.dialog.cancel_text'),
+        title: this.$t("new_post.dialog.title"),
+        message: this.$t("new_post.dialog.message"),
+        confirmText: this.$t("new_post.dialog.confirm_text"),
+        cancelText: this.$t("new_post.dialog.cancel_text"),
         type: "is-danger",
         hasIcon: true,
         onConfirm: async () => {
@@ -209,7 +209,7 @@ export default {
   },
   head() {
     return {
-      title: this.$t('new_post.head.title'),
+      title: this.$t("new_post.head.title")
     };
   }
 };

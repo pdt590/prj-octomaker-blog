@@ -1,16 +1,12 @@
 <template>
   <div class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">{{ $t('modal_embed.title') }}</p>
+      <p class="modal-card-title">{{ $t("modal_embed.title") }}</p>
     </header>
     <section class="modal-card-body">
       <b-field
         :type="$v.link.$error ? `is-danger` : ``"
-        :message="
-          $v.link.$error
-            ? $t('modal_embed.link_message')
-            : ``
-        "
+        :message="$v.link.$error ? $t('modal_embed.link_message') : ``"
       >
         <b-input
           type="text"
@@ -23,14 +19,14 @@
     <footer class="modal-card-foot">
       <div class="buttons">
         <button class="button is-info is-outlined" @click="$parent.close()">
-          {{ $t('modal_embed.close_btn') }}
+          {{ $t("modal_embed.close_btn") }}
         </button>
         <button
           class="button is-info is-outlined"
           :disabled="$v.link.$invalid"
           @click="onDraw"
         >
-          {{ $t('modal_embed.insert_btn') }}
+          {{ $t("modal_embed.insert_btn") }}
         </button>
       </div>
     </footer>

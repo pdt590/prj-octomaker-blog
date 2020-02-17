@@ -1,13 +1,17 @@
 <template>
   <form class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">{{ $t('modal_signup.title') }}</p>
+      <p class="modal-card-title">{{ $t("modal_signup.title") }}</p>
     </header>
     <section class="modal-card-body">
       <b-field
         label="Username"
         :type="$v.formData.username.$error ? `is-danger` : ``"
-        :message="!$v.formData.username.minlen ? $t('modal_signup.username_message') : ``"
+        :message="
+          !$v.formData.username.minlen
+            ? $t('modal_signup.username_message')
+            : ``
+        "
       >
         <b-input
           type="text"
@@ -19,7 +23,9 @@
       <b-field
         label="Email"
         :type="$v.formData.email.$error ? `is-danger` : ``"
-        :message="!$v.formData.email.email ? $t('modal_signup.email_message') : ``"
+        :message="
+          !$v.formData.email.email ? $t('modal_signup.email_message') : ``
+        "
       >
         <b-input
           type="email"
@@ -31,7 +37,11 @@
       <b-field
         label="Password"
         :type="$v.formData.password.$error ? `is-danger` : ``"
-        :message="!$v.formData.password.minlen ? $t('modal_signup.password_message') : ``"
+        :message="
+          !$v.formData.password.minlen
+            ? $t('modal_signup.password_message')
+            : ``
+        "
       >
         <b-input
           type="password"
@@ -43,8 +53,11 @@
       <!-- <b-checkbox>Remember me</b-checkbox> -->
     </section>
     <footer class="modal-card-foot">
-      <button class="button is-info is-outlined" @click.prevent="$parent.close()">
-        {{ $t('modal_signup.close_btn') }}
+      <button
+        class="button is-info is-outlined"
+        @click.prevent="$parent.close()"
+      >
+        {{ $t("modal_signup.close_btn") }}
       </button>
       <button
         class="button is-info is-outlined"
@@ -52,7 +65,7 @@
         :disabled="$v.formData.$invalid"
         @click.prevent="onSignup"
       >
-        {{ $t('modal_signup.signup_btn') }}
+        {{ $t("modal_signup.signup_btn") }}
       </button>
     </footer>
   </form>
@@ -106,7 +119,7 @@ export default {
         this.$parent.close();
         this.$buefy.toast.open({
           duration: 3000,
-          message: this.$t('modal_signup.toast.message'),
+          message: this.$t("modal_signup.toast.message"),
           type: "is-warning"
         });
       }

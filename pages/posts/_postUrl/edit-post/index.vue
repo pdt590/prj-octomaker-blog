@@ -61,14 +61,14 @@
               v-model="postContent.mode"
               native-value="public"
               :disabled="$v.postTitle.$invalid"
-              >{{ $t('edit_post.public_radio') }}</b-radio
+              >{{ $t("edit_post.public_radio") }}</b-radio
             >
             <b-radio
               type="is-info"
               v-model="postContent.mode"
               native-value="private"
               :disabled="$v.postTitle.$invalid"
-              >{{ $t('edit_post.private_radio') }}</b-radio
+              >{{ $t("edit_post.private_radio") }}</b-radio
             >
           </div>
         </div>
@@ -79,14 +79,14 @@
             :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
             @click="onPublish"
           >
-            {{ $t('edit_post.update_btn') }}
+            {{ $t("edit_post.update_btn") }}
           </button>
           <button
             class="level-item button is-info is-outlined"
             :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
             @click="onDelete"
           >
-            {{ $t('edit_post.delete_btn') }}
+            {{ $t("edit_post.delete_btn") }}
           </button>
         </div>
       </div>
@@ -194,10 +194,10 @@ export default {
     },
     onDelete() {
       this.$buefy.dialog.confirm({
-        title: this.$t('edit_post.dialog.title'),
-        message: this.$t('edit_post.dialog.message'),
-        confirmText: this.$t('edit_post.dialog.confirm_text'),
-        cancelText: this.$t('edit_post.dialog.cancel_text'),
+        title: this.$t("edit_post.dialog.title"),
+        message: this.$t("edit_post.dialog.message"),
+        confirmText: this.$t("edit_post.dialog.confirm_text"),
+        cancelText: this.$t("edit_post.dialog.cancel_text"),
         type: "is-danger",
         hasIcon: true,
         onConfirm: async () => {
@@ -218,7 +218,7 @@ export default {
   },
   head() {
     return {
-      title: this.$t('edit_post.head.title')
+      title: this.$t("edit_post.head.title")
     };
   }
 };

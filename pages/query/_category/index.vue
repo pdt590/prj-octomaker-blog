@@ -3,7 +3,9 @@
     <nav class="breadcrumb">
       <ul>
         <li>
-          <nuxt-link :to="localePath('/')">{{ $t('category.home_link') }}</nuxt-link>
+          <nuxt-link :to="localePath('/')">{{
+            $t("category.home_link")
+          }}</nuxt-link>
         </li>
         <li class="is-active">
           <a>{{ queryName }}</a>

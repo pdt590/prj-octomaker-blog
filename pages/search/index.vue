@@ -3,10 +3,12 @@
     <nav class="breadcrumb">
       <ul>
         <li>
-          <nuxt-link :to="localePath('/')">{{ $t('search.home_link') }}</nuxt-link>
+          <nuxt-link :to="localePath('/')">{{
+            $t("search.home_link")
+          }}</nuxt-link>
         </li>
         <li class="is-active">
-          <a>{{ $t('search.search_text') }} "{{ searchKey }}"</a>
+          <a>{{ $t("search.search_text") }} "{{ searchKey }}"</a>
         </li>
       </ul>
     </nav>
@@ -72,7 +74,7 @@ export default {
   },
   head() {
     return {
-      title: this.$t('search.head.title'),
+      title: this.$t("search.head.title"),
       meta: [
         {
           hid: "description",
@@ -87,7 +89,7 @@ export default {
         {
           hid: "og-title",
           property: "og:title",
-          content: this.$t('search.head.title')
+          content: this.$t("search.head.title")
         },
         {
           hid: "og-description",

@@ -111,7 +111,7 @@ export default {
     search_btn: "Tìm kiếm",
     new_post_btn: "Viết bài",
     login_btn: "Đăng nhập",
-    user_tooltip_message: "Tài khoản chưa kích hoạt",
+    warning_message: "Tài khoản chưa kích hoạt",
     profile_link: "Cá nhân",
     mgmt_link: "Quản lý",
     signout_link: "Đăng xuất",

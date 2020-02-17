@@ -41,9 +41,11 @@
           class="button is-info is-outlined"
           :to="localePath(`/posts/${postUrl}/edit-post`)"
           target="_blank"
-          >{{ $t('card_post_horizontal.edit_btn') }}</nuxt-link
+          >{{ $t("card_post_horizontal.edit_btn") }}</nuxt-link
         >
-        <a class="button is-danger is-outlined" @click="onDelete">{{ $t('card_post_horizontal.delete_btn') }}</a>
+        <a class="button is-danger is-outlined" @click="onDelete">{{
+          $t("card_post_horizontal.delete_btn")
+        }}</a>
       </div>
     </div>
   </div>
@@ -103,10 +105,10 @@ export default {
   methods: {
     onDelete() {
       this.$buefy.dialog.confirm({
-        title: this.$t('card_post_horizontal.dialog.title'),
-        message: this.$t('card_post_horizontal.dialog.message'),
-        confirmText: this.$t('card_post_horizontal.dialog.confirm_text'),
-        cancelText: this.$t('card_post_horizontal.dialog.cancel_text'),
+        title: this.$t("card_post_horizontal.dialog.title"),
+        message: this.$t("card_post_horizontal.dialog.message"),
+        confirmText: this.$t("card_post_horizontal.dialog.confirm_text"),
+        cancelText: this.$t("card_post_horizontal.dialog.cancel_text"),
         type: "is-danger",
         hasIcon: true,
         onConfirm: async () => {

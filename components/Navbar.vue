@@ -35,7 +35,7 @@
                       type="submit"
                       @click.prevent="onSearch"
                     >
-                      {{ $t('navbar.search_btn') }}
+                      {{ $t("navbar.search_btn") }}
                     </button>
                   </p>
                 </b-field>
@@ -51,7 +51,7 @@
                 class="button is-info is-outlined"
                 :to="localePath('/posts/new-post')"
               >
-                <strong>{{ $t('navbar.new_post_btn') }}</strong>
+                <strong>{{ $t("navbar.new_post_btn") }}</strong>
               </nuxt-link>
             </div>
             <div class="navbar-item">
@@ -84,62 +84,67 @@
                   class="button is-info is-outlined"
                   @click="isModalJoinActive = true"
                 >
-                  <strong>{{ $t('navbar.login_btn') }}</strong>
+                  <strong>{{ $t("navbar.login_btn") }}</strong>
                 </a>
               </div>
             </div>
+            <!-- Start user dropdown -->
             <div class="navbar-item has-dropdown is-hoverable" v-if="user">
-              <b-tooltip
-                :active="!isUserActive"
-                :label="$t('navbar.user_tooltip_message')"
-                position="is-right"
-                type="is-danger"
-              >
-                <a class="navbar-link">
-                  <figure>
-                    <client-only>
-                      <img
-                        class="_nav-avatar"
-                        :class="{ '_nav-avatar--danger': !isUserActive }"
-                        v-lazy="userAvatarUrl"
-                        style="display: none"
-                        onload="this.style.display = 'block'"
-                        alt="user_avatar"
-                      />
-                    </client-only>
-                  </figure>
+              <a class="navbar-link">
+                <figure>
+                  <client-only>
+                    <img
+                      class="_nav-avatar"
+                      :class="{ '_nav-avatar--danger': !isUserActive }"
+                      v-lazy="userAvatarUrl"
+                      style="display: none"
+                      onload="this.style.display = 'block'"
+                      alt="user_avatar"
+                    />
+                  </client-only>
+                </figure>
+              </a>
+              <div class="navbar-dropdown _navbar-dropdown is-right">
+                <a
+                  class="navbar-item _navbar-dropdown__item"
+                  v-if="!isUserActive"
+                >
+                  <b-icon icon="exclamation-circle" type="is-danger"></b-icon>
+                  <p class="is-size-6 has-text-danger">
+                    {{ $t("navbar.warning_message") }}
+                  </p>
                 </a>
-
-                <div class="navbar-dropdown _navbar-dropdown is-right">
-                  <nuxt-link
-                    class="navbar-item _navbar-dropdown__item"
-                    :to="localePath('/user/profile')"
-                  >
-                    <b-icon icon="cog"></b-icon>
-                    <p class="is-size-6">{{ $t('navbar.profile_link') }}</p>
-                  </nuxt-link>
-                  <nuxt-link
-                    class="navbar-item _navbar-dropdown__item"
-                    :to="localePath('/user/mgmt')"
-                  >
-                    <b-icon icon="newspaper"></b-icon>
-                    <p class="is-size-6">{{ $t('navbar.mgmt_link') }}</p>
-                  </nuxt-link>
-                  <hr class="navbar-divider" />
-                  <a
-                    class="navbar-item _navbar-dropdown__item"
-                    @click="onLogout"
-                  >
-                    <b-icon icon="sign-out-alt"></b-icon>
-                    <p class="is-size-6">{{ $t('navbar.signout_link') }}</p>
-                  </a>
-                </div>
-              </b-tooltip>
+                <hr class="navbar-divider" v-if="!isUserActive" />
+                <nuxt-link
+                  class="navbar-item _navbar-dropdown__item"
+                  :to="localePath('/user/profile')"
+                >
+                  <b-icon icon="cog"></b-icon>
+                  <p class="is-size-6">{{ $t("navbar.profile_link") }}</p>
+                </nuxt-link>
+                <nuxt-link
+                  class="navbar-item _navbar-dropdown__item"
+                  :to="localePath('/user/mgmt')"
+                >
+                  <b-icon icon="newspaper"></b-icon>
+                  <p class="is-size-6">{{ $t("navbar.mgmt_link") }}</p>
+                </nuxt-link>
+                <hr class="navbar-divider" />
+                <a class="navbar-item _navbar-dropdown__item" @click="onLogout">
+                  <b-icon icon="sign-out-alt"></b-icon>
+                  <p class="is-size-6">{{ $t("navbar.signout_link") }}</p>
+                </a>
+              </div>
             </div>
+            <!-- End user dropdown -->
           </div>
         </div>
       </div>
-      <b-modal :active.sync="isModalJoinActive" has-modal-card>
+      <b-modal
+        :active.sync="isModalJoinActive"
+        has-modal-card
+        :can-cancel="false"
+      >
         <v-modal-join />
       </b-modal>
     </nav>
@@ -149,8 +154,11 @@
       <div class="container">
         <div class="navbar-menu">
           <div class="navbar-start">
+            <!-- Start category dropdown -->
             <div class="navbar-item has-dropdown is-hoverable">
-              <a class="navbar-link _navbar-link-category">{{ $t('navbar.category_link') }}</a>
+              <a class="navbar-link _navbar-link-category">{{
+                $t("navbar.category_link")
+              }}</a>
               <div class="navbar-dropdown">
                 <nuxt-link
                   class="navbar-item _navbar-dropdown__item"
@@ -163,6 +171,7 @@
                 </nuxt-link>
               </div>
             </div>
+            <!-- End category dropdown -->
           </div>
           <div class="navbar-end">
             <a

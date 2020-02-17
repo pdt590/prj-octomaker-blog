@@ -112,7 +112,7 @@ export default {
     search_btn: "Search",
     new_post_btn: "New post",
     login_btn: "Login",
-    user_tooltip_message: "Inactive account",
+    warning_message: "Inactive account",
     profile_link: "Profile",
     mgmt_link: "Management",
     signout_link: "Sign Out",

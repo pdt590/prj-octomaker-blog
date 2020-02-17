@@ -4,7 +4,7 @@
       <p
         class="is-size-5 is-capitalized has-text-black has-text-weight-semibold"
       >
-        {{ $t('home.posts_text') }}
+        {{ $t("home.posts_text") }}
       </p>
     </div>
     <div class="columns is-multiline is-variable is-4">
@@ -24,7 +24,7 @@
           :disabled="!loadedPosts.length"
           @click="onLoad"
         >
-          {{ $t('home.more_btn') }}
+          {{ $t("home.more_btn") }}
         </button>
       </div>
     </div>
@@ -73,12 +73,12 @@ export default {
   },
   head() {
     return {
-      title: this.$t('home.head.title'),
+      title: this.$t("home.head.title"),
       meta: [
         {
           hid: "description",
           name: "description",
-          content: this.$t('home.head.content')
+          content: this.$t("home.head.content")
         }
       ]
     };

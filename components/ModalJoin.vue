@@ -55,7 +55,10 @@
           }}</a>
         </p>
         <div class="buttons">
-          <button class="button is-info is-outlined" @click.prevent="$parent.close()">
+          <button
+            class="button is-info is-outlined"
+            @click.prevent="$parent.close()"
+          >
             {{ $t("modal_join.login.close_btn") }}
           </button>
           <button
@@ -135,7 +138,10 @@
           }}
         </a>
         <div class="buttons">
-          <button class="button is-info is-outlined" @click.prevent="$parent.close()">
+          <button
+            class="button is-info is-outlined"
+            @click.prevent="$parent.close()"
+          >
             {{ $t("modal_join.signup.close_btn") }}
           </button>
           <button

@@ -70,6 +70,7 @@ export default {
     },
 
     async signUserIn(vuexContext, payload) {
+      console.log(payload)
       vuexContext.commit("setAuthLoading", true);
       vuexContext.commit("clearAuthError");
       try {

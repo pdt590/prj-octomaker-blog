@@ -1,13 +1,15 @@
 <template>
   <form class="modal-card">
     <header class="modal-card-head">
-      <p class="modal-card-title">{{ $t('modal_login.title') }}</p>
+      <p class="modal-card-title">{{ $t("modal_login.title") }}</p>
     </header>
     <section class="modal-card-body">
       <b-field
         label="Email"
         :type="$v.formData.email.$error ? `is-danger` : ``"
-        :message="!$v.formData.email.email ? $t('modal_login.email_message') : ``"
+        :message="
+          !$v.formData.email.email ? $t('modal_login.email_message') : ``
+        "
       >
         <b-input
           type="email"
@@ -19,7 +21,9 @@
       <b-field
         label="Password"
         :type="$v.formData.password.$error ? `is-danger` : ``"
-        :message="!$v.formData.password.minlen ? $t('modal_login.password_message') : ``"
+        :message="
+          !$v.formData.password.minlen ? $t('modal_login.password_message') : ``
+        "
       >
         <b-input
           type="password"
@@ -31,10 +35,15 @@
       <!-- <b-checkbox>Remember me</b-checkbox> -->
     </section>
     <footer class="modal-card-foot" style="justify-content: space-between">
-      <a @click.prevent="onForgetPassword">{{ $t('modal_login.forget_password_link') }}</a>
+      <a @click.prevent="onForgetPassword">{{
+        $t("modal_login.forget_password_link")
+      }}</a>
       <div class="buttons">
-        <button class="button is-info is-outlined" @click.prevent="$parent.close()">
-          {{ $t('modal_login.close_btn') }}
+        <button
+          class="button is-info is-outlined"
+          @click.prevent="$parent.close()"
+        >
+          {{ $t("modal_login.close_btn") }}
         </button>
         <button
           class="button is-info is-outlined"
@@ -42,7 +51,7 @@
           :disabled="$v.formData.$invalid"
           @click.prevent="onLogin"
         >
-          {{ $t('modal_login.login_btn') }}
+          {{ $t("modal_login.login_btn") }}
         </button>
       </div>
     </footer>

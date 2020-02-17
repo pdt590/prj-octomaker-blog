@@ -4,13 +4,19 @@
       <div class="column is-4 is-offset-4">
         <form class="card _card-input">
           <header class="card-header">
-            <p class="card-header-title is-size-4">{{ $t('resetpassword.title') }}</p>
+            <p class="card-header-title is-size-4">
+              {{ $t("resetpassword.title") }}
+            </p>
           </header>
           <div class="card-content">
             <b-field
               label="Email"
               :type="$v.formData.email.$error ? `is-danger` : ``"
-              :message="!$v.formData.email.email ? $t('resetpassword.email_message') : ``"
+              :message="
+                !$v.formData.email.email
+                  ? $t('resetpassword.email_message')
+                  : ``
+              "
             >
               <b-input
                 type="email"
@@ -28,7 +34,7 @@
                 :disabled="$v.formData.$invalid"
                 @click.prevent="onResetPassword"
               >
-                {{ $t('resetpassword.send_btn') }}
+                {{ $t("resetpassword.send_btn") }}
               </button>
             </div>
           </footer>
@@ -78,7 +84,7 @@ export default {
       } else {
         this.$buefy.toast.open({
           duration: 3000,
-          message: this.$t('resetpassword.toast.message'),
+          message: this.$t("resetpassword.toast.message"),
           type: "is-warning"
         });
         this.$router.push(this.localePath("/user/join"));
@@ -87,8 +93,8 @@ export default {
   },
   head() {
     return {
-      title: this.$t('resetpassword.head.title')
-    }
+      title: this.$t("resetpassword.head.title")
+    };
   }
 };
 </script>

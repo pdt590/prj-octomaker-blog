@@ -37,7 +37,7 @@
                 <template slot="header">
                   <div class="_align">
                     <b-icon icon="newspaper"></b-icon>
-                    <span>{{ $t('mgmt.posts_label') }}</span>
+                    <span>{{ $t("mgmt.posts_label") }}</span>
                   </div>
                 </template>
                 <div
@@ -96,8 +96,8 @@ export default {
   },
   head() {
     return {
-      title: this.$t('mgmt.head.title')
-    }
+      title: this.$t("mgmt.head.title")
+    };
   }
 };
 </script>
