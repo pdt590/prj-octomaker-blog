@@ -36,335 +36,353 @@
             <b-tabs type="is-boxed">
               <!-- Start info -->
               <b-tab-item :label="$t('profile.info.title')">
-                <div style="padding-top: 1rem; padding-bottom: 2rem;">
-                  <b-field
-                    :label="$t('profile.info.username_label')"
-                    :type="$v.userContent.username.$error ? `is-danger` : ``"
-                    :message="
-                      !$v.userContent.username.minLen
-                        ? $t('profile.info.username_message')
-                        : ``
-                    "
-                  >
-                    <b-input
-                      v-model="userContent.username"
-                      @blur="$v.userContent.username.$touch()"
-                      icon="user-circle"
-                    ></b-input>
-                  </b-field>
-                  <b-field :label="$t('profile.info.fullname_label')">
-                    <b-input
-                      v-model.trim="userContent.fullname"
-                      icon="id-card"
-                    ></b-input>
-                  </b-field>
-
-                  <b-field
-                    :label="$t('profile.info.phone_label')"
-                    :type="$v.userContent.phone.$error ? `is-danger` : ``"
-                    :message="
-                      !$v.userContent.phone.numeric
-                        ? $t('profile.info.phone_message')
-                        : ``
-                    "
-                  >
-                    <b-input
-                      type="tel"
-                      v-model="userContent.phone"
-                      @blur="$v.userContent.phone.$touch()"
-                      icon="phone-square-alt"
-                    ></b-input>
-                  </b-field>
-
-                  <b-field grouped>
-                    <b-field :label="$t('profile.info.address_label')" expanded>
+                <form>
+                  <div style="padding-top: 1rem; padding-bottom: 2rem;">
+                    <b-field
+                      :label="$t('profile.info.username_label')"
+                      :type="$v.userContent.username.$error ? `is-danger` : ``"
+                      :message="
+                        !$v.userContent.username.minLen
+                          ? $t('profile.info.username_message')
+                          : ``
+                      "
+                    >
                       <b-input
-                        v-model="userContent.address"
-                        icon="map-marker-alt"
+                        v-model="userContent.username"
+                        @blur="$v.userContent.username.$touch()"
+                        icon="user-circle"
                       ></b-input>
                     </b-field>
-                    <b-field :label="$t('profile.info.province_label')">
-                      <b-select v-model="userContent.province">
-                        <option v-for="(province, i) in provinces" :key="i">{{
-                          province
-                        }}</option>
-                      </b-select>
+                    <b-field :label="$t('profile.info.fullname_label')">
+                      <b-input
+                        v-model.trim="userContent.fullname"
+                        icon="id-card"
+                      ></b-input>
                     </b-field>
-                  </b-field>
-                </div>
-                <div class="level">
-                  <div class="level-left"></div>
-                  <div class="level-right">
-                    <button
-                      class="button is-info is-outlined"
-                      :class="{ 'is-loading': authLoading }"
-                      :disabled="$v.userContent.$invalid"
-                      @click="onUpdateContent"
+
+                    <b-field
+                      :label="$t('profile.info.phone_label')"
+                      :type="$v.userContent.phone.$error ? `is-danger` : ``"
+                      :message="
+                        !$v.userContent.phone.numeric
+                          ? $t('profile.info.phone_message')
+                          : ``
+                      "
                     >
-                      {{ $t("profile.info.save_btn") }}
-                    </button>
+                      <b-input
+                        type="tel"
+                        v-model="userContent.phone"
+                        @blur="$v.userContent.phone.$touch()"
+                        icon="phone-square-alt"
+                      ></b-input>
+                    </b-field>
+
+                    <b-field grouped>
+                      <b-field
+                        :label="$t('profile.info.address_label')"
+                        expanded
+                      >
+                        <b-input
+                          v-model="userContent.address"
+                          icon="map-marker-alt"
+                        ></b-input>
+                      </b-field>
+                      <b-field :label="$t('profile.info.province_label')">
+                        <b-select v-model="userContent.province">
+                          <option v-for="(province, i) in provinces" :key="i">{{
+                            province
+                          }}</option>
+                        </b-select>
+                      </b-field>
+                    </b-field>
                   </div>
-                </div>
+                  <div class="level">
+                    <div class="level-left"></div>
+                    <div class="level-right">
+                      <button
+                        class="button is-info is-outlined"
+                        :class="{ 'is-loading': authLoading }"
+                        :disabled="$v.userContent.$invalid"
+                        @click.prevent="onUpdateContent"
+                      >
+                        {{ $t("profile.info.save_btn") }}
+                      </button>
+                    </div>
+                  </div>
+                </form>
               </b-tab-item>
               <!-- End info -->
               <!-- Start email -->
               <b-tab-item :label="$t('profile.email.title')">
-                <div style="padding-top: 1rem; padding-bottom: 2rem;">
-                  <b-field
-                    :label="$t('profile.email.new_email_label')"
-                    :type="$v.userEmail.$error ? `is-danger` : ``"
-                    :message="
-                      !$v.userEmail.email
-                        ? $t('profile.email.new_email_message')
-                        : ``
-                    "
-                  >
-                    <b-input
-                      type="email"
-                      v-model.trim="userEmail"
-                      @blur="$v.userEmail.$touch()"
-                      icon="envelope"
-                    ></b-input>
-                  </b-field>
-                  <b-field
-                    :label="$t('profile.email.confirm_password_label')"
-                    :type="
-                      $v.confirmPasswordForNewEmail.$error ? `is-danger` : ``
-                    "
-                    :message="
-                      !$v.confirmPasswordForNewEmail.minLen
-                        ? $t('profile.email.confirm_password_message')
-                        : ``
-                    "
-                  >
-                    <b-input
-                      type="password"
-                      v-model.trim="confirmPasswordForNewEmail"
-                      @blur="$v.confirmPasswordForNewEmail.$touch()"
-                      password-reveal
-                      icon="unlock-alt"
-                    ></b-input>
-                  </b-field>
-                </div>
-                <div class="level">
-                  <div class="level-left"></div>
-                  <div class="level-right">
-                    <button
-                      class="button is-info is-outlined"
-                      :class="{ 'is-loading': authLoading }"
-                      :disabled="
-                        $v.userEmail.$invalid ||
-                          $v.confirmPasswordForNewEmail.$invalid
+                <form>
+                  <div style="padding-top: 1rem; padding-bottom: 2rem;">
+                    <b-field
+                      :label="$t('profile.email.new_email_label')"
+                      :type="$v.userEmail.$error ? `is-danger` : ``"
+                      :message="
+                        !$v.userEmail.email
+                          ? $t('profile.email.new_email_message')
+                          : ``
                       "
-                      @click="onUpdateEmail"
                     >
-                      {{ $t("profile.email.save_btn") }}
-                    </button>
+                      <b-input
+                        type="email"
+                        v-model.trim="userEmail"
+                        @blur="$v.userEmail.$touch()"
+                        icon="envelope"
+                      ></b-input>
+                    </b-field>
+                    <b-field
+                      :label="$t('profile.email.confirm_password_label')"
+                      :type="
+                        $v.confirmPasswordForNewEmail.$error ? `is-danger` : ``
+                      "
+                      :message="
+                        !$v.confirmPasswordForNewEmail.minLen
+                          ? $t('profile.email.confirm_password_message')
+                          : ``
+                      "
+                    >
+                      <b-input
+                        type="password"
+                        v-model.trim="confirmPasswordForNewEmail"
+                        @blur="$v.confirmPasswordForNewEmail.$touch()"
+                        password-reveal
+                        icon="unlock-alt"
+                      ></b-input>
+                    </b-field>
                   </div>
-                </div>
+                  <div class="level">
+                    <div class="level-left"></div>
+                    <div class="level-right">
+                      <button
+                        class="button is-info is-outlined"
+                        :class="{ 'is-loading': authLoading }"
+                        :disabled="
+                          $v.userEmail.$invalid ||
+                            $v.confirmPasswordForNewEmail.$invalid
+                        "
+                        @click.prevent="onUpdateEmail"
+                      >
+                        {{ $t("profile.email.save_btn") }}
+                      </button>
+                    </div>
+                  </div>
+                </form>
               </b-tab-item>
               <!-- End email -->
               <!-- Start password -->
               <b-tab-item :label="$t('profile.password.title')">
-                <div style="padding-top: 1rem; padding-bottom: 2rem;">
-                  <b-field
-                    :label="$t('profile.password.password_label')"
-                    :type="
-                      $v.confirmPasswordForNewPassword.$error ? `is-danger` : ``
-                    "
-                    :message="
-                      !$v.confirmPasswordForNewPassword.minLen
-                        ? $t('profile.password.password_message')
-                        : ``
-                    "
-                  >
-                    <b-input
-                      type="password"
-                      v-model.trim="confirmPasswordForNewPassword"
-                      @blur="$v.confirmPasswordForNewPassword.$touch()"
-                      password-reveal
-                      icon="unlock-alt"
-                    ></b-input>
-                  </b-field>
-                  <b-field
-                    :label="$t('profile.password.new_password_label')"
-                    :type="$v.userPassword.$error ? `is-danger` : ``"
-                    :message="
-                      !$v.userPassword.minLen
-                        ? $t('profile.password.new_password_message')
-                        : ``
-                    "
-                  >
-                    <b-input
-                      type="password"
-                      v-model.trim="userPassword"
-                      @blur="$v.userPassword.$touch()"
-                      password-reveal
-                      icon="key"
-                    ></b-input>
-                  </b-field>
-                  <b-field
-                    :label="$t('profile.password.confirm_new_password_label')"
-                    :type="$v.confirmUserPassword.$error ? `is-danger` : ``"
-                    :message="
-                      $v.confirmUserPassword.$error
-                        ? $t(
-                            'profile.password.confirm_new_password_error_message'
-                          )
-                        : ``
-                    "
-                  >
-                    <b-input
-                      type="password"
-                      v-model.trim="confirmUserPassword"
-                      @blur="$v.confirmUserPassword.$touch()"
-                      password-reveal
-                      icon="key"
-                    ></b-input>
-                  </b-field>
-                </div>
-                <div class="level">
-                  <div class="level-left"></div>
-                  <div class="level-right">
-                    <button
-                      class="button is-info is-outlined"
-                      :class="{ 'is-loading': authLoading }"
-                      :disabled="
-                        $v.confirmPasswordForNewPassword.$invalid ||
-                          $v.userPassword.$invalid ||
-                          $v.confirmUserPassword.$invalid
+                <form>
+                  <div style="padding-top: 1rem; padding-bottom: 2rem;">
+                    <b-field
+                      :label="$t('profile.password.password_label')"
+                      :type="
+                        $v.confirmPasswordForNewPassword.$error
+                          ? `is-danger`
+                          : ``
                       "
-                      @click="onUpdatePassword"
+                      :message="
+                        !$v.confirmPasswordForNewPassword.minLen
+                          ? $t('profile.password.password_message')
+                          : ``
+                      "
                     >
-                      {{ $t("profile.password.save_btn") }}
-                    </button>
+                      <b-input
+                        type="password"
+                        v-model.trim="confirmPasswordForNewPassword"
+                        @blur="$v.confirmPasswordForNewPassword.$touch()"
+                        password-reveal
+                        icon="unlock-alt"
+                      ></b-input>
+                    </b-field>
+                    <b-field
+                      :label="$t('profile.password.new_password_label')"
+                      :type="$v.userPassword.$error ? `is-danger` : ``"
+                      :message="
+                        !$v.userPassword.minLen
+                          ? $t('profile.password.new_password_message')
+                          : ``
+                      "
+                    >
+                      <b-input
+                        type="password"
+                        v-model.trim="userPassword"
+                        @blur="$v.userPassword.$touch()"
+                        password-reveal
+                        icon="key"
+                      ></b-input>
+                    </b-field>
+                    <b-field
+                      :label="$t('profile.password.confirm_new_password_label')"
+                      :type="$v.confirmUserPassword.$error ? `is-danger` : ``"
+                      :message="
+                        $v.confirmUserPassword.$error
+                          ? $t(
+                              'profile.password.confirm_new_password_error_message'
+                            )
+                          : ``
+                      "
+                    >
+                      <b-input
+                        type="password"
+                        v-model.trim="confirmUserPassword"
+                        @blur="$v.confirmUserPassword.$touch()"
+                        password-reveal
+                        icon="key"
+                      ></b-input>
+                    </b-field>
                   </div>
-                </div>
+                  <div class="level">
+                    <div class="level-left"></div>
+                    <div class="level-right">
+                      <button
+                        class="button is-info is-outlined"
+                        :class="{ 'is-loading': authLoading }"
+                        :disabled="
+                          $v.confirmPasswordForNewPassword.$invalid ||
+                            $v.userPassword.$invalid ||
+                            $v.confirmUserPassword.$invalid
+                        "
+                        @click.prevent="onUpdatePassword"
+                      >
+                        {{ $t("profile.password.save_btn") }}
+                      </button>
+                    </div>
+                  </div>
+                </form>
               </b-tab-item>
               <!-- End password -->
               <!-- Start avatar -->
               <b-tab-item :label="$t('profile.avatar.title')">
-                <div style="padding-top: 1rem; padding-bottom: 2rem;">
-                  <!-- Start image upload -->
-                  <b-field :label="$t('profile.avatar.avatar_label')">
+                <form>
+                  <div style="padding-top: 1rem; padding-bottom: 2rem;">
+                    <!-- Start image upload -->
+                    <b-field :label="$t('profile.avatar.avatar_label')">
+                      <div class="level">
+                        <div class="level-item">
+                          <b-upload
+                            v-model="userNewAvatar"
+                            @input="onAvatarChange"
+                            drag-drop
+                            :accept="acceptedImages"
+                          >
+                            <section class="section">
+                              <div class="content has-text-centered">
+                                <p>
+                                  <b-icon
+                                    icon="upload"
+                                    size="is-large"
+                                  ></b-icon>
+                                </p>
+                                <p>{{ $t("profile.avatar.placeholder") }}</p>
+                              </div>
+                            </section>
+                          </b-upload>
+                        </div>
+                      </div>
+                    </b-field>
+                    <!-- End image upload -->
                     <div class="level">
-                      <div class="level-item">
-                        <b-upload
-                          v-model="userNewAvatar"
-                          @input="onAvatarChange"
-                          drag-drop
-                          :accept="acceptedImages"
-                        >
-                          <section class="section">
-                            <div class="content has-text-centered">
-                              <p>
-                                <b-icon icon="upload" size="is-large"></b-icon>
-                              </p>
-                              <p>{{ $t("profile.avatar.placeholder") }}</p>
-                            </div>
-                          </section>
-                        </b-upload>
+                      <div class="level-item" v-if="userOldAvatar">
+                        <figure class="image is-128x128 _image-frame">
+                          <client-only>
+                            <img
+                              class="_image-preview"
+                              v-lazy="userOldAvatar.url"
+                              style="display: none"
+                              onload="this.style.display = 'block'"
+                              alt="user_avatar"
+                            />
+                          </client-only>
+                          <span class="_image-size">{{
+                            userOldAvatar.metadata.size | fmBytes
+                          }}</span>
+                          <a
+                            class="delete _image-button-delete"
+                            @click.prevent="userOldAvatar = null"
+                          ></a>
+                        </figure>
+                      </div>
+                      <div class="level-item" v-if="userNewAvatar">
+                        <figure class="image is-128x128 _image-frame">
+                          <client-only>
+                            <img
+                              class="_image-preview"
+                              v-lazy="userPreviewAvatar.url"
+                              style="display: none"
+                              onload="this.style.display = 'block'"
+                              alt="preview_avatar"
+                            />
+                          </client-only>
+                          <span class="_image-size">{{
+                            userPreviewAvatar.size | fmBytes
+                          }}</span>
+                          <a
+                            class="delete _image-button-delete"
+                            @click.prevent="
+                              userPreviewAvatar = null;
+                              userNewAvatar = null;
+                            "
+                          ></a>
+                        </figure>
                       </div>
                     </div>
-                  </b-field>
-                  <!-- End image upload -->
+                  </div>
                   <div class="level">
-                    <div class="level-item" v-if="userOldAvatar">
-                      <figure class="image is-128x128 _image-frame">
-                        <client-only>
-                          <img
-                            class="_image-preview"
-                            v-lazy="userOldAvatar.url"
-                            style="display: none"
-                            onload="this.style.display = 'block'"
-                            alt="user_avatar"
-                          />
-                        </client-only>
-                        <span class="_image-size">{{
-                          userOldAvatar.metadata.size | fmBytes
-                        }}</span>
-                        <a
-                          class="delete _image-button-delete"
-                          @click="userOldAvatar = null"
-                        ></a>
-                      </figure>
-                    </div>
-                    <div class="level-item" v-if="userNewAvatar">
-                      <figure class="image is-128x128 _image-frame">
-                        <client-only>
-                          <img
-                            class="_image-preview"
-                            v-lazy="userPreviewAvatar.url"
-                            style="display: none"
-                            onload="this.style.display = 'block'"
-                            alt="preview_avatar"
-                          />
-                        </client-only>
-                        <span class="_image-size">{{
-                          userPreviewAvatar.size | fmBytes
-                        }}</span>
-                        <a
-                          class="delete _image-button-delete"
-                          @click="
-                            userPreviewAvatar = null;
-                            userNewAvatar = null;
-                          "
-                        ></a>
-                      </figure>
+                    <div class="level-left"></div>
+                    <div class="level-right">
+                      <button
+                        class="button is-info is-outlined"
+                        :class="{ 'is-loading': authLoading }"
+                        :disabled="!isAvatarChanged"
+                        @click.prevent="onUpdateAvatar"
+                      >
+                        {{ $t("profile.avatar.save_btn") }}
+                      </button>
                     </div>
                   </div>
-                </div>
-                <div class="level">
-                  <div class="level-left"></div>
-                  <div class="level-right">
-                    <button
-                      class="button is-info is-outlined"
-                      :class="{ 'is-loading': authLoading }"
-                      :disabled="!isAvatarChanged"
-                      @click="onUpdateAvatar"
-                    >
-                      {{ $t("profile.avatar.save_btn") }}
-                    </button>
-                  </div>
-                </div>
+                </form>
               </b-tab-item>
               <!-- End avatar -->
               <!-- Start delete account -->
               <b-tab-item :label="$t('profile.delete.title')">
-                <div style="padding-top: 1rem; padding-bottom: 2rem;">
-                  <b-field
-                    :label="$t('profile.delete.confirm_password_label')"
-                    :type="
-                      $v.confirmPasswordForDeleting.$error ? `is-danger` : ``
-                    "
-                    :message="
-                      !$v.confirmPasswordForDeleting.minLen
-                        ? $t('profile.delete.confirm_password_message')
-                        : ``
-                    "
-                  >
-                    <b-input
-                      type="password"
-                      v-model.trim="confirmPasswordForDeleting"
-                      @blur="$v.confirmPasswordForDeleting.$touch()"
-                      password-reveal
-                      icon="key"
-                    ></b-input>
-                  </b-field>
-                </div>
-                <div class="level">
-                  <div class="level-left"></div>
-                  <div class="level-right">
-                    <button
-                      class="button is-danger"
-                      :class="{ 'is-loading': authLoading }"
-                      :disabled="$v.confirmPasswordForDeleting.$invalid"
-                      @click="onDelete"
+                <form>
+                  <div style="padding-top: 1rem; padding-bottom: 2rem;">
+                    <b-field
+                      :label="$t('profile.delete.confirm_password_label')"
+                      :type="
+                        $v.confirmPasswordForDeleting.$error ? `is-danger` : ``
+                      "
+                      :message="
+                        !$v.confirmPasswordForDeleting.minLen
+                          ? $t('profile.delete.confirm_password_message')
+                          : ``
+                      "
                     >
-                      {{ $t('profile.delete.delete_btn') }}
-                    </button>
+                      <b-input
+                        type="password"
+                        v-model.trim="confirmPasswordForDeleting"
+                        @blur="$v.confirmPasswordForDeleting.$touch()"
+                        password-reveal
+                        icon="key"
+                      ></b-input>
+                    </b-field>
                   </div>
-                </div>
+                  <div class="level">
+                    <div class="level-left"></div>
+                    <div class="level-right">
+                      <button
+                        class="button is-danger"
+                        :class="{ 'is-loading': authLoading }"
+                        :disabled="$v.confirmPasswordForDeleting.$invalid"
+                        @click.prevent="onDelete"
+                      >
+                        {{ $t("profile.delete.delete_btn") }}
+                      </button>
+                    </div>
+                  </div>
+                </form>
               </b-tab-item>
               <!-- End delete account -->
             </b-tabs>
@@ -527,7 +545,7 @@ export default {
       } else {
         this.$buefy.toast.open({
           duration: 3000,
-          message: this.$t('profile.info.success_message'),
+          message: this.$t("profile.info.success_message"),
           type: "is-success"
         });
       }
@@ -546,7 +564,7 @@ export default {
       } else {
         this.$buefy.toast.open({
           duration: 3000,
-          message: this.$t('profile.email.announce_message'),
+          message: this.$t("profile.email.announce_message"),
           type: "is-warning"
         });
       }
@@ -565,7 +583,7 @@ export default {
       } else {
         this.$buefy.toast.open({
           duration: 3000,
-          message: this.$t('profile.password.success_message'),
+          message: this.$t("profile.password.success_message"),
           type: "is-success"
         });
       }
@@ -581,17 +599,17 @@ export default {
       } else {
         this.$buefy.toast.open({
           duration: 3000,
-          message: this.$t('profile.avatar.success_message'),
+          message: this.$t("profile.avatar.success_message"),
           type: "is-success"
         });
       }
     },
     onDelete() {
       this.$buefy.dialog.confirm({
-        title: this.$t('profile.delete.dialog.title'),
-        message: this.$t('profile.delete.dialog.message'),
-        confirmText: this.$t('profile.delete.dialog.confirm_text'),
-        cancelText: this.$t('profile.delete.dialog.cancel_text'),
+        title: this.$t("profile.delete.dialog.title"),
+        message: this.$t("profile.delete.dialog.message"),
+        confirmText: this.$t("profile.delete.dialog.confirm_text"),
+        cancelText: this.$t("profile.delete.dialog.cancel_text"),
         type: "is-danger",
         hasIcon: true,
         onConfirm: async () => {
@@ -621,8 +639,8 @@ export default {
   },
   head() {
     return {
-      title: this.$t('profile.head.title')
-    }
+      title: this.$t("profile.head.title")
+    };
   }
 };
 </script>

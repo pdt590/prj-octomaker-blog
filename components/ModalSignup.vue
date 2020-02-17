@@ -1,5 +1,5 @@
 <template>
-  <div class="modal-card">
+  <form class="modal-card">
     <header class="modal-card-head">
       <p class="modal-card-title">{{ $t('modal_signup.title') }}</p>
     </header>
@@ -43,19 +43,19 @@
       <!-- <b-checkbox>Remember me</b-checkbox> -->
     </section>
     <footer class="modal-card-foot">
-      <button class="button is-info is-outlined" @click="$parent.close()">
+      <button class="button is-info is-outlined" @click.prevent="$parent.close()">
         {{ $t('modal_signup.close_btn') }}
       </button>
       <button
         class="button is-info is-outlined"
         :class="{ 'is-loading': authLoading }"
         :disabled="$v.formData.$invalid"
-        @click="onSignup"
+        @click.prevent="onSignup"
       >
         {{ $t('modal_signup.signup_btn') }}
       </button>
     </footer>
-  </div>
+  </form>
 </template>
 
 <script>

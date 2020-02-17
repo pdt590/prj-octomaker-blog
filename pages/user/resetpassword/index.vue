@@ -2,7 +2,7 @@
   <div class="container">
     <div class="columns">
       <div class="column is-4 is-offset-4">
-        <div class="card _card-input">
+        <form class="card _card-input">
           <header class="card-header">
             <p class="card-header-title is-size-4">{{ $t('resetpassword.title') }}</p>
           </header>
@@ -26,13 +26,13 @@
                 class="button is-info is-outlined"
                 :class="{ 'is-loading': authLoading }"
                 :disabled="$v.formData.$invalid"
-                @click="onResetPassword"
+                @click.prevent="onResetPassword"
               >
                 {{ $t('resetpassword.send_btn') }}
               </button>
             </div>
           </footer>
-        </div>
+        </form>
       </div>
     </div>
   </div>

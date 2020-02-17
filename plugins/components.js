@@ -12,9 +12,7 @@ Vue.component("v-card-post-recommend", () => import("~/components/CardPostRecomm
 Vue.component("v-card-post-horizontal", () => import("~/components/CardPostHorizontal"));
 
 // Modal
-Vue.component("v-modal-login", () => import("~/components/ModalLogin"));
-Vue.component("v-modal-signup", () => import("~/components/ModalSignup"));
 Vue.component("v-modal-join", () => import("~/components/ModalJoin"));
-Vue.component("v-modal-link", () => import("~/components/ModalLink"));
 Vue.component("v-modal-image", () => import("~/components/ModalImage"));
+Vue.component("v-modal-link", () => import("~/components/ModalLink"));
 Vue.component("v-modal-embed", () => import("~/components/ModalEmbed"));

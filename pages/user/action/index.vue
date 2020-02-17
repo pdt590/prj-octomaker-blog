@@ -3,7 +3,7 @@
     <!-- Start resetPassword -->
     <div class="columns" v-if="mode === `resetPassword`">
       <div class="column is-4 is-offset-4">
-        <div class="card _card-input">
+        <form class="card _card-input">
           <header class="card-header">
             <p class="card-header-title is-size-4">
               {{ $t("action.reset_password.title") }}
@@ -53,13 +53,13 @@
                 class="button is-info is-outlined"
                 :class="{ 'is-loading': authLoading }"
                 :disabled="$v.formData.$invalid"
-                @click="onResetPassword"
+                @click.prevent="onResetPassword"
               >
                 {{ $t("action.reset_password.send_btn") }}
               </button>
             </div>
           </footer>
-        </div>
+        </form>
       </div>
     </div>
     <!-- End resetPassword -->

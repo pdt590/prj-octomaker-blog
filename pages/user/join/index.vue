@@ -3,7 +3,7 @@
     <div class="columns">
       <div class="column is-4 is-offset-4">
         <!-- Start login -->
-        <div class="card _card-input" v-show="!isSignup">
+        <form class="card _card-input" v-show="!isSignup">
           <header class="card-header">
             <p class="card-header-title is-size-4">
               {{ $t("join.login.title") }}
@@ -50,7 +50,7 @@
               style="justify-content: space-between"
             >
               <p>
-                <a @click="isSignup = !isSignup">{{
+                <a @click.prevent="isSignup = !isSignup">{{
                   isSignup
                     ? $t("join.login.login_text")
                     : $t("join.signup.signup_text")
@@ -64,16 +64,16 @@
                 class="button is-info is-outlined"
                 :class="{ 'is-loading': authLoading }"
                 :disabled="$v.formDataLogin.$invalid"
-                @click="onLogin"
+                @click.prevent="onLogin"
               >
                 {{ $t("join.login.login_btn") }}
               </button>
             </div>
           </footer>
-        </div>
+        </form>
         <!-- End login -->
         <!-- Start signup -->
-        <div class="card _card-input" v-show="isSignup">
+        <form class="card _card-input" v-show="isSignup">
           <header class="card-header">
             <p class="card-header-title is-size-4">
               {{ $t("join.signup.title") }}
@@ -135,7 +135,7 @@
               class="card-footer-item"
               style="justify-content: space-between"
             >
-              <a @click="isSignup = !isSignup">{{
+              <a @click.prevent="isSignup = !isSignup">{{
                 isSignup
                   ? $t("join.login.login_text")
                   : $t("join.signup.signup_text")
@@ -144,13 +144,13 @@
                 class="button is-info is-outlined"
                 :class="{ 'is-loading': authLoading }"
                 :disabled="$v.formDataSignup.$invalid"
-                @click="onSignup"
+                @click.prevent="onSignup"
               >
                 {{ $t("join.signup.signup_btn") }}
               </button>
             </div>
           </footer>
-        </div>
+        </form>
         <!-- End signup -->
       </div>
     </div>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Start login -->
-    <div class="modal-card" v-show="!isSignup">
+    <form class="modal-card" v-show="!isSignup">
       <header class="modal-card-head">
         <p class="modal-card-title">{{ $t("modal_join.login.title") }}</p>
       </header>
@@ -42,7 +42,7 @@
       </section>
       <footer class="modal-card-foot" style="justify-content: space-between">
         <p>
-          <a @click="isSignup = !isSignup">
+          <a @click.prevent="isSignup = !isSignup">
             {{
               isSignup
                 ? $t("modal_join.login.login_text")
@@ -50,28 +50,28 @@
             }}
           </a>
           <br />
-          <a @click="onForgetPassword">{{
+          <a @click.prevent="onForgetPassword">{{
             $t("modal_join.login.forget_password_link")
           }}</a>
         </p>
         <div class="buttons">
-          <button class="button is-info is-outlined" @click="$parent.close()">
+          <button class="button is-info is-outlined" @click.prevent="$parent.close()">
             {{ $t("modal_join.login.close_btn") }}
           </button>
           <button
             class="button is-info is-outlined"
             :class="{ 'is-loading': authLoading }"
             :disabled="$v.formDataLogin.$invalid"
-            @click="onLogin"
+            @click.prevent="onLogin"
           >
             {{ $t("modal_join.login.login_btn") }}
           </button>
         </div>
       </footer>
-    </div>
+    </form>
     <!-- End login -->
     <!-- Start signup -->
-    <div class="modal-card" v-show="isSignup">
+    <form class="modal-card" v-show="isSignup">
       <header class="modal-card-head">
         <p class="modal-card-title">{{ $t("modal_join.signup.title") }}</p>
       </header>
@@ -127,7 +127,7 @@
         <!-- <b-checkbox>Remember me</b-checkbox> -->
       </section>
       <footer class="modal-card-foot" style="justify-content: space-between">
-        <a @click="isSignup = !isSignup">
+        <a @click.prevent="isSignup = !isSignup">
           {{
             isSignup
               ? $t("modal_join.login.login_text")
@@ -135,20 +135,20 @@
           }}
         </a>
         <div class="buttons">
-          <button class="button is-info is-outlined" @click="$parent.close()">
+          <button class="button is-info is-outlined" @click.prevent="$parent.close()">
             {{ $t("modal_join.signup.close_btn") }}
           </button>
           <button
             class="button is-info is-outlined"
             :class="{ 'is-loading': authLoading }"
             :disabled="$v.formDataSignup.$invalid"
-            @click="onSignup"
+            @click.prevent="onSignup"
           >
             {{ $t("modal_join.signup.signup_btn") }}
           </button>
         </div>
       </footer>
-    </div>
+    </form>
     <!-- End signup -->
   </div>
 </template>

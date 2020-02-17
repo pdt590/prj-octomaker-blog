@@ -64,5 +64,5 @@
 - Add different favicon/logo sizes for SEO
 - Fix 'TODO' tasks
 - Fix reload issue when deleting a post in mgmt page
-- Fix 'Password field is not contained in a form' issue
+- `Fix 'Password field is not contained in a form' issue`
 - Fix and rename variables in user/profile page
