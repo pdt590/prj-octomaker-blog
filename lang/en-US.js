@@ -266,6 +266,8 @@ export default {
       username_label: "Username",
       username_message: "At least 6 characters",
       fullname_label: "Fullname",
+      website_label: "Website",
+      website_message: "Invalid URL",
       phone_label: "Phone",
       phone_message: "Invalid phone number",
       address_label: "Address",

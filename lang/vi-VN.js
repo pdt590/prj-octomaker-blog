@@ -263,6 +263,8 @@ export default {
       username_label: "Username",
       username_message: "Ít nhất 6 ký tự",
       fullname_label: "Họ và tên",
+      website_label: "Website",
+      website_message: "Link không hợp lệ",
       phone_label: "Điện thoại",
       phone_message: "Số điện thoại không hợp lệ",
       address_label: "Địa chỉ",

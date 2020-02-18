@@ -53,10 +53,27 @@
                         icon="user-circle"
                       ></b-input>
                     </b-field>
+
                     <b-field :label="$t('profile.info.fullname_label')">
                       <b-input
                         v-model.trim="userContent.fullname"
                         icon="id-card"
+                      ></b-input>
+                    </b-field>
+
+                    <b-field
+                      :label="$t('profile.info.website_label')"
+                      :type="$v.userContent.website.$error ? `is-danger` : ``"
+                      :message="
+                        !$v.userContent.website.url
+                          ? $t('profile.info.website_message')
+                          : ``
+                      "
+                    >
+                      <b-input
+                        v-model.trim="userContent.website"
+                        @blur="$v.userContent.website.$touch()"
+                        icon="link"
                       ></b-input>
                     </b-field>
 
@@ -403,7 +420,8 @@ import {
   numeric,
   sameAs,
   not,
-  minLength
+  minLength,
+  url
 } from "vuelidate/lib/validators";
 
 export default {
@@ -413,6 +431,7 @@ export default {
     this.userContent = {
       username: this.user.username,
       fullname: this.user.fullname,
+      website: this.user.website,
       phone: this.user.phone,
       address: this.user.address,
       province: this.user.province ? this.user.province : "Hà Nội"
@@ -491,6 +510,9 @@ export default {
         required,
         minLen: minLength(6)
         // isValidUsername: not(sameAs(function() { return this.user.username }))
+      },
+      website: {
+        url
       },
       phone: {
         numeric

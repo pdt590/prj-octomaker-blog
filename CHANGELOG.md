@@ -74,3 +74,5 @@
 - Add different favicon/logo sizes for SEO
 - Fix 'TODO' tasks
 - `Fix Close Tab prevent on pages when clicking 'Back' on browser`
+- Change CardPostHorizotal style
+- Add filter for post list
