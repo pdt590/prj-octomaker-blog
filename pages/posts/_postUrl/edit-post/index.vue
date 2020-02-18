@@ -1,6 +1,6 @@
 <template>
   <div class="_fullscreen">
-    <div class="container">
+    <form class="container">
       <b-field grouped>
         <b-field :type="$v.postTitle.$error ? `is-danger` : ``" expanded>
           <b-input
@@ -48,6 +48,8 @@
             v-model="postContent.markdown"
             :images="postImages"
             :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
+            location="edit-post"
+            @blur="onBlur"
           />
         </client-only>
       </b-field>
@@ -74,23 +76,24 @@
         </div>
         <div class="level-right">
           <button
+            type="submit"
             class="level-item button is-info is-outlined"
             :class="{ 'is-loading': postLoading && loadEvent === `onPublish` }"
             :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
-            @click="onPublish"
+            @click.prevent="onPublish"
           >
             {{ $t("edit_post.update_btn") }}
           </button>
           <button
             class="level-item button is-info is-outlined"
             :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
-            @click="onDelete"
+            @click.prevent="onDelete"
           >
             {{ $t("edit_post.delete_btn") }}
           </button>
         </div>
       </div>
-    </div>
+    </form>
   </div>
 </template>
 
@@ -102,8 +105,10 @@ import { required } from "vuelidate/lib/validators";
 export default {
   middleware: ["server-client-auth", "server-client-edit-permission"],
   created() {
+    if (process.client) {
+      this.initCloseEventListener();
+    }
     this.postTitle = this.loadedPost.title;
-
     this.postContent = {
       category: this.loadedPost.category,
       tags: this.loadedPost.tags,
@@ -174,6 +179,15 @@ export default {
       }
       this.loadEvent = "";
     },
+    async onBlur() {
+      this.postContent.html = this.simplemde.markdown(
+        this.postContent.markdown
+      );
+      await this.$store.dispatch("addPostContent", this.postContent);
+      if (this.postLoading) {
+        this.$store.commit("setPostLoading", false);
+      }
+    },
     async onPublish() {
       this.loadEvent = "onPublish";
       this.postContent.html = this.simplemde.markdown(
@@ -213,6 +227,13 @@ export default {
             this.$router.push(this.localePath("/"));
           }
         }
+      });
+    },
+    initCloseEventListener() {
+      window.addEventListener("beforeunload", function(e) {
+        var confirmationMessage = "Changes you made may not be saved.";
+        (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+        return confirmationMessage; //Webkit, Safari, Chrome
       });
     }
   },

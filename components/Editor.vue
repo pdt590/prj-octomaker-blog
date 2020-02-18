@@ -42,7 +42,8 @@ export default {
   props: {
     value: String,
     images: Array,
-    disabled: Boolean
+    disabled: Boolean,
+    location: String
   },
   mounted() {
     this.initialize();
@@ -68,11 +69,9 @@ export default {
       configs: {
         element: this.$refs.simplemde,
         initialValue: this.value,
-        autofocus: true,
         placeholder: `Content format: \n # Introduction \n - Describe overall your post \n - Don't use picture/bullet/link \n # Content \n - Write your post`,
         spellChecker: false,
         tabSize: 4,
-        forceSync: true,
         toolbar: [
           "bold",
           "italic",
@@ -182,11 +181,27 @@ export default {
       this.codemirror.on("viewportChange", () => {
         Prism.highlightAll();
       });
-      this.codemirror.on("refresh", () => {
-        setTimeout(() => {
-          Prism.highlightAll();
-        }, 1);
+
+      /* Start blur event */
+      let typingTimer; //timer identifier
+      const doneTypingInterval = 2000; //time in ms
+
+      //on keyup, start the countdown
+      this.codemirror.on(
+        "keyup",
+        function() {
+          clearTimeout(typingTimer);
+          typingTimer = setTimeout(() => {
+            this.$emit("blur");
+          }, doneTypingInterval);
+        }.bind(this)
+      );
+
+      //on keydown, clear the countdown
+      this.codemirror.on("keydown", function() {
+        clearTimeout(typingTimer);
       });
+      /* End blur event */
     },
     addPreviewClass(className) {
       // Fetch <div class="CodeMirror" />

@@ -52,6 +52,7 @@
   - `Add enable/disable editor mode`
   - window.prompt() doen't work in drawLink
   - How to use clean-block
+  - `Add auto-save function`
 - Add admin role
 - Change image-lazy-load plugin
 - `Use vue-fontawesome`
@@ -69,6 +70,6 @@
 - `Fix and rename variables in user/profile page`
 - Fix delete account issue
 - `Check icon size issue`
-- Remove some categories
+- `Remove some categories`
 - Add different favicon/logo sizes for SEO
 - Fix 'TODO' tasks
