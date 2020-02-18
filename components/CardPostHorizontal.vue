@@ -23,6 +23,15 @@
           </nuxt-link>
         </strong>
       </div>
+      <div class="tags">
+        <span class="tag is-medium" :class="postMode === 'public' ? 'is-light' : 'is-dark'">{{ postMode }}</span>
+        <span
+          v-for="(tag, index) in postTags"
+          :key="index"
+          class="tag is-warning is-medium"
+          >{{ tag }}</span
+        >
+      </div>
       <div class="level">
         <div class="level-left">
           <b-icon pack="far" icon="clock" size="is-small"></b-icon>
@@ -65,6 +74,9 @@ export default {
     },
     postTitle() {
       return this.value.title;
+    },
+    postMode() {
+      return this.value.mode;
     },
     postCategory() {
       const category = categories.find(item => item.id === this.value.category);

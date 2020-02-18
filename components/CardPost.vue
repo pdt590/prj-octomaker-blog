@@ -77,6 +77,9 @@ export default {
     postTitle() {
       return this.value.title;
     },
+    postMode() {
+      return this.value.mode
+    },
     postCategory() {
       const category = categories.find(item => item.id === this.value.category);
       return category.name;
