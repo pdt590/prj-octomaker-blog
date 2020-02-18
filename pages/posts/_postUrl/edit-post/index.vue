@@ -105,9 +105,6 @@ import { required } from "vuelidate/lib/validators";
 export default {
   middleware: ["server-client-auth", "server-client-edit-permission"],
   created() {
-    if (process.client) {
-      this.initCloseEventListener();
-    }
     this.postTitle = this.loadedPost.title;
     this.postContent = {
       category: this.loadedPost.category,
@@ -227,13 +224,6 @@ export default {
             this.$router.push(this.localePath("/"));
           }
         }
-      });
-    },
-    initCloseEventListener() {
-      window.addEventListener("beforeunload", function(e) {
-        var confirmationMessage = "Changes you made may not be saved.";
-        (e || window.event).returnValue = confirmationMessage; //Gecko + IE
-        return confirmationMessage; //Webkit, Safari, Chrome
       });
     }
   },

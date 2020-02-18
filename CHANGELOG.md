@@ -73,3 +73,4 @@
 - `Remove some categories`
 - Add different favicon/logo sizes for SEO
 - Fix 'TODO' tasks
+- `Fix Close Tab prevent on pages when clicking 'Back' on browser`
