@@ -135,7 +135,11 @@ export function genId(length) {
 
 export function genUrl(title, uuid) {
   // remove all special characters except spaces
-  title = title.replace(/[^a-zA-Z ]/g, "");
+  title = title.replace(
+    /[^a-z0-9A-Z àáãạảăắằẳẵặâấầẩẫậèéẹẻẽêềếểễệđìíĩỉịòóõọỏôốồổỗộơớờởỡợùúũụủưứừửữựỳỵỷỹýÀÁÃẠẢĂẮẰẲẴẶÂẤẦẨẪẬÈÉẸẺẼÊỀẾỂỄỆĐÌÍĨỈỊÒÓÕỌỎÔỐỒỔỖỘƠỚỜỞỠỢÙÚŨỤỦƯỨỪỬỮỰỲỴỶỸÝ]/g,
+    ""
+  );
+
   if (uuid) {
     return title.replace(/\s+|[,\/?]/g, "-").toLowerCase() + "-" + uuid;
   } else {
