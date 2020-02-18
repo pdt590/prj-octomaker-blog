@@ -45,7 +45,7 @@
                   v-for="post in loadedPersonalPosts"
                   :key="post.url"
                 >
-                  <v-card-post-horizontal :value="post" />
+                  <v-card-post-horizontal :value="post" @delete="onDelete" />
                 </div>
               </b-tab-item>
             </b-tabs>
@@ -93,6 +93,14 @@ export default {
     return {
       loadedPersonalPosts: loadedPersonalPosts
     };
+  },
+  methods: {
+    onDelete(postUrl) {
+      const deletedPostIndex = this.loadedPersonalPosts.findIndex(
+        item => item.url === postUrl
+      );
+      this.loadedPersonalPosts.splice(deletedPostIndex, 1);
+    }
   },
   head() {
     return {

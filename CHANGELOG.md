@@ -66,10 +66,9 @@
 - `Change Buefy Dialog for ModalConfirm`
 - Add different favicon/logo sizes for SEO
 - Fix 'TODO' tasks
-- Fix reload issue when deleting a post in mgmt page
+- `Fix reload issue when deleting a post in mgmt page`
 - `Fix 'Password field is not contained in a form' issue`
 - `Fix and rename variables in user/profile page`
 - Fix delete account issue
-- Add post lazy load for mgmt page
 - Check icon size issue
 - Remove some categories

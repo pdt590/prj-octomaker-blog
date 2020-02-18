@@ -121,7 +121,8 @@ export default {
               type: "is-danger"
             });
           } else {
-            location.reload();
+            //location.reload();
+            this.$emit('delete', this.postUrl)
           }
         }
       });
