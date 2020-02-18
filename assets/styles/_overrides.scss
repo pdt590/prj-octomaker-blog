@@ -8,11 +8,11 @@
 }
 
 * {
-  transition: all 200ms ease;
+  transition: all 100ms ease;
 }
 
 .button {
-  transition: all 200ms ease;
+  transition: all 100ms ease;
 
   &.is-active,
   &.is-focused,
@@ -58,7 +58,7 @@ blockquote {
 
 .input,
 .textarea {
-  transition: all 200ms ease;
+  transition: all 100ms ease;
   box-shadow: none;
   font-size: $body-size;
 }

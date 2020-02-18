@@ -64,11 +64,11 @@
 - `Modal auto closes when pressing ENTER`
   - `Reason: <form> in new-post and edit-post page`
 - `Change Buefy Dialog for ModalConfirm`
-- Add different favicon/logo sizes for SEO
-- Fix 'TODO' tasks
-- `Fix reload issue when deleting a post in mgmt page`
+- `Remove reload action when deleting a post in mgmt page`
 - `Fix 'Password field is not contained in a form' issue`
 - `Fix and rename variables in user/profile page`
 - Fix delete account issue
-- Check icon size issue
+- `Check icon size issue`
 - Remove some categories
+- Add different favicon/logo sizes for SEO
+- Fix 'TODO' tasks

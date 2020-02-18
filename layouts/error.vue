@@ -13,9 +13,7 @@
     <b-message type="is-danger" has-icon size="is-large" v-else>
       {{ error.message }}
       <br />
-      <nuxt-link :to="localePath('/')">{{
-        $t("error.home_link")
-      }}</nuxt-link>
+      <nuxt-link :to="localePath('/')">{{ $t("error.home_link") }}</nuxt-link>
     </b-message>
   </div>
 </template>
