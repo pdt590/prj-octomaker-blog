@@ -18,11 +18,7 @@
     <div class="media-content" style="overflow: hidden;">
       <div class="content">
         <strong>
-          <nuxt-link
-            class="is-size-5"
-            :to="localePath(`/posts/${postUrl}`)"
-            target="_blank"
-          >
+          <nuxt-link class="is-size-5" :to="localePath(`/posts/${postUrl}`)">
             {{ postTitle }}
           </nuxt-link>
         </strong>
@@ -40,7 +36,6 @@
         <nuxt-link
           class="button is-info is-outlined"
           :to="localePath(`/posts/${postUrl}/edit-post`)"
-          target="_blank"
           >{{ $t("card_post_horizontal.edit_btn") }}</nuxt-link
         >
         <a class="button is-danger is-outlined" @click="onDelete">{{
@@ -122,7 +117,7 @@ export default {
             });
           } else {
             //location.reload();
-            this.$emit('delete', this.postUrl)
+            this.$emit("delete", this.postUrl);
           }
         }
       });
