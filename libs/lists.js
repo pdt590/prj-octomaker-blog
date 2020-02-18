@@ -12,6 +12,12 @@ export const categories = [
     icon: "robot"
   },
   {
+    id: "web",
+    name: "Web",
+    icon: "file-code"
+  },
+/* 
+  {
     id: "electronic",
     name: "Điện tử",
     icon: "microchip"
@@ -26,6 +32,7 @@ export const categories = [
     name: "Khác",
     icon: "receipt"
   }
+   */
 ];
 
 export const provinces = [
