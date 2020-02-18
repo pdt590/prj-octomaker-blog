@@ -19,7 +19,7 @@
               <section class="section">
                 <div class="content has-text-centered">
                   <p>
-                    <b-icon icon="upload" size="is-large"></b-icon>
+                    <b-icon icon="upload"></b-icon>
                   </p>
                   <p>{{ $t("modal_image.placeholder") }}</p>
                 </div>

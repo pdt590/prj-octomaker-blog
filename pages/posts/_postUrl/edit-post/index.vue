@@ -1,6 +1,6 @@
 <template>
   <div class="_fullscreen">
-    <form class="container">
+    <div class="container">
       <b-field grouped>
         <b-field :type="$v.postTitle.$error ? `is-danger` : ``" expanded>
           <b-input
@@ -80,20 +80,20 @@
             class="level-item button is-info is-outlined"
             :class="{ 'is-loading': postLoading && loadEvent === `onPublish` }"
             :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
-            @click.prevent="onPublish"
+            @click="onPublish"
           >
             {{ $t("edit_post.update_btn") }}
           </button>
           <button
             class="level-item button is-info is-outlined"
             :disabled="$v.postTitle.$invalid || $v.postContent.$invalid"
-            @click.prevent="onDelete"
+            @click="onDelete"
           >
             {{ $t("edit_post.delete_btn") }}
           </button>
         </div>
       </div>
-    </form>
+    </div>
   </div>
 </template>
 

@@ -122,7 +122,9 @@
                       :message="
                         !$v.newEmail.email
                           ? $t('profile.email.new_email_message')
-                          : (!$v.newEmail.isValidEmail ? $t('profile.email.warning_email_message') : ``)
+                          : !$v.newEmail.isValidEmail
+                          ? $t('profile.email.warning_email_message')
+                          : ``
                       "
                     >
                       <b-input
@@ -270,10 +272,7 @@
                             <section class="section">
                               <div class="content has-text-centered">
                                 <p>
-                                  <b-icon
-                                    icon="upload"
-                                    size="is-large"
-                                  ></b-icon>
+                                  <b-icon icon="upload"></b-icon>
                                 </p>
                                 <p>{{ $t("profile.avatar.placeholder") }}</p>
                               </div>
