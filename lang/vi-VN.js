@@ -170,7 +170,12 @@ export default {
     }
   },
 
-  // pages/query/_category/index.vue
+  // pages/query/author/_authorId/index.vue
+  author: {
+    home_link: "Trang chủ"
+  },
+
+  // pages/query/category/_categoryId/index.vue
   category: {
     home_link: "Trang chủ"
   },

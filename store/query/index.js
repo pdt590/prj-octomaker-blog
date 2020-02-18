@@ -12,8 +12,8 @@ export default {
     }
   },
   actions: {
-    // All Posts
-    async loadPosts(vuexContext, payload) {
+    // Lazy Posts
+    async loadLazyPosts(vuexContext, payload) {
       vuexContext.commit("setQueryLoading", true);
       try {
         let postsData = [];
@@ -50,23 +50,24 @@ export default {
         vuexContext.commit("setQueryLoading", false);
         return loadedPosts;
       } catch (e) {
-        console.error("[ERROR-loadPosts]", e);
+        console.error("[ERROR-loadLazyPosts]", e);
       }
     },
 
     // Personal Posts
-    async loadPersonalPosts(vuexContext) {
+    async loadPersonalPosts(vuexContext, authorId) {
       vuexContext.commit("setQueryLoading", true);
       try {
-        const userId = vuexContext.getters.user.id;
         const postsData = await postsRef
           .orderByChild("creator/id")
-          .equalTo(userId)
+          .equalTo(authorId)
           .once("value");
         const loadedPosts = [];
         postsData.forEach(postData => {
           const postObj = postData.val();
-          loadedPosts.push(postObj);
+          if (postObj.mode === "public") {
+            loadedPosts.push(postObj);
+          }
         });
         loadedPosts.reverse();
         vuexContext.commit("setQueryLoading", false);
@@ -96,6 +97,28 @@ export default {
         return loadedPosts.reverse();
       } catch (e) {
         console.error("[ERROR-loadCategorizedPosts]", e);
+      }
+    },
+
+    // Own Posts
+    async loadOwnPosts(vuexContext) {
+      vuexContext.commit("setQueryLoading", true);
+      try {
+        const userId = vuexContext.getters.user.id;
+        const postsData = await postsRef
+          .orderByChild("creator/id")
+          .equalTo(userId)
+          .once("value");
+        const loadedPosts = [];
+        postsData.forEach(postData => {
+          const postObj = postData.val();
+          loadedPosts.push(postObj);
+        });
+        loadedPosts.reverse();
+        vuexContext.commit("setQueryLoading", false);
+        return loadedPosts;
+      } catch (e) {
+        console.error("[ERROR-loadOwnPosts]", e);
       }
     },
 

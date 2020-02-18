@@ -31,6 +31,19 @@ export default {
       vuexContext.commit("clearAuthError");
     },
 
+    async loadUser(vuexContext, userId) {
+      vuexContext.commit("setAuthLoading", true);
+      try {
+        const userData = await usersRef.child(userId).once("value");
+        const userObj = userData.val();
+        const loadedUser = userObj;
+        vuexContext.commit("setAuthLoading", false);
+        return loadedUser;
+      } catch (e) {
+        console.error("[ERROR-loadUser]", e);
+      }
+    },
+
     async signUserUp(vuexContext, payload) {
       vuexContext.commit("setAuthLoading", true);
       vuexContext.commit("clearAuthError");
@@ -149,7 +162,7 @@ export default {
         if (process.client) {
           localStorage.setItem("reloading", "");
           localStorage.removeItem("reloading");
-          location.reload(true)
+          location.reload(true);
         }
       } catch (e) {
         console.error("[ERROR-logOut]", e);

@@ -124,7 +124,8 @@ export const provinces = [
 // pages/posts/_postUrl/index.vue
 // pages/posts/_postUrl/edit-post/index.vue
 // pages/posts/new-post/index.vue
-// pages/query/_category/index.vue
+// pages/query/author/_authorId/index.vue
+// pages/query/category/_categoryId/index.vue
 // pages/search/index.vue
 // pages/user/index.vue
 // pages/user/action/index.vue

@@ -40,10 +40,10 @@ export default {
   },
   async asyncData({ app, store, params, error }) {
     const maxPosts = 12;
-    let loadedPosts = await store.dispatch("loadPosts", { limit: maxPosts });
+    let loadedPosts = await store.dispatch("loadLazyPosts", { limit: maxPosts });
     if (store.getters.queryLoading) {
       store.commit("setQueryLoading", false);
-      error({ statusCode: 500, message: "loadPosts() Error" });
+      error({ statusCode: 500, message: "loadLazyPosts() Error" });
     }
     return {
       loadedPosts: loadedPosts,
@@ -54,7 +54,7 @@ export default {
     async onLoad() {
       const endAtKey = this.loadedPosts[this.loadedPosts.length - 1]
         .updatedDate;
-      let loadedMorePosts = await this.$store.dispatch("loadPosts", {
+      let loadedMorePosts = await this.$store.dispatch("loadLazyPosts", {
         limit: this.maxPosts + 1,
         endAtKey: endAtKey
       });

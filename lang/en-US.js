@@ -173,7 +173,12 @@ export default {
     }
   },
 
-  // pages/query/_category/index.vue
+  // pages/query/author/_authorId/index.vue
+  author: {
+    home_link: "Home"
+  },
+
+  // pages/query/category/_categoryId/index.vue
   category: {
     home_link: "Home"
   },
@@ -265,7 +270,7 @@ export default {
       title: "Information",
       username_label: "Username",
       username_message: "At least 6 characters",
-      fullname_label: "Fullname",
+      fullname_label: "Full Name",
       website_label: "Website",
       website_message: "Invalid URL",
       phone_label: "Phone",

@@ -8,7 +8,7 @@
             <figure>
               <client-only>
                 <img
-                  v-lazy="`/logo.png`"
+                  v-lazy="'/logo.png'"
                   style="display: none"
                   onload="this.style.display = 'block'"
                   alt="logo_image"
@@ -162,7 +162,7 @@
               <div class="navbar-dropdown">
                 <nuxt-link
                   class="navbar-item _navbar-dropdown__item"
-                  :to="localePath(`/query/${category.id}`)"
+                  :to="localePath(`/query/category/${category.id}`)"
                   v-for="(category, i) in categories"
                   :key="i"
                 >

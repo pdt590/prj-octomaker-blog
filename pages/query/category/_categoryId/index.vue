@@ -8,7 +8,7 @@
           }}</nuxt-link>
         </li>
         <li class="is-active">
-          <a>{{ queryName }}</a>
+          <a>{{ categoryName }}</a>
         </li>
       </ul>
     </nav>
@@ -38,22 +38,24 @@ export default {
     totalPosts() {
       return this.loadedPosts.length;
     },
-    postThumbnail() {
+    pageThumbnail() {
       return `${process.env.baseUrl}/icon-photo.png`;
     }
   },
   async asyncData({ app, store, params }) {
-    let loadedPosts = [];
-    const queryKey = params.category;
-    loadedPosts = await store.dispatch("loadCategorizedPosts", queryKey);
+    const categoryId = params.categoryId;
+    const loadedPosts = await store.dispatch(
+      "loadCategorizedPosts",
+      categoryId
+    );
     if (store.getters.queryLoading) {
       store.commit("setQueryLoading", false);
       error({ statusCode: 500, message: "loadCategorizedPosts() Error" });
     }
-    const category = categories.find(item => item.id === queryKey);
-    const queryName = category.name;
+    const category = categories.find(item => item.id === categoryId);
+    const categoryName = category.name;
     return {
-      queryName: queryName,
+      categoryName: categoryName,
       loadedPosts: loadedPosts
     };
   },
@@ -95,7 +97,7 @@ export default {
         {
           hid: "og-image",
           property: "og:image",
-          content: this.postThumbnail
+          content: this.pageThumbnail // TODO
         }
       ]
     };

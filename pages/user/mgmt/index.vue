@@ -85,10 +85,10 @@ export default {
     }
   },
   async asyncData({ app, store, error }) {
-    const loadedPersonalPosts = await store.dispatch("loadPersonalPosts");
+    const loadedPersonalPosts = await store.dispatch("loadOwnPosts");
     if (store.getters.queryLoading) {
       store.commit("setQueryLoading", false);
-      error({ statusCode: 500, message: "loadPersonalPosts() Error" });
+      error({ statusCode: 500, message: "loadOwnPosts() Error" });
     }
     return {
       loadedPersonalPosts: loadedPersonalPosts

@@ -5,7 +5,7 @@
         <div style="position: sticky; top: 8rem;">
           <div class="level">
             <div class="level-item">
-              <nuxt-link :to="localePath('/about')">
+              <nuxt-link :to="localePath(`/query/author/${authorId}`)">
                 <figure>
                   <client-only>
                     <img
@@ -104,8 +104,8 @@ export default {
         return "/icon-user.png";
       }
     },
-    userName() {
-      return this.loadedPost.creator.username;
+    authorId() {
+      return this.loadedPost.creator.id;
     },
     isEditable() {
       return this.user && this.user.id === this.loadedPost.creator.id;

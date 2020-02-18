@@ -24,7 +24,7 @@
         </strong>
       </div>
       <div class="tags">
-        <span class="tag is-medium" :class="postMode === 'public' ? 'is-light' : 'is-dark'">{{ postMode }}</span>
+        <span class="tag is-medium" :class="postMode === 'public' ? 'is-info' : 'is-dark'">{{ postMode }}</span>
         <span
           v-for="(tag, index) in postTags"
           :key="index"
