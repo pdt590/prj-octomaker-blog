@@ -43,7 +43,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
 #### Get started
 
-- Go to [Firebase Console](https://console.firebase.google.com/) -> Add project
+- Go to [Firebase Console](https://console.firebase.google.com/) / Add project
 - Add an app to get started (Choose Web)
 - Get `project config` in Project Setting / Your apps / Firebase SDK snippet / Config
 
@@ -185,3 +185,10 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
     }
   }
   ```
+
+### Facebook
+
+- [Facebook for web](https://developers.facebook.com/docs/sharing/web)
+- [Facebook meta tags](https://developers.facebook.com/docs/sharing/webmasters/)
+- [Facebook sharing](https://developers.facebook.com/docs/sharing/best-practices)
+- Go to [Facebook developer](https://developers.facebook.com/) / My Apps / Create App / Create a New App ID -> copy and add AppId in `fc.js` & meta tag in `nuxt.config.js`

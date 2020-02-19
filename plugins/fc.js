@@ -3,7 +3,7 @@ import Vue from 'vue'
 Vue.prototype.$initFbSdk = () => {
   window.fbAsyncInit = () => {
     FB.init({
-      appId: '359102328229283',
+      appId: '192142251994813',
       autoLogAppEvents: true,
       xfbml: true,
       version: 'v3.1'
@@ -11,7 +11,7 @@ Vue.prototype.$initFbSdk = () => {
   }
   setTimeout(() => {
     FB.XFBML.parse();
-  }, 1000);
+  }, 2000);
 }
 
 export default ({ app }) => {
