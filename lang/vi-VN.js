@@ -123,7 +123,7 @@ export default {
     posts_text: "Bài viết",
     more_btn: "Xem thêm",
     head: {
-      title: "Bài viết",
+      title: "OctoMaker",
       content: "We make what you need"
     }
   },

@@ -124,7 +124,7 @@ export default {
     posts_text: "Posts",
     more_btn: "View more",
     head: {
-      title: "Posts",
+      title: "OctoMaker",
       content: "We make what you need"
     }
   },
