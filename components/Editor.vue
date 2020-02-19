@@ -36,6 +36,8 @@
 
 <script>
 import SimpleMDE from "simplemde";
+import { renderer } from "~/libs/helpers";
+import marked from "marked";
 import Prism from "prismjs";
 
 export default {
@@ -72,6 +74,7 @@ export default {
         placeholder: `Content format: \n # Introduction \n - Describe overall your post \n - Don't use picture/bullet/link \n # Content \n - Write your post`,
         spellChecker: false,
         tabSize: 4,
+        previewRender: plainText => marked(plainText, { renderer: renderer() }),
         toolbar: [
           "bold",
           "italic",
@@ -168,9 +171,17 @@ export default {
   },
   methods: {
     initialize() {
+      // Disable sanitize
+      marked.setOptions({ sanitize: false });
+
+      // Initialize simplemde editor
       this.simplemde = new SimpleMDE(this.configs);
       this.codemirror = this.simplemde.codemirror;
+
+      // Make style for preview mode
       this.addPreviewClass(this.previewClass);
+
+      // Binding codemirror events
       this.bindingEvents();
     },
     bindingEvents() {
@@ -184,7 +195,7 @@ export default {
 
       /* Start blur event */
       let typingTimer; //timer identifier
-      const doneTypingInterval = 2000; //time in ms
+      const doneTypingInterval = 3000; //time in ms
 
       //on keyup, start the countdown
       this.codemirror.on(
@@ -239,7 +250,7 @@ export default {
       this.isModalLinkActive = false;
     },
     drawEmbed(link) {
-      this.codemirror.replaceSelection(`{@embed: ${link}}`);
+      this.codemirror.replaceSelection(`[@embed](${link})`);
       this.isModalEmbedActive = false;
       setTimeout(
         function() {

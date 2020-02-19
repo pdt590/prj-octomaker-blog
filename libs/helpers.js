@@ -1,4 +1,5 @@
 import Compressor from "compressorjs";
+import marked from "marked";
 
 export function formatString(string, length) {
   let short = string.substr(0, length);
@@ -120,6 +121,27 @@ export const isEmbedURL = value => {
     return false;
   }
 };
+
+export function getYoutubeId(value) {
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+  const match = value.match(regExp);
+  return match && match[2].length === 11 ? match[2] : null;
+}
+
+export function renderer() {
+  const renderer = new marked.Renderer();
+  renderer.link = (href, title, text) => {
+    if (text === "@embed") {
+      return `<figure class="image is-16by9">
+      <iframe class="has-ratio" width="640" height="360" src="https://www.youtube.com/embed/${getYoutubeId(
+        href
+      )}" frameborder="0" allowfullscreen />
+      </figure>`;
+    }
+    return `<a href=${href} title="${title}">${text}</a>`;
+  };
+  return renderer;
+}
 
 // universally unique identifier
 export function genId(length) {

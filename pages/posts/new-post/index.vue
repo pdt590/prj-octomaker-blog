@@ -101,6 +101,8 @@
 import { mapGetters } from "vuex";
 import { categories } from "~/libs/lists";
 import { required } from "vuelidate/lib/validators";
+import { renderer } from "~/libs/helpers";
+import marked from "marked";
 
 export default {
   middleware: ["server-client-auth"],
@@ -169,9 +171,7 @@ export default {
       this.loadEvent = "";
     },
     async onBlur() {
-      this.postContent.html = this.simplemde.markdown(
-        this.postContent.markdown
-      );
+      this.postContent.html = marked(this.postContent.markdown, { renderer: renderer() });
       await this.$store.dispatch("addPostContent", this.postContent);
       if (this.postLoading) {
         this.$store.commit("setPostLoading", false);
@@ -179,9 +179,7 @@ export default {
     },
     async onPublish() {
       this.loadEvent = "onPublish";
-      this.postContent.html = this.simplemde.markdown(
-        this.postContent.markdown
-      );
+      this.postContent.html = marked(this.postContent.markdown, { renderer: renderer() });
       await this.$store.dispatch("addPostContent", this.postContent);
       if (this.postLoading) {
         this.$store.commit("setPostLoading", false);

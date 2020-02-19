@@ -225,7 +225,7 @@ body {
 // Customizes markdown-css
 ////////////////////////////////////////////////
 
-.markdown-body {
+.content.markdown-body {
   font-family: $family-primary;
   font-size: $body-size;
 
@@ -238,6 +238,10 @@ body {
 
   pre[class*="language-"] {
     overflow: hidden; /* this is the culprit */
+  }
+
+  figure {
+    margin-top: 0;
   }
 }
 

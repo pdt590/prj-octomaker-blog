@@ -76,3 +76,5 @@
 - `Fix Close Tab prevent on pages when clicking 'Back' on browser`
 - `Change CardPostHorizotal style`
 - Add filter for post list
+- Fix fb comment load issue
+- Fix 'The resource URL was preloaded using link' in nuxt
