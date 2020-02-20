@@ -37,7 +37,7 @@
   - Add image view event on editor and post - [Refer](https://codemirror.net/doc/manual.html#events)
   - Add image resize
   - Remove old link when removing a image
-  - Implement emoji modal select
+  - Implement emoji render and emoji modal select
   - Scroll event is not smooth
   - Dont focus at the end of editor when pasting text
   - Improve embedlink selection
