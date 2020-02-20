@@ -16,7 +16,7 @@ Vue.prototype.$initToC = () => {
     collapseDepth: 2,
     // Optional callback to change heading labels. 
     headingLabelCallback: (string) => {
-      return formatString(string, 20);
+      return formatString(string, 50);
     }
   });
 }

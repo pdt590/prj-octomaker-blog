@@ -43,7 +43,7 @@
         </div>
         <!-- End user avatar -->
       </div>
-      <div class="column is-9">
+      <div class="column is-8">
         <!-- Start post content -->
         <div class="card">
           <div class="card-content">
@@ -79,7 +79,7 @@
         </div>
         <!-- End facebook comment -->
       </div>
-      <div class="column is-2">
+      <div class="column is-3">
         <!-- Start ToC -->
         <div style="position: sticky; top: 8rem;">
           <div class="toc"></div>
