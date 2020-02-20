@@ -77,7 +77,7 @@ import { required, email, minLength } from "vuelidate/lib/validators";
 import { authMessage } from "~/libs/helpers";
 
 export default {
-  name: "modal-signup",
+  name: "v-modal-signup",
   computed: {
     ...mapGetters(["authError", "authLoading"])
   },

@@ -61,7 +61,7 @@ import { fetchDesc } from "~/libs/helpers";
 import { categories } from "~/libs/lists";
 
 export default {
-  name: "card-post-horizontal",
+  name: "v-card-post-horizontal",
   props: {
     value: {
       type: Object,

@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: "loading",
+  name: "v-loading",
   data() {
     return {
       isLoading: false

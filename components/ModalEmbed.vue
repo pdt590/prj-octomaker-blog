@@ -39,7 +39,7 @@ import { required, url } from "vuelidate/lib/validators";
 import { isEmbedURL } from "~/libs/helpers";
 
 export default {
-  name: "modal-embed",
+  name: "v-modal-embed",
   data() {
     return {
       link: null

@@ -20,6 +20,6 @@
 
 <script>
 export default {
-  name: "footer-site"
+  name: "v-footer"
 };
 </script>

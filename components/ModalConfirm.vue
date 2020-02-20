@@ -26,7 +26,7 @@
 import { mapGetters } from "vuex";
 
 export default {
-  name: "modal-confirm",
+  name: "v-modal-confirm",
   computed: {
     ...mapGetters(["postLoading"])
   },
