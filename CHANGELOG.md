@@ -1,18 +1,10 @@
 # Task List
 
-- Notify Internet Disconnection when saving - [Refer](https://nuxtjs.org/api/$nuxt)
-- 404 GET /user/join issue
 - `Remove special characters on title (square brackets ...)`
 - `Fix long load issue when clicking edit`
   - `due to hot reloading in nuxt`
-- Implement remember-me login
-- Improve search performance
-- Shoud use cloudinary to upload images?
-  - Add 3 size options to select for uploading
 - `Check problem: reload search page when entering search button`
 - `Change Category list display on navbar`
-- Recheck logic in user/action page and auth store functions
-- Add Facebook & Google login
 - `Unify code language using English or Vietnamese or i18n`
 - `Fix autosave issue on login and signup form`
 - Re-check default style - [Refer](https://dev.to/overscoremedia/use-bulma-and-fontawesome-5-with-nuxt-js-11le)
@@ -22,12 +14,9 @@
   - `Re-design Logo`
   - `Redesign CardPost` - [Refer](https://www.hackster.io/)
   - `Change new float style in each post`
+  - `Recheck error and user/action style`
   - Change font (search the best font for web)
   - Redesign mobile layout (search bulma mobile layout)
-  - `Recheck error and user/action style`
-- Add recommendation posts in each post
-  - Add carousel - [Refer](https://buefy.org/documentation/carousel/)
-  - Refer new card on facebook
 - `Add section highlight for each post (Markdown TOC - Table of Content)` - [Refer](https://www.jqueryscript.net/blog/best-table-contents-plugins.html)
 - Add like/share fb button
   - `Add popup fb share`
@@ -38,23 +27,20 @@
     - [Refer-02](https://github.com/ththth0303/laravel-vue-coreui/blob/editor/resources/assets/js/admin/views/markdown/index.vue)
   - `Side-by-Side code highlight issue` - [Refer](https://github.com/sparksuite/simplemde-markdown-editor/blob/master/src/css/simplemde.css)
   - `Height of CodeMirror`
-  - Scroll event is not smooth
   - `Reload when text changes in preview mode`
-  - Dont focus at the end of editor when pasting text
   - `Layout Preview-side issue`
   - `Fix editor size` - [Refer](https://viblo.asia/posts/aWj53LAGK6m/edit)
+  - `Implement embed link select`
+  - `Fix responsive iframe issue`
+  - `Add enable/disable editor mode`
+  - `Add auto-save function`,
   - Add image view event on editor and post - [Refer](https://codemirror.net/doc/manual.html#events)
   - Add image resize
   - Remove old link when removing a image
-  - `Implement embed link select`
-  - Fix responsive iframe issue
-  - Implement emoji modal select
-  - `Add enable/disable editor mode`
   - window.prompt() doen't work in drawLink
-  - How to use clean-block
-  - `Add auto-save function`
-- Add admin role
-- Check old issues of image lazy-load plugin and may change?
+  - Implement emoji modal select
+  - Scroll event is not smooth
+  - Dont focus at the end of editor when pasting text
 - `Use vue-fontawesome`
   - `Change fb_share and edit icon`
   - [Icons](https://buefy.org/documentation/start/)
@@ -68,13 +54,26 @@
 - `Remove reload action when deleting a post in mgmt page`
 - `Fix 'Password field is not contained in a form' issue`
 - `Fix and rename variables in user/profile page`
-- Fix delete account issue
 - `Check icon size issue`
 - `Remove some categories`
-- Add different favicon/logo sizes for SEO
-- Fix 'TODO' tasks
 - `Fix Close Tab prevent on pages when clicking 'Back' on browser`
 - `Change CardPostHorizotal style`
+- `Fix 'The resource URL was preloaded using link' in nuxt`
 - Add filter for post list
 - Fix fb comment load issue
-- `Fix 'The resource URL was preloaded using link' in nuxt`
+- Add different favicon/logo sizes for SEO
+- Fix 'TODO' tasks
+- Fix delete account issue
+- Add admin role
+- Check old issues of image lazy-load plugin and may change?
+- Recheck logic in user/action page and auth store functions
+- Add Facebook & Google login
+- Implement remember-me login
+- Improve search performance
+- Shoud use cloudinary to upload images?
+  - Add 3 size options to select for uploading
+- Notify Internet Disconnection when saving - [Refer](https://nuxtjs.org/api/$nuxt)
+- 404 GET /user/join issue
+- Add recommendation posts in each post
+  - Add carousel - [Refer](https://buefy.org/documentation/carousel/)
+  - Refer card style on facebook
