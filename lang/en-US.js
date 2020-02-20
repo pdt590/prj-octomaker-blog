@@ -125,7 +125,7 @@ export default {
     more_btn: "View more",
     head: {
       title: "OctoMaker",
-      content: "We make what you need"
+      content: "Share to be viral"
     }
   },
   // pages/about/index.vue

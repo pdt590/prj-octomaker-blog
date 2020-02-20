@@ -15,21 +15,21 @@ module.exports = {
       {
         hid: "description",
         name: "description",
-        content: "OctoMaker - We make what you need"
+        content: "OctoMaker - Share to be viral"
       },
-      { hid: "og:url", property: "og:url", content: `${process.env.baseUrl}` },
-      { hid: "og:title", property: "og:title", content: "OctoMaker" },
+      { hid: "og-url", property: "og:url", content: `${process.env.baseUrl}` },
+      { hid: "og-title", property: "og:title", content: "OctoMaker" },
       {
-        hid: "og:description",
+        hid: "og-description",
         property: "og:description",
-        content: "We make what you need"
+        content: "Share to be viral"
       },
       {
-        hid: "og:image",
+        hid: "og-image",
         property: "og:image",
         content: `${process.env.BASE_URL}/icon-photo.png`
       },
-      { hid: "fb:app_id", property: "fb:app_id", content: "192142251994813" }
+      { hid: "fb-app_id", property: "fb:app_id", content: "192142251994813" }
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.png" }]
   },

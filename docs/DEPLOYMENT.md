@@ -8,7 +8,6 @@
   - https://itnext.io/deploying-a-nuxt-universal-app-to-azure-f61e5a85d8a2
   - https://medium.com/@vipercodegames/nuxt-deploy-809eda0168fc
 
-
 ## Compatibility
 
 - Node v10.18.1
@@ -43,25 +42,24 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
 #### Get started
 
-- Go to [Firebase Console](https://console.firebase.google.com/) / Add project
+- Go to [Firebase Console](https://console.firebase.google.com/) > Add project
 - Add an app to get started (Choose Web)
-- Get `project config` in Project Setting / Your apps / Firebase SDK snippet / Config
+- Get `project config` in Project Setting > Your apps > Firebase SDK snippet > Config
 
 #### Authentication
 
 - Sign-in method
   - Email/Password
 - Authorized domains
-  - Add domain (octomaker.com)
+  - Add domain (blog.octomaker.com)
     - https://kipalog.com/posts/Set-custom-domain-free-cho-Firebase-hosting
     - https://medium.com/google-cloud/google-firebase-hosting-custom-domain-the-missing-manual-7f971c3c2d1e
 - Templates
-  - Go to  in Action URL (%LINK% value) / customize action URL
-    - Add `auth link` of project: `https://www.octomaker.com/user/action?mode=<action>&oobCode=<code>`
+  - Go to  in Action URL (%LINK% value) > customize action URL > Add `auth link` of project: `https://www.octomaker.com/user/action`
 
   - Email address verification
 
-    ```
+    ```js
     Sender name
     not provided
 
@@ -90,7 +88,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
   - Password reset
 
-    ```
+    ```js
     Sender name
     not provided
 
@@ -119,7 +117,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
   - Email address change
 
-    ```
+    ```js
     Sender name
     not provided
 
@@ -148,7 +146,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
   - SMS verification
 
-    ```
+    ```js
     Message
     %LOGIN_CODE% là mã xác minh của bạn cho %APP_NAME%.
     ```
@@ -191,7 +189,13 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - [Facebook for web](https://developers.facebook.com/docs/sharing/web)
 - [Facebook meta tags](https://developers.facebook.com/docs/sharing/webmasters/)
 - [Facebook sharing](https://developers.facebook.com/docs/sharing/best-practices)
-- Go to [Facebook developer](https://developers.facebook.com/) / My Apps / Create App / Create a New App ID -> copy and add AppId in `fc.js` & meta tag in `nuxt.config.js`
+- Go to [Facebook developer](https://developers.facebook.com/) > My Apps > Create App > Create a New App ID > copy and add AppId in `fc.js` & meta tag in `nuxt.config.js`
 
 
 ### Google Analytics
+
+- [How to use Google Analytics in Nuxt?](https://nuxtjs.org/faq/google-analytics/)
+- [Google Analytics Nuxt module](https://github.com/nuxt-community/analytics-module)
+- [Where do i find the GA tracking id?](https://support.google.com/analytics/thread/13109681?hl=en)
+- [Analytic Helps](https://support.google.com/analytics)
+- [GA articles on dev.to](https://dev.to/search?q=Google%20Analytics&filters=class_name:Article)
