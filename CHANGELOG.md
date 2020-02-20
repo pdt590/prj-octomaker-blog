@@ -46,7 +46,7 @@
   - Add image view event on editor and post - [Refer](https://codemirror.net/doc/manual.html#events)
   - Add image resize
   - Remove old link when removing a image
-  - Implement embed link select
+  - `Implement embed link select`
   - Fix responsive iframe issue
   - Implement emoji modal select
   - `Add enable/disable editor mode`
@@ -54,7 +54,7 @@
   - How to use clean-block
   - `Add auto-save function`
 - Add admin role
-- Change image-lazy-load plugin
+- Check old issues of image lazy-load plugin and may change?
 - `Use vue-fontawesome`
   - `Change fb_share and edit icon`
   - [Icons](https://buefy.org/documentation/start/)
@@ -77,4 +77,4 @@
 - `Change CardPostHorizotal style`
 - Add filter for post list
 - Fix fb comment load issue
-- Fix 'The resource URL was preloaded using link' in nuxt
+- `Fix 'The resource URL was preloaded using link' in nuxt`

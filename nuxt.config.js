@@ -105,9 +105,26 @@ module.exports = {
   },
 
   /*
-   ** globalName Property
+   ** GlobalName Property
    */
   globalName: "app",
+
+  /*
+   ** Customize runtime options for rendering pages
+   */
+  render: {
+    resourceHints: false
+  },
+
+  /*
+   ** Customize middleware.
+   ** ServerMiddleware property runs server-side before 
+   ** vue-server-renderer and can be used for server 
+   ** specific tasks
+   */
+  serverMiddleware: [
+    logger({ format: "%date %status %method %url (%time)" })
+  ],
 
   /*
    ** Build configuration
@@ -117,7 +134,6 @@ module.exports = {
      ** You can extend webpack config here
      */
     extend(config, ctx) {}
-  },
-
-  serverMiddleware: [logger({ format: "%date %status %method %url (%time)" })]
+  }
+  
 };
