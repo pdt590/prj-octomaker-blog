@@ -18,8 +18,7 @@
   - Change font (search the best font for web)
   - Redesign mobile layout (search bulma mobile layout)
 - `Add section highlight for each post (Markdown TOC - Table of Content)` - [Refer](https://www.jqueryscript.net/blog/best-table-contents-plugins.html)
-- Add like/share fb button
-  - `Add popup fb share`
+- `Add popup fb share`
 - `Fix loading button issue`
 - Fix editor issue
   - `Use simplemde-markdown-editor instead of vue-simplemde as a new component`
@@ -79,3 +78,5 @@
   - Add carousel - [Refer](https://buefy.org/documentation/carousel/)
   - Refer card style on facebook
 - Active Facebook App
+- Add fb_iframe_widget for facebook page
+- Add like/share fb button

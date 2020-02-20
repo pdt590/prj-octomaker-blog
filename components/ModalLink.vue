@@ -39,6 +39,7 @@ import { required, url } from "vuelidate/lib/validators";
 import { authMessage } from "~/libs/helpers";
 
 export default {
+  name: "modal-link",
   data() {
     return {
       link: null

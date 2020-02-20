@@ -201,6 +201,7 @@ import { mapGetters } from "vuex";
 import { categories } from "~/libs/lists";
 
 export default {
+  name: "navbar",
   computed: {
     ...mapGetters(["user", "authLoading"]),
     userAvatarUrl() {

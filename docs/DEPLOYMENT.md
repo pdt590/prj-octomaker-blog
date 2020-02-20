@@ -55,7 +55,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   - Add Firebase SDK 
   - Install Firebase CLI if any
   - Deploy to Firebase Hosting if any
-- Come back Project Overview > Project Setting > General > Your apps
+- Project Overview > Project Setting > General > Your apps
   - Firebase SDK snippet > Config > copy `firebaseConfig` for nuxt app
   - It is possible to add more apps
 
@@ -183,11 +183,17 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 ### Setup Domain
 
 - Dashboard > octomaker-7e37b domains > Add custom domain 
-  - Enter domain `www.octomaker.com` > Redirect `www.octomaker.com` to an existing website?
+  - Enter domain `www.blog.octomaker.com` > Redirect `www.blog.octomaker.com` to an existing website?
   - Verify ownership
     - Add the TXT records below to your DNS provider (namesilo) to verify you own octomaker.com
-  - Enter `Verify` 
-    - Issue: `We couldn't verify your domain octomaker.com. Please check your settings and try again.` > you have to wait for namesilo process about 2 hours (`TTL-7207`)
+    - Enter `Verify` 
+      - Issue: `We couldn't verify your domain octomaker.com. Please check your settings and try again.` > you have to wait for namesilo process about 2 hours (`TTL-7207`)
+    - Add these A records to your domain by visiting your DNS provider or registrar (namesilo). Remember to remove your old A records and any AAAA records from your DNS provider
+
+      | Record type   | Host                  | Value            |
+      | ------------- |-----------------------|------------------|
+      | A             | blog.octomaker.com    | 151.101.1.195    |
+      | A             | blog.octomaker.com    | 151.101.65.195   |
 
 - References
   - [DNS Records Explained](https://ns1.com/resources/dns-records-explained)

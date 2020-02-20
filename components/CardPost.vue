@@ -64,6 +64,7 @@ import { fetchDesc } from "~/libs/helpers";
 import { categories } from "~/libs/lists";
 
 export default {
+  name: "card-post",
   props: {
     value: {
       type: Object,

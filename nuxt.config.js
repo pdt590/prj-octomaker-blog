@@ -94,6 +94,13 @@ module.exports = {
         langDir: "lang/",
         baseUrl: process.env.BASE_URL || "http://localhost:3000"
       }
+    ],
+    [
+      "@nuxtjs/component-cache",
+      {
+        max: 10000,
+        maxAge: 1000 * 60 * 60
+      }
     ]
   ],
 
@@ -118,13 +125,11 @@ module.exports = {
 
   /*
    ** Customize middleware.
-   ** ServerMiddleware property runs server-side before 
-   ** vue-server-renderer and can be used for server 
+   ** ServerMiddleware property runs server-side before
+   ** vue-server-renderer and can be used for server
    ** specific tasks
    */
-  serverMiddleware: [
-    logger({ format: "%date %status %method %url (%time)" })
-  ],
+  serverMiddleware: [logger({ format: "%date %status %method %url (%time)" })],
 
   /*
    ** Build configuration
@@ -135,5 +140,4 @@ module.exports = {
      */
     extend(config, ctx) {}
   }
-  
 };

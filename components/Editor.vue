@@ -41,6 +41,7 @@ import marked from "marked";
 import Prism from "prismjs";
 
 export default {
+  name: "editor",
   props: {
     value: String,
     images: Array,

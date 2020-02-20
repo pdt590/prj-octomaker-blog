@@ -64,6 +64,7 @@ import { mapGetters } from "vuex";
 import { deepCopy, acceptedImages } from "~/libs/helpers";
 
 export default {
+  name: "modal-image",
   props: {
     value: {
       type: Array,
