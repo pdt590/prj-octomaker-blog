@@ -123,7 +123,7 @@ export default {
       }
     },
     onSelect(index) {
-      this.$emit("select", this.previewImages[index]);
+      this.$emit("select", this.previewImages[index].url);
     }
   }
 };

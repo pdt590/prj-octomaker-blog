@@ -34,13 +34,14 @@
   - `Fix responsive iframe issue`
   - `Add enable/disable editor mode`
   - `Add auto-save function`,
+  - `window.prompt() doen't work in drawLink`
   - Add image view event on editor and post - [Refer](https://codemirror.net/doc/manual.html#events)
   - Add image resize
   - Remove old link when removing a image
-  - window.prompt() doen't work in drawLink
   - Implement emoji modal select
   - Scroll event is not smooth
   - Dont focus at the end of editor when pasting text
+  - Improve embedlink selection
 - `Use vue-fontawesome`
   - `Change fb_share and edit icon`
   - [Icons](https://buefy.org/documentation/start/)
@@ -77,3 +78,4 @@
 - Add recommendation posts in each post
   - Add carousel - [Refer](https://buefy.org/documentation/carousel/)
   - Refer card style on facebook
+- Active Facebook App

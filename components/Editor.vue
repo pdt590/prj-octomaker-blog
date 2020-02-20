@@ -74,6 +74,7 @@ export default {
         placeholder: `Content format: \n # Introduction \n - Describe overall your post \n - Don't use picture/bullet/link \n # Content \n - Write your post`,
         spellChecker: false,
         tabSize: 4,
+        promptURLs: true,
         previewRender: plainText => marked(plainText, { renderer: renderer() }),
         toolbar: [
           "bold",
@@ -232,15 +233,12 @@ export default {
     },
 
     /* Start simplemde events */
-    drawImage(image) {
-      this.codemirror.replaceSelection(`![](${image.url})`);
+    drawImage(url) {
+      window.prompt = () => {
+        return url;
+      };
+      this.simplemde.drawImage();
       this.isModalImageActive = false;
-      setTimeout(
-        function() {
-          this.codemirror.focus();
-        }.bind(this),
-        1
-      );
     },
     drawLink(link) {
       window.prompt = () => {
