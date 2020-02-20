@@ -16,6 +16,11 @@
   - `Change new float style in each post`
   - `Recheck error and user/action style`
   - Change font (search the best font for web)
+    - `SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace;`
+    - `-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;`
+    - `Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;`
+    - `Questrial, sans-serif;`
+    - `Arial`
   - Redesign mobile layout (search bulma mobile layout)
 - `Add section highlight for each post (Markdown TOC - Table of Content)` - [Refer](https://www.jqueryscript.net/blog/best-table-contents-plugins.html)
 - `Add popup fb share`

@@ -4,7 +4,7 @@
 ////////////////////////////////////////////////
 
 @if $bulmaswatch-import-font {
-  @import url(https://fonts.googleapis.com/css?family=Montserrat);
+  @import url(https://fonts.googleapis.com/css?family=SFMono-Regular);
 }
 
 * {
@@ -49,7 +49,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: 700;
+  font-weight: $weight-bold !important;
 }
 
 blockquote {
@@ -61,6 +61,11 @@ blockquote {
   transition: all 100ms ease;
   box-shadow: none;
   font-size: $body-size;
+}
+
+.token.number {
+  all: inherit;
+  color: #ae81ff;
 }
 
 .notification {
@@ -147,7 +152,7 @@ body {
 
 /* width */
 ::-webkit-scrollbar {
-  width: 1rem;
+  width: 0.8rem;
 }
 
 /* Track */
@@ -205,8 +210,7 @@ body {
 .CodeMirror .CodeMirror-code .cm-comment {
   background: initial;
   border-radius: initial;
-  color: rgba(100, 44, 30, 0.76);
-  font-weight: bold;
+  color: rgba(163, 47, 18, 0.76);
 }
 
 .CodeMirror .CodeMirror-selected {
@@ -472,6 +476,12 @@ $creator-avatar-height: 3rem;
   right: 0;
   height: auto;
   z-index: $navbar-z - 1; // 29
+  .input,
+  .tag,
+  select,
+  option {
+    font-weight: $weight-bold;
+  }
 }
 
 // pages/posts/new-post/index.vue
@@ -486,6 +496,12 @@ $creator-avatar-height: 3rem;
   right: 0;
   height: auto;
   z-index: $navbar-z - 1; // 29
+  .input,
+  .tag,
+  select,
+  option {
+    font-weight: $weight-bold;
+  }
 }
  */
 

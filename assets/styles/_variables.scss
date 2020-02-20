@@ -1,22 +1,22 @@
 ////////////////////////////////////////////////
 // LITERA
 ////////////////////////////////////////////////
-$grey-darker:  #363636;
-$grey-dark:    #373a3c;
-$grey:         #55595c;
-$grey-light:   #818a91;
+$grey-darker: #363636;
+$grey-dark: #373a3c;
+$grey: #55595c;
+$grey-light: #818a91;
 $grey-lighter: #d9dee2;
 
 $link: #209cee !default;
 
 $subtitle-color: $grey;
 
-$family-montserrat: "Montserrat", -apple-system, system-ui, BlinkMacSystemFont, Roboto, "Helvetica Neue", Arial, sans-serif; 
-$family-primary: $family-montserrat;
-$family-secondary: $family-montserrat;
-$family-code: $family-montserrat;
+$family-SFMono: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier,monospace;
+$family-primary: $family-SFMono;
+$family-secondary: $family-SFMono;
+$family-code: $family-SFMono;
 
-$body-size: 16px !default;
+$body-size: 18px !default;
 
 $navbar-height: 4rem;
 $navbar-item-hover-color: $link;
