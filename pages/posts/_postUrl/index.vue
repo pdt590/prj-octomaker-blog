@@ -2,6 +2,7 @@
   <div class="container">
     <div class="columns">
       <div class="column is-1">
+        <!-- Start user avatar -->
         <div style="position: sticky; top: 8rem;">
           <div class="level">
             <div class="level-item">
@@ -40,10 +41,11 @@
             </div>
           </div>
         </div>
+        <!-- End user avatar -->
       </div>
       <div class="column is-9">
+        <!-- Start post content -->
         <div class="card">
-          <!-- Start post content -->
           <div class="card-content">
             <h1 class="_post-title">{{ postTitle }}</h1>
             <br />
@@ -60,9 +62,10 @@
               <span v-html="postHtml"></span>
             </article>
           </div>
-          <!-- End post content -->
         </div>
+        <!-- End post content -->
         <br />
+        <!-- Start facebook comment -->
         <div class="card">
           <div class="card-content">
             <div id="fb-root"></div>
@@ -74,11 +77,14 @@
             ></div>
           </div>
         </div>
+        <!-- End facebook comment -->
       </div>
       <div class="column is-2">
+        <!-- Start ToC -->
         <div style="position: sticky; top: 8rem;">
           <div class="toc"></div>
         </div>
+        <!-- End ToC -->
       </div>
     </div>
   </div>
