@@ -5,14 +5,14 @@ import "firebase/storage";
 //import 'firebase/analytics';
 
 const config = {
-  apiKey: "AIzaSyC0kx87poAPStV7Ml_xCqs541AHEj7R3PE",
-  authDomain: "octomaker-dev.firebaseapp.com",
-  databaseURL: "https://octomaker-dev.firebaseio.com",
-  projectId: "octomaker-dev",
-  storageBucket: "octomaker-dev.appspot.com",
-  messagingSenderId: "693975261244",
-  appId: "1:693975261244:web:c9eb06a1aa9551963fe339",
-  measurementId: "G-38GE3EPVJE"
+  apiKey: "AIzaSyAR2VmHWTiwo8UhlPNunxfFsEs3sul-H2E",
+  authDomain: "octomaker-7e37b.firebaseapp.com",
+  databaseURL: "https://octomaker-7e37b.firebaseio.com",
+  projectId: "octomaker-7e37b",
+  storageBucket: "octomaker-7e37b.appspot.com",
+  messagingSenderId: "727084698256",
+  appId: "1:727084698256:web:dabadcef2a39c9e0a86615",
+  measurementId: "G-V0LW4P0BNJ"
 };
 
 if (!firebase.apps.length) {
