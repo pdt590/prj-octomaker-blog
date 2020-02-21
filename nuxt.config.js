@@ -130,7 +130,10 @@ module.exports = {
    ** Customize runtime options for rendering pages
    */
   render: {
-    resourceHints: false
+    resourceHints: false,
+    static: {
+      maxAge: 1000 * 60 * 60 * 24 * 7
+    }
   },
 
   /*
