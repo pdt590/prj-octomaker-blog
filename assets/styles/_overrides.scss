@@ -3,10 +3,6 @@
 // https://github.com/jenil/bulmaswatch/tree/gh-pages/litera
 ////////////////////////////////////////////////
 
-@if $bulmaswatch-import-font {
-  @import url(https://fonts.googleapis.com/css?family=SFMono-Regular);
-}
-
 * {
   transition: all 100ms ease;
 }
