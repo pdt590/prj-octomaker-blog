@@ -10,6 +10,9 @@
     "start": "cross-env NODE_ENV=production nuxt start",
     "generate": "nuxt generate"
   },
+  "engines": {
+    "node": "10"
+  },
   "dependencies": {
     "@bazzite/nuxt-optimized-images": "^0.3.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.27",
