@@ -1,7 +1,5 @@
 const pkg = require("./package");
 const logger = require("connect-logger");
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 module.exports = {
   mode: "universal",
@@ -150,14 +148,6 @@ module.exports = {
   build: {
     extractCSS: true,
     optimization: {
-      minimizer: [
-        new UglifyJsPlugin({
-          cache: true,
-          parallel: true,
-          sourceMap: true // set to true if you want JS source maps
-        }),
-        new OptimizeCssAssetsPlugin({})
-      ],
       splitChunks: {
         cacheGroups: {
           styles: {
