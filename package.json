@@ -6,8 +6,8 @@
   "private": true,
   "scripts": {
     "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
+    "build": "cross-env NODE_ENV=production BASE_URL=https://blog.octomaker.com nuxt build",
+    "start": "cross-env NODE_ENV=production nuxt start",
     "generate": "nuxt generate"
   },
   "dependencies": {
