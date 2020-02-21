@@ -24,6 +24,7 @@
   - `Recheck card style`
   - Redesign mobile layout (search bulma mobile layout)
   - Make final design as VuejsDevelopers.com style
+  - Fix navbar-dropdown and b-select z-index conflict
 - `Add section highlight for each post (Markdown TOC - Table of Content)` - [Refer](https://www.jqueryscript.net/blog/best-table-contents-plugins.html)
 - `Add popup fb share`
 - `Fix loading button issue`
@@ -43,6 +44,7 @@
   - `window.prompt() doen't work in drawLink`
   - Add image view event on editor and post - [Refer](https://codemirror.net/doc/manual.html#events)
   - Add image resize
+  - Add image position select
   - Remove old link when removing a image
   - Implement emoji render and emoji modal select
   - Scroll event is not smooth
@@ -75,7 +77,7 @@
 - Add admin role
 - Check old issues of image lazy-load plugin and may change?
 - Recheck logic in user/action page and auth store functions
-- Add Facebook & Google login
+- Add Github/Facebook/Google login
 - Implement remember-me login
 - Improve search performance
 - Shoud use cloudinary to upload images?
@@ -88,3 +90,4 @@
 - Active Facebook App
 - Add fb_iframe_widget for facebook page
 - Add like/share fb button
+- Add markdown comment as viblo.asia

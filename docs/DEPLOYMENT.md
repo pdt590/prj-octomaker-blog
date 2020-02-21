@@ -93,8 +93,9 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
     - Subject > [OctoMaker] Email Changed Notification
     - Action URL (%LINK% value) > customize action URL > `https://www.octomaker.com/user/action`
 
-#### Realtime Database
+#### Database
 
+- Realtime Database > Create database > Start in locked mode
 - Rules
 
   ```json
@@ -114,6 +115,21 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
 #### Storage
 
+- Get started > Set up Cloud Storage
+  - Secure rules for Cloud Storage
+  
+    ```js
+    service firebase.storage {
+      match /b/{bucket}/o {
+        match /{allPaths=**} {
+          allow read, write: if request.auth != null;
+        }
+      }
+    }
+    ```
+
+  - Set Cloud Storage location > `asia-east2`
+  
 - Rules
 
   ```js
@@ -183,7 +199,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 ### Setup Domain
 
 - Dashboard > octomaker-7e37b domains > Add custom domain 
-  - Enter domain `www.blog.octomaker.com` > Redirect `www.blog.octomaker.com` to an existing website?
+  - Enter domain `blog.octomaker.com` > Untick `Redirect Checkbox`
   - Verify ownership
     - Add the TXT records below to your DNS provider (namesilo) to verify you own octomaker.com
     - Enter `Verify` 
@@ -194,6 +210,23 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
       | ------------- |-----------------------|------------------|
       | A             | blog.octomaker.com    | 151.101.1.195    |
       | A             | blog.octomaker.com    | 151.101.65.195   |
+
+- Dashboard > octomaker-7e37b domains > Add custom domain 
+  - Enter domain `octomaker.com` > Tick `Redirect Checkbox` > Redirect domain `blog.octomaker.com`
+  - Enter `Verify` 
+  - Add these A records to your domain by visiting your DNS provider or registrar (namesilo). Remember to remove your old A records and any AAAA records from your DNS provider
+
+    | Record type   | Host                  | Value            |
+    | ------------- |-----------------------|------------------|
+    | A             | octomaker.com         | 151.101.1.195    |
+    | A             | octomaker.com         | 151.101.65.195   |
+- Do simililarly in the redirect case of `www.octomaker.com`
+  - Add these A records to your domain by visiting your DNS provider or registrar (namesilo). Remember to remove your old A records and any AAAA records from your DNS provider
+
+    | Record type   | Host                  | Value            |
+    | ------------- |-----------------------|------------------|
+    | A             | www.octomaker.com     | 151.101.1.195    |
+    | A             | www.octomaker.com     | 151.101.65.195   |
 
 - References
   - [DNS Records Explained](https://ns1.com/resources/dns-records-explained)
