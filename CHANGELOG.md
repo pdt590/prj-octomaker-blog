@@ -85,3 +85,5 @@
 - Active Facebook App
 - Add fb_iframe_widget for facebook page
 - Add like/share fb button
+- Recheck card style
+- Fix Backspace issue on title input

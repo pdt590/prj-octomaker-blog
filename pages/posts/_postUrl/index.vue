@@ -6,12 +6,12 @@
         <div style="position: sticky; top: 8rem;">
           <div class="level">
             <div class="level-item">
-              <nuxt-link :to="localePath(`/query/author/${authorId}`)">
+              <nuxt-link :to="localePath(`/query/author/${creatorId}`)">
                 <figure>
                   <client-only>
                     <img
                       class="_profile-avatar"
-                      v-lazy="userAvatarUrl"
+                      v-lazy="creatorAvatarUrl"
                       style="display: none"
                       onload="this.style.display = 'block'"
                       alt="user_avatar"
@@ -80,11 +80,37 @@
         <!-- End facebook comment -->
       </div>
       <div class="column is-3">
-        <!-- Start ToC -->
         <div style="position: sticky; top: 8rem;">
-          <div class="toc"></div>
+          <!-- Start ToC -->
+          <div class="card">
+            <header class="card-header" style="border-bottom: none;">
+              <p class="card-header-title">
+                {{ $t("post.table_content") }}
+              </p>
+            </header>
+            <div class="card-content" style="padding-top: 0;">
+              <div class="toc"></div>
+            </div>
+          </div>
+          <!-- End ToC -->
+          <!-- Start recommended posts -->
+          <div class="card" style="margin-top: 1rem">
+            <header class="card-header" style="border-bottom: none;">
+              <p class="card-header-title">
+                {{ $t("post.more_posts_from") }}&nbsp;
+                <nuxt-link :to="localePath(`/query/author/${creatorId}`)"
+                  >@{{ creatorUsername }}</nuxt-link
+                >
+              </p>
+            </header>
+            <div class="card-content" style="padding-top: 0;">
+              <div v-for="(post, index) in recommendedPosts" :key="index">
+                <v-card-post-recommend :value="post" />
+              </div>
+            </div>
+          </div>
+          <!-- End recommended posts -->
         </div>
-        <!-- End ToC -->
       </div>
     </div>
   </div>
@@ -102,16 +128,19 @@ export default {
     this.$initToC();
   },
   computed: {
-    ...mapGetters(["user", "loadedPost", "postLoading"]),
-    userAvatarUrl() {
+    ...mapGetters(["user", "postLoading"]),
+    creatorAvatarUrl() {
       if (this.loadedPost.creator.avatar) {
         return this.loadedPost.creator.avatar.url;
       } else {
         return "/icon-user.png";
       }
     },
-    authorId() {
+    creatorId() {
       return this.loadedPost.creator.id;
+    },
+    creatorUsername() {
+      return this.loadedPost.creator.username;
     },
     isEditable() {
       return this.user && this.user.id === this.loadedPost.creator.id;
@@ -145,12 +174,26 @@ export default {
       }
     }
   },
-  async fetch({ store, params, error }) {
-    await store.dispatch("loadPost", params.postUrl);
+  async asyncData({ store, params, error }) {
+    const loadedPost = await store.dispatch("loadPost", params.postUrl);
     if (store.getters.postLoading) {
       store.commit("setPostLoading", false);
       error({ statusCode: 500, message: "loadPost() Error" });
     }
+    const maxPosts = 3;
+    const creatorId = loadedPost.creator.id;
+    const recommendedPosts = await store.dispatch("loadRecommendedPosts", {
+      limit: maxPosts,
+      creatorId: creatorId
+    });
+    if (store.getters.queryLoading) {
+      store.commit("setQueryLoading", false);
+      error({ statusCode: 500, message: "loadRecommendedPosts() Error" });
+    }
+    return {
+      loadedPost: loadedPost,
+      recommendedPosts: recommendedPosts
+    };
   },
   data() {
     return {

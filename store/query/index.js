@@ -16,9 +16,9 @@ export default {
     async loadLazyPosts(vuexContext, payload) {
       vuexContext.commit("setQueryLoading", true);
       try {
+        const maxPosts = payload.limit;
         let postsData = [];
         let loadedPosts = [];
-        let maxPosts = payload.limit;
         let count = 0;
         while (loadedPosts.length < maxPosts) {
           // Try to load 3 times
@@ -55,12 +55,12 @@ export default {
     },
 
     // Personal Posts
-    async loadPersonalPosts(vuexContext, authorId) {
+    async loadPersonalPosts(vuexContext, creatorId) {
       vuexContext.commit("setQueryLoading", true);
       try {
         const postsData = await postsRef
           .orderByChild("creator/id")
-          .equalTo(authorId)
+          .equalTo(creatorId)
           .once("value");
         const loadedPosts = [];
         postsData.forEach(postData => {
@@ -74,6 +74,42 @@ export default {
         return loadedPosts;
       } catch (e) {
         console.error("[ERROR-loadPersonalPosts]", e);
+      }
+    },
+
+    // Recommended Posts
+    async loadRecommendedPosts(vuexContext, payload) {
+      vuexContext.commit("setQueryLoading", true);
+      try {
+        const loadedPost = vuexContext.getters.loadedPost;
+        const maxPosts = payload.limit;
+        const creatorId = payload.creatorId;
+        let loadedPosts = [];
+        let count = 0;
+        while (loadedPosts.length < maxPosts) {
+          // Try to load 3 times
+          if (count == 3) {
+            break;
+          }
+          count++;
+          loadedPosts = [];
+          const postsData = await postsRef
+            .orderByChild("creator/id")
+            .equalTo(creatorId)
+            .limitToLast(maxPosts * count)
+            .once("value");
+          postsData.forEach(postData => {
+            const postObj = postData.val();
+            if (postObj.mode === "public" && postObj.url !== loadedPost.url) {
+              loadedPosts.push(postObj);
+            }
+          });
+        }
+        loadedPosts.reverse();
+        vuexContext.commit("setQueryLoading", false);
+        return loadedPosts;
+      } catch (e) {
+        console.error("[ERROR-loadRecommendedPosts]", e);
       }
     },
 

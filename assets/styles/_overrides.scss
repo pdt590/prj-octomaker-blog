@@ -110,7 +110,6 @@ blockquote {
     .card-header {
       box-shadow: none;
       border-bottom: 1px solid $grey-lighter;
-      padding: 0.5rem;
     }
 
     .card-footer .card-footer-item {
@@ -129,7 +128,6 @@ blockquote {
     .card-header {
       box-shadow: none;
       border-bottom: 1px solid $grey-lighter;
-      padding: 0.5rem;
     }
 
     .card-footer .card-footer-item {
@@ -301,7 +299,7 @@ $creator-avatar-height: 3rem;
 }
 
 ._card-image {
-  border: solid 1px #ddd;
+  border: solid 1px $grey-lighter;
 }
 
 ._thumbnail-image {
@@ -318,7 +316,7 @@ $creator-avatar-height: 3rem;
   object-fit: cover;
   width: $creator-avatar-height;
   height: $creator-avatar-height;
-  border: solid 1px #d8d8d8;
+  border: solid 1px $grey-lighter;
   border-radius: 50%;
 }
 
@@ -328,7 +326,7 @@ $creator-avatar-height: 3rem;
 }
 
 // components/CardPostHorizontal.vue
-._media {
+._media-horizontal {
   align-items: center;
   padding-bottom: 0.5rem;
 }
@@ -340,9 +338,26 @@ $creator-avatar-height: 3rem;
 }
 
 // components/CardPostRecommend.vue
+._media-recommend {
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+._thumbnail-image-recommend {
+  object-fit: cover;
+  width: 96px !important;
+  height: 96px !important;
+}
+
 // components/Editor.vue
 ._disable {
   pointer-events: none;
+  .editor-toolbar, .CodeMirror {
+    background-color: whitesmoke;
+    border-color: whitesmoke;
+    box-shadow: none;
+    color: #55595c;
+  }
 }
 
 // components/Footer.vue
@@ -352,7 +367,7 @@ $creator-avatar-height: 3rem;
 // components/ModalImage.vue
 ._image-frame {
   position: relative;
-  border: solid 1px #d8d8d8;
+  border: solid 1px $grey-lighter;
 
   ._image-preview {
     object-fit: cover;
@@ -377,14 +392,14 @@ $creator-avatar-height: 3rem;
 // components/Navbar.vue
 ._navbar {
   border: none;
-  border-bottom: 1px solid #d8d8d8;
+  border-bottom: 1px solid $grey-lighter;
 }
 
 ._navbar-tag {
   margin-top: $navbar-height;
   z-index: $navbar-z - 2; // 28
   box-sizing: border-box;
-  border-bottom: 1px solid #d8d8d8;
+  border-bottom: 1px solid $grey-lighter;
 }
 
 /* 
@@ -417,7 +432,7 @@ $creator-avatar-height: 3rem;
 
 ._navbar-item-facebook {
   padding: 0 2rem 0 2rem;
-  border-left: 1px solid #d8d8d8;
+  border-left: 1px solid $grey-lighter;
 }
 
 ._navbar-item-youtube {
@@ -428,7 +443,7 @@ $creator-avatar-height: 3rem;
   object-fit: cover;
   width: 2rem;
   height: 2rem;
-  border: solid 1px #d8d8d8;
+  border: solid 1px $grey-lighter;
   border-radius: 50%;
 }
 
@@ -451,7 +466,7 @@ $creator-avatar-height: 3rem;
   object-fit: cover;
   width: 4rem;
   height: 4rem;
-  border: solid 1px #d8d8d8;
+  border: solid 1px $grey-lighter;
   border-radius: 50%;
 }
 
@@ -505,7 +520,7 @@ $creator-avatar-height: 3rem;
 }
  */
 
-// pages/query/author/_authorId/index.vue
+// pages/query/author/_creatorId/index.vue
 // pages/query/category/_categoryId/index.vue
 // pages/search/index.vue
 // pages/user/index.vue
@@ -541,7 +556,7 @@ $creator-avatar-height: 3rem;
   object-fit: cover;
   width: 4rem;
   height: 4rem;
-  border: solid 1px #d8d8d8;
+  border: solid 1px $grey-lighter;
   border-radius: 50%;
 }
  */
@@ -552,20 +567,20 @@ $creator-avatar-height: 3rem;
   object-fit: cover;
   width: 4rem;
   height: 4rem;
-  border: solid 1px #d8d8d8;
+  border: solid 1px $grey-lighter;
   border-radius: 50%;
 }
  */
 
 ._image-avatar-frame {
   position: relative;
-  border: solid 1px #d8d8d8;
+  border: solid 1px $grey-lighter;
 
   ._image-avatar-preview {
     object-fit: cover;
     width: inherit;
     height: inherit;
-    border: solid 1px #d8d8d8;
+    border: solid 1px $grey-lighter;
     border-radius: 50%;
   }
 

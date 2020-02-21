@@ -37,7 +37,7 @@ export default {
         };
         const postContent = {
           category: "iot",
-          tags: ["iot"],
+          tags: ["code"],
           mode: "private",
           markdown: "",
           html: ""

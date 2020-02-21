@@ -1,5 +1,5 @@
 <template>
-  <div class="media _media">
+  <div class="media _media-horizontal">
     <div class="media-left">
       <nuxt-link :to="localePath(`/posts/${postUrl}`)">
         <figure class="image is-128x128">
@@ -24,7 +24,8 @@
         </strong>
       </div>
       <div class="tags">
-        <span class="tag is-medium" :class="postMode === 'public' ? 'is-info' : 'is-dark'">{{ postMode }}</span>
+        <span class="tag is-medium" :class="postMode === 'public' ? 'is-success' : 'is-dark'">{{ postMode }}</span>
+        <span class="tag is-info is-medium">{{ postCategory }}</span>
         <span
           v-for="(tag, index) in postTags"
           :key="index"

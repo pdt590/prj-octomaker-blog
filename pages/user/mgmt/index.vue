@@ -84,7 +84,7 @@ export default {
       }
     }
   },
-  async asyncData({ app, store, error }) {
+  async asyncData({ store, error }) {
     const loadedPersonalPosts = await store.dispatch("loadOwnPosts");
     if (store.getters.queryLoading) {
       store.commit("setQueryLoading", false);

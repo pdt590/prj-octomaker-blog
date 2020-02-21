@@ -128,9 +128,15 @@ export default {
       content: "Share to be viral"
     }
   },
+
   // pages/about/index.vue
   // pages/posts/index.vue
   // pages/posts/_postUrl/index.vue
+  post: {
+    table_content: "Table of content",
+    more_posts_from: "More posts from"
+  },
+
   // pages/posts/_postUrl/edit-post/index.vue
   edit_post: {
     title_placeholder: "Title",
@@ -173,7 +179,7 @@ export default {
     }
   },
 
-  // pages/query/author/_authorId/index.vue
+  // pages/query/author/_creatorId/index.vue
   author: {
     home_link: "Home"
   },

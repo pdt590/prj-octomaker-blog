@@ -35,23 +35,20 @@
         </div>
         <p>
           {{ postDescription | fmString(120) }}
-        </p>
-        <div class="level">
-          <div class="level-left">
-            <div class="tags">
-              <span
-                v-for="(tag, index) in postTags"
-                :key="index"
-                class="tag is-warning is-small"
-                >{{ tag }}</span
-              >
-            </div>
-          </div>
-          <div class="level-right">
+          <span class="_align">
             <b-icon pack="far" icon="clock" size="is-small"> </b-icon>
             &nbsp;
-            <p class="is-size-7">{{ postUpdatedDate | fmDate }}</p>
-          </div>
+            <span class="is-size-7">{{ postUpdatedDate | fmDate }}</span>
+          </span>
+        </p>
+        <div class="tags">
+          <span class="tag is-info is-small">{{ postCategory }}</span>
+          <span
+            v-for="(tag, index) in postTags"
+            :key="index"
+            class="tag is-warning is-small"
+            >{{ tag }}</span
+          >
         </div>
       </div>
     </div>
@@ -79,7 +76,7 @@ export default {
       return this.value.title;
     },
     postMode() {
-      return this.value.mode
+      return this.value.mode;
     },
     postCategory() {
       const category = categories.find(item => item.id === this.value.category);

@@ -36,6 +36,7 @@
           v-model="postContent.tags"
           maxtags="3"
           :has-counter="false"
+          :disabled="$v.postTitle.$invalid"
           icon="tag"
         ></b-taginput>
       </b-field>

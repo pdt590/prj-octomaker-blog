@@ -130,6 +130,11 @@ export default {
   // pages/about/index.vue
   // pages/posts/index.vue
   // pages/posts/_postUrl/index.vue
+  post: {
+    table_content: "Nội dung",
+    more_posts_from: "Bài viết khác của"
+  },
+
   // pages/posts/_postUrl/edit-post/index.vue
   edit_post: {
     title_placeholder: "Tên bài",
@@ -170,7 +175,7 @@ export default {
     }
   },
 
-  // pages/query/author/_authorId/index.vue
+  // pages/query/author/_creatorId/index.vue
   author: {
     home_link: "Trang chủ"
   },

@@ -38,9 +38,9 @@ export default {
   computed: {
     ...mapGetters(["queryLoading"])
   },
-  async asyncData({ app, store, params, error }) {
+  async asyncData({ store, params, error }) {
     const maxPosts = 12;
-    let loadedPosts = await store.dispatch("loadLazyPosts", { limit: maxPosts });
+    const loadedPosts = await store.dispatch("loadLazyPosts", { limit: maxPosts });
     if (store.getters.queryLoading) {
       store.commit("setQueryLoading", false);
       error({ statusCode: 500, message: "loadLazyPosts() Error" });

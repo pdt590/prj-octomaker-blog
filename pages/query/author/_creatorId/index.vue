@@ -8,7 +8,7 @@
           }}</nuxt-link>
         </li>
         <li>
-          <a :href="authorWebsite">{{ `@${authorUsername}` }}</a>
+          <a :href="creatorWebsite">{{ `@${creatorUsername}` }}</a>
         </li>
       </ul>
     </nav>
@@ -38,42 +38,46 @@ export default {
     totalPosts() {
       return this.loadedPosts.length;
     },
-    authorUsername() {
-      return this.loadedAuthor.username;
+    creatorUsername() {
+      return this.loadedCreator.username;
     },
-    /* authorFullname() {
-      return this.loadedAuthor.fullname ? this.loadedAuthor.fullname : ``;
-    }, */
-    authorWebsite() {
-      return this.loadedAuthor.website ? this.loadedAuthor.website : `/`;
+    /* 
+    creatorFullname() {
+      return this.loadedCreator.fullname ? this.loadedCreator.fullname : ``;
+    }, 
+    */
+    creatorWebsite() {
+      return this.loadedCreator.website ? this.loadedCreator.website : `/`;
     },
-    /* authorPhone() {
-      return this.loadedAuthor.phone ? this.loadedAuthor.phone : ``;
+    /* 
+    creatorPhone() {
+      return this.loadedCreator.phone ? this.loadedCreator.phone : ``;
     },
-    authorAddress() {
-      return this.loadedAuthor.address ? this.loadedAuthor.address : ``;
+    creatorAddress() {
+      return this.loadedCreator.address ? this.loadedCreator.address : ``;
     },
-    authorProvince() {
-      return this.loadedAuthor.province ? this.loadedAuthor.province : ``;
-    }, */
+    creatorProvince() {
+      return this.loadedCreator.province ? this.loadedCreator.province : ``;
+    }, 
+    */
     pageThumbnail() {
       return `${process.env.baseUrl}/icon-photo.png`;
     }
   },
-  async asyncData({ app, store, params }) {
-    const authorId = params.authorId;
-    const loadedPosts = await store.dispatch("loadPersonalPosts", authorId);
+  async asyncData({ store, params }) {
+    const creatorId = params.creatorId;
+    const loadedPosts = await store.dispatch("loadPersonalPosts", creatorId);
     if (store.getters.queryLoading) {
       store.commit("setQueryLoading", false);
       error({ statusCode: 500, message: "loadPersonalPosts() Error" });
     }
-    const loadedAuthor = await store.dispatch("loadUser", authorId);
+    const loadedCreator = await store.dispatch("loadUser", creatorId);
     if (store.getters.authLoading) {
       store.commit("setAuthLoading", false);
       error({ statusCode: 500, message: "loadUser() Error" });
     }
     return {
-      loadedAuthor: loadedAuthor,
+      loadedCreator: loadedCreator,
       loadedPosts: loadedPosts
     };
   },

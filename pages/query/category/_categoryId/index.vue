@@ -42,7 +42,7 @@ export default {
       return `${process.env.baseUrl}/icon-photo.png`;
     }
   },
-  async asyncData({ app, store, params }) {
+  async asyncData({ store, params }) {
     const categoryId = params.categoryId;
     const loadedPosts = await store.dispatch(
       "loadCategorizedPosts",

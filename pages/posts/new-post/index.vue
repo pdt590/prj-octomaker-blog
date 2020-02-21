@@ -36,6 +36,7 @@
           v-model="postContent.tags"
           maxtags="3"
           :has-counter="false"
+          :disabled="$v.postTitle.$invalid || !isTitleAdded"
           icon="tag"
         ></b-taginput>
       </b-field>
@@ -126,7 +127,7 @@ export default {
       postTitle: "",
       postContent: {
         category: "iot",
-        tags: ["iot"],
+        tags: ["code"],
         mode: "private",
         markdown: "",
         html: ""
