@@ -6,7 +6,7 @@
           <b-input
             :placeholder="$t('new_post.title_placeholder')"
             type="text"
-            v-model.trim="postTitle"
+            v-model="postTitle"
             @blur="onChangeTitle"
             icon="newspaper"
             :loading="postLoading && loadEvent === `onChangeTitle`"
@@ -172,7 +172,9 @@ export default {
       this.loadEvent = "";
     },
     async onBlur() {
-      this.postContent.html = marked(this.postContent.markdown, { renderer: renderer() });
+      this.postContent.html = marked(this.postContent.markdown, {
+        renderer: renderer()
+      });
       await this.$store.dispatch("addPostContent", this.postContent);
       if (this.postLoading) {
         this.$store.commit("setPostLoading", false);
@@ -180,7 +182,9 @@ export default {
     },
     async onPublish() {
       this.loadEvent = "onPublish";
-      this.postContent.html = marked(this.postContent.markdown, { renderer: renderer() });
+      this.postContent.html = marked(this.postContent.markdown, {
+        renderer: renderer()
+      });
       await this.$store.dispatch("addPostContent", this.postContent);
       if (this.postLoading) {
         this.$store.commit("setPostLoading", false);

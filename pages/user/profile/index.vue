@@ -48,7 +48,7 @@
                       "
                     >
                       <b-input
-                        v-model="userContent.username"
+                        v-model.trim="userContent.username"
                         @blur="$v.userContent.username.$touch()"
                         icon="user-circle"
                       ></b-input>
@@ -88,7 +88,7 @@
                     >
                       <b-input
                         type="tel"
-                        v-model="userContent.phone"
+                        v-model.trim="userContent.phone"
                         @blur="$v.userContent.phone.$touch()"
                         icon="phone-square-alt"
                       ></b-input>
@@ -100,7 +100,7 @@
                         expanded
                       >
                         <b-input
-                          v-model="userContent.address"
+                          v-model.trim="userContent.address"
                           icon="map-marker-alt"
                         ></b-input>
                       </b-field>

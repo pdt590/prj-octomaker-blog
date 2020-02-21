@@ -15,13 +15,15 @@
   - `Redesign CardPost` - [Refer](https://www.hackster.io/)
   - `Change new float style in each post`
   - `Recheck error and user/action style`
-  - Change font (search the best font for web)
+  - `Change font (search the best font for web)`
     - `SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace;`
     - `-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;`
     - `Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;`
     - `Questrial, sans-serif;`
     - `Arial`
+  - `Recheck card style`
   - Redesign mobile layout (search bulma mobile layout)
+  - Make final design as VuejsDevelopers.com style
 - `Add section highlight for each post (Markdown TOC - Table of Content)` - [Refer](https://www.jqueryscript.net/blog/best-table-contents-plugins.html)
 - `Add popup fb share`
 - `Fix loading button issue`
@@ -64,6 +66,7 @@
 - `Fix Close Tab prevent on pages when clicking 'Back' on browser`
 - `Change CardPostHorizotal style`
 - `Fix 'The resource URL was preloaded using link' in nuxt`
+- `Fix Backspace issue on title input`
 - Add filter for post list
 - Fix fb comment load issue
 - Add different favicon/logo sizes for SEO
@@ -85,5 +88,3 @@
 - Active Facebook App
 - Add fb_iframe_widget for facebook page
 - Add like/share fb button
-- Recheck card style
-- Fix Backspace issue on title input

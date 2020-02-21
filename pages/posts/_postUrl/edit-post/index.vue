@@ -6,7 +6,7 @@
           <b-input
             :placeholder="$t('edit_post.title_placeholder')"
             type="text"
-            v-model.trim="postTitle"
+            v-model="postTitle"
             @blur="onChangeTitle"
             icon="newspaper"
             :loading="postLoading && loadEvent === `onChangeTitle`"
