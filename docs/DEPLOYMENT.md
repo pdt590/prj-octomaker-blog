@@ -72,7 +72,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
     - From > `norely`
     - customize domain > Add domain `octomaker.com` > Verify domain > Add the DNS records on namsilo
     - Subject > [OctoMaker] Verify Email
-    - Action URL (%LINK% value) > customize action URL > `https://www.octomaker.com/user/action`
+    - Action URL (%LINK% value) > customize action URL > `https://www.blog.octomaker.com/user/action`
     - Waiting for namesilo process about 2 hours (`TTL-7207`) then come back to apply `custom domain`
 
   - Password reset
@@ -82,7 +82,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
     - From > `norely`
     - customize domain > Add domain `octomaker.com` > Verify domain > Add the DNS records on namsilo
     - Subject > [OctoMaker] Verify Email
-    - Action URL (%LINK% value) > customize action URL > `https://www.octomaker.com/user/action`
+    - Action URL (%LINK% value) > customize action URL > `https://www.blog.octomaker.com/user/action`
 
   - Email address change
     - Project public-facing name > `OctoMaker`
@@ -91,7 +91,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
     - From > `norely`
     - customize domain > Add domain `octomaker.com` > Verify domain > Add the DNS records on namsilo
     - Subject > [OctoMaker] Email Changed Notification
-    - Action URL (%LINK% value) > customize action URL > `https://www.octomaker.com/user/action`
+    - Action URL (%LINK% value) > customize action URL > `https://www.blog.octomaker.com/user/action`
 
 #### Database
 
@@ -228,6 +228,14 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
     | A             | www.octomaker.com     | 151.101.1.195    |
     | A             | www.octomaker.com     | 151.101.65.195   |
 
+- Do simililarly in the redirect case of `www.blog.octomaker.com`
+  - Add these A records to your domain by visiting your DNS provider or registrar (namesilo). Remember to remove your old A records and any AAAA records from your DNS provider
+
+    | Record type   | Host                  --| Value            |
+    | ------------- |-------------------------|------------------|
+    | A             | www.blog.octomaker.com  | 151.101.1.195    |
+    | A             | www.blog.octomaker.com  | 151.101.65.195   |
+
 - References
   - [DNS Records Explained](https://ns1.com/resources/dns-records-explained)
   - [Demystifying DNS for web developers](https://medium.com/@jgefroh/demystifying-dns-for-web-developers-ace5a3ae559f)
@@ -238,6 +246,23 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
     - [Google - Connect a custom domain](https://firebase.google.com/docs/hosting/custom-domain)
     - [Set custom domain free cho Firebase hosting](https://kipalog.com/posts/Set-custom-domain-free-cho-Firebase-hosting)
     - [Google Firebase Hosting & Custom Domain - The Missing Manual](https://medium.com/google-cloud/google-firebase-hosting-custom-domain-the-missing-manual-7f971c3c2d1e)
+
+### Deployment
+
+- Reference
+  - [Deploy nuxt on Firebase](https://dev.to/kiritchoukc/deploy-nuxt-on-firebase-4ad8) with [Srouce Code](https://github.com/KiritchoukC/nuxt-on-firebase-example)
+
+- Install Firebase CLI
+  
+  ```js
+
+  // Install firebase tools
+  npm i -g firebase-tools
+
+  // Login with your Google account
+  firebase login
+
+  ```
 
 ## [Option 2] VPS
 

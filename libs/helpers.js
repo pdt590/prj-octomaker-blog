@@ -122,23 +122,29 @@ export const isEmbedURL = value => {
   }
 };
 
-export function getYoutubeId(value) {
+export function fetchEmbedId(value) {
   const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
   const match = value.match(regExp);
   return match && match[2].length === 11 ? match[2] : null;
 }
 
+export function fetchUrl(value) {
+  const regExp = /<a\s+(?:[^>]*?\s+)?href=(["'])(.*?)\1/;
+  const match = value.match(regExp);
+  return match;
+}
+
 export function renderer() {
   const renderer = new marked.Renderer();
-  renderer.link = (href, title, text) => {
-    if (text === "@embed") {
+  renderer.paragraph = text => {
+    if (text.includes("@embed")) {
       return `<figure class="image is-16by9">
-      <iframe class="has-ratio" width="640" height="360" src="https://www.youtube.com/embed/${getYoutubeId(
-        href
-      )}" frameborder="0" allowfullscreen />
+      <iframe class="has-ratio" width="640" height="360" src="https://www.youtube.com/embed/${fetchEmbedId(
+        fetchUrl(text)[2]
+      )}" frameborder="0" allowfullscreen></iframe>
       </figure>`;
     }
-    return `<a href=${href} title="${title}">${text}</a>`;
+    return `<p>${text}</p>`;
   };
   return renderer;
 }
