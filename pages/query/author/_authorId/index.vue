@@ -65,7 +65,7 @@ export default {
     }
   },
   async asyncData({ store, params }) {
-    const creatorId = params.creatorId;
+    const creatorId = params.authorId;
     const loadedPosts = await store.dispatch("loadPersonalPosts", creatorId);
     if (store.getters.queryLoading) {
       store.commit("setQueryLoading", false);
