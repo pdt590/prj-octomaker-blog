@@ -101,8 +101,16 @@ module.exports = {
         max: 10000,
         maxAge: 1000 * 60 * 60
       }
-    ]
+    ],
+    ["@bazzite/nuxt-optimized-images"]
   ],
+
+  /*
+   ** @bazzite/nuxt-optimized-images setting
+   */
+  optimizedImages: {
+    optimizeImages: true
+  },
 
   /*
    ** Global env setting
