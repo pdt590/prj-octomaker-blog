@@ -7,11 +7,11 @@ const usersRef = database.ref("users");
 const imageUsersRef = storage.ref("users");
 
 export default {
-  state: {
+  state: () => ({
     authLoading: false,
     authError: null,
     user: null
-  },
+  }),
   mutations: {
     setAuthLoading(state, payload) {
       state.authLoading = payload;

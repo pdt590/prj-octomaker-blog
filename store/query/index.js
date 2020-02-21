@@ -3,9 +3,9 @@ const db = firebase.database();
 const postsRef = db.ref("posts");
 
 export default {
-  state: {
+  state: () => ({
     queryLoading: false
-  },
+  }),
   mutations: {
     setQueryLoading(state, payload) {
       state.queryLoading = payload;

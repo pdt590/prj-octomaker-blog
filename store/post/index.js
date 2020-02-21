@@ -11,10 +11,10 @@ const postsRef = database.ref("posts");
 const imagesPostRef = storage.ref("posts");
 
 export default {
-  state: {
+  state: () => ({
     postLoading: false,
     loadedPost: null
-  },
+  }),
   mutations: {
     setPostLoading(state, payload) {
       state.postLoading = payload;
