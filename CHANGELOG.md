@@ -91,3 +91,4 @@
 - Add fb_iframe_widget for facebook page
 - Add like/share fb button
 - Add markdown comment as viblo.asia
+- Seperate DEPLOYMENT.md into small files

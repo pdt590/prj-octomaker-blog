@@ -240,3 +240,11 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
     - [Google Firebase Hosting & Custom Domain - The Missing Manual](https://medium.com/google-cloud/google-firebase-hosting-custom-domain-the-missing-manual-7f971c3c2d1e)
 
 ## [Option 2] VPS
+
+## [Option 3] Docker
+
+## [Option 4] Azure
+
+## [Option 5] AWS
+
+## [Option 6] Google Cloud
