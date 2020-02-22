@@ -27,7 +27,7 @@ module.exports = {
       {
         hid: "og-image",
         property: "og:image",
-        content: `${process.env.BASE_URL}/icon-photo.png`
+        content: `${process.env.BASE_URL}/logo.png`
       },
       { hid: "fb-app_id", property: "fb:app_id", content: "192142251994813" }
     ],
