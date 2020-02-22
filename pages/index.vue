@@ -20,7 +20,7 @@
       <div class="level-item">
         <button
           class="button is-info is-outlined"
-          :class="{ 'is-loading': queryLoading }"
+          :class="{ 'is-loading': queryLoading && isLazyLoad }"
           :disabled="!loadedPosts.length"
           @click="onLoad"
         >
@@ -36,7 +36,7 @@ import { mapGetters } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters(["queryLoading"])
+    ...mapGetters(["queryLoading"]),
   },
   async asyncData({ store, params, error }) {
     const maxPosts = 12;
@@ -50,8 +50,14 @@ export default {
       maxPosts: maxPosts
     };
   },
+  data() {
+    return {
+      isLazyLoad: false
+    }
+  },
   methods: {
     async onLoad() {
+      this.isLazyLoad = true
       const endAtKey = this.loadedPosts[this.loadedPosts.length - 1]
         .updatedDate;
       let loadedMorePosts = await this.$store.dispatch("loadLazyPosts", {
@@ -69,6 +75,7 @@ export default {
         loadedMorePosts.length ? loadedMorePosts.shift() : ``; // Remove first item
         this.loadedPosts = [...this.loadedPosts, ...loadedMorePosts];
       }
+      this.isLazyLoad = false
     }
   },
   head() {

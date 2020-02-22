@@ -54,9 +54,13 @@
                       ></b-input>
                     </b-field>
 
-                    <b-field :label="$t('profile.info.fullname_label')">
+                    <b-field
+                      :label="$t('profile.info.fullname_label')"
+                      :type="$v.userContent.fullname.$error ? `is-danger` : ``"
+                    >
                       <b-input
                         v-model.trim="userContent.fullname"
+                        @blur="$v.userContent.fullname.$touch()"
                         icon="id-card"
                       ></b-input>
                     </b-field>
@@ -97,10 +101,12 @@
                     <b-field grouped>
                       <b-field
                         :label="$t('profile.info.address_label')"
+                        :type="$v.userContent.address.$error ? `is-danger` : ``"
                         expanded
                       >
                         <b-input
                           v-model.trim="userContent.address"
+                          @blur="$v.userContent.address.$touch()"
                           icon="map-marker-alt"
                         ></b-input>
                       </b-field>
@@ -139,7 +145,7 @@
                       :message="
                         !$v.newEmail.email
                           ? $t('profile.email.new_email_message')
-                          : !$v.newEmail.isValidEmail
+                          : !$v.newEmail.isChanged
                           ? $t('profile.email.warning_email_message')
                           : ``
                       "
@@ -285,6 +291,7 @@
                             @input="onAvatarChange"
                             drag-drop
                             :accept="acceptedImages"
+                            :disabled="!isAvatarChanged"
                           >
                             <section class="section">
                               <div class="content has-text-centered">
@@ -430,10 +437,10 @@ export default {
     this.oldAvatar = this.user.avatar;
     this.userContent = {
       username: this.user.username,
-      fullname: this.user.fullname,
-      website: this.user.website,
-      phone: this.user.phone,
-      address: this.user.address,
+      fullname: this.user.fullname ? this.user.fullname : null,
+      website: this.user.website ? this.user.website : null,
+      phone: this.user.phone ? this.user.phone : null,
+      address: this.user.address ? this.user.address : null,
       province: this.user.province ? this.user.province : "Hà Nội"
     };
   },
@@ -508,25 +515,29 @@ export default {
     userContent: {
       username: {
         required,
-        minLen: minLength(6)
-        // isValidUsername: not(sameAs(function() { return this.user.username }))
+        minLen: minLength(6),
+        /* isChanged: not(
+          sameAs(function() {
+            return this.user.username;
+          })
+        ) */
       },
+      fullname: {},
       website: {
         url
       },
       phone: {
         numeric
-      }
+      },
+      address: {}
     },
 
     newEmail: {
       required,
       email,
-      isValidEmail: not(
+      isChanged: not(
         sameAs(function() {
-          if (this.user) {
-            return this.user.email;
-          }
+          return this.user.email;
         })
       )
     },

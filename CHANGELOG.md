@@ -92,3 +92,4 @@
 - Add like/share fb button
 - Add markdown comment as viblo.asia
 - Seperate DEPLOYMENT.md into small files
+- Fix video playback issue
