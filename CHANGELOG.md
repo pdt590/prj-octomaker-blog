@@ -45,11 +45,13 @@
   - Add image view event on editor and post - [Refer](https://codemirror.net/doc/manual.html#events)
   - Add image resize
   - Add image position select
+  - `Auto resize a image with an fixed size by javascript`
   - Remove old link when removing a image
   - Implement emoji render and emoji modal select
   - Scroll event is not smooth
   - Dont focus at the end of editor when pasting text
   - Improve embedlink selection
+  - Check codemirror events: `touchstart`, `touchmove`, `mousewheel` for `Prism.highlightAll()`
 - `Use vue-fontawesome`
   - `Change fb_share and edit icon`
   - [Icons](https://buefy.org/documentation/start/)
@@ -90,9 +92,11 @@
 - Active Facebook App
 - Add fb_iframe_widget for facebook page
 - Add like/share fb button
+- Enhance fetchDesc function
 - Add markdown comment as viblo.asia
 - Seperate DEPLOYMENT.md into small files
 - Fix video playback issue
+- Recheck change email/password process
 - Add Nuxt PWA - Refer nuxtjs.org and vuejsdeveloper.com
 - Use Nuxt with Expressjs
 - Use Nuxt with Keystonejs

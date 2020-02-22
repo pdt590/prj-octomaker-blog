@@ -34,66 +34,72 @@
         <div class="card">
           <div class="card-content">
             <b-tabs type="is-boxed">
-              <!-- Start info -->
+              <!-- Start new content -->
               <b-tab-item :label="$t('profile.info.title')">
                 <form>
                   <div style="padding-top: 1rem; padding-bottom: 2rem;">
                     <b-field
                       :label="$t('profile.info.username_label')"
-                      :type="$v.userContent.username.$error ? `is-danger` : ``"
+                      :type="
+                        $v.newUserContent.username.$error ? `is-danger` : ``
+                      "
                       :message="
-                        !$v.userContent.username.minLen
+                        !$v.newUserContent.username.minLen
                           ? $t('profile.info.username_message')
                           : ``
                       "
                     >
                       <b-input
-                        v-model.trim="userContent.username"
-                        @blur="$v.userContent.username.$touch()"
+                        v-model.trim="newUserContent.username"
+                        @blur="$v.newUserContent.username.$touch()"
                         icon="user-circle"
                       ></b-input>
                     </b-field>
 
                     <b-field
                       :label="$t('profile.info.fullname_label')"
-                      :type="$v.userContent.fullname.$error ? `is-danger` : ``"
+                      :type="
+                        $v.newUserContent.fullname.$error ? `is-danger` : ``
+                      "
                     >
                       <b-input
-                        v-model.trim="userContent.fullname"
-                        @blur="$v.userContent.fullname.$touch()"
+                        v-model.trim="newUserContent.fullname"
+                        @blur="$v.newUserContent.fullname.$touch()"
                         icon="id-card"
                       ></b-input>
                     </b-field>
 
                     <b-field
                       :label="$t('profile.info.website_label')"
-                      :type="$v.userContent.website.$error ? `is-danger` : ``"
+                      :type="
+                        $v.newUserContent.website.$error ? `is-danger` : ``
+                      "
                       :message="
-                        !$v.userContent.website.url
+                        !$v.newUserContent.website.url
                           ? $t('profile.info.website_message')
                           : ``
                       "
                     >
                       <b-input
-                        v-model.trim="userContent.website"
-                        @blur="$v.userContent.website.$touch()"
+                        v-model.trim="newUserContent.website"
+                        @blur="$v.newUserContent.website.$touch()"
                         icon="link"
                       ></b-input>
                     </b-field>
 
                     <b-field
                       :label="$t('profile.info.phone_label')"
-                      :type="$v.userContent.phone.$error ? `is-danger` : ``"
+                      :type="$v.newUserContent.phone.$error ? `is-danger` : ``"
                       :message="
-                        !$v.userContent.phone.numeric
+                        !$v.newUserContent.phone.numeric
                           ? $t('profile.info.phone_message')
                           : ``
                       "
                     >
                       <b-input
                         type="tel"
-                        v-model.trim="userContent.phone"
-                        @blur="$v.userContent.phone.$touch()"
+                        v-model.trim="newUserContent.phone"
+                        @blur="$v.newUserContent.phone.$touch()"
                         icon="phone-square-alt"
                       ></b-input>
                     </b-field>
@@ -101,17 +107,19 @@
                     <b-field grouped>
                       <b-field
                         :label="$t('profile.info.address_label')"
-                        :type="$v.userContent.address.$error ? `is-danger` : ``"
+                        :type="
+                          $v.newUserContent.address.$error ? `is-danger` : ``
+                        "
                         expanded
                       >
                         <b-input
-                          v-model.trim="userContent.address"
-                          @blur="$v.userContent.address.$touch()"
+                          v-model.trim="newUserContent.address"
+                          @blur="$v.newUserContent.address.$touch()"
                           icon="map-marker-alt"
                         ></b-input>
                       </b-field>
                       <b-field :label="$t('profile.info.province_label')">
-                        <b-select v-model="userContent.province">
+                        <b-select v-model="newUserContent.province">
                           <option v-for="(province, i) in provinces" :key="i">{{
                             province
                           }}</option>
@@ -125,7 +133,7 @@
                       <button
                         class="button is-info is-outlined"
                         :class="{ 'is-loading': authLoading }"
-                        :disabled="$v.userContent.$invalid"
+                        :disabled="$v.newUserContent.$invalid"
                         @click.prevent="onUpdateContent"
                       >
                         {{ $t("profile.info.save_btn") }}
@@ -134,11 +142,19 @@
                   </div>
                 </form>
               </b-tab-item>
-              <!-- End info -->
+              <!-- End new content -->
               <!-- Start new email -->
               <b-tab-item :label="$t('profile.email.title')">
                 <form>
                   <div style="padding-top: 1rem; padding-bottom: 2rem;">
+                    <b-field :label="$t('profile.email.old_email_label')">
+                      <b-input
+                        type="email"
+                        :value="oldEmail"
+                        disabled
+                        icon="envelope"
+                      ></b-input>
+                    </b-field>
                     <b-field
                       :label="$t('profile.email.new_email_label')"
                       :type="$v.newEmail.$error ? `is-danger` : ``"
@@ -435,7 +451,8 @@ export default {
   middleware: "server-client-auth",
   created() {
     this.oldAvatar = this.user.avatar;
-    this.userContent = {
+    this.oldEmail = this.user.email;
+    this.oldUserContent = {
       username: this.user.username,
       fullname: this.user.fullname ? this.user.fullname : null,
       website: this.user.website ? this.user.website : null,
@@ -443,6 +460,7 @@ export default {
       address: this.user.address ? this.user.address : null,
       province: this.user.province ? this.user.province : "Hà Nội"
     };
+    this.newUserContent = this.oldUserContent;
   },
   computed: {
     ...mapGetters(["user", "authError", "authLoading"]),
@@ -489,10 +507,13 @@ export default {
   },
   data() {
     return {
+      // New content
+      oldUserContent: {},
+      newUserContent: {},
       provinces: provinces,
-      userContent: {},
 
       // New email
+      oldEmail: null,
       newEmail: null,
       confirmPasswordForNewEmail: null,
 
@@ -502,25 +523,28 @@ export default {
       confirmPasswordForNewPassword: null,
 
       // New avatar
-      acceptedImages: acceptedImages,
+      oldAvatar: null,
       newAvatar: null,
       previewAvatar: null,
-      oldAvatar: null,
+      acceptedImages: acceptedImages,
 
       // Delete account
       confirmPasswordForDeleting: null
     };
   },
   validations: {
-    userContent: {
+    newUserContent: {
+      // TODO
+      /* 
+      isChanged: not(
+        sameAs(function() {
+          return this.oldUserContent;
+        })
+      ), 
+      */
       username: {
         required,
-        minLen: minLength(6),
-        /* isChanged: not(
-          sameAs(function() {
-            return this.user.username;
-          })
-        ) */
+        minLen: minLength(6)
       },
       fullname: {},
       website: {
@@ -537,7 +561,7 @@ export default {
       email,
       isChanged: not(
         sameAs(function() {
-          return this.user.email;
+          return this.oldEmail;
         })
       )
     },
@@ -570,7 +594,7 @@ export default {
   },
   methods: {
     async onUpdateContent() {
-      await this.$store.dispatch("updateUserContent", this.userContent);
+      await this.$store.dispatch("updateUserContent", this.newUserContent);
       if (this.authLoading) {
         this.$store.commit("setAuthLoading", false);
         this.$buefy.toast.open({

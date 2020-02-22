@@ -288,6 +288,7 @@ export default {
     },
     email: {
       title: "Change Email",
+      old_email_label: "Default email",
       new_email_label: "New email",
       new_email_message: "Invalid email",
       warning_email_message: "Enter new email",

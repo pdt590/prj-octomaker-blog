@@ -78,14 +78,18 @@ export const isGif = file => {
 
 export function compressImage(image) {
   const maxSize = 1500000;
-  const quality = 0.5;
-  if (image.size < maxSize || isGif(image)) {
+  let quality = 0.6;
+  if (isGif(image)) {
     return image;
+  }
+  if (image.size < maxSize) {
+    quality = 0.8;
   }
   return new Promise((resolve, reject) => {
     new Compressor(image, {
       quality: quality,
       convertSize: maxSize,
+      minWidth: 1000,
       success(result) {
         resolve(result);
       },

@@ -284,6 +284,7 @@ export default {
     },
     email: {
       title: "Đổi Email",
+      old_email_label: "Email mặc định",
       new_email_label: "Email mới",
       new_email_message: "Email không hợp lệ",
       warning_email_message: "Nhập email mới",
