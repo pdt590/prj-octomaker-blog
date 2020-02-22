@@ -238,3 +238,45 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   ```
 
   > A wild public directory appeared! Our project structure is now complete
+
+- Open the functions/index.js file, remove everything and paste the code below
+
+  ```js
+  const functions = require('firebase-functions')
+  const { Nuxt } = require('nuxt')
+  const express = require('express')
+
+  const app = express()
+
+  const config = {
+    dev: false
+  }
+
+  const nuxt = new Nuxt(config)
+
+  let isReady = false
+  const readyPromise = nuxt
+    .ready()
+    .then(() => {
+      isReady = true
+    })
+    .catch(() => {
+      process.exit(1)
+    })
+
+  async function handleRequest(req, res) {
+    if (!isReady) {
+      await readyPromise
+    }
+    res.set('Cache-Control', 'public, max-age=1, s-maxage=1')
+    await nuxt.render(req, res)
+  }
+
+  app.get('*', handleRequest)
+  app.use(handleRequest)
+  exports.nuxtssr = functions.https.onRequest(app)
+  ```
+
+  > To sum it up, on each reqest, the function will pass the response and request object to the `nuxt.render(req, res)` function which will handle the app rendering.
+
+  > Note `dev: false`, and cookie issue of `nuxtServerInit` can be fixed at `nuxt.render(req, res)` function
