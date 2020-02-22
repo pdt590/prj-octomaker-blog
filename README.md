@@ -373,3 +373,27 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
      ```bash
     yarn dev
     ```
+
+- How to use this setup for your future project
+  - In `.firebaserc`, change your `project name` you created
+  - Copy `all folders` of your new project to `src`
+  - Change `nuxt.config.js`, `package.json` and `functions\package.json`
+  - Install all `packages` at root folder for nuxt project
+
+  ```bash
+  yarn install
+  ```
+
+- Go to `functions` folder and install all `packages`  for firebase if the default firebase installation is broken
+
+  ```bash
+  cd functions
+  yarn install
+  ```
+
+- Deploy your application
+  
+  ```bash
+  yarn build:firebase
+  yarn deploy
+  ```
