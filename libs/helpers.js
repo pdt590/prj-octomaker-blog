@@ -89,7 +89,7 @@ export function compressImage(image) {
     new Compressor(image, {
       quality: quality,
       convertSize: maxSize,
-      minWidth: 1000,
+      minWidth: 1200,
       success(result) {
         resolve(result);
       },
