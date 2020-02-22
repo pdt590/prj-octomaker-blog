@@ -347,7 +347,11 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
   "deploy": "firebase deploy --only functions,hosting"
   ```
-  > Note: Why is it `public/_nuxt`?
+
+
+  > Why is it `public/_nuxt`?
+
+  > Why is it `"clean:static": "rimraf \"src/static/sw.js\""`
 
 - You can now launch these commands 
   - Deploy your application
