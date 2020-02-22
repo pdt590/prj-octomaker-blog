@@ -113,11 +113,19 @@ module.exports = {
   },
 
   /*
-   ** Global env setting
+   ** Create environment variables client side, also to be shared from server side.
    */
   env: {
-    baseUrl: process.env.BASE_URL || "http://localhost:3000"
+    baseUrl: process.env.BASE_URL || "http://localhost:3000",
+    production: process.env.NODE_ENV
   },
+
+  /*
+   ** Define the development or production mode of Nuxt.js.
+   ** 'dev' is forced to true with nuxt
+   ** 'dev' is forced to false with nuxt build, nuxt start and nuxt generate 
+   */
+  dev: (process.env.NODE_ENV !== 'production'),
 
   /*
    ** GlobalName Property

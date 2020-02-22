@@ -93,3 +93,6 @@
 - Add markdown comment as viblo.asia
 - Seperate DEPLOYMENT.md into small files
 - Fix video playback issue
+- Add Nuxt PWA - Refer nuxtjs.org and vuejsdeveloper.com
+- Use Nuxt with Expressjs
+- Use Nuxt with Keystonejs

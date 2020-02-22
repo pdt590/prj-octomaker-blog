@@ -70,13 +70,15 @@
                 <strong>En</strong>
               </nuxt-link>
             </div>
+            <!-- Start login button -->
             <div
               class="navbar-item"
               v-if="
                 !user &&
-                  !$route.path.includes('/user/join') &&
-                  !$route.path.includes('/user/action') &&
-                  !$route.path.includes('/user/resetpassword')
+                  $route.path !== localePath('/user/join') &&
+                  $route.path !== localePath('/user/action') &&
+                  $route.path !== localePath('/user/resetpassword') &&
+                  production !== 'production'
               "
             >
               <div class="buttons">
@@ -88,6 +90,7 @@
                 </a>
               </div>
             </div>
+            <!-- End login button -->
             <!-- Start user dropdown -->
             <div class="navbar-item has-dropdown is-hoverable" v-if="user">
               <a class="navbar-link">
@@ -223,7 +226,8 @@ export default {
     return {
       searchKey: null,
       isModalJoinActive: false,
-      categories: categories
+      categories: categories,
+      production: process.env.production
     };
   },
   methods: {
