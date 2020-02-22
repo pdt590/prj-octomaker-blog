@@ -64,7 +64,10 @@
     </div>
     <!-- End resetPassword -->
     <!-- Start verifyEmail -->
-    <div class="_center_view" v-else-if="mode === 'verifyEmail' && isSuccess !== null">
+    <div
+      class="_center_view"
+      v-else-if="mode === 'verifyEmail' && isSuccess !== null"
+    >
       <b-message type="is-success" has-icon size="is-large" v-if="isSuccess">
         {{ $t("action.verify_email.success_message") }}
         <br />
@@ -83,7 +86,10 @@
     </div>
     <!-- End verifyEmail -->
     <!-- Start recoverEmail -->
-    <div class="_center_view" v-else-if="mode === 'recoverEmail' && isSuccess !== null">
+    <div
+      class="_center_view"
+      v-else-if="mode === 'recoverEmail' && isSuccess !== null"
+    >
       <b-message type="is-success" has-icon size="is-large" v-if="isSuccess">
         {{ $t("action.recover_email.success_message") }}
         <br />
@@ -108,6 +114,7 @@ import { authMessage } from "~/libs/helpers";
 import { required, sameAs, minLength } from "vuelidate/lib/validators";
 
 export default {
+  layout: "empty",
   validate({ store }) {
     const user = store.getters.user;
     return user && user.isActive ? false : true;

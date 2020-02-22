@@ -20,6 +20,7 @@
 
 <script>
 export default {
+  layout: "empty",
   props: ["error"],
   head() {
     return {

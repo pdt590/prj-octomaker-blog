@@ -172,15 +172,19 @@ export default {
     async updateUserContent(vuexContext, newUserContent) {
       vuexContext.commit("setAuthLoading", true);
       try {
-        const user = firebase.auth().currentUser;
         const loadedUser = vuexContext.getters.user;
         const userId = loadedUser.id;
 
         await usersRef.child(userId).update(newUserContent);
 
-        await user.updateProfile({
-          displayName: newUserContent.fullname
-        });
+        const user = firebase.auth().currentUser;
+        if (user) {
+          await user.updateProfile({
+            displayName: newUserContent.fullname
+          });
+        } else {
+          await vuexContext.dispatch("logOut");
+        }
         if (newUserContent.username !== loadedUser.username) {
           await vuexContext.dispatch("updatePostsByUser", {
             username: newUserContent.username
@@ -202,16 +206,20 @@ export default {
       vuexContext.commit("setAuthLoading", true);
       vuexContext.commit("clearAuthError");
       try {
-        let user = firebase.auth().currentUser;
         const loadedUser = vuexContext.getters.user;
         const userId = loadedUser.id;
         const confirmPassword = payload.confirmPassword;
         const newEmail = payload.newEmail;
-        const credential = await firebase.auth.EmailAuthProvider.credential(
-          user.email,
-          confirmPassword
-        );
-        await user.reauthenticateWithCredential(credential);
+        let user = firebase.auth().currentUser;
+        if (user) {
+          const credential = await firebase.auth.EmailAuthProvider.credential(
+            user.email,
+            confirmPassword
+          );
+          await user.reauthenticateWithCredential(credential);
+        } else {
+          await vuexContext.dispatch("logOut");
+        }
         user = firebase.auth().currentUser; // RetrieveData
         await user.updateEmail(newEmail);
         await user.sendEmailVerification();
@@ -237,14 +245,18 @@ export default {
       vuexContext.commit("setAuthLoading", true);
       vuexContext.commit("clearAuthError");
       try {
-        let user = firebase.auth().currentUser;
         const confirmPassword = payload.confirmPassword;
         const newPassword = payload.newPassword;
-        const credential = await firebase.auth.EmailAuthProvider.credential(
-          user.email,
-          confirmPassword
-        );
-        await user.reauthenticateWithCredential(credential);
+        let user = firebase.auth().currentUser;
+        if (user) {
+          const credential = await firebase.auth.EmailAuthProvider.credential(
+            user.email,
+            confirmPassword
+          );
+          await user.reauthenticateWithCredential(credential);
+        } else {
+          await vuexContext.dispatch("logOut");
+        }
         user = firebase.auth().currentUser; // RetrieveData
         await user.updatePassword(newPassword);
         vuexContext.commit("setAuthLoading", false);
@@ -259,7 +271,6 @@ export default {
     async updateUserAvatar(vuexContext, newAvatar) {
       vuexContext.commit("setAuthLoading", true);
       try {
-        const user = firebase.auth().currentUser;
         const loadedUser = vuexContext.getters.user;
         const userId = loadedUser.id;
         const oldAvatar = loadedUser.avatar;
@@ -306,10 +317,14 @@ export default {
           metadata: metaData,
           url: avatarDownloadUrl
         };
-
-        await user.updateProfile({
-          photoURL: avatarObject.url
-        });
+        const user = firebase.auth().currentUser;
+        if (user) {
+          await user.updateProfile({
+            photoURL: avatarObject.url
+          });
+        } else {
+          await vuexContext.dispatch("logOut");
+        }
         await usersRef.child(userId).update({
           avatar: avatarObject
         });
@@ -428,11 +443,15 @@ export default {
         await vuexContext.dispatch("deletePostsByUser", userId);
         await usersRef.child(userId).remove();
         let user = firebase.auth().currentUser;
-        const credential = await firebase.auth.EmailAuthProvider.credential(
-          user.email,
-          confirmPassword
-        );
-        await user.reauthenticateWithCredential(credential);
+        if (user) {
+          const credential = await firebase.auth.EmailAuthProvider.credential(
+            user.email,
+            confirmPassword
+          );
+          await user.reauthenticateWithCredential(credential);
+        } else {
+          await vuexContext.dispatch("logOut");
+        }
         user = firebase.auth().currentUser;
         await user.delete();
         if (userAvatar) {
@@ -452,13 +471,17 @@ export default {
 
     async isCorrectPassword(vuexContext, confirmPassword) {
       try {
-        const user = firebase.auth().currentUser;
         const loadedUser = vuexContext.getters.user;
-        const credential = await firebase.auth.EmailAuthProvider.credential(
-          loadedUser.email,
-          confirmPassword
-        );
-        await user.reauthenticateWithCredential(credential);
+        const user = firebase.auth().currentUser;
+        if (user) {
+          const credential = await firebase.auth.EmailAuthProvider.credential(
+            loadedUser.email,
+            confirmPassword
+          );
+          await user.reauthenticateWithCredential(credential);
+        } else {
+          await vuexContext.dispatch("logOut");
+        }
       } catch (e) {
         console.error("[ERROR-isCorrectPassword]", e);
       }

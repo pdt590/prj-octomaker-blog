@@ -97,6 +97,8 @@
 - Seperate DEPLOYMENT.md into small files
 - Fix video playback issue
 - Recheck change email/password process
+- Use onAuthStateChanged to check login user
+  - [Manage Users in Firebase](https://firebase.google.com/docs/auth/web/manage-users)
 - Add Nuxt PWA - Refer nuxtjs.org and vuejsdeveloper.com
 - Use Nuxt with Expressjs
 - Use Nuxt with Keystonejs

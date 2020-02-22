@@ -281,7 +281,6 @@ body {
 // layouts/error.vue
 ._center_view {
   height: 100vh;
-  margin-top: -2 * $navbar-height;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -529,7 +528,6 @@ $creator-avatar-height: 3rem;
 /* 
 ._center_view {
   height: 100vh;
-  margin-top: -2 * $navbar-height;
   display: flex;
   justify-content: center;
   align-items: center;
