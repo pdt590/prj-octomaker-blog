@@ -165,6 +165,56 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
 ### Get Started
 
+- Setup Domain
+  - References
+    - [DNS Records Explained](https://ns1.com/resources/dns-records-explained)
+    - [Demystifying DNS for web developers](https://medium.com/@jgefroh/demystifying-dns-for-web-developers-ace5a3ae559f)
+    - Setup domain on namsilo
+      - [Hướng dẫn quản lý, trỏ tên miền ở Namesilo](https://canhme.com/kinh-nghiem/huong-dan-quan-ly-ten-mien-o-namesilo/)
+
+    - Custom Domain on Firebase Hosting
+      - [Google - Connect a custom domain](https://firebase.google.com/docs/hosting/custom-domain)
+      - [Set custom domain free cho Firebase hosting](https://kipalog.com/posts/Set-custom-domain-free-cho-Firebase-hosting)
+      - [Google Firebase Hosting & Custom Domain - The Missing Manual](https://medium.com/google-cloud/google-firebase-hosting-custom-domain-the-missing-manual-7f971c3c2d1e)
+  - Dashboard > octomaker-7e37b domains > Add custom domain 
+  - Enter domain `blog.octomaker.com` > Untick `Redirect Checkbox`
+  - Verify ownership
+    - Add the TXT records below to your DNS provider (namesilo) to verify you own octomaker.com
+      > Recommend to set `TTL-3603`
+    - Enter `Verify` 
+      - Issue: `We couldn't verify your domain octomaker.com. Please check your settings and try again.` > you have to wait for namesilo process about 2 hours (`TTL-7207`)
+    - Add these A records to your domain by visiting your DNS provider or registrar (namesilo). Remember to remove your old A records and any AAAA records from your DNS provider
+
+      | Record type   | Host                  | Value            |
+      | ------------- |-----------------------|------------------|
+      | A             | blog.octomaker.com    | 151.101.1.195    |
+      | A             | blog.octomaker.com    | 151.101.65.195   |
+
+- Dashboard > octomaker-7e37b domains > Add custom domain 
+  - Enter domain `octomaker.com` > Tick `Redirect Checkbox` > Redirect domain `blog.octomaker.com`
+  - Enter `Verify` 
+  - Add these A records to your domain by visiting your DNS provider or registrar (namesilo). Remember to remove your old A records and any AAAA records from your DNS provider
+
+    | Record type   | Host                  | Value            |
+    | ------------- |-----------------------|------------------|
+    | A             | octomaker.com         | 151.101.1.195    |
+    | A             | octomaker.com         | 151.101.65.195   |
+- Do simililarly in the redirect case of `www.octomaker.com`
+  - Add these A records to your domain by visiting your DNS provider or registrar (namesilo). Remember to remove your old A records and any AAAA records from your DNS provider
+
+    | Record type   | Host                  | Value            |
+    | ------------- |-----------------------|------------------|
+    | A             | www.octomaker.com     | 151.101.1.195    |
+    | A             | www.octomaker.com     | 151.101.65.195   |
+
+- Do simililarly in the redirect case of `www.blog.octomaker.com`
+  - Add these A records to your domain by visiting your DNS provider or registrar (namesilo). Remember to remove your old A records and any AAAA records from your DNS provider
+
+    | Record type   | Host                  --| Value            |
+    | ------------- |-------------------------|------------------|
+    | A             | www.blog.octomaker.com  | 151.101.1.195    |
+    | A             | www.blog.octomaker.com  | 151.101.65.195   |
+
 - Install Firebase CLI
   
   ```bash
