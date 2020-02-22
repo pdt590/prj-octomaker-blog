@@ -280,3 +280,6 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   > To sum it up, on each reqest, the function will pass the response and request object to the `nuxt.render(req, res)` function which will handle the app rendering.
 
   > Note `dev: false`, and cookie issue of `nuxtServerInit` can be fixed at `nuxt.render(req, res)` function
+
+- The function will need the same libraries as your nuxt app. Copy the `package.json` dependencies to the `functions/package.json` dependencies
+- At the time of writing this article, firebase supports `node version 10`. In `functions/package.json` you can update the node engine version from `8` to `10`.
