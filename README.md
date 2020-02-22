@@ -165,3 +165,19 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
 ### Get Started
 
+- Install Firebase CLI
+  
+  ```bash
+  npm i -g firebase-tools
+  ```
+
+- Login with this command
+
+  ```bash
+  firebase login
+  ```
+
+- Refactor project structure
+  - `src`: This is where our development files sit
+  - `functions`: This is where our SSR function will be
+  - `public`: This directory will hold the files that will be served by Firebase hosting
