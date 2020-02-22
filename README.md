@@ -279,7 +279,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
   > To sum it up, on each reqest, the function will pass the response and request object to the `nuxt.render(req, res)` function which will handle the app rendering.
 
-  > Note `dev: false`, and cookie issue of `nuxtServerInit` can be fixed at `nuxt.render(req, res)` function
+  > Note: `dev: false`, and cookie issue of `nuxtServerInit` can be fixed at `nuxt.render(req, res)` function
 
 - The function will need the same libraries as your nuxt app. Copy the `package.json` dependencies to the `functions/package.json` dependencies
 - At the time of writing this article, firebase supports `node version 10`. In `functions/package.json` you can update the node engine version from `8` to `10`.
@@ -289,7 +289,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   yarn install
   ```
 
-- Go to `functions` folder and install all `packages`  for firebase
+- Go to `functions` folder and install all `packages`  for firebase if the default firebase installation is broken
 
   ```bash
   cd functions
@@ -315,17 +315,16 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
   > It will redirect all the requests to the function we've made
 
-  > Note `"function": "nuxtssr"` is equivalent with `exports.nuxtssr = functions.https.onRequest(app)` in `functions/index.js` file
+  > Note: `"function": "nuxtssr"` is equivalent with `exports.nuxtssr = functions.https.onRequest(app)` in `functions/index.js` file
 
 
-> Note: `static files` of the nuxt project after build have to be in the `public` directory
-
-- How to copy `static files` of nuxt project to `public` directory
-  1. `Clean` the directories in case there's already something in it
-  2. `Build` the nuxt app
-  3. The built app is now in the functions directory. Copy the content of the `functions/.nuxt/dist/` directory to the `public/_nuxt` directory
-  4. Copy the static files from the `src/static/` directory to the `root` of the `public` directory
-  5. Install the functions dependencies with yarn
+- `static files` of the nuxt project after build have to be in the `public` directory
+  - How to copy `static files` of nuxt project to `public` directory
+    1. `Clean` the directories in case there's already something in it
+    2. `Build` the nuxt app
+    3. The built app is now in the functions directory. Copy the content of the `functions/.nuxt/dist/` directory to the `public/_nuxt` directory
+    4. Copy the static files from the `src/static/` directory to the `root` of the `public` directory
+    5. Install the functions dependencies with yarn
 
 - These scripts will do all that in `windows`. Add these to the main `package.json` file.
 
