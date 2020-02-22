@@ -283,3 +283,21 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
 - The function will need the same libraries as your nuxt app. Copy the `package.json` dependencies to the `functions/package.json` dependencies
 - At the time of writing this article, firebase supports `node version 10`. In `functions/package.json` you can update the node engine version from `8` to `10`.
+- Updating `firebase.json`. Replace the whole file with
+  
+  ```bash
+  {
+    "hosting": {
+      "public": "public",
+      "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+      "rewrites": [
+        {
+          "source": "**",
+          "function": "nuxtssr"
+        }
+      ]
+    }
+  }
+  ```
+
+  > It will redirect all the requests to the function we've made
