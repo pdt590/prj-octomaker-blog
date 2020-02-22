@@ -239,7 +239,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
   > A wild public directory appeared! Our project structure is now complete
 
-- Open the functions/index.js file, remove everything and paste the code below
+- Open the `functions/index.js` file, remove everything and paste the code below
 
   ```js
   const functions = require('firebase-functions')
@@ -301,3 +301,37 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   ```
 
   > It will redirect all the requests to the function we've made
+  > Note `"function": "nuxtssr"` is equivalent with `exports.nuxtssr = functions.https.onRequest(app)` in `functions/index.js` file
+
+
+> Note: `static files` of the project after building will be held by the `public` directory
+
+- How to copy `static files` of nuxt project to `public` directory
+  1. `Clean` the directories in case there's already something in it
+  2. `Build` the nuxt app
+  3. The built app is now in the functions directory. Copy the content of the `functions/.nuxt/dist/` directory to the `public/_nuxt` directory
+  4. Copy the static files from the `src/static/` directory to the `root` of the `public` directory
+  5. Install the functions dependencies with yarn
+
+- These scripts will do all that. Add these to the main `package.json` file.
+
+  ```bash
+  "build": "nuxt build",
+  
+  # automatic scripts
+  "build:firebase": "yarn clean && yarn build && yarn copy && cd \"functions\" && yarn",
+
+  "clean": "yarn clean:public && yarn clean:functions && yarn clean:static",
+  "clean:functions": "rimraf \"functions/node_modules\" && rimraf \"functions/.nuxt\"",
+  "clean:public": "rimraf \"public/**/*.*!(md)\" && rimraf \"public/_nuxt\"",
+  "clean:static": "rimraf \"src/static/sw.js\"",
+
+  "copy": "yarn copy:nuxt && yarn copy:static",
+  "copy:nuxt": "xcopy \"functions\\.nuxt\\dist\\*\" \"public\\_nuxt\\\" /E /Y",
+  "copy:static": "xcopy \"src\\static\\*\" \"public\\\" /E /Y",
+
+  "start:firebase": "firebase serve --only functions,hosting",
+
+  "deploy": "firebase deploy --only functions,hosting"
+  ```
+  

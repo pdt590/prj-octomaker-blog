@@ -8,7 +8,22 @@
     "dev": "cross-env HOST=0.0.0.0 PORT=3001 nuxt",
     "build": "cross-env NODE_ENV=production BASE_URL=https://blog.octomaker.com nuxt build",
     "start": "cross-env NODE_ENV=production HOST=0.0.0.0 PORT=3000 nuxt start",
-    "generate": "nuxt generate"
+    "generate": "nuxt generate",
+
+    "build:firebase": "yarn clean && yarn build && yarn copy && cd \"functions\" && yarn",
+
+    "clean": "yarn clean:public && yarn clean:functions && yarn clean:static",
+    "clean:functions": "rimraf \"functions/node_modules\" && rimraf \"functions/.nuxt\"",
+    "clean:public": "rimraf \"public/**/*.*!(md)\" && rimraf \"public/_nuxt\"",
+    "clean:static": "rimraf \"src/static/sw.js\"",
+
+    "copy": "yarn copy:nuxt && yarn copy:static",
+    "copy:nuxt": "xcopy \"functions\\.nuxt\\dist\\*\" \"public\\_nuxt\\\" /E /Y",
+    "copy:static": "xcopy \"src\\static\\*\" \"public\\\" /E /Y",
+
+    "start:firebase": "firebase serve --only functions,hosting",
+
+    "deploy": "firebase deploy --only functions,hosting"
   },
   "engines": {
     "node": "10"
