@@ -283,6 +283,19 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
 - The function will need the same libraries as your nuxt app. Copy the `package.json` dependencies to the `functions/package.json` dependencies
 - At the time of writing this article, firebase supports `node version 10`. In `functions/package.json` you can update the node engine version from `8` to `10`.
+- Install all `packages` at root folder for nuxt project if any 
+
+  ```bash
+  yarn install
+  ```
+
+- Go to `functions` folder and install all `packages`  for firebase
+
+  ```bash
+  cd functions
+  yarn install
+  ```
+
 - Updating `firebase.json`. Replace the whole file with
   
   ```bash
@@ -301,10 +314,11 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   ```
 
   > It will redirect all the requests to the function we've made
+
   > Note `"function": "nuxtssr"` is equivalent with `exports.nuxtssr = functions.https.onRequest(app)` in `functions/index.js` file
 
 
-> Note: `static files` of the project after building will be held by the `public` directory
+> Note: `static files` of the nuxt project after build have to be in the `public` directory
 
 - How to copy `static files` of nuxt project to `public` directory
   1. `Clean` the directories in case there's already something in it
@@ -313,11 +327,11 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   4. Copy the static files from the `src/static/` directory to the `root` of the `public` directory
   5. Install the functions dependencies with yarn
 
-- These scripts will do all that. Add these to the main `package.json` file.
+- These scripts will do all that in `windows`. Add these to the main `package.json` file.
 
   ```bash
   "build": "nuxt build",
-  
+
   # automatic scripts
   "build:firebase": "yarn clean && yarn build && yarn copy && cd \"functions\" && yarn",
 
@@ -334,4 +348,25 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
   "deploy": "firebase deploy --only functions,hosting"
   ```
+  > Note: Why is it `public/_nuxt`?
+
+- You can now launch these commands 
+  - Deploy your application
   
+    ```bash
+    yarn build:firebase
+    yarn deploy
+    ```
+
+  - Deploy locally
+
+    ```bash
+    yarn build:firebase
+    yarn start:firebase
+    ```
+
+  - For development without firebase
+  
+     ```bash
+    yarn dev
+    ```
