@@ -181,3 +181,16 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   - `src`: This is where our development files sit
   - `functions`: This is where our SSR function will be
   - `public`: This directory will hold the files that will be served by Firebase hosting
+
+> The app is broken now! Let's fix it by updating the nuxt config
+
+- In nuxt.config.js, add the following lines in module.exports
+
+  ```bash
+  module.exports = {
+    ...
+    srcDir: 'src',
+    buildDir: 'functions/.nuxt',
+    ...
+  }
+  ```
