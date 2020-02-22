@@ -144,6 +144,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Go to [Facebook developer](https://developers.facebook.com/) > My Apps > Create App > Create a New App ID > copy AppId to `fc.js` & meta tag in `nuxt.config.js`
 - Active Facebook App after finishing hosting setup - TODO
 - References
+  - [Sharing Best Practices for Websites & Mobile Apps](https://developers.facebook.com/docs/sharing/best-practices)
   - [Facebook for web](https://developers.facebook.com/docs/sharing/web)
   - [Facebook meta tags](https://developers.facebook.com/docs/sharing/webmasters/)
   - [Facebook sharing](https://developers.facebook.com/docs/sharing/best-practices)
