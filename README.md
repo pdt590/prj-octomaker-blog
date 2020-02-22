@@ -182,15 +182,59 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   - `functions`: This is where our SSR function will be
   - `public`: This directory will hold the files that will be served by Firebase hosting
 
-> The app is broken now! Let's fix it by updating the nuxt config
+  > The app is broken now! Let's fix it by updating the nuxt config
 
 - In nuxt.config.js, add the following lines in module.exports
 
   ```bash
   module.exports = {
     ...
+    # change new source code dir
     srcDir: 'src',
+
+    # change generated build folder location
     buildDir: 'functions/.nuxt',
     ...
   }
   ```
+
+  > You dont need to change `dev` and `start` scripts as in [Deploy nuxt on Firebase](https://dev.to/kiritchoukc/deploy-nuxt-on-firebase-4ad8) tutorial,
+    because this project uses default nuxt server, and the scripts run based on `nuxt.config.js` that is same folder with `package.json` file.
+
+- Add firebase to the project
+
+  ```bash
+  firebase init
+  ```
+
+- The CLI will ask you some questions and here are the answers
+  
+  ```bash
+  ? Are you ready to proceed?
+  > Yes
+
+  ? Which Firebase CLI features do you want to set up for this folder? Press Space to select features, then Enter to confirm your choices.
+  > Functions: Configure and deploy Cloud Functions,
+  > Hosting: Configure and deploy Firebase Hosting sites
+
+  ? Please select an option:
+  > Use an existing project
+  (Select the project we created earlier)
+
+  ? What language would you like to use to write Cloud Functions? (Use arrow keys)
+  > JavaScript
+
+  ? Do you want to use ESLint to catch probable bugs and enforce style? (y/N)
+  > y
+
+  ? Do you want to install dependencies with npm now? (Y/n)
+  > Y
+
+  ? What do you want to use as your public directory? (public)
+  > public
+
+  ? Configure as a single-page app (rewrite all urls to /index.html)? (y/N)
+  > N
+  ```
+
+  > A wild public directory appeared! Our project structure is now complete
