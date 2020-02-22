@@ -1,10 +1,5 @@
 # Notes
 
-## References
-
-- [Nuxt & PM2](https://medium.com/@vipercodegames/nuxt-deploy-809eda0168fc)
-- [Auto deploy Node.js app lên server qua SSH với GitLab CI/CD và PM2](https://viblo.asia/p/auto-deploy-nodejs-app-len-server-qua-ssh-voi-gitlab-cicd-va-pm2-1Je5Ed44lnL)
-
 ## Compatibility
 
 - Node v10.18.1
@@ -158,9 +153,14 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - [Analytic Helps](https://support.google.com/analytics)
 - [GA articles on dev.to](https://dev.to/search?q=Google%20Analytics&filters=class_name:Article)
 
-## Docker
+## VPS Setup
 
-### Setup VPS
+### References
+
+- [Nuxt & PM2](https://medium.com/@vipercodegames/nuxt-deploy-809eda0168fc)
+- [Auto deploy Node.js app lên server qua SSH với GitLab CI/CD và PM2](https://viblo.asia/p/auto-deploy-nodejs-app-len-server-qua-ssh-voi-gitlab-cicd-va-pm2-1Je5Ed44lnL)
+
+### Get Started
 
 - Create a VPS on [Vultr](https://vultr.com/) with Ubuntu 18.04
 - Add A records with VPS public IP to your domain by visiting your DNS provider or registrar (namesilo)
