@@ -2,7 +2,7 @@
   <div class="_default">
     <v-navbar />
     <main class="_default__main">
-      <nuxt />
+      <nuxt class="_default__main__nuxt"/>
     </main>
     <v-footer />
   </div>
