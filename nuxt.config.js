@@ -17,7 +17,7 @@ module.exports = {
         name: "description",
         content: "OctoMaker - Share to be viral"
       },
-      { hid: "og-url", property: "og:url", content: `${process.env.baseUrl}` },
+      { hid: "og-url", property: "og:url", content: `${process.env.BASE_URL}` },
       { hid: "og-title", property: "og:title", content: "OctoMaker" },
       {
         hid: "og-description",
@@ -27,7 +27,7 @@ module.exports = {
       {
         hid: "og-image",
         property: "og:image",
-        content: `${process.env.BASE_URL}/logo.png`
+        content: `${process.env.BASE_URL}/logo@1200x630.png`
       },
       { hid: "fb-app_id", property: "fb:app_id", content: "192142251994813" }
     ],
