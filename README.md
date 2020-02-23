@@ -424,11 +424,19 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
     yarn dev
     ```
 
-- How to use this setup for your future project
-  - In `.firebaserc`, change your `project name` you created
-  - Copy `all folders` of your new project to `src`
-  - Change `nuxt.config.js`, `package.json` and `functions\package.json`
-  - Install all `packages` at root folder for nuxt project
+### Summary - Setup for the future project
+
+- Clone git repo
+  
+  ```bash
+  git clone https://github.com/pdthang/octomaker-blog.git src
+  cd src
+  ```
+
+- In `.firebaserc`, change your `firebase project name` you created
+- Copy whole new `nuxt project` or only `folders` of new `nuxt project` to `src`
+- Change `nuxt.config.js`, `package.json` and `functions\package.json` of new `nuxt project` as in this tutorial
+- Install all `packages` at root folder for nuxt project
 
   ```bash
   yarn install
