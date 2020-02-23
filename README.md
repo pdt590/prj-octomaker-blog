@@ -262,7 +262,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   
   ```bash
   NODE_ENV=development
-  APP_PORT=8080
+  APP_PORT=80
   LOG_PATH=./logs
   ```
 
@@ -280,13 +280,13 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   
       - `ports` mapping port bên trong container ra server bên ngoài.
     
-        Trong service nuxt, nếu bạn khai báo thêm `3333:3000` thì sẽ quay lại như trường hợp bước dockerize phía trên, app của bạn sẽ được serve ở cổng 3333 của server (không qua nginx). Ở đây mình dùng nginx nên trong service nuxt không cần mapping port nữa.
+        Trong service `nuxt`, nếu bạn khai báo thêm `3333:3000` thì sẽ quay lại như trường hợp bước dockerize phía trên, app của bạn sẽ được serve ở cổng 3333 của server (không qua nginx). Ở đây mình dùng nginx nên trong service nuxt không cần mapping port nữa.
 
-        Trong service nginx bạn sẽ bind cổng {APP_PORT} ở server thật vào cổng 80 của nginx bên trong container, cổng 80 bên trong container sẽ forward vào cổng 3000 của service nuxt (xem file cấu hình nginx bên dưới).
+        Trong service nginx bạn sẽ bind cổng `{APP_PORT}` ở server thật vào cổng 80 của nginx bên trong container, cổng 80 bên trong container sẽ forward vào cổng 3000 của service nuxt (xem file cấu hình nginx bên dưới).
 
       - `depends_on` ràng buộc - đợi service `nuxt` start thành công mới start service `nginx` (lưu ý là `depends_on` chỉ đợi srart xong chứ không đợi đến khi "ready" nhé).
   
-      - `volumes` mount đường dẫn giữa server thật và bên trong container, ở đây bạn hiểu nôm na là bên trong     container tạo 1 shortcut (`symbolic link`) đến thư mục được chỉ định ở bên ngoài server. Như vậy mọi thay đổi về nội dung bên trong thư mục này được cập nhật đồng bộ giữa bên trong container và server bên ngoài (host). [Đọc thêm về volumes](https://docs.docker.com/compose/compose-file/#volumes).
+      - `volumes` mount đường dẫn giữa server thật và bên trong container, ở đây bạn hiểu nôm na là bên trong     container tạo 1 shortcut (`symbolic link`) đến thư mục được chỉ định ở bên ngoài server. Như vậy mọi thay đổi về nội dung bên trong thư mục này được cập nhật đồng bộ giữa bên trong container và server bên ngoài (host) - [Đọc thêm về volumes](https://docs.docker.com/compose/compose-file/#volumes).
   
         Ở đây mình sẽ mount file config nginx vào và container và lưu file logs của nginx ra ngoài host.
 
@@ -305,7 +305,15 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   ```bash
   server {
     listen       80;
-    server_name  localhost;
+    server_name  localhost blog.octomaker.com www.blog.octomaker.com octomaker.com www.octomaker.com;
+
+    if ($host = 'octomaker.com') {
+      return 301 https://blog.octomaker.com$request_uri;
+    }
+
+    if ($host = 'www.octomaker.com') {
+      return 301 https://blog.octomaker.com$request_uri;
+    }
 
     client_max_body_size 64M;
 
@@ -329,6 +337,45 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
       - "${APP_PORT}:80"
     ```
 
-  - proxy_pass http://nuxt:3000 trong đó nuxt là tên service bạn khai báo ở docker-compse.yml
+  - proxy_pass http://nuxt:3000 trong đó `nuxt` là tên service bạn khai báo ở `docker-compse.yml`
   - Refer [How To Install Nginx on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-18-04) to know why it is `client_max_body_size 64M;`
   - How to setup domain forwarding - TODO
+
+- `git clone` repo of the project to VPS
+- Run the project
+
+  ```bash
+  docker-compose up --build -d
+  ```
+
+  - `--build` Build images trước khi containers.
+  - `--detach` hoặc `-d` chạy containers ở background, in ra tên các container mới.
+
+  - In the case of weak VPS, the process will be stopped at build step
+    
+    ```bash
+    [5/5] Building fresh packages...
+    error An unexpected error occurred: "/src/node_modules/core-js: spawn ENOMEM".
+    info If you think this is a bug, please open a bug report with the information provided in "/src/yarn-error.log".
+    info Visit https://yarnpkg.com/en/docs/cli/install for documentation about this command.
+    ERROR: Service 'nuxt' failed to build: The command '/bin/sh -c yarn install' returned a non-zero code: 1
+    ```
+
+    - Solution 
+      - Build the project at your computer > remove `.nuxt` in `.gitignore` > `git push` all source including `.nuxt` folder to git server
+      - Change `Dockerfile` for nuxt app in `app` folder
+  
+        ```bash
+        FROM node:10.18.1
+
+        ENV APP_ROOT /src
+
+        RUN mkdir ${APP_ROOT}
+        WORKDIR ${APP_ROOT}
+        ADD . ${APP_ROOT}
+
+        RUN yarn install
+
+        ENV HOST 0.0.0.0
+        ```
+  
