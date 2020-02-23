@@ -217,7 +217,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   - `pm2 start npm --name octomaker.blog -- start` or 
   - `npm run start/yarn start` (not recommend)
 
-- Config nginx to redirect domain
+- Config nginx to redirect domain `octomaker.com` `www.octomaker.com`
   
   ```bash
   sudo vim /etc/nginx/sites-available/blog.octomaker.com
