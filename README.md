@@ -171,6 +171,38 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - [Set Up SSH Keys on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-ubuntu-1804) if any - recommend
 - [Install Nginx on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-18-04)
 - [Secure Nginx with Let's Encrypt on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-ubuntu-18-04)
+- Config nginx to redirect domain `octomaker.com` `www.octomaker.com`
+  
+  ```bash
+  sudo vim /etc/nginx/sites-available/blog.octomaker.com
+
+  # in /etc/nginx/sites-available/blog.octomaker.com
+  # add 'octomaker.com' 'www.octomaker.com' and 'if conditions'
+  ....
+  server_name  blog.octomaker.com www.blog.octomaker.com octomaker.com www.octomaker.com;
+
+  if ($host = 'octomaker.com') {
+    return 301 https://blog.octomaker.com$request_uri;
+  }
+
+  if ($host = 'www.octomaker.com') {
+    return 301 https://blog.octomaker.com$request_uri;
+  }
+
+  location / {
+    proxy_pass http://localhost:3000;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
+  }
+  ....
+
+  # restart nginx
+  sudo systemctl restart nginx
+  ```
+
 - [Set Up a Node.js Application](https://www.digitalocean.com/community/tutorials/how-to-set-up-a-node-js-application-for-production-on-ubuntu-18-04)
   - [Note - Install Node v10](https://github.com/nodesource/distributions#installation-instructions)
   
@@ -217,34 +249,27 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   - `pm2 start npm --name octomaker.blog -- start` or 
   - `npm run start/yarn start` (not recommend)
 
-- Config nginx to redirect domain `octomaker.com` `www.octomaker.com`
+### Summary - Setup for the future project
+
+- Create VPS and install step by step as in this tutorial
+  - It is possible to create VPS with snapshot on Vultr
+- Clone git repo
   
   ```bash
-  sudo vim /etc/nginx/sites-available/blog.octomaker.com
+  git clone https://github.com/pdthang/octomaker-blog.git src
+  cd src
+  ```
 
-  # in /etc/nginx/sites-available/blog.octomaker.com
-  # add 'octomaker.com' 'www.octomaker.com' and 'if conditions'
-  ....
-  server_name  blog.octomaker.com www.blog.octomaker.com octomaker.com www.octomaker.com;
+- Install and build project
+  
+  ```bash
+  npm install/yarn install
 
-  if ($host = 'octomaker.com') {
-    return 301 https://blog.octomaker.com$request_uri;
-  }
+  npm run build/yarn build
+  ```
 
-  if ($host = 'www.octomaker.com') {
-    return 301 https://blog.octomaker.com$request_uri;
-  }
+- Run project
 
-  location / {
-    proxy_pass http://localhost:3000;
-    proxy_http_version 1.1;
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection 'upgrade';
-    proxy_set_header Host $host;
-    proxy_cache_bypass $http_upgrade;
-  }
-  ....
-
-  # restart nginx
-  sudo systemctl restart nginx
+  ```bash
+  pm2 start npm --name octomaker.blog -- start
   ```
