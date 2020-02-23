@@ -476,7 +476,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
     > `APP_PORT` in `.env` file have to set to `80` because the container of Certbot will be using ports `80` and `443`.
 
-### Summary
+### Summary - Setup for the future project
 
 - Clone git repo
   
@@ -486,7 +486,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   ```
 
 - Change `./nginx/default.conf` with your new domain
-- Copy new `nuxt project` to `app` folder
+- Copy whole new `nuxt project` to `app` folder
 - Add `letsencrypt` with your `new domain`
   
   ```bash
