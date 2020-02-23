@@ -17,4 +17,6 @@
     - Use firebase.auth persistent storage solution instead of cookie
       - [How to Refresh Firebase Session Cookie](https://stackoverflow.com/questions/52684631/how-to-refresh-firebase-session-cookie)
       - [Firebase (Hosting × Functions) × Nuxt.js (universal) で ユーザ認証のベストプラクティスを探る旅 その１](https://qiita.com/daishinkawa/items/5a0c12db05576f30a177) - Read
+      - [Can't get cookies from client](https://github.com/firebase/functions-samples/issues/187)
+      - [Manage Session Cookies](https://firebase.google.com/docs/auth/admin/manage-cookies)
 - Check issue `Function killed. Error: quota exceeded`
