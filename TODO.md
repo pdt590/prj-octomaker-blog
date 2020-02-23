@@ -71,9 +71,19 @@
 - `Change CardPostHorizotal style`
 - `Fix 'The resource URL was preloaded using link' in nuxt`
 - `Fix Backspace issue on title input`
+- SEO
+  - Add different favicon/logo sizes for SEO
+    - Add these image to assets folder to optimize
+  - [Sharing Best Practices for Websites & Mobile Apps](https://developers.facebook.com/docs/sharing/best-practices)
+  - Write Seo files (Robot.txt)
+  - Active SEO on google
+  - Active Facebook App
+  - Add fb_iframe_widget for facebook page
+  - Add like/share fb button
+  - Fix fb comment load issue
+  - Optimize image facebook share
+    - [New og:image size for Facebook share](https://stackoverflow.com/questions/18835027/new-ogimage-size-for-facebook-share)
 - Add filter for post list
-- Fix fb comment load issue
-- Add different favicon/logo sizes for SEO
 - Fix 'TODO' tasks
 - Fix delete account issue
 - Add admin role
@@ -89,11 +99,6 @@
 - Add recommendation posts in each post
   - Add carousel - [Refer](https://buefy.org/documentation/carousel/)
   - Refer card style on facebook
-- Active Facebook App
-- Add fb_iframe_widget for facebook page
-- Add like/share fb button
-- Optimize image facebook share
-  - [New og:image size for Facebook share](https://stackoverflow.com/questions/18835027/new-ogimage-size-for-facebook-share)
 - Enhance fetchDesc function
 - Add markdown comment as viblo.asia
 - Seperate DEPLOYMENT.md into small files
