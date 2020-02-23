@@ -360,7 +360,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
     ```
 
     - Solution 
-      - Build the project at your computer > remove `.nuxt` in `.gitignore` > `git push` all source including `.nuxt` folder to git server
+      - Build the project at your computer > remove `.nuxt` and `dist` in `.gitignore` > `git push` all source including `.nuxt` folder to git server
       - Change `Dockerfile` for nuxt app in `app` folder
   
         ```bash
