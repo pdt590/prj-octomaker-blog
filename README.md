@@ -190,3 +190,23 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Refactor folder structure
   - `app` contains whole nuxt app including `nuxt.config.js`, `package.json`, `git files` and you can develop nuxt app directly in this folder.
   - `nginx` contains `nginx config` file
+
+- Create `Dockerfile` for nuxt app in `app` folder
+  
+  ```bash
+  FROM node:10.18.1
+
+  ENV APP_ROOT /src
+
+  RUN mkdir ${APP_ROOT}
+  WORKDIR ${APP_ROOT}
+  ADD . ${APP_ROOT}
+
+  RUN yarn install
+  RUN yarn run build
+
+  ENV HOST 0.0.0.0
+  ```
+  - In this file we specify the node version we want our container to run. That's entirely up to you. latest is also a valid tag.
+  - It is also specified the app root directory and then the commands we run to build our app.
+  - The host is set to `0.0.0.0` to give full external access to the app container.
