@@ -92,7 +92,7 @@ module.exports = {
         defaultLocale: "en",
         lazy: true,
         langDir: "lang/",
-        baseUrl: process.env.BASE_URL || "http://localhost:3000"
+        baseUrl: process.env.BASE_URL || `http://localhost:${process.env.PORT}`
       }
     ],
     [
@@ -116,7 +116,7 @@ module.exports = {
    ** Create environment variables client side, also to be shared from server side.
    */
   env: {
-    baseUrl: process.env.BASE_URL || "http://localhost:3000",
+    baseUrl: process.env.BASE_URL || `http://localhost:${process.env.PORT}`,
     production: process.env.NODE_ENV
   },
 
