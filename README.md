@@ -473,4 +473,37 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
     networks:
       flat-network
     ```
+
     > `APP_PORT` in `.env` file have to set to `80` because the container of Certbot will be using ports `80` and `443`.
+
+### Summary
+
+- Clone git repo
+  
+  ```bash
+  git clone https://github.com/pdthang/octomaker-blog.git src
+  cd src
+  ```
+
+- Change `./nginx/default.conf` with your new domain
+- Copy new `nuxt project` to `app` folder
+- Add `letsencrypt` with your `new domain`
+  
+  ```bash
+  mkdir -p -m 755 src/etc/letsencrypt
+  ```
+
+  ```bash
+  docker run -v /etc/letsencrypt:/etc/letsencrypt \
+  -e http_proxy=$http_proxy \
+  -e domains="new_domain.com" \
+  -e email="pdthang59@gmail.com" \
+  -p 80:80 -p 443:443 \
+  --rm pierreprinetti/certbot:latest
+  ```
+
+- Run the project
+
+  ```bash
+  docker-compose up --build -d
+  ```
