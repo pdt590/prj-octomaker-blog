@@ -158,6 +158,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 ### References
 
 - [Dockerise your Nuxt SSR App like a boss - Part 1](https://dev.to/vuevixens/dockerise-your-nuxt-ssr-app-like-a-boss-a-true-vue-vixens-story-4mm6)
+  > In the tutorial, nuxt app runs with [port 3333](https://github.com/VueVixens/website/blob/master/package.json#L9)
 - [Dockerise your Nuxt SSR App like a boss - Part 2](https://dev.to/vuevixens/dockerise-your-nuxt-ssr-app-like-a-boss-a-true-vue-vixens-story-part-2-1fgj)
 - [Deploy ứng dụng Nuxt với Docker và Nginx](https://viblo.asia/p/deploy-ung-dung-nuxt-voi-docker-va-nginx-3P0lPnNpKox)
 
@@ -207,6 +208,83 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
   ENV HOST 0.0.0.0
   ```
+
   - In this file we specify the node version we want our container to run. That's entirely up to you. latest is also a valid tag.
   - It is also specified the app root directory and then the commands we run to build our app.
   - The host is set to `0.0.0.0` to give full external access to the app container.
+  > Port `3000` of nuxt app will automatically map with port `3000` of container
+  - Run a test container if any
+
+    ```bash
+    docker run -it -p 80:3000 my_awesome_app
+    ```
+
+    > Port `3000` of nuxt app will map with port `80` of container
+
+- Create `docker-compose.yml` in `root` folder to run the entire app including `nuxt app`, `nginx`
+  > `docker-compose.yml` is refered from [Deploy ứng dụng Nuxt với Docker và Nginx](https://viblo.asia/p/deploy-ung-dung-nuxt-voi-docker-va-nginx-3P0lPnNpKox) and just change `build: .` to `build: ./app/`
+
+  ```bash
+  version: "3"
+
+  services:
+    nuxt:
+      build: .
+      container_name: nuxt
+      restart: always
+      env_file: .env
+      command: "yarn run start"
+      networks:
+        - flat-network
+
+    nginx:
+      image: nginx:1.17
+      container_name: nginx
+      env_file: .env
+      ports:
+        - "${APP_PORT}:80"
+      volumes:
+        - .nginx:/etc/nginx/conf.d
+        - "${LOG_PATH}:/var/log/nginx"
+      depends_on:
+        - nuxt
+      networks:
+        - flat-network
+
+  networks:
+    flat-network
+  ```
+
+- Create `.env` file
+  
+  ```bash
+  NODE_ENV=development
+  APP_PORT=8080
+  LOG_PATH=./logs
+  ```
+
+- Explain by Vietnamese
+  - `docker-compose.yml`
+    - `services` các docker service sẽ chạy, ở đây mình sẽ có 2 service là nuxt và nginx lần lượt chạy nuxt app và nginx reverse proxy, đặt tên tuỳ ý sao cho dễ hiểu là được.
+      - `build` docker sẽ build tại ngữ cảnh được chỉ định (context) . theo cấu hình trong Dockerfile.
+      - `image` chỉ định image để build thay thì đường dẫn đến thư mục để build, image tương tự như trong Dockerfile.
+      - `container_name` tên container, nên đặt tên dễ hiểu để tiện quản lý.
+      - `env_file` chỉ định file chứa biến môi trường phục vụ cho quá trình build. Ở đây mình có 1 lưu ý cho bạn là   nên đặt file `.env` cùng thư mục với context của docker để tránh những phiền phức đau đầu không đáng.
+      - `ports` mapping port bên trong container ra server bên ngoài.
+    
+        Trong service nuxt, nếu bạn khai báo thêm `3333:3000` thì sẽ quay lại như trường hợp bước dockerize phía trên, app của bạn sẽ được serve ở cổng 3333 của server (không qua nginx). Ở đây mình dùng nginx nên trong service nuxt không cần mapping port nữa.
+
+        Trong service nginx bạn sẽ bind cổng {APP_PORT} ở server thật vào cổng 80 của nginx bên trong container, cổng 80 bên trong container sẽ forward vào cổng 3000 của service nuxt (xem file cấu hình nginx bên dưới).
+
+      - `depends_on` ràng buộc - đợi service `nuxt` start thành công mới start service `nginx` (lưu ý là `depends_on` chỉ đợi srart xong chứ không đợi đến khi "ready" nhé).
+      - `volumes` mount đường dẫn giữa server thật và bên trong container, ở đây bạn hiểu nôm na là bên trong     container tạo 1 shortcut (`symbolic link`) đến thư mục được chỉ định ở bên ngoài server. Như vậy mọi thay đổi về nội dung bên trong thư mục này được cập nhật đồng bộ giữa bên trong container và server bên ngoài (host). [Đọc thêm về volumes](https://docs.docker.com/compose/compose-file/#volumes).
+  
+    
+        Ở đây mình sẽ mount file config nginx vào và container và lưu file logs của nginx ra ngoài host.
+      - `networks`  khai báo các networks mà service sẽ join vào.
+      - `command` lệnh sẽ chạy sau khi build xong.
+    - `networks` tạo networks, mỗi service sẽ chạy trên mỗi máy khác nhau (container), cần connect vào chung 1 network mới có thể giao tiếp với nhau.
+  - `.env` file biến môi trường quá quen thuộc rồi, tuy nhiên mình cũng xin lưu ý với các bạn là không có các dấu " hay ' gì đâu nhé. Nó sẽ hiểu các dấu quote đó là 1 phần giá trị của biến.
+    - `NODE_ENV` môi trường build.
+    - `APP_PORT` cổng mà ứng dụng sẽ chạy khi truy cập IP của host.
+    - `LOG_PATH` đường dẫn đến thư mục chứa log của nginx.

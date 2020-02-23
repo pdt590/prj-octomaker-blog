@@ -1,0 +1,78 @@
+version: "3"
+
+services:
+  nuxt:
+    build: ./app/
+    container_name: nuxt
+    restart: always
+    env_file: .env
+    command: "yarn run start"
+    networks:
+      - flat-network
+
+  nginx:
+    image: nginx:1.17
+    container_name: nginx
+    env_file: .env
+    ports:
+      - "${APP_PORT}:80"
+    volumes:
+      - .nginx:/etc/nginx/conf.d
+      - "${LOG_PATH}:/var/log/nginx"
+    depends_on:
+      - nuxt
+    networks:
+      - flat-network
+
+networks:
+  flat-network:
+
+## https://dev.to/vuevixens/dockerise-your-nuxt-ssr-app-like-a-boss-a-true-vue-vixens-story-4mm6
+#version: "3"
+#services:
+#  nuxt:
+#    build: ./app/
+#    container_name: vuevixens-website
+#    restart: always
+#    ports:
+#      - "3333:3333"
+#    command: "npm run start"
+
+#  nginx:
+#    image: nginx:1.13
+#    container_name: vuevixens-nginx
+#    ports:
+#      - "80:80"
+#    volumes:
+#      - ./nginx:/etc/nginx/conf.d
+#    depends_on:
+#      - nuxt
+
+## https://viblo.asia/p/deploy-ung-dung-nuxt-voi-docker-va-nginx-3P0lPnNpKox
+#version: "3"
+#services:
+#  nuxt:
+#    build: .
+#    container_name: nuxt
+#    restart: always
+#    env_file: .env
+#    command: "yarn run start"
+#    networks:
+#      - flat-network
+
+#  nginx:
+#    image: nginx:1.17
+#    container_name: nginx
+#    env_file: .env
+#    ports:
+#      - "${APP_PORT}:80"
+#    volumes:
+#      - .nginx:/etc/nginx/conf.d
+#      - "${LOG_PATH}:/var/log/nginx"
+#    depends_on:
+#      - nuxt
+#    networks:
+#      - flat-network
+
+#networks:
+#  flat-network:
