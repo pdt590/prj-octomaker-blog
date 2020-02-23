@@ -161,6 +161,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   > In the tutorial, nuxt app runs with [port 3333](https://github.com/VueVixens/website/blob/master/package.json#L9)
 - [Dockerise your Nuxt SSR App like a boss - Part 2](https://dev.to/vuevixens/dockerise-your-nuxt-ssr-app-like-a-boss-a-true-vue-vixens-story-part-2-1fgj)
 - [Deploy ứng dụng Nuxt với Docker và Nginx](https://viblo.asia/p/deploy-ung-dung-nuxt-voi-docker-va-nginx-3P0lPnNpKox)
+- [Deploying a Nuxt.js App with Docker](https://jonathanmh.com/deploying-a-nuxt-js-app-with-docker/)
 
 ### Get Started
 
@@ -247,7 +248,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
       ports:
         - "${APP_PORT}:80"
       volumes:
-        - .nginx:/etc/nginx/conf.d
+        - ./nginx:/etc/nginx/conf.d
         - "${LOG_PATH}:/var/log/nginx"
       depends_on:
         - nuxt
@@ -305,15 +306,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   ```bash
   server {
     listen       80;
-    server_name  localhost blog.octomaker.com www.blog.octomaker.com octomaker.com www.octomaker.com;
-
-    if ($host = 'octomaker.com') {
-      return 301 https://blog.octomaker.com$request_uri;
-    }
-
-    if ($host = 'www.octomaker.com') {
-      return 301 https://blog.octomaker.com$request_uri;
-    }
+    server_name  localhost;
 
     client_max_body_size 64M;
 
@@ -341,6 +334,12 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   - Refer [How To Install Nginx on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-18-04) to know why it is `client_max_body_size 64M;`
 
 - `git clone` repo of the project to VPS
+  
+  ```bash
+  git clone https://github.com/pdthang/octomaker-blog.git src
+  cd src
+  ```
+
 - Run the project
 
   ```bash
@@ -377,4 +376,101 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
         ENV HOST 0.0.0.0
         ```
+
+- Install `letsencrypt`
+  - In clone folder of VPS, i.e., `src`, create folder
   
+    ```bash
+    mkdir -p -m 755 src/etc/letsencrypt
+    ```
+
+  - Stop the containers we created before. We need to stop the containers because the container of Certbot will be using ports `80` and `443`.
+
+    ```bash
+    docker-compose stop
+    ```
+
+  - Now we are able to create the certs using a [docker image](https://github.com/pierreprinetti/certbot).
+
+    ```bash
+    docker run -v /etc/letsencrypt:/etc/letsencrypt \
+    -e http_proxy=$http_proxy \
+    -e domains="blog.octomaker.com" \
+    -e email="pdthang59@gmail.com" \
+    -p 80:80 -p 443:443 \
+    --rm pierreprinetti/certbot:latest
+    ```
+
+  - Make some changes in the `nginx` configuration (`default.conf` in `nginx folder`)
+
+    ```bash
+    server {
+      listen 443 http2;
+      listen [::]:443 http2;
+      server_name blog.octomaker.com www.blog.octomaker.com; ## Use your domain name
+      ...
+      ssl on;
+      ssl_certificate /etc/nginx/letsencrypt/live/blog.octomaker.com/fullchain.pem;
+      ssl_certificate_key /etc/nginx/letsencrypt/live/blog.octomaker.com/privkey.pem;
+      ...
+    }
+    ```
+
+  - Config `nginx` to redirect domain `octomaker.com` `www.octomaker.com`
+
+    ```bash
+      server {
+        listen 443 http2;
+        listen [::]:443 http2;
+        server_name blog.octomaker.com www.blog.octomaker.com octomaker.com www.octomaker.com; ## Use your domain name
+
+        if ($host = 'octomaker.com') {
+          return 301 https://blog.octomaker.com$request_uri;
+        }
+
+        if ($host = 'www.octomaker.com') {
+          return 301 https://blog.octomaker.com$request_uri;
+        }
+        ...
+        ssl on;
+        ssl_certificate /etc/nginx/letsencrypt/live/blog.octomaker.com/fullchain.pem;
+        ssl_certificate_key /etc/nginx/letsencrypt/live/blog.octomaker.com/privkey.pem;
+        ...
+      }
+    ```
+
+  - Now, let's add the Let's Encrypt certs folder as a volume in our docker-compose file
+
+    ```bash
+    version: "3"
+
+    services:
+      nuxt:
+        build: .
+        container_name: nuxt
+        restart: always
+        env_file: .env
+        command: "yarn run start"
+        networks:
+          - flat-network
+
+      nginx:
+        image: nginx:1.17
+        container_name: nginx
+        env_file: .env
+        ports:
+          - "${APP_PORT}:80"
+          - "443:443"
+        volumes:
+          - ./nginx:/etc/nginx/conf.d
+          - /etc/letsencrypt:/etc/letsencrypt
+          - "${LOG_PATH}:/var/log/nginx"
+        depends_on:
+          - nuxt
+        networks:
+          - flat-network
+
+    networks:
+      flat-network
+    ```
+    > `APP_PORT` in `.env` file have to set to `80` because the container of Certbot will be using ports `80` and `443`.
