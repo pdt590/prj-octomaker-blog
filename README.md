@@ -191,6 +191,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Refactor folder structure
   - `app` contains whole nuxt app including `nuxt.config.js`, `package.json`, `git files` and you can develop nuxt app directly in this folder.
   - `nginx` contains `nginx config` file
+  - `logs` contains `nginx` logs
 
 - Create `Dockerfile` for nuxt app in `app` folder
   
@@ -222,7 +223,9 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
     > Port `3000` of nuxt app will map with port `80` of container
 
 - Create `docker-compose.yml` in `root` folder to run the entire app including `nuxt app`, `nginx`
-  > `docker-compose.yml` is refered from [Deploy ứng dụng Nuxt với Docker và Nginx](https://viblo.asia/p/deploy-ung-dung-nuxt-voi-docker-va-nginx-3P0lPnNpKox) and just change `build: .` to `build: ./app/`
+  > `docker-compose.yml` is refered from [Deploy ứng dụng Nuxt với Docker và Nginx](https://viblo.asia/p/deploy-ung-dung-nuxt-voi-docker-va-nginx-3P0lPnNpKox) and just change 
+  >   - `build: .` to `build: ./app/`
+  >   - `.nginx:/etc/nginx/conf.d` to `./nginx:/etc/nginx/conf.d`
 
   ```bash
   version: "3"
@@ -266,10 +269,15 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Explain by Vietnamese
   - `docker-compose.yml`
     - `services` các docker service sẽ chạy, ở đây mình sẽ có 2 service là nuxt và nginx lần lượt chạy nuxt app và nginx reverse proxy, đặt tên tuỳ ý sao cho dễ hiểu là được.
+  
       - `build` docker sẽ build tại ngữ cảnh được chỉ định (context) . theo cấu hình trong Dockerfile.
+  
       - `image` chỉ định image để build thay thì đường dẫn đến thư mục để build, image tương tự như trong Dockerfile.
+  
       - `container_name` tên container, nên đặt tên dễ hiểu để tiện quản lý.
+  
       - `env_file` chỉ định file chứa biến môi trường phục vụ cho quá trình build. Ở đây mình có 1 lưu ý cho bạn là   nên đặt file `.env` cùng thư mục với context của docker để tránh những phiền phức đau đầu không đáng.
+  
       - `ports` mapping port bên trong container ra server bên ngoài.
     
         Trong service nuxt, nếu bạn khai báo thêm `3333:3000` thì sẽ quay lại như trường hợp bước dockerize phía trên, app của bạn sẽ được serve ở cổng 3333 của server (không qua nginx). Ở đây mình dùng nginx nên trong service nuxt không cần mapping port nữa.
@@ -277,14 +285,50 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
         Trong service nginx bạn sẽ bind cổng {APP_PORT} ở server thật vào cổng 80 của nginx bên trong container, cổng 80 bên trong container sẽ forward vào cổng 3000 của service nuxt (xem file cấu hình nginx bên dưới).
 
       - `depends_on` ràng buộc - đợi service `nuxt` start thành công mới start service `nginx` (lưu ý là `depends_on` chỉ đợi srart xong chứ không đợi đến khi "ready" nhé).
+  
       - `volumes` mount đường dẫn giữa server thật và bên trong container, ở đây bạn hiểu nôm na là bên trong     container tạo 1 shortcut (`symbolic link`) đến thư mục được chỉ định ở bên ngoài server. Như vậy mọi thay đổi về nội dung bên trong thư mục này được cập nhật đồng bộ giữa bên trong container và server bên ngoài (host). [Đọc thêm về volumes](https://docs.docker.com/compose/compose-file/#volumes).
   
-    
         Ở đây mình sẽ mount file config nginx vào và container và lưu file logs của nginx ra ngoài host.
+
       - `networks`  khai báo các networks mà service sẽ join vào.
+  
       - `command` lệnh sẽ chạy sau khi build xong.
+  
     - `networks` tạo networks, mỗi service sẽ chạy trên mỗi máy khác nhau (container), cần connect vào chung 1 network mới có thể giao tiếp với nhau.
-  - `.env` file biến môi trường quá quen thuộc rồi, tuy nhiên mình cũng xin lưu ý với các bạn là không có các dấu " hay ' gì đâu nhé. Nó sẽ hiểu các dấu quote đó là 1 phần giá trị của biến.
+  - `.env` file biến môi trường quá quen thuộc rồi, tuy nhiên mình cũng xin lưu ý với các bạn là không có các dấu `"` hay `'` gì đâu nhé. Nó sẽ hiểu các `dấu quote` đó là 1 phần giá trị của biến.
     - `NODE_ENV` môi trường build.
     - `APP_PORT` cổng mà ứng dụng sẽ chạy khi truy cập IP của host.
     - `LOG_PATH` đường dẫn đến thư mục chứa log của nginx.
+
+- Create `default.conf` config file for `nginx` in nginx folder
+  
+  ```bash
+  server {
+    listen       80;
+    server_name  localhost;
+
+    client_max_body_size 64M;
+
+    access_log /var/log/nginx/access.log;
+    error_log /var/log/nginx/error.log;
+
+    location / {
+      proxy_pass http://nuxt:3000;
+      proxy_set_header Host $http_host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto $scheme;
+    }
+  }
+  ```
+
+  - Listen `80` lắng nghe ở cổng `80`, nếu bạn thích đổi con số, thì phải đổi cả khai báo trong docker-compose.yml
+
+    ```bash
+    - ports:
+      - "${APP_PORT}:80"
+    ```
+
+  - proxy_pass http://nuxt:3000 trong đó nuxt là tên service bạn khai báo ở docker-compse.yml
+  - Refer [How To Install Nginx on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-18-04) to know why it is `client_max_body_size 64M;`
+  - How to setup domain forwarding - TODO
