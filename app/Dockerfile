@@ -7,6 +7,9 @@ WORKDIR ${APP_ROOT}
 ADD . ${APP_ROOT}
 
 RUN yarn install
-RUN yarn run build
+
+# execute when there is no prebuild 
+# .nuxt isn't available
+#RUN yarn run build
 
 ENV HOST 0.0.0.0
