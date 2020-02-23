@@ -265,6 +265,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   ```bash
   npm install/yarn install
 
+  # run this command when there isn't .nuxt in src folder
   npm run build/yarn build
   ```
 
