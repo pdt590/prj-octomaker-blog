@@ -221,14 +221,19 @@ export default {
           content: this.postDescription
         },
         {
-          hid: "og-url",
-          property: "og:url",
-          content: `${process.env.baseUrl}${this.$route.path}`
+          hid: "og-type",
+          property: "og:type",
+          content: "article"
         },
         {
           hid: "og-title",
           property: "og:title",
           content: this.postTitle
+        },
+        {
+          hid: "og-url",
+          property: "og:url",
+          content: `${process.env.baseUrl}${this.$route.path}`
         },
         {
           hid: "og-description",
