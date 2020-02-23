@@ -217,12 +217,13 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   - `pm2 start npm --name octomaker.blog -- start` or 
   - `npm run start/yarn start` (not recommend)
 
-- Config nginx to redirect
+- Config nginx to redirect domain
   
   ```bash
   sudo vim /etc/nginx/sites-available/blog.octomaker.com
 
   # in /etc/nginx/sites-available/blog.octomaker.com
+  # add 'octomaker.com' 'www.octomaker.com' and 'if conditions'
   ....
   server_name  blog.octomaker.com www.blog.octomaker.com octomaker.com www.octomaker.com;
 
