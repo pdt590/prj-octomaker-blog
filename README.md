@@ -339,7 +339,6 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
   - proxy_pass http://nuxt:3000 trong đó `nuxt` là tên service bạn khai báo ở `docker-compse.yml`
   - Refer [How To Install Nginx on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-18-04) to know why it is `client_max_body_size 64M;`
-  - How to setup domain forwarding - TODO
 
 - `git clone` repo of the project to VPS
 - Run the project
