@@ -1,3 +1,6 @@
 # Task List
 
-- Active facebook app 
+- Active facebook app
+- Write auto scripts
+  - Install new user/node/nginx/pm2
+  - Run app

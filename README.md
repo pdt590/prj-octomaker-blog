@@ -233,6 +233,15 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   if ($host = 'www.octomaker.com') {
     return 301 https://blog.octomaker.com$request_uri;
   }
+
+  location / {
+    proxy_pass http://localhost:3000;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
+  }
   ....
 
   # restart nginx
