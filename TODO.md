@@ -81,7 +81,7 @@
   - Create Facebook Page and add the page to Facebook App
   - Add fb_iframe_widget for facebook page
   - Add like/share fb button
-  - Fix fb comment load issue
+  - `Fix fb comment load issue`
   - Optimize image facebook share
     - [New og:image size for Facebook share](https://stackoverflow.com/questions/18835027/new-ogimage-size-for-facebook-share)
 - Add filter for post list

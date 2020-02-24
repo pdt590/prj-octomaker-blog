@@ -100,7 +100,7 @@
             <header class="card-header" style="border-bottom: none;">
               <p class="card-header-title">
                 {{ $t("post.more_posts_from") }}&nbsp;
-                <nuxt-link :to="localePath(`/query/author/${creatorId}`)"
+                <nuxt-link :to="localePath(`/query/author/${creatorId}`)" class="has-text-dark"
                   >@{{ creatorUsername }}</nuxt-link
                 >
               </p>
