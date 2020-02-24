@@ -54,14 +54,12 @@ module.exports = {
     // Own plugins
     { src: "~plugins/components.js" },
     { src: "~plugins/filters.js" },
-    { src: "~plugins/fc.js", mode: "client" },
     { src: "~plugins/ga.js", mode: "client" },
     { src: "~plugins/reloading.js", mode: "client" },
 
     { src: "~plugins/buefy.js" },
     { src: "~plugins/vuelidate.js" },
     { src: "~plugins/fontawesome.js" },
-    { src: "~plugins/toc.js" },
     { src: "~plugins/lazyload.js", mode: "client" },
     { src: "~plugins/prism.js", mode: "client" },
 
@@ -92,7 +90,7 @@ module.exports = {
         defaultLocale: "en",
         lazy: true,
         langDir: "lang/",
-        baseUrl: process.env.BASE_URL || "http://localhost:3000"
+        baseUrl: process.env.BASE_URL || `http://localhost:${process.env.PORT}`
       }
     ],
     [
@@ -116,7 +114,7 @@ module.exports = {
    ** Create environment variables client side, also to be shared from server side.
    */
   env: {
-    baseUrl: process.env.BASE_URL || "http://localhost:3000",
+    baseUrl: process.env.BASE_URL || `http://localhost:${process.env.PORT}`,
     production: process.env.NODE_ENV
   },
 

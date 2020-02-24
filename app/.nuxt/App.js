@@ -8,6 +8,7 @@ import {
 
 import NuxtError from '..\\layouts\\error.vue'
 import NuxtLoading from './components/nuxt-loading.vue'
+import NuxtBuildIndicator from './components/nuxt-build-indicator'
 
 import '..\\assets\\styles\\main.scss'
 
@@ -19,7 +20,7 @@ import _77430317 from '..\\layouts\\empty.vue'
 const layouts = { "_default": _6f6c098b,"_empty": _77430317 }
 
 export default {
-  head: {"title":"OctoMaker","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"OctoMaker - Share to be viral"},{"hid":"og-url","property":"og:url","content":"https:\u002F\u002Fblog.octomaker.com"},{"hid":"og-title","property":"og:title","content":"OctoMaker"},{"hid":"og-description","property":"og:description","content":"Share to be viral"},{"hid":"og-image","property":"og:image","content":"https:\u002F\u002Fblog.octomaker.com\u002Flogo@1200x630.png"},{"hid":"fb-app_id","property":"fb:app_id","content":"192142251994813"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.png"}],"style":[],"script":[]},
+  head: {"title":"OctoMaker","meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"description","name":"description","content":"OctoMaker - Share to be viral"},{"hid":"og-url","property":"og:url","content":"undefined"},{"hid":"og-title","property":"og:title","content":"OctoMaker"},{"hid":"og-description","property":"og:description","content":"Share to be viral"},{"hid":"og-image","property":"og:image","content":"undefined\u002Flogo@1200x630.png"},{"hid":"fb-app_id","property":"fb:app_id","content":"192142251994813"}],"link":[{"rel":"icon","type":"image\u002Fx-icon","href":"\u002Ffavicon.png"}],"style":[],"script":[]},
 
   render (h, props) {
     const loadingEl = h('NuxtLoading', { ref: 'loading' })
@@ -64,7 +65,7 @@ export default {
       }
     }, [
       loadingEl,
-
+      h(NuxtBuildIndicator),
       transitionEl
     ])
   },
@@ -174,6 +175,10 @@ export default {
     },
 
     setLayout (layout) {
+      if(layout && typeof layout !== 'string') {
+        throw new Error('[nuxt] Avoid using non-string value as layout property.')
+      }
+
       if (!layout || !layouts['_' + layout]) {
         layout = 'default'
       }

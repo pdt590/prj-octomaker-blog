@@ -1,5 +1,6 @@
 import Compressor from "compressorjs";
 import marked from "marked";
+import * as tocbot from "tocbot";
 
 export function formatString(string, length) {
   let short = string.substr(0, length);
@@ -11,6 +12,50 @@ export function formatString(string, length) {
     }
   }
   return length < string.length ? short + " ..." : short;
+}
+
+export function initToC() {
+  tocbot.init({
+    // Where to render the table of contents.
+    tocSelector: ".toc",
+    // Where to grab the headings to build the table of contents.
+    contentSelector: ".toc-content",
+    // Which headings to grab inside of the contentSelector element.
+    headingSelector: "h1, h2",
+    // For headings inside relative or absolute positioned containers within content.
+    hasInnerContainers: true,
+    // How many heading levels should not be collapsed.
+    collapseDepth: 2,
+    // Optional callback to change heading labels. 
+    headingLabelCallback: (string) => {
+      return formatString(string, 50);
+    }
+  });
+}
+
+export function initFbComment() {
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId: "192142251994813",
+      autoLogAppEvents: true,
+      xfbml: true,
+      version: "v3.1"
+    });
+  };
+
+  (function(d, s, id) {
+    var js,
+      fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "https://connect.facebook.net/vi_VN/all.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  })(document, "script", "facebook-jssdk");
+
+  setTimeout(() => {
+    FB.XFBML.parse();
+  }, 1000);
 }
 
 export function windowPopup(url, title, w, h) {

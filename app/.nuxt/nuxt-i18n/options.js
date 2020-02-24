@@ -27,7 +27,7 @@ export const forwardedHost = false
 
 export const seo = false
 
-export const baseUrl = 'https://blog.octomaker.com'
+export const baseUrl = 'http://localhost:3000'
 
 export const vuex = {"moduleName":"i18n","syncLocale":false,"syncMessages":false,"syncRouteParams":true}
 

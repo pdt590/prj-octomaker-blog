@@ -399,15 +399,14 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
         ```
 
 - Linking up `nginx` and `certbot`
-  - Add `certbot` serice to `docker-compose.yml` file
+  - Add `certbot` service to `docker-compose.yml` file
 
     ```bash
     certbot:
       image: certbot/certbot
     ```
 
-  - Create `certbot` folder
-  - Add this to the `volumes` list of the `nginx` and `certbot` section
+  - Add this to the `volumes` list of the `nginx` and `certbot` section (don't create `certbot` folder)
 
     ```bash
     volumes:
@@ -439,7 +438,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
     curl -L https://raw.githubusercontent.com/wmnnd/nginx-certbot/master/init-letsencrypt.sh > init-letsencrypt.sh
     ```
   
-    - Edit `init-letsencrypt.sh` with your `domain(s)` and `email` address and `certbot` path folder
+    - Edit `init-letsencrypt.sh` with your `domain(s)`,`email` address, and `certbot folder path` you want the script to create
     - Run 
 
       ```bash
@@ -536,13 +535,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Change `./nginx/default.conf` with your new domains
 - Change `init-letsencrypt.sh` with your `domain(s)` and `email` address
 
-- Build containers
-
-  ```bash
-  docker-compose build
-  ```
-
-- Request certificates
+- Build containers and request certificates
 
   ```bash
   chmod +x init-letsencrypt.sh
@@ -552,5 +545,5 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Run the project
 
   ```bash
-  docker-compose up -d
+  docker-compose up
   ```
