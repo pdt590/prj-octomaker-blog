@@ -174,31 +174,69 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Config nginx to redirect domain `octomaker.com` `www.octomaker.com`
   
   ```bash
+  # edit /etc/nginx/sites-available/blog.octomaker.com
   sudo vim /etc/nginx/sites-available/blog.octomaker.com
-
-  # in /etc/nginx/sites-available/blog.octomaker.com
+  ```
+  
+  ```bash
   # add 'octomaker.com' 'www.octomaker.com' and 'if conditions'
-  ....
-  server_name  blog.octomaker.com www.blog.octomaker.com octomaker.com www.octomaker.com;
+  server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    server_name  blog.octomaker.com www.blog.octomaker.com;
+    ....
+    # redirect to default domains for other domains
+    if ($host = www.octomaker.com) {
+      return 301 https://blog.octomaker.com$request_uri;
+    }
 
-  if ($host = 'octomaker.com') {
-    return 301 https://blog.octomaker.com$request_uri;
+    if ($host = octomaker.com) {
+      return 301 https://blog.octomaker.com$request_uri;
+    }
+
+    location / {
+      proxy_pass http://localhost:3000;
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection 'upgrade';
+      proxy_set_header Host $host;
+      proxy_cache_bypass $http_upgrade;
+    }
+    ....
   }
 
-  if ($host = 'www.octomaker.com') {
-    return 301 https://blog.octomaker.com$request_uri;
-  }
+  server {
+    listen 80;
+    listen [::]:80;
+    server_name  blog.octomaker.com www.blog.octomaker.com;
 
-  location / {
-    proxy_pass http://localhost:3000;
-    proxy_http_version 1.1;
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection 'upgrade';
-    proxy_set_header Host $host;
-    proxy_cache_bypass $http_upgrade;
-  }
-  ....
+    # redirect to https of default domains for same domains
+    if ($host = www.blog.octomaker.com) {
+      return 301 https://$host$request_uri;
+    }
 
+    if ($host = blog.octomaker.com) {
+      return 301 https://$host$request_uri;
+    }
+
+    #or
+    #location / {
+    #  return 301 https://$host$request_uri;
+    #}
+
+    # redirect to https of default domains for other domains
+    if ($host = www.octomaker.com) {
+      return 301 https://blog.octomaker.com$request_uri;
+    }
+
+    if ($host = octomaker.com) {
+      return 301 https://blog.octomaker.com$request_uri;
+    }
+    ....
+  }
+  ```
+
+  ```bash
   # restart nginx
   sudo systemctl restart nginx
   ```
@@ -253,6 +291,14 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
 - Create VPS and install step by step as in this tutorial
   - It is possible to create VPS with snapshot on Vultr
+- Install `git` on ubuntu 18.04
+
+  ```bash
+  sudo apt update
+  sudo apt install git
+  git --version
+  ```
+
 - Clone git repo
   
   ```bash
