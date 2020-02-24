@@ -576,6 +576,37 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
   # Lists containers.
   docker-compose ps
+
+  # View active containers
+  docker ps
+
+  # View all containers — active and inactive
+  docker ps -a
+
+  # View the latest container you created
+  docker ps -l
+
+  # Start container
+  docker start ${CONTAINER_ID OR NAME}
+
+  # Stop container
+  docker stop ${CONTAINER_ID OR NAME}
+
+  # Remove container
+  docker rm ${CONTAINER_ID OR NAME}
+
+  # List the Docker images
+  docker images
+
+  # Remove all stopped containers
+  docker rm $(docker ps -a -q)
+
+  # Remove all containers including its volumes use
+  docker rm -vf $(docker ps -a -q)
+
+  # Remove all images
+  # Remember, you should remove all the containers before removing all the images from which those containers were created.
+  docker rmi -f $(docker images -a -q)
   ```
 
 ### Others
