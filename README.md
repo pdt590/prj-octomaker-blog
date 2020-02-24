@@ -144,7 +144,6 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   - [Facebook meta tags](https://developers.facebook.com/docs/sharing/webmasters/)
   - [Facebook sharing](https://developers.facebook.com/docs/sharing/best-practices)
 
-
 ### Google Analytics
 
 - [How to use Google Analytics in Nuxt?](https://nuxtjs.org/faq/google-analytics/)
@@ -161,6 +160,9 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   > In the tutorial, nuxt app runs with [port 3333](https://github.com/VueVixens/website/blob/master/package.json#L9)
 - [Deploy ứng dụng Nuxt với Docker và Nginx](https://viblo.asia/p/deploy-ung-dung-nuxt-voi-docker-va-nginx-3P0lPnNpKox)
 - [Nginx and Let’s Encrypt with Docker in Less Than 5 Minutes](https://medium.com/@pentacent/nginx-and-lets-encrypt-with-docker-in-less-than-5-minutes-b4b8a60d3a71)
+  - [Source code](https://raw.githubusercontent.com/wmnnd/nginx-certbot/master/init-letsencrypt.sh)
+- [How to dockerize your static website with Nginx](https://dev.to/koddr/how-to-dockerize-your-static-website-with-nginx-automatic-renew-ssl-for-domain-by-certbot-and-deploy-it-to-digitalocean-4cjc)
+  - [Source code](https://github.com/koddr/example-static-website-docker-nginx-certbot)
 - [Dockerise your Nuxt SSR App like a boss - Part 2](https://dev.to/vuevixens/dockerise-your-nuxt-ssr-app-like-a-boss-a-true-vue-vixens-story-part-2-1fgj) - not recommend
 - [Deploying a Nuxt.js App with Docker](https://jonathanmh.com/deploying-a-nuxt-js-app-with-docker/)
 
@@ -415,8 +417,8 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   - Make nginx serve the challenge files from certbot by adding this into `Port 80` section of `nginx/default.conf`
 
     ```bash
-    location /.well-known/acme-challenge/ {
-        root /var/www/certbot;
+    location ^~ /.well-known/acme-challenge/ {
+      root /var/www/certbot;
     }
     ```
 
@@ -428,6 +430,18 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
     ssl_certificate_key /etc/letsencrypt/live/blog.octomaker.com/privkey.pem;
     include /etc/letsencrypt/options-ssl-nginx.conf;
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+    ```
+
+  - Add the following into `Port 433` section of `nginx/default.conf` for redirection
+
+    ```bash
+    if ($host = www.octomaker.com) {
+      return 301 https://blog.octomaker.com$request_uri;
+    }
+
+    if ($host = octomaker.com) {
+      return 301 https://blog.octomaker.com$request_uri;
+    }
     ```
 
   - Request the certificates
@@ -459,7 +473,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
     ```
   
-  > `APP_PORT` in `.env` file have to set to `80` because the container of Certbot will be using ports `80` and `443`.
+  > `APP_PORT` and `APP_PORT_SSL` in `.env` file have to set to `80` and `443` because the container of Certbot will be using ports `80` and `443`.
 
 ### Summary - Setup for the future project
 
@@ -532,15 +546,123 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Change `./nginx/default.conf` with your new domains
 - Change `init-letsencrypt.sh` with your `domain(s)` and `email` address
 
-- Build containers and request certificates
+- Request certificates, build and run containers
 
   ```bash
   chmod +x init-letsencrypt.sh
   sudo ./init-letsencrypt.sh
   ```
 
-- Run the project
+- [Other commands](https://gist.github.com/jonlabelle/bd667a97666ecda7bbc4f1cc9446d43a)
 
   ```bash
+  # Builds, (re)creates, starts, and attaches to containers for a service.
   docker-compose up
+
+  # Stops containers and removes containers, networks, volumes, and images created by up.
+  docker-compose down
+
+  # Starts existing containers for a service.
+  docker-compose start
+
+  # Stops running containers without removing them.
+  docker-compose stop
+
+  # Pauses running containers of a service.
+  docker-compose pause
+
+  # Unpauses paused containers of a service.
+  docker-compose unpause
+
+  # Lists containers.
+  docker-compose ps
+  ```
+
+### Others
+
+- There is another `default.conf` to redirect www to non-www - [reference](https://dev.to/koddr/how-to-dockerize-your-static-website-with-nginx-automatic-renew-ssl-for-domain-by-certbot-and-deploy-it-to-digitalocean-4cjc)
+
+  ```bash
+  # Config for get SSL and redirect to HTTPS
+  server {
+    listen      80;
+    server_name .site.com;
+
+    # Allow only for register SSL (Certbot)
+    location ^~ /.well-known/acme-challenge { root /var/www/certbot; }
+
+    # Redirect to HTTPS
+    location / { return 301 https://site.com$request_uri; }
+  }
+
+  # Redirect to non-WWW
+  server {
+    listen      443 ssl http2;
+    server_name www.site.com;
+
+    # SSL
+    ssl_certificate     /etc/letsencrypt/live/site.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/site.com/privkey.pem;
+
+    # Additional Nginx options
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+
+    # Diffie-Hellman parameter for DHE ciphersuites
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+    # Redirect to HTTPS
+    location / { return 301 https://site.com$request_uri; }
+  }
+
+  # Config for HTTPS
+  server {
+    listen      443 ssl http2;
+    server_name site.com;
+
+    # Root & index.html
+    root /usr/share/nginx/html;
+    index index.html;
+
+    # SSL
+    ssl_certificate     /etc/letsencrypt/live/site.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/site.com/privkey.pem;
+
+    # Additional Nginx options
+    include /etc/letsencrypt/options-ssl-nginx.conf;
+
+    # Diffie-Hellman parameter for DHE ciphersuites
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+
+    # Security headers
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-XSS-Protection "1; mode=block" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header Referrer-Policy "no-referrer-when-downgrade" always;
+    add_header Content-Security-Policy "default-src 'self' http: https: data: blob: 'unsafe-inline'" always;
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" always;
+
+    # dot files
+    location ~ /\.(?!well-known) { deny all; }
+
+    # SEO files
+    location = /robots.txt { log_not_found off; }
+    location = /sitemap.xml { log_not_found off; }
+    location = /favicon.ico { log_not_found off; }
+
+    # Assets, media
+    location ~* \.(?:css(\.map)?|js(\.map)?|jpe?g|png|gif|ico|cur|heic|webp|tiff?|mp3|m4a|aac|ogg|midi?|wav|mp4|mov|webm|mpe?g|avi|ogv|flv|wmv)$ {
+      expires 7d;
+    }
+
+    # SVG, fonts
+    location ~* \.(?:svgz?|ttf|ttc|otf|eot|woff2?)$ {
+      add_header Access-Control-Allow-Origin "*";
+      expires 7d;
+    }
+
+    # Frontend files
+    location / {
+      try_files $uri $uri/ /index.html;
+    }
+  }
   ```
