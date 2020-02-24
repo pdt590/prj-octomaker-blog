@@ -512,7 +512,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
 - Copy whole new `nuxt project` to `app` folder
 - Create `Dockerfile` in `app` forder if any
-- Change `Dockerfile`. Enable `RUN yarn run build` if there is prebuild `.nuxt` in `./src/app` folder and you are using a weak VPS
+- Change `Dockerfile`. Enable `RUN yarn run build` if there is a prebuild `.nuxt` in `./src/app` folder.
   
   ```bash
   FROM node:10.18.1
