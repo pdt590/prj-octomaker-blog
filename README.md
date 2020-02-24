@@ -183,13 +183,28 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   ```
   
   ```bash
-  # add 'octomaker.com' 'www.octomaker.com' and 'if conditions'
+  server {
+    listen 80;
+    listen [::]:80;
+    server_name  blog.octomaker.com www.blog.octomaker.com;
+
+    location / {
+      return 301 https://$host$request_uri;
+    }
+    ....
+  }
+
   server {
     listen 443 ssl;
     listen [::]:443 ssl;
     server_name  blog.octomaker.com www.blog.octomaker.com;
     ....
-    # redirect to default domains for other domains
+    # redirect www to non-www
+    if ($host = www.blog.octomaker.com) {
+      return 301 https://blog.octomaker.com$request_uri;
+    }
+
+    # redirect to default domains
     if ($host = www.octomaker.com) {
       return 301 https://blog.octomaker.com$request_uri;
     }
@@ -205,17 +220,6 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
       proxy_set_header Connection 'upgrade';
       proxy_set_header Host $host;
       proxy_cache_bypass $http_upgrade;
-    }
-    ....
-  }
-
-  server {
-    listen 80;
-    listen [::]:80;
-    server_name  blog.octomaker.com www.blog.octomaker.com;
-
-    location / {
-      return 301 https://$host$request_uri;
     }
     ....
   }
@@ -276,6 +280,13 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
 - Create VPS and install step by step as in this tutorial
   - It is possible to create VPS with snapshot on Vultr
+  - Server size should be at least `1 CPU - 2048MB Memory - 2000GB Bandwidth`
+- Add A records with VPS public IP to your domain by visiting your DNS provider or registrar (namesilo)
+  - Set `blog.octomaker.com`, `www.blog.octomaker.com`, `octomaker.com`, `wwww.octomaker.com` with same VPS Ipv4
+- Use terminal tool to access VPS remotely with it Username/Password
+- [Initial Server Setup with Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04) or use [automatic script](https://www.digitalocean.com/community/tutorials/automating-initial-server-setup-with-ubuntu-18-04)
+  - Relogin with user account instead of `root` account
+- [Set Up SSH Keys on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-ubuntu-1804) if any - recommend
 - Install `git` on ubuntu 18.04
 
   ```bash
