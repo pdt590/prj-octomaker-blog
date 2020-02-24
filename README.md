@@ -697,3 +697,24 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
     }
   }
   ```
+
+- Tip for weak VPS
+  - Disable `RUN yarn install` and `RUN yarn run build` in `.app/Dockerfile`
+  - Install nuxt app in `app` folder
+
+    ```bash
+    RUN yarn install
+    ```
+
+  - Build nux app
+
+    ```bash
+    RUN yarn run build
+    ```
+
+  - Deploy app
+  
+    ```bash
+    chmod +x init-letsencrypt.sh
+    sudo ./init-letsencrypt.sh
+    ```
