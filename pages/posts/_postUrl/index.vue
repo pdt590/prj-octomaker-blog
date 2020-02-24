@@ -68,13 +68,15 @@
         <!-- Start facebook comment -->
         <div class="card">
           <div class="card-content">
-            <div id="fb-root"></div>
-            <div
-              class="fb-comments"
-              :data-href="`${baseUrl}${$route.path}`"
-              data-numposts="5"
-              data-width="100%"
-            ></div>
+            <client-only>
+              <div id="fb-root"></div>
+              <div
+                class="fb-comments"
+                :data-href="`${baseUrl}${$route.path}`"
+                data-numposts="5"
+                data-width="100%"
+              ></div>
+            </client-only>
           </div>
         </div>
         <!-- End facebook comment -->
@@ -118,14 +120,14 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { fetchDesc, windowPopup } from "~/libs/helpers";
+import { fetchDesc, initFbComment, initToC, windowPopup } from "~/libs/helpers";
 import { categories } from "~/libs/lists";
 
 export default {
   middleware: ["server-client-view-permission"],
   mounted() {
-    this.$initFbSdk();
-    this.$initToC();
+    initFbComment();
+    initToC();
   },
   computed: {
     ...mapGetters(["user", "postLoading"]),

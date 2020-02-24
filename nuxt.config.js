@@ -54,14 +54,12 @@ module.exports = {
     // Own plugins
     { src: "~plugins/components.js" },
     { src: "~plugins/filters.js" },
-    { src: "~plugins/fc.js", mode: "client" },
     { src: "~plugins/ga.js", mode: "client" },
     { src: "~plugins/reloading.js", mode: "client" },
 
     { src: "~plugins/buefy.js" },
     { src: "~plugins/vuelidate.js" },
     { src: "~plugins/fontawesome.js" },
-    { src: "~plugins/toc.js" },
     { src: "~plugins/lazyload.js", mode: "client" },
     { src: "~plugins/prism.js", mode: "client" },
 
