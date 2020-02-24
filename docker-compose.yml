@@ -2,7 +2,7 @@ version: "3"
 
 services:
   nuxt:
-    build: .
+    build: ./app/
     container_name: nuxt
     restart: always
     env_file: .env
@@ -37,8 +37,8 @@ services:
     networks:
       - flat-network
 
-networks:
-  flat-network
+networks: 
+  flat-network:
 
 ## https://dev.to/vuevixens/dockerise-your-nuxt-ssr-app-like-a-boss-a-true-vue-vixens-story-4mm6
 #version: "3"

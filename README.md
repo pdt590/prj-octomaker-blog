@@ -167,6 +167,10 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 ### Get Started
 
 - Create a VPS on [Vultr](https://vultr.com/) with Ubuntu 18.04
+  - This tutorial isn't compatibile
+    - with server size `1 CPU - 512MB Memory - 500GB Bandwidth`, `npm install/yarn install` && `npm run build/yarn run build` in `nuxt` container cannot execute
+    - with server size `1 CPU - 1024MB Memory - 1000GB Bandwidth`, `npm run build/yarn run build` in `nuxt` container cannot execute
+    - with other server size - TODO
 - Add A records with VPS public IP to your domain by visiting your DNS provider or registrar (namesilo)
   - Set `blog.octomaker.com`, `www.blog.octomaker.com`, `octomaker.com`, `wwww.octomaker.com` with same VPS Ipv4
 - Use terminal tool to access VPS remotely with it Username/Password
@@ -247,7 +251,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
   services:
     nuxt:
-      build: .
+      build: ./app/
       container_name: nuxt
       restart: always
       env_file: .env
@@ -270,7 +274,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
         - flat-network
 
   networks:
-    flat-network
+    flat-network:
   ```
 
 - Create `.env` file
@@ -509,7 +513,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
 - Copy whole new `nuxt project` to `app` folder
 - Create `Dockerfile` in `app` forder if any
-- Change `Dockerfile`. Enable `RUN yarn run build` if use weak VPS
+- Change `Dockerfile`. Enable `RUN yarn run build` if there is prebuild `.nuxt` in `./src/app` folder and you are using a weak VPS
   
   ```bash
   FROM node:10.18.1
@@ -531,15 +535,22 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
 - Change `./nginx/default.conf` with your new domains
 - Change `init-letsencrypt.sh` with your `domain(s)` and `email` address
-- Run
+
+- Build containers
+
+  ```bash
+  docker-compose build
+  ```
+
+- Request certificates
 
   ```bash
   chmod +x init-letsencrypt.sh
   sudo ./init-letsencrypt.sh.
   ```
 
-- Deploy the project
+- Run the project
 
   ```bash
-  docker-compose up --build -d
+  docker-compose up -d
   ```
