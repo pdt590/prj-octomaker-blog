@@ -306,12 +306,16 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   cd src
   ```
 
-- Install and build project
+- Install packages
   
   ```bash
   npm install/yarn install
+  ```
 
-  # run this command when there isn't .nuxt in src folder
+- Build project. Don't need to execute this command if there is a prebuild `.nuxt` in `./src/app` folder.
+
+  ```bash
+  
   npm run build/yarn build
   ```
 
