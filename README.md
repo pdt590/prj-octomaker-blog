@@ -170,14 +170,23 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   - This tutorial isn't compatibile
     - with server size `1 CPU - 512MB Memory - 500GB Bandwidth`, `npm install/yarn install` && `npm run build/yarn run build` in `nuxt` container cannot execute
     - with server size `1 CPU - 1024MB Memory - 1000GB Bandwidth`, `npm run build/yarn run build` in `nuxt` container cannot execute
-    - with other server size - TODO
+  - Other server sizes runs well
 - Add A records with VPS public IP to your domain by visiting your DNS provider or registrar (namesilo)
   - Set `blog.octomaker.com`, `www.blog.octomaker.com`, `octomaker.com`, `wwww.octomaker.com` with same VPS Ipv4
 - Use terminal tool to access VPS remotely with it Username/Password
 - [Initial Server Setup with Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04) or use [automatic script](https://www.digitalocean.com/community/tutorials/automating-initial-server-setup-with-ubuntu-18-04)
   - Relogin with user account instead of `root` account
 - [Set Up SSH Keys on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-ubuntu-1804) if any - recommend
-- Install docker and docker-compose
+- [Install and Use Docker on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04)
+- [Install Docker Compose on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-docker-compose-on-ubuntu-18-04)
+  - Check the [current release](https://github.com/docker/compose/releases) and if necessary, update it in the command below
+
+    ```bash
+    sudo curl -L https://github.com/docker/compose/releases/download/1.25.4/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
+    ```
+
+- Another way
   
   ```bash
   sudo apt update
@@ -187,17 +196,6 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   sudo curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
   sudo chmod +x /usr/local/bin/docker-compose
   ```
-
-  or 
-
-  - [Install and Use Docker on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04)
-  - [Install Docker Compose on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-docker-compose-on-ubuntu-18-04)
-    - Check the [current release](https://github.com/docker/compose/releases) and if necessary, update it in the command below
-  
-      ```bash
-      sudo curl -L https://github.com/docker/compose/releases/download/1.25.4/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
-      sudo chmod +x /usr/local/bin/docker-compose
-      ```
 
 - Install `git` on ubuntu 18.04
   
@@ -467,13 +465,23 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
 - Create VPS and install step by step as in this tutorial
   - It is possible to create VPS with snapshot on Vultr
+  - Server size should be at least `1 CPU - 2048MB Memory - 2000GB Bandwidth`
 - Add A records with VPS public IP to your domain by visiting your DNS provider or registrar (namesilo)
   - Set `blog.octomaker.com`, `www.blog.octomaker.com`, `octomaker.com`, `wwww.octomaker.com` with same VPS Ipv4
 - Use terminal tool to access VPS remotely with it Username/Password
 - [Initial Server Setup with Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04) or use [automatic script](https://www.digitalocean.com/community/tutorials/automating-initial-server-setup-with-ubuntu-18-04)
   - Relogin with user account instead of `root` account
 - [Set Up SSH Keys on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-ubuntu-1804) if any - recommend
-- Install docker and docker-compose
+- [Install and Use Docker on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04)
+- [Install Docker Compose on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-docker-compose-on-ubuntu-18-04)
+  - Check the [current release](https://github.com/docker/compose/releases) and if necessary, update it in the command below
+
+    ```bash
+    sudo curl -L https://github.com/docker/compose/releases/download/1.25.4/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+    sudo chmod +x /usr/local/bin/docker-compose
+    ```
+
+- Another way
   
   ```bash
   sudo apt update
@@ -483,17 +491,6 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   sudo curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
   sudo chmod +x /usr/local/bin/docker-compose
   ```
-
-  or
-
-  - [Install and Use Docker on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04)
-  - [Install Docker Compose on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-docker-compose-on-ubuntu-18-04)
-    - Check the [current release](https://github.com/docker/compose/releases) and if necessary, update it in the command below
-  
-      ```bash
-      sudo curl -L https://github.com/docker/compose/releases/download/1.25.4/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
-      sudo chmod +x /usr/local/bin/docker-compose
-      ```
 
 - Install `git` on ubuntu 18.04
 
@@ -539,7 +536,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
   ```bash
   chmod +x init-letsencrypt.sh
-  sudo ./init-letsencrypt.sh.
+  sudo ./init-letsencrypt.sh
   ```
 
 - Run the project
