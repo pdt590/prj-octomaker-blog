@@ -173,14 +173,27 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - [Initial Server Setup with Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04) or use [automatic script](https://www.digitalocean.com/community/tutorials/automating-initial-server-setup-with-ubuntu-18-04)
   - Relogin with user account instead of `root` account
 - [Set Up SSH Keys on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-ubuntu-1804) if any - recommend
-- [Install and Use Docker on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04)
-- [Install Docker Compose on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-docker-compose-on-ubuntu-18-04)
-  - Check the [current release](https://github.com/docker/compose/releases) and if necessary, update it in the command below
+- Install docker and docker-compose
   
-    ```bash
-    $ sudo curl -L https://github.com/docker/compose/releases/download/1.25.4/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
-    $ sudo chmod +x /usr/local/bin/docker-compose
-    ```
+  ```bash
+  sudo apt update
+  sudo apt install -y docker.io git
+  sudo usermod -a -G docker ${YOUR_USER}
+  sudo service docker start
+  sudo curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  sudo chmod +x /usr/local/bin/docker-compose
+  ```
+
+  or 
+
+  - [Install and Use Docker on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04)
+  - [Install Docker Compose on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-docker-compose-on-ubuntu-18-04)
+    - Check the [current release](https://github.com/docker/compose/releases) and if necessary, update it in the command below
+  
+      ```bash
+      sudo curl -L https://github.com/docker/compose/releases/download/1.25.4/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+      sudo chmod +x /usr/local/bin/docker-compose
+      ```
 
 - Install `git` on ubuntu 18.04
   
@@ -281,7 +294,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
       - `env_file` chỉ định file chứa biến môi trường phục vụ cho quá trình build. Ở đây mình có 1 lưu ý cho bạn là   nên đặt file `.env` cùng thư mục với context của docker để tránh những phiền phức đau đầu không đáng.
   
       - `ports` mapping port bên trong container ra server bên ngoài.
-    
+
         Trong service `nuxt`, nếu bạn khai báo thêm `3333:3000` thì sẽ quay lại như trường hợp bước dockerize phía trên, app của bạn sẽ được serve ở cổng 3333 của server (không qua nginx). Ở đây mình dùng nginx nên trong service nuxt không cần mapping port nữa.
 
         Trong service nginx bạn sẽ bind cổng `{APP_PORT}` ở server thật vào cổng 80 của nginx bên trong container, cổng 80 bên trong container sẽ forward vào cổng 3000 của service nuxt (xem file cấu hình nginx bên dưới).
@@ -351,7 +364,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   - `--detach` hoặc `-d` chạy containers ở background, in ra tên các container mới.
 
   - In the case of weak VPS, the process will be stopped at build step
-    
+
     ```bash
     [5/5] Building fresh packages...
     error An unexpected error occurred: "/src/node_modules/core-js: spawn ENOMEM".
@@ -448,6 +461,44 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   > `APP_PORT` in `.env` file have to set to `80` because the container of Certbot will be using ports `80` and `443`.
 
 ### Summary - Setup for the future project
+
+- Create VPS and install step by step as in this tutorial
+  - It is possible to create VPS with snapshot on Vultr
+- Add A records with VPS public IP to your domain by visiting your DNS provider or registrar (namesilo)
+  - Set `blog.octomaker.com`, `www.blog.octomaker.com`, `octomaker.com`, `wwww.octomaker.com` with same VPS Ipv4
+- Use terminal tool to access VPS remotely with it Username/Password
+- [Initial Server Setup with Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/initial-server-setup-with-ubuntu-18-04) or use [automatic script](https://www.digitalocean.com/community/tutorials/automating-initial-server-setup-with-ubuntu-18-04)
+  - Relogin with user account instead of `root` account
+- [Set Up SSH Keys on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-ubuntu-1804) if any - recommend
+- Install docker and docker-compose
+  
+  ```bash
+  sudo apt update
+  sudo apt install -y docker.io git
+  sudo usermod -a -G docker ${YOUR_USER}
+  sudo service docker start
+  sudo curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  sudo chmod +x /usr/local/bin/docker-compose
+  ```
+
+  or
+
+  - [Install and Use Docker on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04)
+  - [Install Docker Compose on Ubuntu 18.04](https://www.digitalocean.com/community/tutorials/how-to-install-docker-compose-on-ubuntu-18-04)
+    - Check the [current release](https://github.com/docker/compose/releases) and if necessary, update it in the command below
+  
+      ```bash
+      sudo curl -L https://github.com/docker/compose/releases/download/1.25.4/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+      sudo chmod +x /usr/local/bin/docker-compose
+      ```
+
+- Install `git` on ubuntu 18.04
+
+  ```bash
+  sudo apt update
+  sudo apt install git
+  git --version
+  ```
 
 - Clone git repo
   
