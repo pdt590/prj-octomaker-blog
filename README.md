@@ -163,6 +163,10 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 ### Get Started
 
 - Create a VPS on [Vultr](https://vultr.com/) with Ubuntu 18.04
+  - This tutorial isn't compatibile
+    - with server size `1 CPU - 512MB Memory - 500GB Bandwidth`, `npm install/yarn install` && `npm run build/yarn run build` in `nuxt` container cannot execute
+    - with server size `1 CPU - 1024MB Memory - 1000GB Bandwidth`, `npm run build/yarn run build` in `nuxt` container cannot execute
+  - Other server sizes runs well
 - Add A records with VPS public IP to your domain by visiting your DNS provider or registrar (namesilo)
   - Set `blog.octomaker.com`, `www.blog.octomaker.com`, `octomaker.com`, `wwww.octomaker.com` with same VPS Ipv4
 - Use terminal tool to access VPS remotely with it Username/Password
@@ -210,27 +214,8 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
     listen [::]:80;
     server_name  blog.octomaker.com www.blog.octomaker.com;
 
-    # redirect to https of default domains for same domains
-    if ($host = www.blog.octomaker.com) {
+    location / {
       return 301 https://$host$request_uri;
-    }
-
-    if ($host = blog.octomaker.com) {
-      return 301 https://$host$request_uri;
-    }
-
-    #or
-    #location / {
-    #  return 301 https://$host$request_uri;
-    #}
-
-    # redirect to https of default domains for other domains
-    if ($host = www.octomaker.com) {
-      return 301 https://blog.octomaker.com$request_uri;
-    }
-
-    if ($host = octomaker.com) {
-      return 301 https://blog.octomaker.com$request_uri;
     }
     ....
   }
