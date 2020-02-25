@@ -367,7 +367,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   - `--build` Build images trước khi containers.
   - `--detach` hoặc `-d` chạy containers ở background, in ra tên các container mới.
 
-  - In the case of weak VPS, the process will be stopped at build step
+  - In the case of small VPS, the process will be stopped at build step
 
     ```bash
     [5/5] Building fresh packages...
@@ -379,7 +379,8 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
     - Solution 
       - Build the project at your computer > remove `.nuxt` and `dist` in `.gitignore` > `git push` all source including `.nuxt` folder to git server
-      - Change `Dockerfile` for nuxt app in `app` folder
+      - Change `Dockerfile` for nuxt app in `app` folder. Disable `RUN yarn install` and/or `RUN yarn run build` if there are `node_modules` and/or a 
+        prebuild `.nuxt` in `./src/app` folder.
   
         ```bash
         FROM node:10.18.1
@@ -391,9 +392,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
         ADD . ${APP_ROOT}
 
         RUN yarn install
-
-        #change here
-        #RUN yarn run build
+        RUN yarn run build
 
         ENV HOST 0.0.0.0
         ```
@@ -523,7 +522,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
 - Copy whole new `nuxt project` to `app` folder
 - Create `Dockerfile` in `app` forder if any
-- Change `Dockerfile`. Enable `RUN yarn run build` if there is a prebuild `.nuxt` in `./src/app` folder.
+- Change `Dockerfile`. Disable `RUN yarn install` and/or `RUN yarn run build` if there are `node_modules` and/or a prebuild `.nuxt` in `./src/app` folder.
   
   ```bash
   FROM node:10.18.1
@@ -535,10 +534,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   ADD . ${APP_ROOT}
 
   RUN yarn install
-
-  # execute when there is no prebuild
-  # .nuxt isn't available
-  #RUN yarn run build
+  RUN yarn run build
 
   ENV HOST 0.0.0.0
   ```
@@ -698,9 +694,9 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   }
   ```
 
-- Tip for weak VPS
+- Tip for small VPS
   - Disable `RUN yarn install` and `RUN yarn run build` in `.app/Dockerfile`
-  - Install nuxt app in `app` folder
+  - Install nuxt packages in `app` folder
 
     ```bash
     RUN yarn install
