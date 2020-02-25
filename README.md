@@ -191,11 +191,23 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Another way
   
   ```bash
+  # Ubuntu
   sudo apt update
   sudo apt install -y docker.io git
   sudo usermod -a -G docker ${YOUR_USER}
   sudo service docker start
   sudo curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+  sudo chmod +x /usr/local/bin/docker-compose
+  ```
+
+  ```bash
+  # Linux server of Amazon (EC2)
+  #!/bin/bash
+  sudo yum -y update
+  sudo yum install -y docker git
+  sudo usermod -a -G docker ec2-user
+  sudo service docker start
+  sudo curl -L "https://github.com/docker/compose/releases/download/1.25.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
   sudo chmod +x /usr/local/bin/docker-compose
   ```
 
