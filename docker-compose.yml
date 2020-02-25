@@ -2,7 +2,7 @@ version: "3"
 
 services:
   nuxt:
-    build: ./app/
+    build: ./app
     container_name: nuxt
     restart: always
     env_file: .env
