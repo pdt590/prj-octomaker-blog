@@ -63,11 +63,21 @@ export default {
         };
         await usersRef.child(user.uid).set(userProfile);
         // * Persistent storage using cookie (or localstorage or firebase.auth().onAuthStateChanged())
-        Cookie.set("uid", user.uid);
-        Cookie.set(
-          "expirationDate",
-          new Date().getTime() + 2 * 3600 * 1000 // 2h expired time
-        );
+        if (process.env.target === "firebase") {
+          const token = await user.getIdToken(true);
+          const userCookie = {
+            token: token,
+            uid: user.uid,
+            expirationDate: new Date().getTime() + 2 * 3600 * 1000 // 2h expired time
+          };
+          Cookie.set("__session", JSON.stringify(userCookie));
+        } else {
+          Cookie.set("uid", user.uid);
+          Cookie.set(
+            "expirationDate",
+            new Date().getTime() + 2 * 3600 * 1000 // 2h expired time
+          );
+        }
         const newUser = {
           id: user.uid,
           ...userProfile
@@ -117,13 +127,22 @@ export default {
           });
           userProfile.isActive = true;
         }
-
         // * persistent storage using cookie (or localstorage or firebase.auth().onAuthStateChanged())
-        Cookie.set("uid", user.uid);
-        Cookie.set(
-          "expirationDate",
-          new Date().getTime() + 2 * 3600 * 1000 // 2h expired time
-        );
+        if (process.env.target === "firebase") {
+          const token = await user.getIdToken(true);
+          const userCookie = {
+            token: token,
+            uid: user.uid,
+            expirationDate: new Date().getTime() + 2 * 3600 * 1000 // 2h expired time
+          };
+          Cookie.set("__session", JSON.stringify(userCookie));
+        } else {
+          Cookie.set("uid", user.uid);
+          Cookie.set(
+            "expirationDate",
+            new Date().getTime() + 2 * 3600 * 1000 // 2h expired time
+          );
+        }
         vuexContext.commit("setUser", userProfile);
 
         vuexContext.commit("setAuthLoading", false);
@@ -136,17 +155,39 @@ export default {
     },
 
     async initAuth(vuexContext) {
-      let uid = Cookie.get("uid");
-      let expirationDate = Cookie.get("expirationDate");
-      if (uid) {
-        if (new Date().getTime() > +expirationDate) {
+      if (process.env.target === "firebase") {
+        const user = firebase.auth().currentUser;
+        if (!user) {
           await vuexContext.dispatch("logOut");
-        } else {
-          // re-new expirationDate
-          Cookie.set(
-            "expirationDate",
-            new Date().getTime() + 2 * 3600 * 1000 // 2h expired time
-          );
+        }
+        let userCookie = JSON.parse(Cookie.get("__session"));
+        const uid = userCookie.uid;
+        const expirationDate = userCookie.expirationDate;
+        if (uid) {
+          if (new Date().getTime() > +expirationDate) {
+            await vuexContext.dispatch("logOut");
+          } else {
+            // re-new expirationDate
+            userCookie = {
+              ...userCookie,
+              expirationDate: new Date().getTime() + 2 * 3600 * 1000 // 2h expired time
+            };
+            Cookie.set("__session", JSON.stringify(userCookie));
+          }
+        }
+      } else {
+        let uid = Cookie.get("uid");
+        let expirationDate = Cookie.get("expirationDate");
+        if (uid) {
+          if (new Date().getTime() > +expirationDate) {
+            await vuexContext.dispatch("logOut");
+          } else {
+            // re-new expirationDate
+            Cookie.set(
+              "expirationDate",
+              new Date().getTime() + 2 * 3600 * 1000 // 2h expired time
+            );
+          }
         }
       }
     },
@@ -155,8 +196,12 @@ export default {
       vuexContext.commit("setAuthLoading", true);
       try {
         await firebase.auth().signOut();
-        Cookie.remove("uid");
-        Cookie.remove("expirationDate");
+        if (process.env.target === "firebase") {
+          Cookie.remove("__session");
+        } else {
+          Cookie.remove("uid");
+          Cookie.remove("expirationDate");
+        }
         vuexContext.commit("setUser", null);
         vuexContext.commit("setAuthLoading", false);
         if (process.client) {
@@ -457,8 +502,12 @@ export default {
         if (userAvatar) {
           await imageUsersRef.child(userAvatar.metadata.name).delete();
         }
-        Cookie.remove("uid");
-        Cookie.remove("expirationDate");
+        if (process.env.target === "firebase") {
+          Cookie.remove("__session");
+        } else {
+          Cookie.remove("uid");
+          Cookie.remove("expirationDate");
+        }
         vuexContext.commit("setUser", null);
         vuexContext.commit("setAuthLoading", false);
         localStorage.setItem("reloading", "");

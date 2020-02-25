@@ -115,7 +115,8 @@ module.exports = {
    */
   env: {
     baseUrl: process.env.BASE_URL || `http://localhost:${process.env.PORT}`,
-    production: process.env.NODE_ENV
+    production: process.env.NODE_ENV,
+    target: process.env.TARGET
   },
 
   /*

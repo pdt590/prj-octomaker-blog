@@ -5,9 +5,9 @@
   "author": "pdthang",
   "private": true,
   "scripts": {
-    "dev": "cross-env PORT=3000 nuxt",
-    "build": "cross-env NODE_ENV=production BASE_URL=https://blog.octomaker.com nuxt build",
-    "start": "cross-env NODE_ENV=production PORT=3000 nuxt start",
+    "dev": "cross-env TARGET=firebase PORT=3000 nuxt",
+    "build": "cross-env NODE_ENV=production TARGET=firebase BASE_URL=https://blog.octomaker.com nuxt build",
+    "start": "cross-env NODE_ENV=production TARGET=firebase PORT=3000 nuxt start",
     "generate": "nuxt generate"
   },
   "engines": {
@@ -23,8 +23,10 @@
     "@nuxtjs/component-cache": "^1.1.5",
     "buefy": "^0.8.10",
     "compressorjs": "^1.0.6",
+    "cookieparser": "^0.1.0",
     "cross-env": "^7.0.0",
     "firebase": "^7.7.0",
+    "firebase-admin": "^8.9.2",
     "github-markdown-css": "^3.0.1",
     "js-cookie": "^2.2.1",
     "nuxt": "^2.11.0",
