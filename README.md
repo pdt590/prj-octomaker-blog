@@ -471,7 +471,13 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
     ```bash
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
     ```
+
+  - Deploy project
   
+    ```bash
+    docker-compose up -d
+    ```
+
   > `APP_PORT` and `APP_PORT_SSL` in `.env` file have to set to `80` and `443` because the container of Certbot will be using ports `80` and `443`.
 
 ### Summary - Setup for the future project
@@ -542,11 +548,47 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Change `./nginx/default.conf` with your new domains
 - Change `init-letsencrypt.sh` with your `domain(s)` and `email` address
 
-- Request certificates, build and run containers
+- Request certificates, build and run `nuxt` and `nginx` containers
 
   ```bash
   chmod +x init-letsencrypt.sh
   sudo ./init-letsencrypt.sh
+  ```
+
+- Deploy project
+  
+  ```bash
+  docker-compose up -d
+  ```
+
+- If you want to update new source code
+
+  ```bash
+  # Stop running containers
+  docker-compose stop
+
+  # Remove nuxt container
+  docker rm nuxt
+
+  # Remove nuxt image
+  docker rm src_nuxt:latest
+
+  # Copy new source code in app folder
+
+  # Deploy project again
+  docker-compose up -d
+  ```
+
+- If you want to update new nginx config `./nginx/default.conf`
+  
+  ```bash
+  # Stop running containers
+  docker-compose stop
+
+  # Change nginx config
+
+  # Deploy project again
+  docker-compose up -d
   ```
 
 - [Other commands](https://gist.github.com/jonlabelle/bd667a97666ecda7bbc4f1cc9446d43a)
@@ -588,17 +630,23 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   # Stop container
   docker stop ${CONTAINER_ID OR NAME}
 
+  # Restart container
+  docker restart ${CONTAINER_ID OR NAME}
+
   # Remove container
   docker rm ${CONTAINER_ID OR NAME}
-
-  # List the Docker images
-  docker images
 
   # Remove all stopped containers
   docker rm $(docker ps -a -q)
 
   # Remove all containers including its volumes use
   docker rm -vf $(docker ps -a -q)
+
+  # List the Docker images
+  docker images
+
+  # Remove image
+  docker rmi ${IMAGE_ID OR NAME}
 
   # Remove all images
   # Remember, you should remove all the containers before removing all the images from which those containers were created.
