@@ -424,7 +424,6 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   - Link certificates to nginx by adding into `Port 433` section of `nginx/default.conf`
 
     ```bash
-    ssl on;
     ssl_certificate /etc/letsencrypt/live/blog.octomaker.com/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/blog.octomaker.com/privkey.pem;
     include /etc/letsencrypt/options-ssl-nginx.conf;
@@ -443,7 +442,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
     }
     ```
 
-  - Request the certificates
+  - [Request the certificates](https://raw.githubusercontent.com/wmnnd/nginx-certbot/master/init-letsencrypt.sh ) (Note: [Updated version](https://github.com/koddr/example-static-website-docker-nginx-certbot/blob/master/webserver/register_ssl.sh))
 
     ```bash
     curl -L https://raw.githubusercontent.com/wmnnd/nginx-certbot/master/init-letsencrypt.sh > init-letsencrypt.sh
@@ -762,3 +761,5 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
     chmod +x init-letsencrypt.sh
     sudo ./init-letsencrypt.sh
     ```
+
+- Updated version of `init-letsencrypt.sh`: [register_ssl.sh](https://github.com/koddr/example-static-website-docker-nginx-certbot/blob/master/webserver/register_ssl.sh)
