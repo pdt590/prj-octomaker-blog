@@ -269,11 +269,10 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   ```
 
 - `cd src` > `npm install/yarn install` > `npm run build/yarn build`
-  - In case of weak VPS, `build process` is impossible. You can build the project at your computer
-  and copy `.nuxt` and `static` folder to `src`.
-  - Another way, build the project at your computer > remove `.nuxt` and `dist` in `.gitignore` > `git push` all source including `.nuxt` folder to     git server > at the vps, `git pull` new source including `.nuxt` to run nuxt app (recommend)
+  - In case of small VPS, `install process` and `build process` maybe impossible. You only pray that `install process` will be good on VPS :(. In the case of `build process`, you can build the project at your computer and copy `.nuxt` `static` folders to VPS
+  - Another way for `build process`, build the project at your computer > remove `.nuxt` and `dist` in `.gitignore` > `git push` all source including `.nuxt` folder to git server > at the vps, `git pull` new source including `.nuxt` to run nuxt app (recommend)
 - Start project 
-  - `pm2 start npm --name octomaker.blog -- start` or 
+  - `pm2 start npm --name octomaker.blog -- start` or
   - `npm run start/yarn start` (not recommend)
 
 ### Summary - Setup for the future project
@@ -302,7 +301,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   cd src
   ```
 
-- Install packages
+- Install packages on VPS. Try `npm install` if `yarn install` has error
   
   ```bash
   npm install/yarn install
