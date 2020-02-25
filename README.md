@@ -590,14 +590,17 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   docker-compose up -d
   ```
 
-- [Other commands](https://gist.github.com/jonlabelle/bd667a97666ecda7bbc4f1cc9446d43a)
+- [Other commands](https://docs.docker.com/compose/reference/overview/)
 
   ```bash
   # Builds, (re)creates, starts, and attaches to containers for a service.
   docker-compose up
 
-  # Stops containers and removes containers, networks, volumes, and images created by up.
+  # Stops containers and removes containers, networks created by up.
   docker-compose down
+
+  # Stops containers and removes containers, networks, volumes, and images created by up.
+  docker-compose down --rmi all -v --remove-orphans
 
   # Starts existing containers for a service.
   docker-compose start
