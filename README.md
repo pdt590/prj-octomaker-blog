@@ -310,7 +310,6 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 - Build project. Don't need to execute this command if there is a prebuild `.nuxt` in `./src/app` folder.
 
   ```bash
-  
   npm run build/yarn build
   ```
 
