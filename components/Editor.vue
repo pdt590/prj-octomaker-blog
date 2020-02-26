@@ -249,7 +249,7 @@ export default {
       this.isModalLinkActive = false;
     },
     drawEmbed(link) {
-      this.codemirror.replaceSelection(`{@embed ${link}}`);
+      this.codemirror.replaceSelection(`{ @embed ${link} }`);
       this.isModalEmbedActive = false;
       setTimeout(
         function() {

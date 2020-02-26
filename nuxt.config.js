@@ -153,6 +153,17 @@ module.exports = {
   serverMiddleware: [logger({ format: "%date %status %method %url (%time)" })],
 
   /*
+   ** Define the source directory of your Nuxt.js application
+   */
+  //srcDir: 'src',
+
+  /*
+   ** Define the dist directory for your Nuxt.js application after build
+   ** Default: .nuxt
+   */
+  //buildDir: 'functions/.nuxt',
+
+  /*
    ** Build configuration
    */
   build: {
