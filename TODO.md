@@ -105,12 +105,11 @@
 - Fix video playback issue
 - Recheck change email/password process
 - Authen
-  - Use onAuthStateChanged to check login user
-    - [Manage Users in Firebase](https://firebase.google.com/docs/auth/web/manage-users) - don't need
-    - `firebase/analytics` is not compatible with server side because nuxtServerInit()/AsyncData()/Fetch() calls firebase from
+  - Use onAuthStateChanged to check login user - don't need
+    - [Manage Users in Firebase](https://firebase.google.com/docs/auth/web/manage-users)
+  - `firebase/analytics is not compatible with server side because nuxtServerInit()/AsyncData()/Fetch() calls firebase from server side`
   - `Recheck logic in user/action page and auth store functions`
   - `Remove authMessage()`
-  server side - TODO
 - Add Nuxt PWA - Refer nuxtjs.org and vuejsdeveloper.com
 - Use Nuxt with Expressjs
 - Use Nuxt with Keystonejs
