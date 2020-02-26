@@ -1,4 +1,4 @@
-import firebase from "~/libs/firebase";
+import firebase from "~/plugins/firebase/fb";
 import Cookie from "js-cookie";
 import { compressImage } from "~/libs/helpers";
 const database = firebase.database();
@@ -62,22 +62,15 @@ export default {
           updatedDate: new Date().toISOString()
         };
         await usersRef.child(user.uid).set(userProfile);
-        // * Persistent storage using cookie (or localstorage or firebase.auth().onAuthStateChanged())
-        if (process.env.target === "firebase") {
-          const token = await user.getIdToken(true);
-          const userCookie = {
-            token: token,
-            uid: user.uid,
-            expirationDate: new Date().getTime() + 2 * 3600 * 1000 // 2h expired time
-          };
-          Cookie.set("__session", JSON.stringify(userCookie));
-        } else {
-          Cookie.set("uid", user.uid);
-          Cookie.set(
-            "expirationDate",
-            new Date().getTime() + 2 * 3600 * 1000 // 2h expired time
-          );
-        }
+        /* Start cookie */
+        const token = await user.getIdToken(true);
+        const userCookie = {
+          token: token,
+          uid: user.uid,
+          expirationDate: new Date().getTime() + 2 * 3600 * 1000 // 2h expired time
+        };
+        Cookie.set("__session", JSON.stringify(userCookie));
+        /* End cookie */
         const newUser = {
           id: user.uid,
           ...userProfile
@@ -127,24 +120,16 @@ export default {
           });
           userProfile.isActive = true;
         }
-        // * persistent storage using cookie (or localstorage or firebase.auth().onAuthStateChanged())
-        if (process.env.target === "firebase") {
-          const token = await user.getIdToken(true);
-          const userCookie = {
-            token: token,
-            uid: user.uid,
-            expirationDate: new Date().getTime() + 2 * 3600 * 1000 // 2h expired time
-          };
-          Cookie.set("__session", JSON.stringify(userCookie));
-        } else {
-          Cookie.set("uid", user.uid);
-          Cookie.set(
-            "expirationDate",
-            new Date().getTime() + 2 * 3600 * 1000 // 2h expired time
-          );
-        }
+        /* Start cookie */
+        const token = await user.getIdToken(true);
+        const userCookie = {
+          token: token,
+          uid: user.uid,
+          expirationDate: new Date().getTime() + 2 * 3600 * 1000 // 2h expired time
+        };
+        Cookie.set("__session", JSON.stringify(userCookie));
+        /* End cookie */
         vuexContext.commit("setUser", userProfile);
-
         vuexContext.commit("setAuthLoading", false);
         localStorage.setItem("reloading", "");
         localStorage.removeItem("reloading");
@@ -155,39 +140,27 @@ export default {
     },
 
     async initAuth(vuexContext) {
-      if (process.env.target === "firebase") {
-        const user = firebase.auth().currentUser;
-        if (!user) {
+      const user = firebase.auth().currentUser;
+      if (!user) {
+        await firebase.auth().signOut();
+        Cookie.remove("__session");
+        vuexContext.commit("setUser", null);
+        return;
+      }
+      let userCookie = JSON.parse(Cookie.get("__session"));
+      const uid = userCookie.uid;
+      const expirationDate = userCookie.expirationDate;
+      if (uid) {
+        if (new Date().getTime() > +expirationDate) {
           await vuexContext.dispatch("logOut");
-        }
-        let userCookie = JSON.parse(Cookie.get("__session"));
-        const uid = userCookie.uid;
-        const expirationDate = userCookie.expirationDate;
-        if (uid) {
-          if (new Date().getTime() > +expirationDate) {
-            await vuexContext.dispatch("logOut");
-          } else {
-            // re-new expirationDate
-            userCookie = {
-              ...userCookie,
-              expirationDate: new Date().getTime() + 2 * 3600 * 1000 // 2h expired time
-            };
-            Cookie.set("__session", JSON.stringify(userCookie));
-          }
-        }
-      } else {
-        let uid = Cookie.get("uid");
-        let expirationDate = Cookie.get("expirationDate");
-        if (uid) {
-          if (new Date().getTime() > +expirationDate) {
-            await vuexContext.dispatch("logOut");
-          } else {
-            // re-new expirationDate
-            Cookie.set(
-              "expirationDate",
-              new Date().getTime() + 2 * 3600 * 1000 // 2h expired time
-            );
-          }
+          return;
+        } else {
+          // re-new expirationDate
+          userCookie = {
+            ...userCookie,
+            expirationDate: new Date().getTime() + 2 * 3600 * 1000 // 2h expired time
+          };
+          Cookie.set("__session", JSON.stringify(userCookie));
         }
       }
     },
@@ -195,16 +168,11 @@ export default {
     async logOut(vuexContext) {
       vuexContext.commit("setAuthLoading", true);
       try {
-        await firebase.auth().signOut();
-        if (process.env.target === "firebase") {
-          Cookie.remove("__session");
-        } else {
-          Cookie.remove("uid");
-          Cookie.remove("expirationDate");
-        }
         vuexContext.commit("setUser", null);
         vuexContext.commit("setAuthLoading", false);
         if (process.client) {
+          await firebase.auth().signOut();
+          Cookie.remove("__session");
           localStorage.setItem("reloading", "");
           localStorage.removeItem("reloading");
           location.reload(true);
@@ -219,7 +187,6 @@ export default {
       try {
         const loadedUser = vuexContext.getters.user;
         const userId = loadedUser.id;
-
         await usersRef.child(userId).update(newUserContent);
 
         const user = firebase.auth().currentUser;
@@ -229,6 +196,7 @@ export default {
           });
         } else {
           await vuexContext.dispatch("logOut");
+          return;
         }
         if (newUserContent.username !== loadedUser.username) {
           await vuexContext.dispatch("updatePostsByUser", {
@@ -264,6 +232,7 @@ export default {
           await user.reauthenticateWithCredential(credential);
         } else {
           await vuexContext.dispatch("logOut");
+          return;
         }
         user = firebase.auth().currentUser; // RetrieveData
         await user.updateEmail(newEmail);
@@ -301,6 +270,7 @@ export default {
           await user.reauthenticateWithCredential(credential);
         } else {
           await vuexContext.dispatch("logOut");
+          return;
         }
         user = firebase.auth().currentUser; // RetrieveData
         await user.updatePassword(newPassword);
@@ -369,6 +339,7 @@ export default {
           });
         } else {
           await vuexContext.dispatch("logOut");
+          return;
         }
         await usersRef.child(userId).update({
           avatar: avatarObject
@@ -389,6 +360,9 @@ export default {
       }
     },
 
+    /* 
+    ** Begin auth actions 
+    */
     async resetUserPassword(vuexContext, comfirmedEmail) {
       vuexContext.commit("setAuthLoading", true);
       vuexContext.commit("clearAuthError");
@@ -457,7 +431,10 @@ export default {
       vuexContext.commit("setAuthLoading", true);
       vuexContext.commit("clearAuthError");
       try {
-        vuexContext.getters.user ? await vuexContext.dispatch("logOut") : ``;
+        if (vuexContext.getters.user) {
+          await vuexContext.dispatch("logOut");
+          return;
+        }
 
         const auth = firebase.auth();
         // Confirm the action code is valid
@@ -477,6 +454,9 @@ export default {
         return false;
       }
     },
+    /* 
+    ** End auth actions 
+    */
 
     async deleteUser(vuexContext, confirmPassword) {
       vuexContext.commit("setAuthLoading", true);
@@ -496,18 +476,14 @@ export default {
           await user.reauthenticateWithCredential(credential);
         } else {
           await vuexContext.dispatch("logOut");
+          return;
         }
         user = firebase.auth().currentUser;
         await user.delete();
         if (userAvatar) {
           await imageUsersRef.child(userAvatar.metadata.name).delete();
         }
-        if (process.env.target === "firebase") {
-          Cookie.remove("__session");
-        } else {
-          Cookie.remove("uid");
-          Cookie.remove("expirationDate");
-        }
+        Cookie.remove("__session");
         vuexContext.commit("setUser", null);
         vuexContext.commit("setAuthLoading", false);
         localStorage.setItem("reloading", "");
@@ -530,6 +506,7 @@ export default {
           await user.reauthenticateWithCredential(credential);
         } else {
           await vuexContext.dispatch("logOut");
+          return;
         }
       } catch (e) {
         console.error("[ERROR-isCorrectPassword]", e);

@@ -57,6 +57,8 @@ module.exports = {
     { src: "~plugins/ga.js", mode: "client" },
     { src: "~plugins/reloading.js", mode: "client" },
 
+    { src: "~plugins/firebase/fb.js", mode: "client"},
+    { src: "~plugins/firebase/fb-admin.js", mode: "server"},
     { src: "~plugins/buefy.js" },
     { src: "~plugins/vuelidate.js" },
     { src: "~plugins/fontawesome.js" },
