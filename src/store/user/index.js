@@ -1,6 +1,6 @@
-import firebase from "~/libs/firebase";
+import firebase from "~/plugins/firebase/fb-tools";
+import { compressImage, reloadAll } from "~/libs/helpers";
 import Cookie from "js-cookie";
-import { compressImage } from "~/libs/helpers";
 const database = firebase.database();
 const storage = firebase.storage();
 const usersRef = database.ref("users");
@@ -9,28 +9,17 @@ const imageUsersRef = storage.ref("users");
 export default {
   state: () => ({
     authLoading: false,
-    authError: null,
     user: null
   }),
   mutations: {
     setAuthLoading(state, payload) {
       state.authLoading = payload;
     },
-    setAuthError(state, payload) {
-      state.authError = payload;
-    },
-    clearAuthError(state) {
-      state.authError = null;
-    },
     setUser(state, payload) {
       state.user = payload;
     }
   },
   actions: {
-    clearAuthError(vuexContext) {
-      vuexContext.commit("clearAuthError");
-    },
-
     async loadUser(vuexContext, userId) {
       vuexContext.commit("setAuthLoading", true);
       try {
@@ -44,128 +33,36 @@ export default {
       }
     },
 
-    async signUserUp(vuexContext, payload) {
+    async deleteUser(vuexContext, confirmPassword) {
       vuexContext.commit("setAuthLoading", true);
-      vuexContext.commit("clearAuthError");
       try {
-        const { user } = await firebase
-          .auth()
-          .createUserWithEmailAndPassword(payload.email, payload.password);
-        await user.updateProfile({
-          displayName: payload.username
-        });
-        await user.sendEmailVerification();
-        const userProfile = {
-          username: payload.username,
-          email: payload.email,
-          isActive: false,
-          updatedDate: new Date().toISOString()
-        };
-        await usersRef.child(user.uid).set(userProfile);
-        // * Persistent storage using cookie (or localstorage or firebase.auth().onAuthStateChanged())
-        Cookie.set("uid", user.uid);
-        Cookie.set(
-          "expirationDate",
-          new Date().getTime() + 2 * 3600 * 1000 // 2h expired time
-        );
-        const newUser = {
-          id: user.uid,
-          ...userProfile
-        };
-        vuexContext.commit("setUser", newUser);
-        vuexContext.commit("setAuthLoading", false);
-        localStorage.setItem("reloading", "");
-        localStorage.removeItem("reloading");
-      } catch (e) {
-        vuexContext.commit("setAuthError", e);
-        console.error("[ERROR-signUserUp]", e);
-      }
-    },
-
-    async signUserIn(vuexContext, payload) {
-      vuexContext.commit("setAuthLoading", true);
-      vuexContext.commit("clearAuthError");
-      try {
-        const { user } = await firebase
-          .auth()
-          .signInWithEmailAndPassword(payload.email, payload.password);
-        const userData = await usersRef.child(user.uid).once("value");
-        const userObj = userData.val();
-        let userProfile = {};
-        // Check in case of restoring email
-        if (payload.email !== userObj.email) {
-          await usersRef.child(user.uid).update({
-            email: payload.email,
-            isActive: true
-          });
-          userProfile = {
-            ...userObj,
-            id: user.uid,
-            email: payload.email,
-            isActive: true
-          };
-        } else {
-          userProfile = {
-            ...userObj,
-            id: user.uid
-          };
-        }
-        // Check in case of verifying email
-        if (!userObj.isActive && user.emailVerified) {
-          await usersRef.child(user.uid).update({
-            isActive: true
-          });
-          userProfile.isActive = true;
-        }
-
-        // * persistent storage using cookie (or localstorage or firebase.auth().onAuthStateChanged())
-        Cookie.set("uid", user.uid);
-        Cookie.set(
-          "expirationDate",
-          new Date().getTime() + 2 * 3600 * 1000 // 2h expired time
-        );
-        vuexContext.commit("setUser", userProfile);
-
-        vuexContext.commit("setAuthLoading", false);
-        localStorage.setItem("reloading", "");
-        localStorage.removeItem("reloading");
-      } catch (e) {
-        vuexContext.commit("setAuthError", e);
-        console.error("[ERROR-signUserIn]", e);
-      }
-    },
-
-    async initAuth(vuexContext) {
-      let uid = Cookie.get("uid");
-      let expirationDate = Cookie.get("expirationDate");
-      if (uid) {
-        if (new Date().getTime() > +expirationDate) {
-          await vuexContext.dispatch("logOut");
-        } else {
-          // re-new expirationDate
-          Cookie.set(
-            "expirationDate",
-            new Date().getTime() + 2 * 3600 * 1000 // 2h expired time
+        const loadedUser = vuexContext.getters.user;
+        const userId = loadedUser.id;
+        const userAvatar = loadedUser.avatar;
+        await vuexContext.dispatch("deletePostsByUser", userId);
+        await usersRef.child(userId).remove();
+        let user = firebase.auth().currentUser;
+        if (user) {
+          const credential = await firebase.auth.EmailAuthProvider.credential(
+            user.email,
+            confirmPassword
           );
+          await user.reauthenticateWithCredential(credential);
+        } else {
+          await vuexContext.dispatch("logOut");
+          return;
         }
-      }
-    },
-
-    async logOut(vuexContext) {
-      vuexContext.commit("setAuthLoading", true);
-      try {
-        await firebase.auth().signOut();
-        Cookie.remove("uid");
-        Cookie.remove("expirationDate");
+        user = firebase.auth().currentUser;
+        await user.delete();
+        if (userAvatar) {
+          await imageUsersRef.child(userAvatar.metadata.name).delete();
+        }
+        Cookie.remove("__session");
         vuexContext.commit("setUser", null);
         vuexContext.commit("setAuthLoading", false);
-        if (process.client) {
-          localStorage.setItem("reloading", "");
-          localStorage.removeItem("reloading");
-          location.reload(true);
-        }
+        reloadAll();
       } catch (e) {
-        console.error("[ERROR-logOut]", e);
+        console.error("[ERROR-deleteUser]", e);
       }
     },
 
@@ -174,7 +71,6 @@ export default {
       try {
         const loadedUser = vuexContext.getters.user;
         const userId = loadedUser.id;
-
         await usersRef.child(userId).update(newUserContent);
 
         const user = firebase.auth().currentUser;
@@ -184,6 +80,7 @@ export default {
           });
         } else {
           await vuexContext.dispatch("logOut");
+          return;
         }
         if (newUserContent.username !== loadedUser.username) {
           await vuexContext.dispatch("updatePostsByUser", {
@@ -195,8 +92,7 @@ export default {
           ...newUserContent
         });
         vuexContext.commit("setAuthLoading", false);
-        localStorage.setItem("reloading", "");
-        localStorage.removeItem("reloading");
+        reloadAll();
       } catch (e) {
         console.error("[ERROR-updateUserContent]", e);
       }
@@ -204,7 +100,6 @@ export default {
 
     async updateUserEmail(vuexContext, payload) {
       vuexContext.commit("setAuthLoading", true);
-      vuexContext.commit("clearAuthError");
       try {
         const loadedUser = vuexContext.getters.user;
         const userId = loadedUser.id;
@@ -219,6 +114,7 @@ export default {
           await user.reauthenticateWithCredential(credential);
         } else {
           await vuexContext.dispatch("logOut");
+          return;
         }
         user = firebase.auth().currentUser; // RetrieveData
         await user.updateEmail(newEmail);
@@ -233,17 +129,14 @@ export default {
           email: newEmail
         });
         vuexContext.commit("setAuthLoading", false);
-        localStorage.setItem("reloading", "");
-        localStorage.removeItem("reloading");
+        reloadAll();
       } catch (e) {
-        vuexContext.commit("setAuthError", e);
         console.error("[ERROR-updateUserEmail]", e);
       }
     },
 
     async updateUserPassword(vuexContext, payload) {
       vuexContext.commit("setAuthLoading", true);
-      vuexContext.commit("clearAuthError");
       try {
         const confirmPassword = payload.confirmPassword;
         const newPassword = payload.newPassword;
@@ -256,14 +149,13 @@ export default {
           await user.reauthenticateWithCredential(credential);
         } else {
           await vuexContext.dispatch("logOut");
+          return;
         }
         user = firebase.auth().currentUser; // RetrieveData
         await user.updatePassword(newPassword);
         vuexContext.commit("setAuthLoading", false);
-        localStorage.setItem("reloading", "");
-        localStorage.removeItem("reloading");
+        reloadAll();
       } catch (e) {
-        vuexContext.commit("setAuthError", e);
         console.error("[ERROR-updateUserPassword]", e);
       }
     },
@@ -290,8 +182,6 @@ export default {
           };
           vuexContext.commit("setUser", updatedUser);
           vuexContext.commit("setAuthLoading", false);
-          localStorage.setItem("reloading", "");
-          localStorage.removeItem("reloading");
           return;
         }
         let avatarObject = null;
@@ -324,6 +214,7 @@ export default {
           });
         } else {
           await vuexContext.dispatch("logOut");
+          return;
         }
         await usersRef.child(userId).update({
           avatar: avatarObject
@@ -337,135 +228,9 @@ export default {
         };
         vuexContext.commit("setUser", updatedUser);
         vuexContext.commit("setAuthLoading", false);
-        localStorage.setItem("reloading", "");
-        localStorage.removeItem("reloading");
+        reloadAll();
       } catch (e) {
         console.error("[ERROR-updateAvatar]", e);
-      }
-    },
-
-    async resetUserPassword(vuexContext, comfirmedEmail) {
-      vuexContext.commit("setAuthLoading", true);
-      vuexContext.commit("clearAuthError");
-      try {
-        const auth = firebase.auth();
-        await auth.sendPasswordResetEmail(comfirmedEmail);
-        vuexContext.commit("setAuthLoading", false);
-        localStorage.setItem("reloading", "");
-        localStorage.removeItem("reloading");
-      } catch (e) {
-        vuexContext.commit("setAuthError", e);
-        console.error("[ERROR-resetUserPassword]", e);
-      }
-    },
-
-    async handleResetPassword(vuexContext, payload) {
-      vuexContext.commit("setAuthLoading", true);
-      vuexContext.commit("clearAuthError");
-      try {
-        const auth = firebase.auth();
-        await auth.confirmPasswordReset(
-          payload.actionCode,
-          payload.newPassword
-        );
-        // user.reload()
-        vuexContext.commit("setAuthLoading", false);
-        localStorage.setItem("reloading", "");
-        localStorage.removeItem("reloading");
-      } catch (e) {
-        vuexContext.commit("setAuthError", e);
-        console.error("[ERROR-handleResetPassword]", e);
-      }
-    },
-
-    async handleVerifyEmail(vuexContext, actionCode) {
-      vuexContext.commit("setAuthLoading", true);
-      vuexContext.commit("clearAuthError");
-      try {
-        const auth = firebase.auth();
-        await auth.applyActionCode(actionCode);
-        // user.reload()
-        const loadedUser = vuexContext.getters.user;
-        if (loadedUser) {
-          const userId = loadedUser.id;
-          await usersRef.child(userId).update({
-            isActive: true
-          });
-          vuexContext.commit("setUser", {
-            ...loadedUser,
-            isActive: true
-          });
-        }
-        vuexContext.commit("setAuthLoading", false);
-        localStorage.setItem("reloading", "");
-        localStorage.removeItem("reloading");
-        return true;
-      } catch (e) {
-        vuexContext.commit("setAuthError", e);
-        console.error("[ERROR-handleVerifyEmail]", e);
-        vuexContext.commit("setAuthLoading", false);
-        return false;
-      }
-    },
-
-    async handleRecoverEmail(vuexContext, actionCode) {
-      vuexContext.commit("setAuthLoading", true);
-      vuexContext.commit("clearAuthError");
-      try {
-        vuexContext.getters.user ? await vuexContext.dispatch("logOut") : ``;
-
-        const auth = firebase.auth();
-        // Confirm the action code is valid
-        const info = await auth.checkActionCode(actionCode);
-        // Get the restored email address.
-        const restoredEmail = info["data"]["email"];
-        // Revert to the old email
-        await auth.applyActionCode(actionCode);
-        // Reset password
-        await auth.sendPasswordResetEmail(restoredEmail);
-        vuexContext.commit("setAuthLoading", false);
-        return true;
-      } catch (e) {
-        vuexContext.commit("setAuthError", e);
-        console.error("[ERROR-handleRecoverEmail]", e);
-        vuexContext.commit("setAuthLoading", false);
-        return false;
-      }
-    },
-
-    async deleteUser(vuexContext, confirmPassword) {
-      vuexContext.commit("setAuthLoading", true);
-      vuexContext.commit("clearAuthError");
-      try {
-        const loadedUser = vuexContext.getters.user;
-        const userId = loadedUser.id;
-        const userAvatar = loadedUser.avatar;
-        await vuexContext.dispatch("deletePostsByUser", userId);
-        await usersRef.child(userId).remove();
-        let user = firebase.auth().currentUser;
-        if (user) {
-          const credential = await firebase.auth.EmailAuthProvider.credential(
-            user.email,
-            confirmPassword
-          );
-          await user.reauthenticateWithCredential(credential);
-        } else {
-          await vuexContext.dispatch("logOut");
-        }
-        user = firebase.auth().currentUser;
-        await user.delete();
-        if (userAvatar) {
-          await imageUsersRef.child(userAvatar.metadata.name).delete();
-        }
-        Cookie.remove("uid");
-        Cookie.remove("expirationDate");
-        vuexContext.commit("setUser", null);
-        vuexContext.commit("setAuthLoading", false);
-        localStorage.setItem("reloading", "");
-        localStorage.removeItem("reloading");
-      } catch (e) {
-        vuexContext.commit("setAuthError", e);
-        console.error("[ERROR-deleteUser]", e);
       }
     },
 
@@ -481,6 +246,7 @@ export default {
           await user.reauthenticateWithCredential(credential);
         } else {
           await vuexContext.dispatch("logOut");
+          return;
         }
       } catch (e) {
         console.error("[ERROR-isCorrectPassword]", e);
@@ -499,14 +265,218 @@ export default {
         console.error("[ERROR-isUnique]", e);
         return false;
       }
+    },
+
+    /*
+     ** Begin auth actions
+     */
+    async signUserUp(vuexContext, payload) {
+      vuexContext.commit("setAuthLoading", true);
+      try {
+        const { user } = await firebase
+          .auth()
+          .createUserWithEmailAndPassword(payload.email, payload.password);
+        await user.updateProfile({
+          displayName: payload.username
+        });
+        await user.sendEmailVerification();
+        const userProfile = {
+          username: payload.username,
+          email: payload.email,
+          isActive: false,
+          updatedDate: new Date().toISOString()
+        };
+        await usersRef.child(user.uid).set(userProfile);
+        vuexContext.commit("setAuthLoading", false);
+      } catch (e) {
+        console.error("[ERROR-signUserUp]", e);
+      }
+    },
+
+    async logUserIn(vuexContext, payload) {
+      vuexContext.commit("setAuthLoading", true);
+      try {
+        // Try to login with provided email and password to firebase
+        // If wrong, the process will be thrown to catch()
+        const { user } = await firebase
+          .auth()
+          .signInWithEmailAndPassword(payload.email, payload.password);
+
+        // Fetch user data from realtime database
+        let loadedUser = {};
+        const userData = await usersRef.child(user.uid).once("value");
+        const userObj = userData.val();
+        loadedUser = {
+          ...userObj,
+          id: user.uid
+        };
+
+        // Update user data if restoring email process is finished
+        if (payload.email !== userObj.email) {
+          await usersRef.child(user.uid).update({
+            email: payload.email,
+            isActive: true
+          });
+          loadedUser = {
+            ...loadedUser,
+            email: payload.email,
+            isActive: true
+          };
+        }
+
+        // Update user data if verifying email process is finnished
+        if (!userObj.isActive && user.emailVerified) {
+          await usersRef.child(user.uid).update({
+            isActive: true
+          });
+          loadedUser.isActive = true;
+        }
+
+        /* Start cookie */
+        const token = await user.getIdToken(true);
+        const userCookie = {
+          token: token,
+          uid: user.uid,
+          expirationDate: new Date().getTime() + 2 * 3600 * 1000 // 2h expired time
+        };
+        Cookie.set("__session", JSON.stringify(userCookie));
+        /* End cookie */
+
+        vuexContext.commit("setUser", loadedUser);
+        vuexContext.commit("setAuthLoading", false);
+        reloadAll();
+      } catch (e) {
+        console.error("[ERROR-logUserIn]", e);
+      }
+    },
+
+    async initAuth(vuexContext) {
+      const user = firebase.auth().currentUser;
+      if (!user) {
+        return;
+      }
+      const userCookieString = Cookie.get("__session");
+      if (!userCookieString) {
+        return;
+      }
+      let userCookie = JSON.parse(userCookieString);
+      const expirationDate = userCookie.expirationDate;
+      if (new Date().getTime() > +expirationDate) {
+        await vuexContext.dispatch("logOut");
+        return;
+      } else {
+        // re-new expirationDate
+        userCookie = {
+          ...userCookie,
+          expirationDate: new Date().getTime() + 2 * 3600 * 1000 // 2h expired time
+        };
+        Cookie.set("__session", JSON.stringify(userCookie));
+      }
+    },
+
+    async resetUserPassword(vuexContext, comfirmedEmail) {
+      vuexContext.commit("setAuthLoading", true);
+      try {
+        const auth = firebase.auth();
+        await auth.sendPasswordResetEmail(comfirmedEmail);
+        vuexContext.commit("setAuthLoading", false);
+      } catch (e) {
+        console.error("[ERROR-resetUserPassword]", e);
+      }
+    },
+
+    async handleResetPassword(vuexContext, payload) {
+      vuexContext.commit("setAuthLoading", true);
+      try {
+        const auth = firebase.auth();
+        await auth.confirmPasswordReset(
+          payload.actionCode,
+          payload.newPassword
+        );
+        // user.reload()
+        vuexContext.commit("setAuthLoading", false);
+      } catch (e) {
+        console.error("[ERROR-handleResetPassword]", e);
+      }
+    },
+
+    async handleVerifyEmail(vuexContext, actionCode) {
+      vuexContext.commit("setAuthLoading", true);
+      try {
+        const auth = firebase.auth();
+        await auth.applyActionCode(actionCode);
+        // user.reload()
+        const loadedUser = vuexContext.getters.user;
+        if (loadedUser) {
+          const userId = loadedUser.id;
+          await usersRef.child(userId).update({
+            isActive: true
+          });
+          vuexContext.commit("setUser", {
+            ...loadedUser,
+            isActive: true
+          });
+        }
+        vuexContext.commit("setAuthLoading", false);
+        return true;
+      } catch (e) {
+        console.error("[ERROR-handleVerifyEmail]", e);
+        vuexContext.commit("setAuthLoading", false);
+        return false;
+      }
+    },
+
+    async handleRecoverEmail(vuexContext, actionCode) {
+      vuexContext.commit("setAuthLoading", true);
+      try {
+        if (vuexContext.getters.user) {
+          await vuexContext.dispatch("logOut");
+          return;
+        }
+
+        const auth = firebase.auth();
+        // Confirm the action code is valid
+        const info = await auth.checkActionCode(actionCode);
+        // Get the restored email address.
+        const restoredEmail = info["data"]["email"];
+        // Revert to the old email
+        await auth.applyActionCode(actionCode);
+        // Reset password
+        await auth.sendPasswordResetEmail(restoredEmail);
+        
+        vuexContext.commit("setAuthLoading", false);
+        return true;
+      } catch (e) {
+        console.error("[ERROR-handleRecoverEmail]", e);
+        vuexContext.commit("setAuthLoading", false);
+        return false;
+      }
+    },
+
+    async logOut(vuexContext) {
+      vuexContext.commit("setAuthLoading", true);
+      try {
+        if (process.client) {
+          await firebase.auth().signOut();
+          Cookie.remove("__session");
+        }
+        vuexContext.commit("setUser", null);
+        vuexContext.commit("setAuthLoading", false);
+        if (process.client) {
+          reloadAll();
+          //location.reload(true);
+        }
+      } catch (e) {
+        console.error("[ERROR-logOut]", e);
+      }
     }
+    /*
+     ** End auth actions
+     */
   },
   getters: {
     user(state) {
       return state.user;
-    },
-    authError(state) {
-      return state.authError;
     },
     authLoading(state) {
       return state.authLoading;

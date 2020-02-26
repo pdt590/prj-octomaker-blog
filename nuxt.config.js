@@ -54,20 +54,20 @@ module.exports = {
     // Own plugins
     { src: "~plugins/components.js" },
     { src: "~plugins/filters.js" },
-    { src: "~plugins/fc.js", mode: "client" },
     { src: "~plugins/ga.js", mode: "client" },
-    { src: "~plugins/reloading.js", mode: "client" },
+    { src: "~plugins/reloadall.js", mode: "client" },
 
+    { src: "~plugins/firebase/fb-tools.js"}, // Firebase can be used on both client and server side - how? - TODO
+    { src: "~plugins/firebase/fb-admin.js", mode: "server"},
+    { src: "~plugins/firebase/fb-analytic.js", mode: "client"},
     { src: "~plugins/buefy.js" },
     { src: "~plugins/vuelidate.js" },
     { src: "~plugins/fontawesome.js" },
-    { src: "~plugins/toc.js" },
     { src: "~plugins/lazyload.js", mode: "client" },
     { src: "~plugins/prism.js", mode: "client" },
 
     { src: "~plugins/test.js", mode: "client" }
   ],
-
   /*
    ** Nuxt.js modules
    */

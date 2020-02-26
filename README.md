@@ -329,7 +329,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
   > To sum it up, on each reqest, the function will pass the response and request object to the `nuxt.render(req, res)` function which will handle the app rendering.
 
-  > Note: `dev: false`, and cookie issue of `nuxtServerInit` can be fixed at `nuxt.render(req, res)` function
+  > Note: `dev: false`
 
 - The function will need the same libraries as your nuxt app. Copy the `package.json` dependencies to the `functions/package.json` dependencies
 - At the time of writing this article, firebase supports `node version 10`. In `functions/package.json` you can update the node engine version from `8` to `10`.
@@ -380,8 +380,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
   ```bash
   "build": "nuxt build",
-
-  # automatic scripts
+  
   "build:firebase": "yarn clean && yarn build && yarn copy && cd \"functions\" && yarn",
 
   "clean": "yarn clean:public && yarn clean:functions && yarn clean:static",
@@ -398,20 +397,43 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   "deploy": "firebase deploy --only functions,hosting"
   ```
 
+- MacOs version. Still having issues? [James Block comment](https://dev.to/meanjames/comment/leln) might help you
+
+  ```bash
+  "scripts": {
+    // ...
+    "build:firebase": "yarn clean && yarn build && yarn copy && cd functions && yarn",
+
+    "clean": "yarn clean:public && yarn clean:functions && yarn clean:static",
+    "clean:functions": "rimraf \"functions/node_modules\" && rimraf \"functions/.nuxt\"",
+    "clean:public": "rimraf \"public/**/*.*!(md)\" && rimraf \"public/_nuxt\"",
+    "clean:static": "rimraf \"src/static/sw.js\"",
+
+    "copy": "yarn copy:nuxt && yarn copy:static",
+    "copy:nuxt": "mkdir public/_nuxt && cp -r functions/.nuxt/dist/* public/_nuxt",
+    "copy:static": "cp -r src/static/* public",
+
+    "start:firebase": "firebase serve --only functions,hosting",
+
+    "deploy": "firebase deploy --only functions,hosting",
+
+    // ...
+  }
+  ````
 
   > Why is it `public/_nuxt`?
 
   > Why is it `"clean:static": "rimraf \"src/static/sw.js\""`
 
 - You can now launch these commands 
-  - Deploy your application
+  - Deploy app to firebase
   
     ```bash
     yarn build:firebase
     yarn deploy
     ```
 
-  - Deploy locally
+  - Deploy app to emulator
 
     ```bash
     yarn build:firebase
@@ -420,7 +442,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
   - For development without firebase
   
-     ```bash
+    ```bash
     yarn dev
     ```
 
@@ -435,23 +457,55 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
 - In `.firebaserc`, change your `firebase project name` you created
 - Copy whole new `nuxt project` or only `folders` of new `nuxt project` to `src`
-- Change `nuxt.config.js`, `package.json` and `functions\package.json` of new `nuxt project` as in this tutorial
+- Replace `package.json` in root folder to new `package.json` of nuxt app
+- In `nuxt.config.js`, add the following lines in module.exports
+
+  ```bash
+  module.exports = {
+    ...
+    # change new source code dir
+    srcDir: 'src',
+
+    # change generated build folder location
+    buildDir: 'functions/.nuxt',
+    ...
+  }
+  ```
+
+- Copy the `package.json` dependencies of nuxt app to the `functions/package.json` dependencies
+  - Don't remove
+  
+  ```bash
+  "firebase-admin": "^x.x.x",
+  "firebase-functions": "^x.x.x"
+  ```
+
 - Install all `packages` at root folder for nuxt project
 
   ```bash
+  # root folder
   yarn install
   ```
 
 - Go to `functions` folder and install all `packages`  for firebase if the default firebase installation is broken
 
   ```bash
-  cd functions
+  # functions folder
   yarn install
   ```
 
-- Deploy your application
-  
+- Deploy app to firebase
+
   ```bash
+  # root folder
   yarn build:firebase
   yarn deploy
+  ```
+
+- Deploy app to emulator
+
+  ```bash
+  # root folder
+  yarn build:firebase
+  yarn start:firebase
   ```

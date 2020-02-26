@@ -34,7 +34,7 @@
                 :disabled="$v.formData.$invalid"
                 @click.prevent="onResetPassword"
               >
-                {{ $t("resetpassword.send_btn") }}
+                {{ $t("resetpassword.retrieve_btn") }}
               </button>
             </div>
           </footer>
@@ -47,7 +47,6 @@
 <script>
 import { mapGetters } from "vuex";
 import { required, email } from "vuelidate/lib/validators";
-import { authMessage } from "~/libs/helpers";
 
 export default {
   validate({ store }) {
@@ -55,7 +54,7 @@ export default {
     return user ? false : true;
   },
   computed: {
-    ...mapGetters(["authError", "authLoading"])
+    ...mapGetters(["authLoading"])
   },
   data() {
     return {
@@ -79,7 +78,7 @@ export default {
         this.$store.commit("setAuthLoading", false);
         this.$buefy.toast.open({
           duration: 3000,
-          message: authMessage(this.authError),
+          message: "[auth] error",
           type: "is-danger"
         });
       } else {

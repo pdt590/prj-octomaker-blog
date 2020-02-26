@@ -216,7 +216,8 @@ export default {
     verify_email: {
       success_message: "Kích hoạt thành công",
       error_message: "Sai mã kích hoạt",
-      home_link: "Trang chủ"
+      home_link: "Trang chủ",
+      login_link: "Trang đăng nhập"
     },
     recover_email: {
       success_message: "Khôi phục thành công",
@@ -333,9 +334,9 @@ export default {
     title: "Đổi Mật Khẩu",
     email_message: "Email không hợp lệ",
     email_placeholder: "Nhập email đã đăng ký",
-    send_btn: "Gửi",
+    retrieve_btn: "Khôi phục",
     toast: {
-      message: "Kiểm tra hộp thư để đổi mật khẩu"
+      message: "Kiểm tra hộp thư để khôi phục mật khẩu"
     },
     head: {
       title: "Đổi mật khẩu"

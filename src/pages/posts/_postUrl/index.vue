@@ -68,13 +68,15 @@
         <!-- Start facebook comment -->
         <div class="card">
           <div class="card-content">
-            <div id="fb-root"></div>
-            <div
-              class="fb-comments"
-              :data-href="`${baseUrl}${$route.path}`"
-              data-numposts="5"
-              data-width="100%"
-            ></div>
+            <client-only>
+              <div id="fb-root"></div>
+              <div
+                class="fb-comments"
+                :data-href="`${baseUrl}${$route.path}`"
+                data-numposts="5"
+                data-width="100%"
+              ></div>
+            </client-only>
           </div>
         </div>
         <!-- End facebook comment -->
@@ -98,7 +100,7 @@
             <header class="card-header" style="border-bottom: none;">
               <p class="card-header-title">
                 {{ $t("post.more_posts_from") }}&nbsp;
-                <nuxt-link :to="localePath(`/query/author/${creatorId}`)"
+                <nuxt-link :to="localePath(`/query/author/${creatorId}`)" class="has-text-dark"
                   >@{{ creatorUsername }}</nuxt-link
                 >
               </p>
@@ -118,14 +120,14 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { fetchDesc, windowPopup } from "~/libs/helpers";
+import { fetchDesc, initFbComment, initToC, windowPopup } from "~/libs/helpers";
 import { categories } from "~/libs/lists";
 
 export default {
   middleware: ["server-client-view-permission"],
   mounted() {
-    this.$initFbSdk();
-    this.$initToC();
+    initFbComment();
+    initToC();
   },
   computed: {
     ...mapGetters(["user", "postLoading"]),
@@ -221,14 +223,19 @@ export default {
           content: this.postDescription
         },
         {
-          hid: "og-url",
-          property: "og:url",
-          content: `${process.env.baseUrl}${this.$route.path}`
+          hid: "og-type",
+          property: "og:type",
+          content: "article"
         },
         {
           hid: "og-title",
           property: "og:title",
           content: this.postTitle
+        },
+        {
+          hid: "og-url",
+          property: "og:url",
+          content: `${process.env.baseUrl}${this.$route.path}`
         },
         {
           hid: "og-description",

@@ -1,4 +1,4 @@
-import firebase from "~/libs/firebase";
+import firebase from "~/plugins/firebase/fb-tools";
 const db = firebase.database();
 const postsRef = db.ref("posts");
 

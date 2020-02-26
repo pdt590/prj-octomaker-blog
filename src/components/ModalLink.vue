@@ -36,7 +36,6 @@
 <script>
 import { mapGetters } from "vuex";
 import { required, url } from "vuelidate/lib/validators";
-import { authMessage } from "~/libs/helpers";
 
 export default {
   name: "v-modal-link",

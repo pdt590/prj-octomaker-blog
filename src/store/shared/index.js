@@ -1,44 +1,60 @@
-import firebase from "~/libs/firebase";
+import firebase from "~/plugins/firebase/fb-tools";
 const db = firebase.database();
 const usersRef = db.ref("users");
+
+// For build process
+let admin = null;
+let cookieparser = null;
+if (process.server) {
+  cookieparser = require("cookieparser");
+  admin = require("firebase-admin"); // can't require from "~/plugins/firebase/fb-admin" - why? - TODO
+}
 
 export default {
   actions: {
     async nuxtServerInit(vuexContext, { req, error }) {
       try {
-        let uid;
-        let expirationDate;
         if (req) {
           if (!req.headers.cookie) {
-            await vuexContext.dispatch("logOut"); // * Logout because `user` is still available in store at server side
-            return;
-          }
-          let reqCookie = req.headers.cookie.split(";");
-
-          let isUid = reqCookie.find(c => c.trim().startsWith("uid="));
-          if (!isUid) {
+            /* Logout here because 'user' is still available at store on server side */ 
             await vuexContext.dispatch("logOut");
             return;
           }
-          uid = reqCookie.find(c => c.trim().startsWith("uid=")).split("=")[1];
-          expirationDate = reqCookie
-            .find(c => c.trim().startsWith("expirationDate="))
-            .split("=")[1];
+          const userCookieString = cookieparser.parse(req.headers.cookie)
+            .__session;
+          if (!userCookieString) {
+            console.error("[nuxtServerInit]", "Invalid token");
+            await vuexContext.dispatch("logOut");
+            return;
+          }
+          const userCookie = JSON.parse(userCookieString);
+          const token = userCookie.token;
+          const uid = userCookie.uid;
+          const expirationDate = userCookie.expirationDate;
+          try {
+            /* Verify user token sent from clien side */
+            await admin.auth().verifyIdToken(token);
+          } catch (e) {
+            console.error("[nuxtServerInit]", "Invalid token");
+            await vuexContext.dispatch("logOut");
+            return;
+          }
+          if (new Date().getTime() > +expirationDate) {
+            console.error("[nuxtServerInit]", "Time expired");
+            await vuexContext.dispatch("logOut");
+            return;
+          }
+
+          /* Use firebase to call from server side - how? - TODO */
+          const userData = await usersRef.child(uid).once("value");
+          const userObj = userData.val();
+          const userProfile = {
+            id: uid,
+            ...userObj
+          };
+          vuexContext.commit("setUser", userProfile);
         }
-        if (new Date().getTime() > +expirationDate || !uid) {
-          console.error("[nuxtServerInit]", "Invalid uid");
-          await vuexContext.dispatch("logOut");
-          return;
-        }
-        const userData = await usersRef.child(uid).once("value");
-        const userObj = userData.val();
-        const userProfile = {
-          id: uid,
-          ...userObj
-        };
-        vuexContext.commit("setUser", userProfile);
       } catch (e) {
-        vuexContext.commit("setAuthError", e);
         console.error("[ERROR-nuxtServerInit]", e);
         error({ statusCode: 500, message: "nuxtServerInit() Error" });
       }

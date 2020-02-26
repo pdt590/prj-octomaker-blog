@@ -74,12 +74,11 @@
 <script>
 import { mapGetters } from "vuex";
 import { required, email, minLength } from "vuelidate/lib/validators";
-import { authMessage } from "~/libs/helpers";
 
 export default {
   name: "v-modal-signup",
   computed: {
-    ...mapGetters(["authError", "authLoading"])
+    ...mapGetters(["authLoading"])
   },
   data() {
     return {
@@ -113,7 +112,7 @@ export default {
         this.$store.commit("setAuthLoading", false);
         this.$buefy.toast.open({
           duration: 3000,
-          message: authMessage(this.authError),
+          message: "[auth] error",
           type: "is-danger"
         });
       } else {

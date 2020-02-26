@@ -307,7 +307,6 @@
                             @input="onAvatarChange"
                             drag-drop
                             :accept="acceptedImages"
-                            :disabled="!isAvatarChanged"
                           >
                             <section class="section">
                               <div class="content has-text-centered">
@@ -343,7 +342,7 @@
                           ></a>
                         </figure>
                       </div>
-                      <div class="level-item" v-if="newAvatar">
+                      <div class="level-item" v-else-if="newAvatar">
                         <figure class="image is-128x128 _image-avatar-frame">
                           <client-only>
                             <img
@@ -435,7 +434,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { deepCopy, acceptedImages, authMessage } from "~/libs/helpers";
+import { deepCopy, acceptedImages } from "~/libs/helpers";
 import { provinces } from "~/libs/lists";
 import {
   required,
@@ -463,7 +462,7 @@ export default {
     this.newUserContent = this.oldUserContent;
   },
   computed: {
-    ...mapGetters(["user", "authError", "authLoading"]),
+    ...mapGetters(["user", "authLoading"]),
     userAvatarUrl() {
       if (this.user) {
         if (this.user.avatar) {
@@ -473,7 +472,7 @@ export default {
         }
       } else {
         // Check if logout happens
-        return;
+        return "";
       }
     },
     userName() {
@@ -481,16 +480,16 @@ export default {
         return this.user.username;
       } else {
         // Check if logout happens
-        return;
+        return "";
       }
     },
     isAvatarChanged() {
       if (this.user) {
         if (this.user.avatar) {
-          if (!this.oldAvatar) {
-            return true;
-          } else {
+          if (this.oldAvatar) {
             return false;
+          } else {
+            return true;
           }
         } else {
           if (this.newAvatar) {
@@ -501,7 +500,7 @@ export default {
         }
       } else {
         // Check if logout happens
-        return;
+        return false;
       }
     }
   },
@@ -619,7 +618,7 @@ export default {
         this.$store.commit("setAuthLoading", false);
         this.$buefy.toast.open({
           duration: 3000,
-          message: authMessage(this.authError),
+          message: "[auth] error",
           type: "is-danger"
         });
       } else {
@@ -639,7 +638,7 @@ export default {
         this.$store.commit("setAuthLoading", false);
         this.$buefy.toast.open({
           duration: 3000,
-          message: authMessage(this.authError),
+          message: "[auth] error",
           type: "is-danger"
         });
       } else {
@@ -684,7 +683,7 @@ export default {
             this.$store.commit("setAuthLoading", false);
             this.$buefy.toast.open({
               duration: 3000,
-              message: authMessage(this.authError),
+              message: "[auth] error",
               type: "is-danger"
             });
           } else {
