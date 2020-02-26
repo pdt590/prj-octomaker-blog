@@ -89,7 +89,6 @@
 - Fix delete account issue
 - Add admin role
 - Check old issues of image lazy-load plugin and may change?
-- Recheck logic in user/action page and auth store functions
 - Add Github/Facebook/Google login
 - Implement remember-me login
 - Improve search performance
@@ -105,8 +104,13 @@
 - Seperate DEPLOYMENT.md into small files
 - Fix video playback issue
 - Recheck change email/password process
-- Use onAuthStateChanged to check login user
-  - [Manage Users in Firebase](https://firebase.google.com/docs/auth/web/manage-users)
+- Authen
+  - Use onAuthStateChanged to check login user
+    - [Manage Users in Firebase](https://firebase.google.com/docs/auth/web/manage-users) - don't need
+    - `firebase/analytics` is not compatible with server side because nuxtServerInit()/AsyncData()/Fetch() calls firebase from
+  - `Recheck logic in user/action page and auth store functions`
+  - `Remove authMessage()`
+  server side - TODO
 - Add Nuxt PWA - Refer nuxtjs.org and vuejsdeveloper.com
 - Use Nuxt with Expressjs
 - Use Nuxt with Keystonejs

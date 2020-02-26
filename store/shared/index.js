@@ -1,4 +1,4 @@
-import firebase from "~/plugins/firebase/fb";
+import firebase from "~/plugins/firebase/fb-tools";
 const db = firebase.database();
 const usersRef = db.ref("users");
 
@@ -7,7 +7,7 @@ let admin = null;
 let cookieparser = null;
 if (process.server) {
   cookieparser = require("cookieparser");
-  admin = require("firebase-admin");
+  admin = require("firebase-admin"); // can't require from "~/plugins/firebase/fb-admin" - why? - TODO
 }
 
 export default {
@@ -16,7 +16,8 @@ export default {
       try {
         if (req) {
           if (!req.headers.cookie) {
-            await vuexContext.dispatch("logOut"); // * Logout because `user` is still available in store at server side
+            /* Logout here because 'user' is still available at store on server side */ 
+            await vuexContext.dispatch("logOut");
             return;
           }
           const userCookieString = cookieparser.parse(req.headers.cookie)
@@ -31,6 +32,7 @@ export default {
           const uid = userCookie.uid;
           const expirationDate = userCookie.expirationDate;
           try {
+            /* Verify user token sent from clien side */
             await admin.auth().verifyIdToken(token);
           } catch (e) {
             console.error("[nuxtServerInit]", "Invalid token");
@@ -42,6 +44,8 @@ export default {
             await vuexContext.dispatch("logOut");
             return;
           }
+
+          /* Use firebase to call from server side - how? - TODO */
           const userData = await usersRef.child(uid).once("value");
           const userObj = userData.val();
           const userProfile = {

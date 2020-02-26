@@ -90,7 +90,7 @@ export default {
   },
   methods: {
     async onLogin() {
-      await this.$store.dispatch("signUserIn", this.formData);
+      await this.$store.dispatch("logUserIn", this.formData);
       if (this.authLoading) {
         this.$store.commit("setAuthLoading", false);
         this.$buefy.toast.open({

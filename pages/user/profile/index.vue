@@ -307,7 +307,6 @@
                             @input="onAvatarChange"
                             drag-drop
                             :accept="acceptedImages"
-                            :disabled="!isAvatarChanged"
                           >
                             <section class="section">
                               <div class="content has-text-centered">
@@ -343,7 +342,7 @@
                           ></a>
                         </figure>
                       </div>
-                      <div class="level-item" v-if="newAvatar">
+                      <div class="level-item" v-else-if="newAvatar">
                         <figure class="image is-128x128 _image-avatar-frame">
                           <client-only>
                             <img
@@ -473,7 +472,7 @@ export default {
         }
       } else {
         // Check if logout happens
-        return;
+        return "";
       }
     },
     userName() {
@@ -481,16 +480,16 @@ export default {
         return this.user.username;
       } else {
         // Check if logout happens
-        return;
+        return "";
       }
     },
     isAvatarChanged() {
       if (this.user) {
         if (this.user.avatar) {
-          if (!this.oldAvatar) {
-            return true;
-          } else {
+          if (this.oldAvatar) {
             return false;
+          } else {
+            return true;
           }
         } else {
           if (this.newAvatar) {
@@ -501,7 +500,7 @@ export default {
         }
       } else {
         // Check if logout happens
-        return;
+        return false;
       }
     }
   },

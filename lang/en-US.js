@@ -53,22 +53,22 @@ export default {
   // components/ModalJoin.vue
   modal_join: {
     login: {
-      title: "Login",
+      title: "Log in",
       email_message: "Invalid email",
       password_message: "At least 6 characters",
       forget_password_link: "Forget password?",
       close_btn: "Close",
-      login_btn: "Login",
-      login_text: "Login?"
+      login_btn: "Log in",
+      login_text: "Log in?"
     },
     signup: {
-      title: "Signup",
+      title: "Sign up",
       username_message: "At least 6 characters",
       email_message: "Invalid email",
       password_message: "At least 6 characters",
       close_btn: "Close",
-      signup_btn: "Signup",
-      signup_text: "Signup?",
+      signup_btn: "Sign up",
+      signup_text: "Sign up?",
       toast: {
         message: "Check inbox to activate your account"
       }
@@ -85,22 +85,22 @@ export default {
 
   // components/ModalLogin.vue
   modal_login: {
-    title: "Login",
+    title: "Log in",
     email_message: "Invalid email",
     password_message: "At least 6 characters",
     forget_password_link: "Forget password?",
     close_btn: "Close",
-    login_btn: "Login"
+    login_btn: "Log in"
   },
 
   // components/ModalSignup.vue
   modal_signup: {
-    title: "Signup",
+    title: "Sign up",
     username_message: "At least 6 characters",
     email_message: "Invalid email",
     password_message: "At least 6 characters",
     close_btn: "Close",
-    signup_btn: "Signup",
+    signup_btn: "Sign up",
     toast: {
       message: "Check inbox to activate your account"
     }
@@ -111,7 +111,7 @@ export default {
     search_placeholder: "Search...",
     search_btn: "Search",
     new_post_btn: "New post",
-    login_btn: "Login",
+    login_btn: "Log in",
     warning_message: "Inactive account",
     profile_link: "Profile",
     mgmt_link: "Management",
@@ -220,7 +220,8 @@ export default {
     verify_email: {
       success_message: "Activate successfully",
       error_message: "Activated code is wrong",
-      home_link: "Home Page"
+      home_link: "Home Page",
+      login_link: "Log In Page"
     },
     recover_email: {
       success_message: "Recover successfully",
@@ -236,22 +237,22 @@ export default {
   // pages/user/join/index.vue
   join: {
     login: {
-      title: "Login",
+      title: "Log in",
       email_message: "Invalid email",
       password_message: "At least 6 characters",
       forget_password_link: "Forget password?",
       close_btn: "Close",
-      login_btn: "Login",
-      login_text: "Login?"
+      login_btn: "Log in",
+      login_text: "Log in?"
     },
     signup: {
-      title: "Signup",
+      title: "Sign up",
       username_message: "At least 6 characters",
       email_message: "Invalid email",
       password_message: "At least 6 characters",
       close_btn: "Close",
-      signup_btn: "Signup",
-      signup_text: "Signup?",
+      signup_btn: "Sign up",
+      signup_text: "Sign up?",
       toast: {
         message: "Check inbox to activate your account"
       }
@@ -338,9 +339,9 @@ export default {
     title: "Change Password",
     email_message: "Invalid email",
     email_placeholder: "Enter registered email",
-    send_btn: "Send",
+    retrieve_btn: "Retrieve Password",
     toast: {
-      message: "Check inbox to change your password"
+      message: "Check inbox to retrieve your password"
     },
     head: {
       title: "Reset password"

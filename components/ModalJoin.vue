@@ -220,6 +220,7 @@ export default {
         });
       } else {
         this.$parent.close();
+        this.$router.push(this.localePath("/user/join"));
         this.$buefy.toast.open({
           duration: 3000,
           message: this.$t("modal_join.signup.toast.message"),
@@ -228,7 +229,7 @@ export default {
       }
     },
     async onLogin() {
-      await this.$store.dispatch("signUserIn", this.formDataLogin);
+      await this.$store.dispatch("logUserIn", this.formDataLogin);
       if (this.authLoading) {
         this.$store.commit("setAuthLoading", false);
         this.$buefy.toast.open({

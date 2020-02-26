@@ -2,6 +2,11 @@ import Compressor from "compressorjs";
 import marked from "marked";
 import * as tocbot from "tocbot";
 
+export function reloadAll() {
+  localStorage.setItem("reloading", "");
+  localStorage.removeItem("reloading");
+}
+
 export function formatString(string, length) {
   let short = string.substr(0, length);
   if (/^\S/.test(string.substr(length))) {

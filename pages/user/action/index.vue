@@ -72,14 +72,14 @@
         {{ $t("action.verify_email.success_message") }}
         <br />
         <nuxt-link :to="localePath('/')">{{
-          $t("action.verify_email.home_link")
+          $t("action.verify_email.login_link")
         }}</nuxt-link>
       </b-message>
 
       <b-message type="is-danger" has-icon size="is-large" v-else>
         {{ $t("action.verify_email.error_message") }}
         <br />
-        <nuxt-link :to="localePath('/')">{{
+        <nuxt-link :to="localePath('/user/join')">{{
           $t("action.verify_email.home_link")
         }}</nuxt-link>
       </b-message>

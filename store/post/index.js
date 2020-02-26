@@ -1,4 +1,4 @@
-import firebase from "~/plugins/firebase/fb";
+import firebase from "~/plugins/firebase/fb-tools";
 import {
   genId,
   genUrl,

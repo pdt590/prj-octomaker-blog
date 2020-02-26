@@ -34,7 +34,7 @@
                 :disabled="$v.formData.$invalid"
                 @click.prevent="onResetPassword"
               >
-                {{ $t("resetpassword.send_btn") }}
+                {{ $t("resetpassword.retrieve_btn") }}
               </button>
             </div>
           </footer>

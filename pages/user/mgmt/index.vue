@@ -72,7 +72,7 @@ export default {
         }
       } else {
         // Check if logout happens
-        return;
+        return "";
       }
     },
     userName() {
@@ -80,7 +80,7 @@ export default {
         return this.user.username;
       } else {
         // Check if logout happens
-        return;
+        return "";
       }
     }
   },
