@@ -434,7 +434,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { deepCopy, acceptedImages, authMessage } from "~/libs/helpers";
+import { deepCopy, acceptedImages } from "~/libs/helpers";
 import { provinces } from "~/libs/lists";
 import {
   required,
@@ -462,7 +462,7 @@ export default {
     this.newUserContent = this.oldUserContent;
   },
   computed: {
-    ...mapGetters(["user", "authError", "authLoading"]),
+    ...mapGetters(["user", "authLoading"]),
     userAvatarUrl() {
       if (this.user) {
         if (this.user.avatar) {
@@ -618,7 +618,7 @@ export default {
         this.$store.commit("setAuthLoading", false);
         this.$buefy.toast.open({
           duration: 3000,
-          message: authMessage(this.authError),
+          message: "[auth] error",
           type: "is-danger"
         });
       } else {
@@ -638,7 +638,7 @@ export default {
         this.$store.commit("setAuthLoading", false);
         this.$buefy.toast.open({
           duration: 3000,
-          message: authMessage(this.authError),
+          message: "[auth] error",
           type: "is-danger"
         });
       } else {
@@ -683,7 +683,7 @@ export default {
             this.$store.commit("setAuthLoading", false);
             this.$buefy.toast.open({
               duration: 3000,
-              message: authMessage(this.authError),
+              message: "[auth] error",
               type: "is-danger"
             });
           } else {

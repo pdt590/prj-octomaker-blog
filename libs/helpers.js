@@ -252,24 +252,3 @@ export function fetchDesc(value) {
 export function deepCopy(arg) {
   return JSON.parse(JSON.stringify(arg));
 }
-
-export function authMessage(arg) {
-  let message = "";
-  switch (arg.code) {
-    case "auth/email-already-in-use":
-      message = "Email đã được sử dụng";
-      break;
-    case "auth/user-not-found":
-      message = "Tài khoản không tồn tại";
-      break;
-    case "auth/wrong-password":
-      message = "Mật khẩu không chính xác";
-      break;
-    case "auth/invalid-action-code":
-      message = "Mã xác nhận không hợp lệ";
-      break;
-    default:
-      message = "Có lỗi xảy ra";
-  }
-  return message;
-}

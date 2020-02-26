@@ -110,7 +110,6 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { authMessage } from "~/libs/helpers";
 import { required, sameAs, minLength } from "vuelidate/lib/validators";
 
 export default {
@@ -133,7 +132,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["user", "authError", "authLoading"]),
+    ...mapGetters(["user", "authLoading"]),
     mode() {
       return this.$route.query.mode;
     },
@@ -179,7 +178,7 @@ export default {
         this.$store.commit("setAuthLoading", false);
         this.$buefy.toast.open({
           duration: 3000,
-          message: authMessage(this.authError),
+          message: "[auth] error",
           type: "is-danger"
         });
       } else {

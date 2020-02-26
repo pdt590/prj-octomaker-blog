@@ -9,18 +9,11 @@ const imageUsersRef = storage.ref("users");
 export default {
   state: () => ({
     authLoading: false,
-    authError: null,
     user: null
   }),
   mutations: {
     setAuthLoading(state, payload) {
       state.authLoading = payload;
-    },
-    setAuthError(state, payload) {
-      state.authError = payload;
-    },
-    clearAuthError(state) {
-      state.authError = null;
     },
     setUser(state, payload) {
       state.user = payload;
@@ -42,7 +35,6 @@ export default {
 
     async deleteUser(vuexContext, confirmPassword) {
       vuexContext.commit("setAuthLoading", true);
-      vuexContext.commit("clearAuthError");
       try {
         const loadedUser = vuexContext.getters.user;
         const userId = loadedUser.id;
@@ -70,7 +62,6 @@ export default {
         vuexContext.commit("setAuthLoading", false);
         reloadAll();
       } catch (e) {
-        vuexContext.commit("setAuthError", e);
         console.error("[ERROR-deleteUser]", e);
       }
     },
@@ -109,7 +100,6 @@ export default {
 
     async updateUserEmail(vuexContext, payload) {
       vuexContext.commit("setAuthLoading", true);
-      vuexContext.commit("clearAuthError");
       try {
         const loadedUser = vuexContext.getters.user;
         const userId = loadedUser.id;
@@ -141,14 +131,12 @@ export default {
         vuexContext.commit("setAuthLoading", false);
         reloadAll();
       } catch (e) {
-        vuexContext.commit("setAuthError", e);
         console.error("[ERROR-updateUserEmail]", e);
       }
     },
 
     async updateUserPassword(vuexContext, payload) {
       vuexContext.commit("setAuthLoading", true);
-      vuexContext.commit("clearAuthError");
       try {
         const confirmPassword = payload.confirmPassword;
         const newPassword = payload.newPassword;
@@ -168,7 +156,6 @@ export default {
         vuexContext.commit("setAuthLoading", false);
         reloadAll();
       } catch (e) {
-        vuexContext.commit("setAuthError", e);
         console.error("[ERROR-updateUserPassword]", e);
       }
     },
@@ -283,13 +270,8 @@ export default {
     /*
      ** Begin auth actions
      */
-    clearAuthError(vuexContext) {
-      vuexContext.commit("clearAuthError");
-    },
-
     async signUserUp(vuexContext, payload) {
       vuexContext.commit("setAuthLoading", true);
-      vuexContext.commit("clearAuthError");
       try {
         const { user } = await firebase
           .auth()
@@ -307,14 +289,12 @@ export default {
         await usersRef.child(user.uid).set(userProfile);
         vuexContext.commit("setAuthLoading", false);
       } catch (e) {
-        vuexContext.commit("setAuthError", e);
         console.error("[ERROR-signUserUp]", e);
       }
     },
 
     async logUserIn(vuexContext, payload) {
       vuexContext.commit("setAuthLoading", true);
-      vuexContext.commit("clearAuthError");
       try {
         // Try to login with provided email and password to firebase
         // If wrong, the process will be thrown to catch()
@@ -366,7 +346,6 @@ export default {
         vuexContext.commit("setAuthLoading", false);
         reloadAll();
       } catch (e) {
-        vuexContext.commit("setAuthError", e);
         console.error("[ERROR-logUserIn]", e);
       }
     },
@@ -397,20 +376,17 @@ export default {
 
     async resetUserPassword(vuexContext, comfirmedEmail) {
       vuexContext.commit("setAuthLoading", true);
-      vuexContext.commit("clearAuthError");
       try {
         const auth = firebase.auth();
         await auth.sendPasswordResetEmail(comfirmedEmail);
         vuexContext.commit("setAuthLoading", false);
       } catch (e) {
-        vuexContext.commit("setAuthError", e);
         console.error("[ERROR-resetUserPassword]", e);
       }
     },
 
     async handleResetPassword(vuexContext, payload) {
       vuexContext.commit("setAuthLoading", true);
-      vuexContext.commit("clearAuthError");
       try {
         const auth = firebase.auth();
         await auth.confirmPasswordReset(
@@ -420,14 +396,12 @@ export default {
         // user.reload()
         vuexContext.commit("setAuthLoading", false);
       } catch (e) {
-        vuexContext.commit("setAuthError", e);
         console.error("[ERROR-handleResetPassword]", e);
       }
     },
 
     async handleVerifyEmail(vuexContext, actionCode) {
       vuexContext.commit("setAuthLoading", true);
-      vuexContext.commit("clearAuthError");
       try {
         const auth = firebase.auth();
         await auth.applyActionCode(actionCode);
@@ -446,7 +420,6 @@ export default {
         vuexContext.commit("setAuthLoading", false);
         return true;
       } catch (e) {
-        vuexContext.commit("setAuthError", e);
         console.error("[ERROR-handleVerifyEmail]", e);
         vuexContext.commit("setAuthLoading", false);
         return false;
@@ -455,7 +428,6 @@ export default {
 
     async handleRecoverEmail(vuexContext, actionCode) {
       vuexContext.commit("setAuthLoading", true);
-      vuexContext.commit("clearAuthError");
       try {
         if (vuexContext.getters.user) {
           await vuexContext.dispatch("logOut");
@@ -475,7 +447,6 @@ export default {
         vuexContext.commit("setAuthLoading", false);
         return true;
       } catch (e) {
-        vuexContext.commit("setAuthError", e);
         console.error("[ERROR-handleRecoverEmail]", e);
         vuexContext.commit("setAuthLoading", false);
         return false;
@@ -506,9 +477,6 @@ export default {
   getters: {
     user(state) {
       return state.user;
-    },
-    authError(state) {
-      return state.authError;
     },
     authLoading(state) {
       return state.authLoading;

@@ -55,7 +55,6 @@ export default {
           vuexContext.commit("setUser", userProfile);
         }
       } catch (e) {
-        vuexContext.commit("setAuthError", e);
         console.error("[ERROR-nuxtServerInit]", e);
         error({ statusCode: 500, message: "nuxtServerInit() Error" });
       }
