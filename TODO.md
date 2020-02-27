@@ -77,7 +77,7 @@
   - [Sharing Best Practices for Websites & Mobile Apps](https://developers.facebook.com/docs/sharing/best-practices)
   - Write Seo files (Robot.txt)
   - Active SEO on google
-  - Active Facebook App
+  - Active Facebook App with Privacy URL
   - Create Facebook Page and add the page to Facebook App
   - Add fb_iframe_widget for facebook page
   - Add like/share fb button
@@ -110,6 +110,7 @@
   - `firebase/analytics is not compatible with server side because nuxtServerInit()/AsyncData()/Fetch() calls firebase from server side`
   - `Recheck logic in user/action page and auth store functions`
   - `Remove authMessage()`
+  - How to run `firebase/analytics`
 - Add Nuxt PWA - Refer nuxtjs.org and vuejsdeveloper.com
 - Use Nuxt with Expressjs
 - Use Nuxt with Keystonejs
