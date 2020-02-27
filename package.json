@@ -14,6 +14,7 @@
     "node": "10"
   },
   "dependencies": {
+    "@bazzite/nuxt-optimized-images": "^0.3.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.27",
     "@fortawesome/free-brands-svg-icons": "^5.12.1",
     "@fortawesome/free-regular-svg-icons": "^5.12.1",
@@ -27,23 +28,28 @@
     "firebase": "^7.7.0",
     "firebase-admin": "^8.9.2",
     "github-markdown-css": "^3.0.1",
-    "js-cookie": "^2.2.1",
-    "nuxt": "^2.11.0",
-    "nuxt-i18n": "^6.5.0",
-    "prismjs": "^1.19.0",
-    "simplemde": "^1.11.2",
-    "tocbot": "^4.10.0",
-    "vue-lazyload": "^1.3.3",
-    "vuelidate": "^0.7.5"
-  },
-  "devDependencies": {
-    "@babel/runtime-corejs2": "^7.8.3",
-    "@bazzite/nuxt-optimized-images": "^0.3.0",
-    "connect-logger": "0.0.1",
-    "core-js": "^2.6.11",
+    "imagemin-gifsicle": "^7.0.0",
     "imagemin-mozjpeg": "^8.0.0",
     "imagemin-pngquant": "^8.0.0",
     "imagemin-svgo": "^7.1.0",
+    "jimp": "^0.9.3",
+    "js-cookie": "^2.2.1",
+    "lqip-loader": "^2.2.0",
+    "nuxt": "^2.11.0",
+    "nuxt-i18n": "^6.5.0",
+    "prismjs": "^1.19.0",
+    "responsive-loader": "^1.2.0",
+    "simplemde": "^1.11.2",
+    "sqip-loader": "^1.0.0",
+    "tocbot": "^4.10.0",
+    "vue-lazyload": "^1.3.3",
+    "vuelidate": "^0.7.5",
+    "webp-loader": "^0.6.0"
+  },
+  "devDependencies": {
+    "@babel/runtime-corejs2": "^7.8.3",
+    "connect-logger": "0.0.1",
+    "core-js": "^2.6.11",
     "node-sass": "^4.13.1",
     "sass-loader": "^8.0.2"
   }
