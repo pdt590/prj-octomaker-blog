@@ -16,6 +16,11 @@ export const categories = [
     name: "Web",
     icon: "file-code"
   },
+  {
+    id: "misc",
+    name: "Misc",
+    icon: "comment-dots"
+  }
 /* 
   {
     id: "electronic",
@@ -27,11 +32,6 @@ export const categories = [
     name: "PCB",
     icon: "code-branch"
   },
-  {
-    id: "others",
-    name: "Khác",
-    icon: "receipt"
-  }
    */
 ];
 

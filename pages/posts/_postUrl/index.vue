@@ -40,6 +40,13 @@
               </button>
             </div>
           </div>
+          <div class="level">
+            <div class="level-item">
+              <button class="button" @click="onSavePost">
+                <b-icon icon="save"></b-icon>
+              </button>
+            </div>
+          </div>
         </div>
         <!-- End user avatar -->
       </div>
@@ -100,7 +107,9 @@
             <header class="card-header" style="border-bottom: none;">
               <p class="card-header-title">
                 {{ $t("post.more_posts_from") }}&nbsp;
-                <nuxt-link :to="localePath(`/query/author/${creatorId}`)" class="has-text-dark"
+                <nuxt-link
+                  :to="localePath(`/query/author/${creatorId}`)"
+                  class="has-text-dark"
                   >@{{ creatorUsername }}</nuxt-link
                 >
               </p>
@@ -120,7 +129,13 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { fetchDesc, initFbComment, initToC, windowPopup } from "~/libs/helpers";
+import {
+  fetchDesc,
+  initFbComment,
+  initToC,
+  windowPopup,
+  savePost
+} from "~/libs/helpers";
 import { categories } from "~/libs/lists";
 
 export default {
@@ -161,6 +176,9 @@ export default {
     },
     postMode() {
       return this.loadedPost.mode;
+    },
+    postMarkdown() {
+      return this.loadedPost.markdown;
     },
     postHtml() {
       return this.loadedPost.html;
@@ -211,6 +229,9 @@ export default {
         "900",
         "500"
       );
+    },
+    onSavePost() {
+      savePost(this.postTitle, this.postMarkdown);
     }
   },
   head() {

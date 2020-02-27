@@ -1,6 +1,12 @@
 import Compressor from "compressorjs";
 import marked from "marked";
+import { saveAs } from 'file-saver';
 import * as tocbot from "tocbot";
+
+export function savePost(filename, content) {
+  const blob = new Blob([content], {type: "text/plain;charset=utf-8"});
+  saveAs(blob, `${filename}.md`);
+}
 
 export function reloadAll() {
   localStorage.setItem("reloading", "");
