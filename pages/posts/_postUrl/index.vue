@@ -21,10 +21,9 @@
               </nuxt-link>
             </div>
           </div>
-          <div class="level">
+          <div class="level" v-if="isEditable">
             <div class="level-item">
               <nuxt-link
-                v-if="isEditable"
                 class="button"
                 :class="{ 'is-loading': postLoading }"
                 :to="localePath(`/posts/${$route.params.postUrl}/edit-post`)"
