@@ -17,6 +17,7 @@
   - `Recheck error and user/action style`
   - `Change font (search the best font for web)`
     - `SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier, monospace;`
+    - `Nunito,Helvetica Neue,Helvetica,Arial,sans-serif;`
     - `-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji;`
     - `Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;`
     - `Questrial, sans-serif;`
