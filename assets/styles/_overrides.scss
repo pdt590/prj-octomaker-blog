@@ -234,10 +234,6 @@ body {
     font-size: $body-size;
   }
 
-  pre[class*="language-"] {
-    overflow: hidden; /* this is the culprit */
-  }
-
   figure {
     margin-top: 0;
   }
