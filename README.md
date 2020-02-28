@@ -455,6 +455,18 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
   cd src
   ```
 
+- Install Firebase CLI if any
+  
+  ```bash
+  npm i -g firebase-tools
+  ```
+
+- Login with this command if any
+
+  ```bash
+  firebase login
+  ```
+
 - In `.firebaserc`, change your `firebase project name` you created
 - Copy whole new `nuxt project` or only `folders` of new `nuxt project` to `src`
 - Replace `package.json` in root folder to new `package.json` of nuxt app
