@@ -22,7 +22,6 @@ const readyPromise = nuxt
   });
 
 async function handleRequest(req, res) {
-  console.log(req.headers.cookie);
   if (!isReady) {
     await readyPromise;
   }
