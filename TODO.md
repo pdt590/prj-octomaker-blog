@@ -112,7 +112,8 @@
   - `Recheck logic in user/action page and auth store functions`
   - `Remove authMessage()`
   - How to run `firebase/analytics`
-  - Check cookie issue on cloud function
+  - `Check cookie issue on cloud function`
+  - Firebase cloud function is not available for vuex (store state in nuxt)
 - Add Nuxt PWA - Refer nuxtjs.org and vuejsdeveloper.com
 - Use Nuxt with Expressjs
 - Use Nuxt with Keystonejs
