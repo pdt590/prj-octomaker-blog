@@ -7,7 +7,7 @@ if (process.server) {
 
 export default {
   actions: {
-    async nuxtServerInit(vuexContext, { req, res, error }) {
+    async nuxtServerInit(vuexContext, { req, error }) {
       try {
         if (req) {
           if (!req.headers.cookie) {
@@ -32,8 +32,8 @@ export default {
             return;
           }
           // Use firebase to call from server side - how? - TODO
-          const uid = decodedToken.uid;
-          await vuexContext.dispatch("loadAuthUser", uid);
+          const userId = decodedToken.uid;
+          await vuexContext.dispatch("loadAuthUser", userId);
         }
       } catch (e) {
         console.error("[ERROR-nuxtServerInit]", e);

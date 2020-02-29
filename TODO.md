@@ -113,7 +113,8 @@
   - `Remove authMessage()`
   - How to run `firebase/analytics`
   - `Check cookie issue on cloud function`
-  - Firebase cloud function is not available for vuex (store state in nuxt)
+  - State and getters of nuxt store dont work on Firebase cloud function on ssr mode
+    - Cannot store data on state to send from server to client
 - Add Nuxt PWA - Refer nuxtjs.org and vuejsdeveloper.com
 - Use Nuxt with Expressjs
 - Use Nuxt with Keystonejs

@@ -23,7 +23,7 @@ export default {
       try {
         const userData = await usersRef.child(userId).once("value");
         const userObject = userData.val();
-        const loadedUser = userObject;
+        const loadedUser = { ...userObject, id: userId };
         vuexContext.commit("setAuthLoading", false);
         return loadedUser;
       } catch (e) {
@@ -36,7 +36,7 @@ export default {
       try {
         const userData = await usersRef.child(userId).once("value");
         const userObject = userData.val();
-        const loadedUser = userObject;
+        const loadedUser = { ...userObject, id: userId };
         vuexContext.commit("setUser", loadedUser);
         vuexContext.commit("setAuthLoading", false);
         return loadedUser;
