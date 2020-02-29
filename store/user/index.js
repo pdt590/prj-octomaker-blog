@@ -1,5 +1,5 @@
 import { database, storage, firebase } from "~/plugins/firebase-client-init";
-import { genId, compressImage, reloadAll } from "~/libs/helpers";
+import { compressImage, reloadAll } from "~/libs/helpers";
 import Cookie from "js-cookie";
 const usersRef = database.ref("users");
 const imageUsersRef = storage.ref("users");
@@ -295,7 +295,8 @@ export default {
           isActive: false,
           updatedDate: new Date().toISOString()
         };
-        await usersRef.child(user.uid).set(userProfile);
+        const userId = user.uid;
+        await usersRef.child(userId).set(userProfile);
         vuexContext.commit("setAuthLoading", false);
       } catch (e) {
         console.error("[ERROR-signUserUp]", e);
@@ -312,17 +313,18 @@ export default {
           .signInWithEmailAndPassword(payload.email, payload.password);
 
         // Fetch user data from realtime database
+        const userId = user.uid;
         let loadedUser = {};
-        const userData = await usersRef.child(user.uid).once("value");
+        const userData = await usersRef.child(userId).once("value");
         const userObj = userData.val();
         loadedUser = {
           ...userObj,
-          id: user.uid
+          id: userId
         };
 
         // Update user data if restoring email process is finished
         if (payload.email !== userObj.email) {
-          await usersRef.child(user.uid).update({
+          await usersRef.child(userId).update({
             email: payload.email,
             isActive: true
           });
@@ -335,7 +337,7 @@ export default {
 
         // Update user data if verifying email process is finnished
         if (!userObj.isActive && user.emailVerified) {
-          await usersRef.child(user.uid).update({
+          await usersRef.child(userId).update({
             isActive: true
           });
           loadedUser.isActive = true;
@@ -355,7 +357,8 @@ export default {
     },
 
     async initAuth(vuexContext) {
-      if (!firebase.auth().currentUser) {
+      const user = firebase.auth().currentUser
+      if (!user) {
         return;
       }
       if (!vuexContext.getters.user) {
