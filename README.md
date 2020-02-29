@@ -425,7 +425,7 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
   > Why is it `"clean:static": "rimraf \"src/static/sw.js\""`
 
-- You can now launch these commands 
+- You can now launch these commands
   - Deploy app to firebase
   
     ```bash
@@ -469,8 +469,17 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
 
 - In `.firebaserc`, change your `firebase project name` you created
 - Copy whole new `nuxt project` or only `folders` of new `nuxt project` to `src`
-- Replace `package.json` in root folder to new `package.json` of nuxt app
-- In `nuxt.config.js`, add the following lines in module.exports
+- Replace `package.json` in root folder with new `package.json` of nuxt app
+- Copy the `package.json` dependencies of nuxt app to the `functions/package.json` dependencies
+  - Don't remove
+  
+  ```bash
+  "firebase-admin": "^x.x.x",
+  "firebase-functions": "^x.x.x"
+  ```
+
+- Replace `nuxt.config.js` in root folder to new `nuxt.config.js` of nuxt app 
+- Add the following lines in `nuxt.config.js`
 
   ```bash
   module.exports = {
@@ -482,14 +491,6 @@ For detailed explanation on how things work, checkout [Nuxt.js docs](https://nux
     buildDir: 'functions/.nuxt',
     ...
   }
-  ```
-
-- Copy the `package.json` dependencies of nuxt app to the `functions/package.json` dependencies
-  - Don't remove
-  
-  ```bash
-  "firebase-admin": "^x.x.x",
-  "firebase-functions": "^x.x.x"
   ```
 
 - Install all `packages` at root folder for nuxt project
