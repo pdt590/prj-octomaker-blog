@@ -57,9 +57,9 @@ module.exports = {
     { src: "~plugins/ga.js", mode: "client" },
     { src: "~plugins/reloadall.js", mode: "client" },
 
-    { src: "~plugins/firebase/fb-tools.js"}, // Firebase can be used on both client and server side - how? - TODO
-    { src: "~plugins/firebase/fb-admin.js", mode: "server"},
-    { src: "~plugins/firebase/fb-analytic.js", mode: "client"},
+    { src: "~plugins/firebase-client-init.js", mode: "client"}, // Init firebase app
+    { src: "~plugins/firebase-admin-init.js", mode: "server"},  // Init firebase-admin app
+    //{ src: "~plugins/auth-init.js", mode: "client"},
     { src: "~plugins/buefy.js" },
     { src: "~plugins/vuelidate.js" },
     { src: "~plugins/fontawesome.js" },

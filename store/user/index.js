@@ -1,8 +1,6 @@
-import firebase from "~/plugins/firebase/fb-tools";
-import { compressImage, reloadAll } from "~/libs/helpers";
+import { database, storage, firebase } from "~/plugins/firebase-client-init";
+import { genId, compressImage, reloadAll } from "~/libs/helpers";
 import Cookie from "js-cookie";
-const database = firebase.database();
-const storage = firebase.storage();
 const usersRef = database.ref("users");
 const imageUsersRef = storage.ref("users");
 
@@ -24,12 +22,23 @@ export default {
       vuexContext.commit("setAuthLoading", true);
       try {
         const userData = await usersRef.child(userId).once("value");
-        const userObj = userData.val();
-        const loadedUser = userObj;
+        const loadedUser = userData.val();
         vuexContext.commit("setAuthLoading", false);
         return loadedUser;
       } catch (e) {
         console.error("[ERROR-loadUser]", e);
+      }
+    },
+
+    async loadAuthUser(vuexContext, userId) {
+      vuexContext.commit("setAuthLoading", true);
+      try {
+        const userData = await usersRef.child(userId).once("value");
+        const loadedUser = userData.val();
+        vuexContext.commit("setUser", loadedUser);
+        vuexContext.commit("setAuthLoading", false);
+      } catch (e) {
+        console.error("[ERROR-loadUserServerInit]", e);
       }
     },
 
@@ -334,12 +343,7 @@ export default {
 
         /* Start cookie */
         const token = await user.getIdToken(true);
-        const userCookie = {
-          token: token,
-          uid: user.uid,
-          expirationDate: new Date().getTime() + 2 * 3600 * 1000 // 2h expired time
-        };
-        Cookie.set("__session", JSON.stringify(userCookie));
+        Cookie.set("__session", token, { expires: token ? 0.083333333 : 0 }); // 2h
         /* End cookie */
 
         vuexContext.commit("setUser", loadedUser);
@@ -351,27 +355,20 @@ export default {
     },
 
     async initAuth(vuexContext) {
-      const user = firebase.auth().currentUser;
-      if (!user) {
+      if (!firebase.auth().currentUser) {
         return;
       }
-      const userCookieString = Cookie.get("__session");
-      if (!userCookieString) {
+      if (!vuexContext.getters.user) {
         return;
       }
-      let userCookie = JSON.parse(userCookieString);
-      const expirationDate = userCookie.expirationDate;
-      if (new Date().getTime() > +expirationDate) {
+      const userCookie = Cookie.get("__session");
+      if (!userCookie) {
         await vuexContext.dispatch("logOut");
         return;
-      } else {
-        // re-new expirationDate
-        userCookie = {
-          ...userCookie,
-          expirationDate: new Date().getTime() + 2 * 3600 * 1000 // 2h expired time
-        };
-        Cookie.set("__session", JSON.stringify(userCookie));
       }
+      // re-new expirationTime
+      const token = await user.getIdToken(true);
+      Cookie.set("__session", token, { expires: token ? 0.083333333 : 0 }); // 2h
     },
 
     async resetUserPassword(vuexContext, comfirmedEmail) {
@@ -433,7 +430,6 @@ export default {
           await vuexContext.dispatch("logOut");
           return;
         }
-
         const auth = firebase.auth();
         // Confirm the action code is valid
         const info = await auth.checkActionCode(actionCode);
@@ -443,7 +439,7 @@ export default {
         await auth.applyActionCode(actionCode);
         // Reset password
         await auth.sendPasswordResetEmail(restoredEmail);
-        
+
         vuexContext.commit("setAuthLoading", false);
         return true;
       } catch (e) {
@@ -464,7 +460,6 @@ export default {
         vuexContext.commit("setAuthLoading", false);
         if (process.client) {
           reloadAll();
-          //location.reload(true);
         }
       } catch (e) {
         console.error("[ERROR-logOut]", e);
@@ -475,11 +470,7 @@ export default {
      */
   },
   getters: {
-    user(state) {
-      return state.user;
-    },
-    authLoading(state) {
-      return state.authLoading;
-    }
+    user: state => state.user,
+    authLoading: state => state.authLoading
   }
 };

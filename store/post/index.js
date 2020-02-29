@@ -1,12 +1,5 @@
-import firebase from "~/plugins/firebase/fb-tools";
-import {
-  genId,
-  genUrl,
-  fetchId,
-  compressImage
-} from "~/libs/helpers";
-const database = firebase.database();
-const storage = firebase.storage();
+import { database, storage } from "~/plugins/firebase-client-init";
+import { genId, genUrl, fetchId, compressImage } from "~/libs/helpers";
 const postsRef = database.ref("posts");
 const imagesPostRef = storage.ref("posts");
 
@@ -32,8 +25,9 @@ export default {
         const creator = {
           id: vuexContext.getters.user.id,
           username: vuexContext.getters.user.username,
-          avatar: vuexContext.getters.user.avatar ?
-            vuexContext.getters.user.avatar : null
+          avatar: vuexContext.getters.user.avatar
+            ? vuexContext.getters.user.avatar
+            : null
         };
         const postContent = {
           category: "iot",
@@ -119,13 +113,12 @@ export default {
         const loadedImages = loadedPost.images;
         let update = {};
         loadedImages
-          ?
-          (update = {
-            images: [...uploadedImages, ...loadedImages]
-          }) :
-          (update = {
-            images: [...uploadedImages]
-          });
+          ? (update = {
+              images: [...uploadedImages, ...loadedImages]
+            })
+          : (update = {
+              images: [...uploadedImages]
+            });
         await postsRef.child(postId).update(update);
         vuexContext.commit("setPost", {
           ...loadedPost,
@@ -176,13 +169,12 @@ export default {
         const loadedImages = loadedPost.images;
         let update = {};
         loadedImages
-          ?
-          (update = {
-            images: [...uploadedImages, ...loadedImages]
-          }) :
-          (update = {
-            images: [...uploadedImages]
-          });
+          ? (update = {
+              images: [...uploadedImages, ...loadedImages]
+            })
+          : (update = {
+              images: [...uploadedImages]
+            });
         await postsRef.child(postId).update(update);
         vuexContext.commit("setPost", {
           ...loadedPost,
@@ -289,10 +281,10 @@ export default {
         let updates = {};
         postsData.forEach(postData => {
           if (updatedUser.username !== undefined) {
-            updates[`${postData.key}/creator/username`] = updatedUser.username
+            updates[`${postData.key}/creator/username`] = updatedUser.username;
           }
           if (updatedUser.avatar !== undefined) {
-            updates[`${postData.key}/creator/avatar`] = updatedUser.avatar
+            updates[`${postData.key}/creator/avatar`] = updatedUser.avatar;
           }
         });
         // TODO Update current loadedPost
@@ -358,11 +350,7 @@ export default {
     }
   },
   getters: {
-    postLoading(state) {
-      return state.postLoading;
-    },
-    loadedPost(state) {
-      return state.loadedPost;
-    }
+    postLoading: state => state.postLoading,
+    loadedPost: state => state.loadedPost
   }
 };

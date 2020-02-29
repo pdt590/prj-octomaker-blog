@@ -1,6 +1,5 @@
-import firebase from "~/plugins/firebase/fb-tools";
-const db = firebase.database();
-const postsRef = db.ref("posts");
+import { database } from "~/plugins/firebase-client-init";
+const postsRef = database.ref("posts");
 
 export default {
   state: () => ({
@@ -183,8 +182,6 @@ export default {
     }
   },
   getters: {
-    queryLoading(state) {
-      return state.queryLoading;
-    }
+    queryLoading: state => state.queryLoading
   }
 };
