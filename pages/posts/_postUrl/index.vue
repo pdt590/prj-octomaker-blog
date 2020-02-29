@@ -144,7 +144,7 @@ export default {
     initToC();
   },
   computed: {
-    ...mapGetters(["user", "postLoading"]),
+    ...mapGetters({user: "user/user", postLoading: "post/postLoading"}),
     creatorAvatarUrl() {
       if (this.loadedPost.creator.avatar) {
         return this.loadedPost.creator.avatar.url;
@@ -194,19 +194,19 @@ export default {
     }
   },
   async asyncData({ store, params, error }) {
-    const loadedPost = await store.dispatch("loadPost", params.postUrl);
+    const loadedPost = await store.dispatch("post/loadPost", params.postUrl);
     if (store.getters.postLoading) {
-      store.commit("setPostLoading", false);
+      store.commit("post/setPostLoading", false);
       error({ statusCode: 500, message: "loadPost() Error" });
     }
     const maxPosts = 3;
     const creatorId = loadedPost.creator.id;
-    const recommendedPosts = await store.dispatch("loadRecommendedPosts", {
+    const recommendedPosts = await store.dispatch("query/loadRecommendedPosts", {
       limit: maxPosts,
       creatorId: creatorId
     });
     if (store.getters.queryLoading) {
-      store.commit("setQueryLoading", false);
+      store.commit("query/setQueryLoading", false);
       error({ statusCode: 500, message: "loadRecommendedPosts() Error" });
     }
     return {

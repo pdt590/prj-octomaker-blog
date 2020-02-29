@@ -121,18 +121,18 @@ export default {
   async mounted() {
     if (this.mode === "verifyEmail") {
       this.isSuccess = await this.$store.dispatch(
-        "handleVerifyEmail",
+        "user/handleVerifyEmail",
         this.actionCode
       );
     } else if (this.mode === "recoverEmail") {
       this.isSuccess = await this.$store.dispatch(
-        "handleRecoverEmail",
+        "user/handleRecoverEmail",
         this.actionCode
       );
     }
   },
   computed: {
-    ...mapGetters(["user", "authLoading"]),
+    ...mapGetters({ user: "user/user", authLoading: "user/authLoading" }),
     mode() {
       return this.$route.query.mode;
     },
@@ -170,12 +170,12 @@ export default {
   },
   methods: {
     async onResetPassword() {
-      await this.$store.dispatch("handleResetPassword", {
+      await this.$store.dispatch("user/handleResetPassword", {
         actionCode: this.actionCode,
         newPassword: this.formData.newPassword
       });
       if (this.authLoading) {
-        this.$store.commit("setAuthLoading", false);
+        this.$store.commit("user/setAuthLoading", false);
         this.$buefy.toast.open({
           duration: 3000,
           message: "[auth] error",

@@ -34,7 +34,7 @@ import { categories } from "~/libs/lists";
 
 export default {
   computed: {
-    ...mapGetters(["queryLoading", "authLoading"]),
+    ...mapGetters({ authLoading: "user/authLoading", queryLoading: "query/queryLoading"}),
     totalPosts() {
       return this.loadedPosts.length;
     },
@@ -66,14 +66,14 @@ export default {
   },
   async asyncData({ store, params }) {
     const creatorId = params.authorId;
-    const loadedPosts = await store.dispatch("loadPersonalPosts", creatorId);
+    const loadedPosts = await store.dispatch("query/loadPersonalPosts", creatorId);
     if (store.getters.queryLoading) {
-      store.commit("setQueryLoading", false);
+      store.commit("query/setQueryLoading", false);
       error({ statusCode: 500, message: "loadPersonalPosts() Error" });
     }
-    const loadedCreator = await store.dispatch("loadUser", creatorId);
+    const loadedCreator = await store.dispatch("user/loadUser", creatorId);
     if (store.getters.authLoading) {
-      store.commit("setAuthLoading", false);
+      store.commit("user/setAuthLoading", false);
       error({ statusCode: 500, message: "loadUser() Error" });
     }
     return {

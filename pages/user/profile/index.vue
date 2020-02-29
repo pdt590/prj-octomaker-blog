@@ -462,7 +462,7 @@ export default {
     this.newUserContent = this.oldUserContent;
   },
   computed: {
-    ...mapGetters(["user", "authLoading"]),
+    ...mapGetters({ user: "user/user", authLoading: "user/authLoading" }),
     userAvatarUrl() {
       if (this.user) {
         if (this.user.avatar) {
@@ -569,7 +569,7 @@ export default {
       minLen: minLength(6)
       /* async isPassword(value) {
         if (!value) return true;
-        const response = await this.$store.dispatch("isCorrectPassword", value);
+        const response = await this.$store.dispatch("user/isCorrectPassword", value);
         return response;
       } */
     },
@@ -593,9 +593,9 @@ export default {
   },
   methods: {
     async onUpdateContent() {
-      await this.$store.dispatch("updateUserContent", this.newUserContent);
+      await this.$store.dispatch("user/updateUserContent", this.newUserContent);
       if (this.authLoading) {
-        this.$store.commit("setAuthLoading", false);
+        this.$store.commit("user/setAuthLoading", false);
         this.$buefy.toast.open({
           duration: 3000,
           message: "onUpdateContent() Error",
@@ -610,12 +610,12 @@ export default {
       }
     },
     async onUpdateEmail() {
-      await this.$store.dispatch("updateUserEmail", {
+      await this.$store.dispatch("user/updateUserEmail", {
         confirmPassword: this.confirmPasswordForNewEmail,
         newEmail: this.newEmail
       });
       if (this.authLoading) {
-        this.$store.commit("setAuthLoading", false);
+        this.$store.commit("user/setAuthLoading", false);
         this.$buefy.toast.open({
           duration: 3000,
           message: "[auth] error",
@@ -630,12 +630,12 @@ export default {
       }
     },
     async onUpdatePassword() {
-      await this.$store.dispatch("updateUserPassword", {
+      await this.$store.dispatch("user/updateUserPassword", {
         confirmPassword: this.confirmPasswordForNewPassword,
         newPassword: this.newPassword
       });
       if (this.authLoading) {
-        this.$store.commit("setAuthLoading", false);
+        this.$store.commit("user/setAuthLoading", false);
         this.$buefy.toast.open({
           duration: 3000,
           message: "[auth] error",
@@ -650,9 +650,9 @@ export default {
       }
     },
     async onUpdateAvatar() {
-      await this.$store.dispatch("updateUserAvatar", this.newAvatar);
+      await this.$store.dispatch("user/updateUserAvatar", this.newAvatar);
       if (this.authLoading) {
-        this.$store.commit("setAuthLoading", false);
+        this.$store.commit("user/setAuthLoading", false);
         this.$buefy.toast.open({
           duration: 3000,
           message: "onUpdateAvatar() Error",
@@ -676,11 +676,11 @@ export default {
         hasIcon: true,
         onConfirm: async () => {
           await this.$store.dispatch(
-            "deleteUser",
+            "user/deleteUser",
             this.confirmPasswordForDeleting
           );
           if (this.authLoading) {
-            this.$store.commit("setAuthLoading", false);
+            this.$store.commit("user/setAuthLoading", false);
             this.$buefy.toast.open({
               duration: 3000,
               message: "[auth] error",

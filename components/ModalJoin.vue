@@ -165,7 +165,7 @@ import { required, email, minLength } from "vuelidate/lib/validators";
 export default {
   name: "v-modal-join",
   computed: {
-    ...mapGetters(["authLoading"])
+    ...mapGetters({ authLoading: "user/authLoading" })
   },
   data() {
     return {
@@ -209,7 +209,7 @@ export default {
   },
   methods: {
     async onSignup() {
-      await this.$store.dispatch("signUserUp", this.formDataSignup);
+      await this.$store.dispatch("user/signUserUp", this.formDataSignup);
       if (this.authLoading) {
         this.$store.commit("setAuthLoading", false);
         this.$buefy.toast.open({
@@ -228,7 +228,7 @@ export default {
       }
     },
     async onLogin() {
-      await this.$store.dispatch("logUserIn", this.formDataLogin);
+      await this.$store.dispatch("user/logUserIn", this.formDataLogin);
       if (this.authLoading) {
         this.$store.commit("setAuthLoading", false);
         this.$buefy.toast.open({

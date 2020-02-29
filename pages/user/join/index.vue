@@ -167,7 +167,7 @@ export default {
     return user ? false : true;
   },
   computed: {
-    ...mapGetters(["authLoading"])
+    ...mapGetters({authLoading :"user/authLoading"})
   },
   data() {
     return {
@@ -211,9 +211,9 @@ export default {
   },
   methods: {
     async onSignup() {
-      await this.$store.dispatch("signUserUp", this.formDataSignup);
+      await this.$store.dispatch("user/signUserUp", this.formDataSignup);
       if (this.authLoading) {
-        this.$store.commit("setAuthLoading", false);
+        this.$store.commit("user/setAuthLoading", false);
         this.$buefy.toast.open({
           duration: 3000,
           message: "[auth] error",
@@ -229,9 +229,9 @@ export default {
       }
     },
     async onLogin() {
-      await this.$store.dispatch("logUserIn", this.formDataLogin);
+      await this.$store.dispatch("user/logUserIn", this.formDataLogin);
       if (this.authLoading) {
-        this.$store.commit("setAuthLoading", false);
+        this.$store.commit("user/setAuthLoading", false);
         this.$buefy.toast.open({
           duration: 3000,
           message: "[auth] error",

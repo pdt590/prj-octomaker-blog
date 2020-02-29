@@ -36,13 +36,13 @@ import { mapGetters } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters(["queryLoading"]),
+    ...mapGetters({queryLoading : "query/queryLoading" }),
   },
   async asyncData({ store, params, error }) {
     const maxPosts = 12;
-    const loadedPosts = await store.dispatch("loadLazyPosts", { limit: maxPosts });
+    const loadedPosts = await store.dispatch("query/loadLazyPosts", { limit: maxPosts });
     if (store.getters.queryLoading) {
-      store.commit("setQueryLoading", false);
+      store.commit("query/setQueryLoading", false);
       error({ statusCode: 500, message: "loadLazyPosts() Error" });
     }
     return {
@@ -60,12 +60,12 @@ export default {
       this.isLazyLoad = true
       const endAtKey = this.loadedPosts[this.loadedPosts.length - 1]
         .updatedDate;
-      let loadedMorePosts = await this.$store.dispatch("loadLazyPosts", {
+      let loadedMorePosts = await this.$store.dispatch("query/loadLazyPosts", {
         limit: this.maxPosts + 1,
         endAtKey: endAtKey
       });
       if (this.queryLoading) {
-        this.$store.commit("setQueryLoading", false);
+        this.$store.commit("query/setQueryLoading", false);
         this.$buefy.toast.open({
           duration: 3000,
           message: "onLoad() Error",

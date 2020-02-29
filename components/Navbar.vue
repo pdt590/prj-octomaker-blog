@@ -206,7 +206,7 @@ import { categories } from "~/libs/lists";
 export default {
   name: "v-navbar",
   computed: {
-    ...mapGetters(["user", "authLoading"]),
+    ...mapGetters({ user: "user/user", authLoading: "user/authLoading" }),
     userAvatarUrl() {
       if (this.user.avatar) {
         return this.user.avatar.url;
@@ -232,9 +232,9 @@ export default {
   },
   methods: {
     async onLogout() {
-      await this.$store.dispatch("logOut");
+      await this.$store.dispatch("user/logOut");
       if (this.authLoading) {
-        this.$store.commit("setAuthLoading", false);
+        this.$store.commit("user/setAuthLoading", false);
         this.$buefy.toast.open({
           duration: 3000,
           message: "onLogout() Error",

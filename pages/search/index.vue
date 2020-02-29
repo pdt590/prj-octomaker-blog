@@ -40,7 +40,7 @@ import { mapGetters } from "vuex";
 
 export default {
   computed: {
-    ...mapGetters(["queryLoading"]),
+    ...mapGetters({ queryLoading: "query/queryLoading" }),
     totalPosts() {
       return this.loadedPosts.length;
     },
@@ -51,9 +51,9 @@ export default {
   async asyncData({ store, query, error }) {
     let loadedPosts = [];
     const searchKey = query.key;
-    loadedPosts = await store.dispatch("loadSearchPosts", searchKey);
+    loadedPosts = await store.dispatch("query/loadSearchPosts", searchKey);
     if (store.getters.queryLoading) {
-      store.commit("setQueryLoading", false);
+      store.commit("query/setQueryLoading", false);
       error({ statusCode: 500, message: "loadSearchPosts() Error" });
     }
     return {

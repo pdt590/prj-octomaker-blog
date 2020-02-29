@@ -34,7 +34,7 @@ import { categories } from "~/libs/lists";
 
 export default {
   computed: {
-    ...mapGetters(["queryLoading"]),
+    ...mapGetters({ queryLoading: "query/queryLoading" }),
     totalPosts() {
       return this.loadedPosts.length;
     },
@@ -45,11 +45,11 @@ export default {
   async asyncData({ store, params }) {
     const categoryId = params.categoryId;
     const loadedPosts = await store.dispatch(
-      "loadCategorizedPosts",
+      "query/loadCategorizedPosts",
       categoryId
     );
     if (store.getters.queryLoading) {
-      store.commit("setQueryLoading", false);
+      store.commit("query/setQueryLoading", false);
       error({ statusCode: 500, message: "loadCategorizedPosts() Error" });
     }
     const category = categories.find(item => item.id === categoryId);

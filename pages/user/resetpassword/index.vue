@@ -54,7 +54,7 @@ export default {
     return user ? false : true;
   },
   computed: {
-    ...mapGetters(["authLoading"])
+    ...mapGetters({authLoading :"user/authLoading"})
   },
   data() {
     return {
@@ -73,9 +73,9 @@ export default {
   },
   methods: {
     async onResetPassword() {
-      await this.$store.dispatch("resetUserPassword", this.formData.email);
+      await this.$store.dispatch("user/resetUserPassword", this.formData.email);
       if (this.authLoading) {
-        this.$store.commit("setAuthLoading", false);
+        this.$store.commit("user/setAuthLoading", false);
         this.$buefy.toast.open({
           duration: 3000,
           message: "[auth] error",

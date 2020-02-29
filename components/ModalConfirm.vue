@@ -28,7 +28,7 @@ import { mapGetters } from "vuex";
 export default {
   name: "v-modal-confirm",
   computed: {
-    ...mapGetters(["postLoading"])
+    ...mapGetters({ postLoading: "post/postLoading" }),
   },
   methods: {
     onDelete() {

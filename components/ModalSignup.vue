@@ -78,7 +78,7 @@ import { required, email, minLength } from "vuelidate/lib/validators";
 export default {
   name: "v-modal-signup",
   computed: {
-    ...mapGetters(["authLoading"])
+    ...mapGetters({ authLoading: "user/authLoading" })
   },
   data() {
     return {
@@ -107,7 +107,7 @@ export default {
   },
   methods: {
     async onSignup() {
-      await this.$store.dispatch("signUserUp", this.formData);
+      await this.$store.dispatch("user/signUserUp", this.formData);
       if (this.authLoading) {
         this.$store.commit("setAuthLoading", false);
         this.$buefy.toast.open({

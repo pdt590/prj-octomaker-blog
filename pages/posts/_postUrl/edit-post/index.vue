@@ -118,14 +118,14 @@ export default {
     };
   },
   async fetch({ store, params, error }) {
-    await store.dispatch("loadPost", params.postUrl);
+    await store.dispatch("post/loadPost", params.postUrl);
     if (store.getters.postLoading) {
-      store.commit("setPostLoading", false);
+      store.commit("post/setPostLoading", false);
       error({ statusCode: 500, message: "loadPost() Error" });
     }
   },
   computed: {
-    ...mapGetters(["loadedPost", "postLoading"]),
+    ...mapGetters({loadedPost: "post/loadedPost", postLoading: "post/postLoading"}),
     simplemde() {
       return this.$refs.editor.simplemde;
     },
@@ -167,10 +167,10 @@ export default {
       this.loadEvent = "onChangeTitle";
       this.$v.postTitle.$touch();
       if (!this.$v.postTitle.$invalid) {
-        await this.$store.dispatch("updatePostTitle", this.postTitle);
+        await this.$store.dispatch("post/updatePostTitle", this.postTitle);
       }
       if (this.postLoading) {
-        this.$store.commit("setPostLoading", false);
+        this.$store.commit("post/setPostLoading", false);
         this.$buefy.toast.open({
           duration: 3000,
           message: "onChangeTitle() Error",
@@ -181,17 +181,17 @@ export default {
     },
     async onBlur() {
       this.postContent.html = marked(this.postContent.markdown, { renderer: renderer() });
-      await this.$store.dispatch("addPostContent", this.postContent);
+      await this.$store.dispatch("post/addPostContent", this.postContent);
       if (this.postLoading) {
-        this.$store.commit("setPostLoading", false);
+        this.$store.commit("post/setPostLoading", false);
       }
     },
     async onPublish() {
       this.loadEvent = "onPublish";
       this.postContent.html = marked(this.postContent.markdown, { renderer: renderer() });
-      await this.$store.dispatch("addPostContent", this.postContent);
+      await this.$store.dispatch("post/addPostContent", this.postContent);
       if (this.postLoading) {
-        this.$store.commit("setPostLoading", false);
+        this.$store.commit("post/setPostLoading", false);
         this.$buefy.toast.open({
           duration: 3000,
           message: "onPublish() Error",
@@ -211,9 +211,9 @@ export default {
         type: "is-danger",
         hasIcon: true,
         onConfirm: async () => {
-          await this.$store.dispatch("deletePost");
+          await this.$store.dispatch("post/deletePost");
           if (this.postLoading) {
-            this.$store.commit("setPostLoading", false);
+            this.$store.commit("post/setPostLoading", false);
             this.$buefy.toast.open({
               duration: 3000,
               message: "onDelete() Error",

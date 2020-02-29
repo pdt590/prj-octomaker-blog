@@ -65,7 +65,7 @@ import { required, email, minLength } from "vuelidate/lib/validators";
 export default {
   name: "v-modal-login",
   computed: {
-    ...mapGetters(["authLoading"])
+    ...mapGetters({ authLoading: "user/authLoading" })
   },
   data() {
     return {
@@ -89,7 +89,7 @@ export default {
   },
   methods: {
     async onLogin() {
-      await this.$store.dispatch("logUserIn", this.formData);
+      await this.$store.dispatch("user/logUserIn", this.formData);
       if (this.authLoading) {
         this.$store.commit("setAuthLoading", false);
         this.$buefy.toast.open({

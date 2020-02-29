@@ -62,7 +62,7 @@ import { mapGetters } from "vuex";
 export default {
   middleware: "server-client-auth",
   computed: {
-    ...mapGetters(["user", "queryLoading"]),
+    ...mapGetters({ user: "user/user", queryLoading: "query/queryLoading" }),
     userAvatarUrl() {
       if (this.user) {
         if (this.user.avatar) {
@@ -85,9 +85,9 @@ export default {
     }
   },
   async asyncData({ store, error }) {
-    const loadedPersonalPosts = await store.dispatch("loadOwnPosts");
+    const loadedPersonalPosts = await store.dispatch("query/loadOwnPosts");
     if (store.getters.queryLoading) {
-      store.commit("setQueryLoading", false);
+      store.commit("query/setQueryLoading", false);
       error({ statusCode: 500, message: "loadOwnPosts() Error" });
     }
     return {
