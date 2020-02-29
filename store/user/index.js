@@ -22,7 +22,8 @@ export default {
       vuexContext.commit("setAuthLoading", true);
       try {
         const userData = await usersRef.child(userId).once("value");
-        const loadedUser = userData.val();
+        const userObject = userData.val();
+        const loadedUser = userObject;
         vuexContext.commit("setAuthLoading", false);
         return loadedUser;
       } catch (e) {
@@ -34,11 +35,13 @@ export default {
       vuexContext.commit("setAuthLoading", true);
       try {
         const userData = await usersRef.child(userId).once("value");
-        const loadedUser = userData.val();
+        const userObject = userData.val();
+        const loadedUser = userObject;
         vuexContext.commit("setUser", loadedUser);
         vuexContext.commit("setAuthLoading", false);
+        return loadedUser;
       } catch (e) {
-        console.error("[ERROR-loadUserServerInit]", e);
+        console.error("[ERROR-loadAuthUser]", e);
       }
     },
 
@@ -50,19 +53,19 @@ export default {
         const userAvatar = loadedUser.avatar;
         await vuexContext.dispatch("deletePostsByUser", userId);
         await usersRef.child(userId).remove();
-        let user = firebase.auth().currentUser;
-        if (user) {
+        let authUser = firebase.auth().currentUser;
+        if (authUser) {
           const credential = await firebase.auth.EmailAuthProvider.credential(
             user.email,
             confirmPassword
           );
-          await user.reauthenticateWithCredential(credential);
+          await authUser.reauthenticateWithCredential(credential);
         } else {
           await vuexContext.dispatch("logOut");
           return;
         }
-        user = firebase.auth().currentUser;
-        await user.delete();
+        authUser = firebase.auth().currentUser;
+        await authUser.delete();
         if (userAvatar) {
           await imageUsersRef.child(userAvatar.metadata.name).delete();
         }
@@ -82,9 +85,9 @@ export default {
         const userId = loadedUser.id;
         await usersRef.child(userId).update(newUserContent);
 
-        const user = firebase.auth().currentUser;
-        if (user) {
-          await user.updateProfile({
+        const authUser = firebase.auth().currentUser;
+        if (authUser) {
+          await authUser.updateProfile({
             displayName: newUserContent.fullname
           });
         } else {
@@ -114,20 +117,20 @@ export default {
         const userId = loadedUser.id;
         const confirmPassword = payload.confirmPassword;
         const newEmail = payload.newEmail;
-        let user = firebase.auth().currentUser;
-        if (user) {
+        let authUser = firebase.auth().currentUser;
+        if (authUser) {
           const credential = await firebase.auth.EmailAuthProvider.credential(
-            user.email,
+            authUser.email,
             confirmPassword
           );
-          await user.reauthenticateWithCredential(credential);
+          await authUser.reauthenticateWithCredential(credential);
         } else {
           await vuexContext.dispatch("logOut");
           return;
         }
-        user = firebase.auth().currentUser; // RetrieveData
-        await user.updateEmail(newEmail);
-        await user.sendEmailVerification();
+        authUser = firebase.auth().currentUser; // RetrieveData
+        await authUser.updateEmail(newEmail);
+        await authUser.sendEmailVerification();
         await usersRef.child(userId).update({
           isActive: false,
           email: newEmail
@@ -149,19 +152,19 @@ export default {
       try {
         const confirmPassword = payload.confirmPassword;
         const newPassword = payload.newPassword;
-        let user = firebase.auth().currentUser;
-        if (user) {
+        let authUser = firebase.auth().currentUser;
+        if (authUser) {
           const credential = await firebase.auth.EmailAuthProvider.credential(
-            user.email,
+            authUser.email,
             confirmPassword
           );
-          await user.reauthenticateWithCredential(credential);
+          await authUser.reauthenticateWithCredential(credential);
         } else {
           await vuexContext.dispatch("logOut");
           return;
         }
-        user = firebase.auth().currentUser; // RetrieveData
-        await user.updatePassword(newPassword);
+        authUser = firebase.auth().currentUser; // RetrieveData
+        await authUser.updatePassword(newPassword);
         vuexContext.commit("setAuthLoading", false);
         reloadAll();
       } catch (e) {
@@ -216,9 +219,9 @@ export default {
           metadata: metaData,
           url: avatarDownloadUrl
         };
-        const user = firebase.auth().currentUser;
-        if (user) {
-          await user.updateProfile({
+        const authUser = firebase.auth().currentUser;
+        if (authUser) {
+          await authUser.updateProfile({
             photoURL: avatarObject.url
           });
         } else {
@@ -246,13 +249,13 @@ export default {
     async isCorrectPassword(vuexContext, confirmPassword) {
       try {
         const loadedUser = vuexContext.getters.user;
-        const user = firebase.auth().currentUser;
-        if (user) {
+        const authUser = firebase.auth().currentUser;
+        if (authUser) {
           const credential = await firebase.auth.EmailAuthProvider.credential(
             loadedUser.email,
             confirmPassword
           );
-          await user.reauthenticateWithCredential(credential);
+          await authUser.reauthenticateWithCredential(credential);
         } else {
           await vuexContext.dispatch("logOut");
           return;
@@ -282,20 +285,21 @@ export default {
     async signUserUp(vuexContext, payload) {
       vuexContext.commit("setAuthLoading", true);
       try {
-        const { user } = await firebase
+        const auth = await firebase
           .auth()
           .createUserWithEmailAndPassword(payload.email, payload.password);
-        await user.updateProfile({
+        const authUser = auth.user;
+        await authUser.updateProfile({
           displayName: payload.username
         });
-        await user.sendEmailVerification();
+        await authUser.sendEmailVerification();
         const userProfile = {
           username: payload.username,
           email: payload.email,
           isActive: false,
           updatedDate: new Date().toISOString()
         };
-        const userId = user.uid;
+        const userId = authUser.uid;
         await usersRef.child(userId).set(userProfile);
         vuexContext.commit("setAuthLoading", false);
       } catch (e) {
@@ -308,12 +312,12 @@ export default {
       try {
         // Try to login with provided email and password to firebase
         // If wrong, the process will be thrown to catch()
-        const { user } = await firebase
+        const auth = await firebase
           .auth()
           .signInWithEmailAndPassword(payload.email, payload.password);
-
+        const authUser = auth.user;
         // Fetch user data from realtime database
-        const userId = user.uid;
+        const userId = authUser.uid;
         let loadedUser = {};
         const userData = await usersRef.child(userId).once("value");
         const userObj = userData.val();
@@ -336,7 +340,7 @@ export default {
         }
 
         // Update user data if verifying email process is finnished
-        if (!userObj.isActive && user.emailVerified) {
+        if (!userObj.isActive && authUser.emailVerified) {
           await usersRef.child(userId).update({
             isActive: true
           });
@@ -344,7 +348,7 @@ export default {
         }
 
         /* Start cookie */
-        const token = await user.getIdToken(true);
+        const token = await authUser.getIdToken(true);
         Cookie.set("__session", token, { expires: token ? 0.083333333 : 0 }); // 2h
         /* End cookie */
 
@@ -357,8 +361,8 @@ export default {
     },
 
     async initAuth(vuexContext) {
-      const user = firebase.auth().currentUser
-      if (!user) {
+      const authUser = firebase.auth().currentUser;
+      if (!authUser) {
         return;
       }
       if (!vuexContext.getters.user) {
@@ -370,7 +374,7 @@ export default {
         return;
       }
       // re-new expirationTime
-      const token = await user.getIdToken(true);
+      const token = await authUser.getIdToken(true);
       Cookie.set("__session", token, { expires: token ? 0.083333333 : 0 }); // 2h
     },
 

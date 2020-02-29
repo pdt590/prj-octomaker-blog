@@ -196,7 +196,7 @@ export function renderer() {
   renderer.paragraph = text => {
     if (text.includes("@embed")) {
       return `<figure class="image is-16by9">
-      <iframe class="has-ratio" width="640" height="360" src="https://www.youtube.com/embed/${fetchEmbedId(
+      <iframe class="has-ratio" width="auto" height="auto" src="https://www.youtube.com/embed/${fetchEmbedId(
         fetchUrl(text)[2]
       )}" frameborder="0" allowfullscreen></iframe>
       </figure>`;
