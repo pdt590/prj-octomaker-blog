@@ -28,6 +28,7 @@ export default {
             return;
           }
           const userCookie = JSON.parse(userCookieString);
+          console.error("11111", userCookie)
           const token = userCookie.token;
           const uid = userCookie.uid;
           const expirationDate = userCookie.expirationDate;
@@ -48,6 +49,7 @@ export default {
           /* Use firebase to call from server side - how? - TODO */
           const userData = await usersRef.child(uid).once("value");
           const userObj = userData.val();
+          console.error("22222", userObj)
           const userProfile = {
             id: uid,
             ...userObj

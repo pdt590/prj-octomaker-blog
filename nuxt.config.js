@@ -56,10 +56,9 @@ module.exports = {
     { src: "~plugins/filters.js" },
     { src: "~plugins/ga.js", mode: "client" },
     { src: "~plugins/reloadall.js", mode: "client" },
-
-    { src: "~plugins/firebase/fb-tools.js"}, // Firebase can be used on both client and server side - how? - TODO
-    { src: "~plugins/firebase/fb-admin.js", mode: "server"},
-    { src: "~plugins/firebase/fb-analytic.js", mode: "client"},
+    { src: "~plugins/firebase-client-init.js", mode: "client" }, // Init firebase app
+    { src: "~plugins/firebase-admin-init.js", mode: "server" }, // Init firebase-admin app
+    //{ src: "~plugins/auth-init.js", mode: "client"},
     { src: "~plugins/buefy.js" },
     { src: "~plugins/vuelidate.js" },
     { src: "~plugins/fontawesome.js" },
@@ -123,9 +122,9 @@ module.exports = {
   /*
    ** Define the development or production mode of Nuxt.js.
    ** 'dev' is forced to true with nuxt
-   ** 'dev' is forced to false with nuxt build, nuxt start and nuxt generate 
+   ** 'dev' is forced to false with nuxt build, nuxt start and nuxt generate
    */
-  dev: (process.env.NODE_ENV !== 'production'),
+  dev: process.env.NODE_ENV !== "production",
 
   /*
    ** GlobalName Property
@@ -153,13 +152,13 @@ module.exports = {
   /*
    ** Define the source directory of your Nuxt.js application
    */
-  srcDir: 'src',
+  srcDir: "src",
 
   /*
    ** Define the dist directory for your Nuxt.js application after build
    ** Default: .nuxt
    */
-  buildDir: 'functions/.nuxt',
+  buildDir: "functions/.nuxt",
 
   /*
    ** Build configuration

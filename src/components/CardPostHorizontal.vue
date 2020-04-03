@@ -24,7 +24,11 @@
         </strong>
       </div>
       <div class="tags">
-        <span class="tag is-medium" :class="postMode === 'public' ? 'is-success' : 'is-dark'">{{ postMode }}</span>
+        <span
+          class="tag is-medium"
+          :class="postMode === 'public' ? 'is-success' : 'is-dark'"
+          >{{ postMode }}</span
+        >
         <span class="tag is-info is-medium">{{ postCategory }}</span>
         <span
           v-for="(tag, index) in postTags"
@@ -70,7 +74,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["postLoading"]),
+    ...mapGetters({ postLoading: "post/postLoading" }),
     postUrl() {
       return this.value.url;
     },
@@ -121,9 +125,9 @@ export default {
         type: "is-danger",
         hasIcon: true,
         onConfirm: async () => {
-          await this.$store.dispatch("deletePostByUser", this.postUrl);
+          await this.$store.dispatch("post/deletePostByUser", this.postUrl);
           if (this.postLoading) {
-            this.$store.commit("setPostLoading", false);
+            this.$store.commit("post/setPostLoading", false);
             this.$buefy.toast.open({
               duration: 3000,
               message: "onDelete() Error",

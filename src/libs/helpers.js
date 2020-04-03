@@ -1,6 +1,12 @@
 import Compressor from "compressorjs";
 import marked from "marked";
+import { saveAs } from 'file-saver';
 import * as tocbot from "tocbot";
+
+export function savePost(filename, content) {
+  const blob = new Blob([content], {type: "text/plain;charset=utf-8"});
+  saveAs(blob, `${filename}.md`);
+}
 
 export function reloadAll() {
   localStorage.setItem("reloading", "");
@@ -127,19 +133,16 @@ export const isGif = file => {
 };
 
 export function compressImage(image) {
-  const maxSize = 1500000;
-  let quality = 0.6;
+  const maxSize = 1000000;
+  const quality = 0.6;
   if (isGif(image)) {
     return image;
-  }
-  if (image.size < maxSize) {
-    quality = 0.8;
   }
   return new Promise((resolve, reject) => {
     new Compressor(image, {
       quality: quality,
       convertSize: maxSize,
-      minWidth: 1200,
+      minWidth: 600,
       success(result) {
         resolve(result);
       },
@@ -193,7 +196,7 @@ export function renderer() {
   renderer.paragraph = text => {
     if (text.includes("@embed")) {
       return `<figure class="image is-16by9">
-      <iframe class="has-ratio" width="640" height="360" src="https://www.youtube.com/embed/${fetchEmbedId(
+      <iframe class="has-ratio" width="auto" height="auto" src="https://www.youtube.com/embed/${fetchEmbedId(
         fetchUrl(text)[2]
       )}" frameborder="0" allowfullscreen></iframe>
       </figure>`;

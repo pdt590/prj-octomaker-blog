@@ -75,7 +75,7 @@ export default {
     this.previewImages = deepCopy(this.value);
   },
   computed: {
-    ...mapGetters(["postLoading"])
+    ...mapGetters({ postLoading: "post/postLoading" }),
   },
   data() {
     return {
@@ -95,7 +95,7 @@ export default {
         return;
       }
       await this.$store.dispatch(
-        "addCompressedPostImage",
+        "post/addCompressedPostImage",
         uniqueImages.reverse()
       );
       if (this.postLoading) {
@@ -111,7 +111,7 @@ export default {
       }
     },
     async onDelete(index) {
-      await this.$store.dispatch("deletePostImage", this.previewImages[index]);
+      await this.$store.dispatch("post/deletePostImage", this.previewImages[index]);
       if (this.postLoading) {
         this.$store.commit("setPostLoading", false);
         this.$buefy.toast.open({

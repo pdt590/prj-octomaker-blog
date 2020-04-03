@@ -21,10 +21,9 @@
               </nuxt-link>
             </div>
           </div>
-          <div class="level">
+          <div class="level" v-if="isEditable">
             <div class="level-item">
               <nuxt-link
-                v-if="isEditable"
                 class="button"
                 :class="{ 'is-loading': postLoading }"
                 :to="localePath(`/posts/${$route.params.postUrl}/edit-post`)"
@@ -37,6 +36,13 @@
             <div class="level-item">
               <button class="button" @click="onWindowPopup">
                 <b-icon pack="fab" icon="facebook-f"></b-icon>
+              </button>
+            </div>
+          </div>
+          <div class="level">
+            <div class="level-item">
+              <button class="button" @click="onSavePost">
+                <b-icon icon="save"></b-icon>
               </button>
             </div>
           </div>
@@ -100,7 +106,9 @@
             <header class="card-header" style="border-bottom: none;">
               <p class="card-header-title">
                 {{ $t("post.more_posts_from") }}&nbsp;
-                <nuxt-link :to="localePath(`/query/author/${creatorId}`)" class="has-text-dark"
+                <nuxt-link
+                  :to="localePath(`/query/author/${creatorId}`)"
+                  class="has-text-dark"
                   >@{{ creatorUsername }}</nuxt-link
                 >
               </p>
@@ -120,7 +128,13 @@
 
 <script>
 import { mapGetters } from "vuex";
-import { fetchDesc, initFbComment, initToC, windowPopup } from "~/libs/helpers";
+import {
+  fetchDesc,
+  initFbComment,
+  initToC,
+  windowPopup,
+  savePost
+} from "~/libs/helpers";
 import { categories } from "~/libs/lists";
 
 export default {
@@ -130,7 +144,7 @@ export default {
     initToC();
   },
   computed: {
-    ...mapGetters(["user", "postLoading"]),
+    ...mapGetters({user: "user/user", postLoading: "post/postLoading"}),
     creatorAvatarUrl() {
       if (this.loadedPost.creator.avatar) {
         return this.loadedPost.creator.avatar.url;
@@ -162,6 +176,9 @@ export default {
     postMode() {
       return this.loadedPost.mode;
     },
+    postMarkdown() {
+      return this.loadedPost.markdown;
+    },
     postHtml() {
       return this.loadedPost.html;
     },
@@ -177,19 +194,19 @@ export default {
     }
   },
   async asyncData({ store, params, error }) {
-    const loadedPost = await store.dispatch("loadPost", params.postUrl);
+    const loadedPost = await store.dispatch("post/loadPost", params.postUrl);
     if (store.getters.postLoading) {
-      store.commit("setPostLoading", false);
+      store.commit("post/setPostLoading", false);
       error({ statusCode: 500, message: "loadPost() Error" });
     }
     const maxPosts = 3;
     const creatorId = loadedPost.creator.id;
-    const recommendedPosts = await store.dispatch("loadRecommendedPosts", {
+    const recommendedPosts = await store.dispatch("query/loadRecommendedPosts", {
       limit: maxPosts,
       creatorId: creatorId
     });
     if (store.getters.queryLoading) {
-      store.commit("setQueryLoading", false);
+      store.commit("query/setQueryLoading", false);
       error({ statusCode: 500, message: "loadRecommendedPosts() Error" });
     }
     return {
@@ -211,6 +228,9 @@ export default {
         "900",
         "500"
       );
+    },
+    onSavePost() {
+      savePost(this.postTitle, this.postMarkdown);
     }
   },
   head() {
